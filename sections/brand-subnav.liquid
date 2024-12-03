@@ -1,0 +1,80 @@
+
+<div class="brand_nav-wrapper">
+  <div class="brand_nav page-width">
+  </div>
+</div>
+
+
+<style>
+  .brand_nav {
+    display: flex;
+    justify-content: space-between;
+    overflow-x: scroll;
+    left: 0;
+    width: 50%;
+    margin: 0 auto;
+  }
+  .brand_nav::-webkit-scrollbar {
+    display: none; /* Safari */
+  }
+
+  .brand_nav a {
+    padding: 1.5rem 2rem;
+    cursor: pointer;
+  }
+  .brand_nav a:hover,
+  .brand_nav a.active {
+    font-weight: 600;
+  }
+  
+
+  .brand_nav-wrapper {
+    background: #fff;
+    z-index: 3;
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    scrollbar-width: none;  /* Firefox */
+
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+    top: 0;
+    height: 5.16rem;
+    transition: transform .15s ease-out;
+  }
+  .shopify-section-header-sticky ~ #MainContent .brand_nav-wrapper {
+    transform: translateY(var(--header-height))
+  }
+
+  .shopify-section-header-hidden ~ #MainContent .brand_nav-wrapper {
+    transform: translateY(0) 
+  }
+
+  .brand-subnav {
+    display: contents;
+  }
+
+  @media screen and (max-width: 750px) {
+    .brand_nav {
+      width: 100%;
+    }
+    .brand_nav-wrapper {
+      height: 5.08rem;
+    }
+    
+  }
+</style>
+
+
+
+{% schema %}
+  {
+    "name": "Story Sub-nav",
+    "class": "brand-subnav",
+    "presets": [
+      {
+        "category": "Image",
+        "name": "Bugatchi Story subnav",
+        "settings": {}
+      } 
+    ]
+  }
+{% endschema %}

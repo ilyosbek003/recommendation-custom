@@ -1,0 +1,505 @@
+{%- unless request.design_mode or request.visual_preview_mode -%}
+  <style>
+    .overlay-section {
+      display: none;
+    }
+  </style>
+{%- endunless -%}
+
+{%- assign preload = false -%}
+{%- if section.index == 1 -%}
+  {%- assign preload = true -%}
+{%- endif -%}
+
+{%- assign media_blocks = section.blocks | where: "type", "media" -%}
+{%- assign first_media_block = media_blocks[0] -%}
+{%- assign second_media_block = media_blocks[1] -%}
+{%- assign heading_block = section.blocks | where: "type", "heading" | first -%}
+{%- assign label_block = section.blocks | where: "type", 'label' | first -%}
+
+
+<div class="hub-header">
+  <div class="hub-header__left">
+    <div data-hub-header-media class="hub-header__media-wrapper hub-header__media-wrapper--wide" {%- if first_media_block != empty and first_media_block.settings.overlay_id != blank -%}data-trigger-id="{{ first_media_block.settings.overlay_id | handleize }}"{%- endif -%} data-title="{{ first_media_block.settings.title }}">
+      {%- if first_media_block.settings.videoOrImage == "video" -%}
+        {%- assign video = first_media_block.settings.video -%}
+        {%- assign color = first_media_block.settings.color -%}
+        {%- assign video_btns_alignment = first_media_block.settings.video_btns_alignment -%}
+        {%- assign video_url =  video.sources
+          | where: "format", "mp4" 
+          | map: "url" 
+          | first 
+        -%}
+
+        <video
+          playsinline="playsinline" 
+          autoplay="autoplay" 
+          muted="muted" 
+          loop="loop" 
+          class="hub-header__media-item"
+          poster="{{ video.preview_image | image_url: width: 800 }}"
+          data-src="{{ video_url }}"
+          src="{{ video_url }}"
+        ></video>
+        <div class="hub-header__media-control flex-x--{{ video_btns_alignment }}">
+          <button data-type="video" data-state="playing">
+            {% render 'icon' with 'play-outline', fill: color %}
+            {% render 'icon' with 'pause-outline', fill: color %}
+          </button>
+          <button data-type="audio" data-state="muted">
+            {% render 'icon' with 'unmute-outline', fill: color %}
+            {% render 'icon' with 'mute-outline', fill: color %}
+          </button>
+        </div>
+      {%- else -%}
+        {%- if first_media_block != empty and first_media_block.settings.image != nil -%}
+          {%- assign img_obj = first_media_block.settings.image -%}
+          {%- assign alt = img_obj.alt | default: heading_block.settings.heading -%}
+          {{ first_media_block.settings.image 
+            | image_url: width: 1500 
+            | image_tag:
+            sizes: "55vw", 
+            widths: '375, 550, 750, 1100, 1500, 1780, 2000, 3000, 3840',
+            preload: preload,
+            alt: alt,
+            class: "hub-header__media-item"
+          }}
+        {%- else -%}
+          {{ "image" | placeholder_svg_tag: "hub-header__media-item placeholder"  }}
+        {%- endif -%}
+      {%- endif -%}
+    </div>
+    <div class="hub-header__heading">
+      {%- if heading_block.settings.heading != blank -%}
+        {%- if section.index == 1 -%}
+          <h1 
+            class="hub-header__heading--content hub-ft-primary hub-font{%- if heading_block.settings.is_dynamic -%}--dynamic{%- endif -%}"
+            style="--font-desktop: {{ heading_block.settings.font_size_desktop }}px; --font-mobile: {{ heading_block.settings.font_size_mobile }}px; --clamp-value: {{ heading_block.settings.clamp_value }}vw"
+          >
+            {{ heading_block.settings.heading }}
+          </h1>
+        {%- else -%}
+          <h2 
+            class="hub-header__heading--content hub-font{%- if heading_block.settings.is_dynamic -%}--dynamic{%- endif -%}"
+            style="--font-desktop: {{ heading_block.settings.font_size_desktop }}px; --font-mobile: {{ heading_block.settings.font_size_mobile }}px; --clamp-value: {{ heading_block.settings.clamp_value }}vw"
+          >
+            {{ heading_block.settings.heading }}
+          </h2>
+        {%- endif -%}
+      {%- endif -%}
+    </div>
+    {%- if label_block.settings.text != blank -%}
+      <div class="hub-header__label hub-pill">
+        {%- if label_block.settings.link_content != blank -%}
+          <a data-smooth-scroll href="{{label_block.settings.link_content}}" title="{{ label_block.settings.text }}">
+            <span class="text">{{ label_block.settings.text }}</span>
+          </a>
+        {%- else -%}
+          <span class="text">{{ label_block.settings.text }}</span>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  </div>
+
+  <div class="hub-header__right">
+    <div data-hub-header-media class="hub-header__media-wrapper hub-header__media-wrapper--tall" {%- if second_media_block != empty and second_media_block.settings.overlay_id != blank -%}data-trigger-id="{{ second_media_block.settings.overlay_id | handleize }}"{%- endif -%} data-title="{{ second_media_block.settings.title }}">
+      {%- if second_media_block.settings.videoOrImage == "video" -%}
+        {%- assign video = second_media_block.settings.video -%}
+        {%- assign color = second_media_block.settings.color -%}
+        {%- assign video_btns_alignment = second_media_block.settings.video_btns_alignment -%}
+        {%- assign video_url =  video.sources
+          | where: "format", "mp4" 
+          | map: "url" 
+          | first 
+        -%}
+        <video
+            playsinline="playsinline" 
+            autoplay="autoplay" 
+            muted="muted" 
+            loop="loop" 
+            class="hub-header__media-item"
+            poster="{{ video.preview_image | image_url: width: 800 }}"
+            data-src="{{ video_url }}"
+            src="{{ video_url }}"
+        ></video>
+        <div class="hub-header__media-control flex-x--{{ video_btns_alignment }}">
+          <button data-type="video" data-state="playing">
+            {% render 'icon' with 'play-outline', fill: color %}
+            {% render 'icon' with 'pause-outline', fill: color %}
+          </button>
+          <button data-type="audio" data-state="muted">
+            {% render 'icon' with 'unmute-outline', fill: color %}
+            {% render 'icon' with 'mute-outline', fill: color %}
+          </button>
+        </div>
+      {%- else -%}
+        {%- if second_media_block != empty and second_media_block.settings.image != nil -%}
+          {%- assign img_obj = second_media_block.settings.image -%}
+          {%- assign alt = img_obj.alt | default: heading_block.settings.heading -%}
+            {{ second_media_block.settings.image 
+              | image_url: width: 1500 
+              | image_tag:
+              sizes: "55vw", 
+              widths: '375, 550, 750, 1100, 1500, 1780, 2000, 3000, 3840',
+              preload: preload,
+              alt: alt,
+              class: "hub-header__media-item"
+            }}
+        {%- else -%}
+          {{ "image" | placeholder_svg_tag: "hub-header__media-item placeholder"  }}
+        {%- endif -%}
+      {%- endif -%}
+      
+    </div>
+  </div>
+</div>
+
+{%- if section.index == 1 -%}
+  {% comment %} LOAD CRITICAL CSS {% endcomment %}
+  <style>
+    .hub-header {
+      display: flex;
+      padding: 2rem;
+      gap: 1rem;
+    }
+    @media screen and (min-width: 990px) {
+      .hub-header {
+        padding: 4rem;
+        gap: 2rem;
+      }
+    }
+
+    @media screen and (max-width: 600px) {
+      .hub-header {
+        display: grid;
+        max-width: 85%;
+        margin: 0 auto;
+      }
+    }
+  
+    .hub-header__left {
+      width: 60%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    @media screen and (max-width: 600px) {
+      .hub-header__left {
+        display: contents
+      }
+    }
+
+    .hub-header__right {
+      width: 40%;
+    }
+
+    @media screen and (max-width: 600px) {
+      .hub-header__right {
+        grid-row: 2/3;
+        width: 100%;
+        max-width: 100%;
+        margin-left: auto;
+      }
+    }
+
+    .hub-header__media-wrapper {
+      position: relative;
+      overflow: hidden;
+      width: 100%;
+      height: 0;
+      animation: skeleton-loading 1s linear infinite alternate;
+    }
+  
+    .hub-header__media-wrapper--wide {
+      padding-bottom: 65%;
+    }
+
+    @media screen and (max-width: 600px) {
+      .hub-header__media-wrapper--wide {
+        max-width: 100%;
+        padding-bottom: calc(65% / 100 * 85);
+      }
+    }
+
+    .hub-header__media-wrapper--tall {
+      padding-bottom: 135%;
+    }
+    .hub-header__media-item {
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover; 
+    }
+
+
+    @media screen and (max-width: 600px) {
+      .hub-header__heading {
+        margin-block: 1rem 0 ;
+      }
+    }
+  
+  
+    .hub-header__label {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      background: #000;
+      color: #fff;
+      padding: .3rem .8rem;
+      border-radius: 40px;
+      font-family: var(--heading-font-small), sans-serif;
+      margin-top: auto;
+    }
+
+    .hub-header__label a {
+      color: #fff;
+    }
+
+    .hub-header__label:hover a {
+      color: #000;
+    }
+
+    @media screen and (min-width: 990px) {
+      .hub-header__label {
+        padding: .8rem 1.6rem;
+      }
+    }
+  
+    @media screen and (max-width: 990px) {
+      .hub-header__label .text {
+        font-size: 1rem!important;
+      }
+    }
+
+    @media screen and (max-width: 600px) {
+      .hub-header__label {
+        justify-self: start;
+      }
+
+      .hub-main__item[data-alignment-mob=center] {
+        margin: 0 auto;
+      }
+
+      .hub-features__media-wrapper--wide {
+        transform: translateX(0px);
+        transform: translateY(10px);
+        width: 100%;
+        padding-bottom: 65%;
+        max-width: 65%;
+      }
+      .hub-features__description {
+        margin-top: 2.5rem;
+        max-width: 350px;
+      }
+    }
+
+    .hub-main--cta.hub-main__cta.Button.Button-tertiary {
+      color: #000 !important;
+    }
+
+    .hub-features__media-wrapper.hub-features__media-wrapper--tall {
+        z-index: 5;
+    }
+}
+  </style>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Hub Page - Header",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "heading",
+      "name": "Heading",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Content",
+          "default": "DISCOVER OOOHCOTTON®",
+          "info": "Heading will be displayed below the first image"
+        },
+        {
+          "type": "header",
+          "content": "Typography"
+        },
+        {
+          "type": "paragraph",
+          "content": "Enable responsive font sizing for dynamic text adjustments based on screen width. The Clamp ensures font size stays within defined range (Mobile - Desktop). Proportional scaling guarantees readability on various devices. Larger screens display larger text; smaller screens show appropriately scaled-down text. For example, 5vw clamp value means the font size is 5% of the screen width. If the screen width is 1600px, the font size is 80. If outside the range, the nearest valid value is selected"
+        },
+        {
+          "type": "checkbox",
+          "id": "is_dynamic",
+          "label": "Responsive font size (Clamp)",
+          "default": true
+        },
+        {
+          "type": "range",
+          "id": "font_size_desktop",
+          "min": 10,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "label": "Font size | Desktop",
+          "default": 100
+        },
+        {
+          "type": "range",
+          "id": "font_size_mobile",
+          "min": 8,
+          "max": 50,
+          "step": 1,
+          "unit": "px",
+          "label": "Font size | Mobile",
+          "default": 20
+        },
+        {
+          "type": "range",
+          "id": "clamp_value",
+          "min": 0.2,
+          "max": 20,
+          "step": 0.2,
+          "unit": "vw",
+          "label": "Clamp value",
+          "default": 5
+        }
+      ]
+    },
+    {
+      "type": "media",
+      "name": "Media",
+      "limit": 2,
+      "settings": [
+        {
+          "type": "text",
+          "id": "overlay_id",
+          "label": "Overlay ID",
+          "info": "ID of overlay is used to link overlay to other blocks"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "info": "Title for overlay navigation"
+        },
+        {
+          "type": "radio",
+          "id": "videoOrImage",
+          "label": "Video | Image",
+          "default": "image",
+          "options": [
+            {
+              "label": "Video",
+              "value": "video"
+            },
+            {
+              "label": "Image",
+              "value": "image"
+            }
+          ]
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image",
+          "info": "Image to display"
+        },
+        {
+          "type": "video",
+          "id": "video",
+          "label": "Video to display"
+        },
+        {
+          "type": "color",
+          "id": "color",
+          "label": "Video Control Buttons Color",
+          "default": "#000"
+        },
+        {
+          "type": "select",
+          "id": "video_btns_alignment",
+          "label": "Video Btns Alignment",
+          "default": "end",
+          "options": [
+              {
+                  "value": "space",
+                  "label": "On both sides"
+              },
+              {
+                  "value": "start",
+                  "label": "Left"
+              },
+              {
+                  "value": "center",
+                  "label": "Center"
+              },
+              {
+                  "value": "end",
+                  "label": "Right"
+              }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "label",
+      "name": "Label",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Content",
+          "default": "SCROLL TO BEGIN",
+          "info": "Label will be displayed at bottom left corner of section"
+        },
+        {
+          "type": "text",
+          "id": "link_content",
+          "label": "Link Content",
+          "info": "Add ID for section you want to link to"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "category": "Hub Page",
+      "name": "Hub Page - Header",
+      "settings": {},
+      "blocks": [
+        {
+          "type": "media",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/Rectangle_30_1.png"
+          }
+        },
+        {
+          "type": "media",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/Rectangle_5.png"
+          }
+        },
+        {
+          "type": "heading",
+          "settings": {
+            "heading": "DISCOVER OOOHCOTTON®"
+          }
+        },
+        {
+          "type": "label",
+          "settings": {
+            "text": "SCROLL TO BEGIN"
+          }
+        }
+      ]
+    } 
+  ]
+}
+{% endschema %}

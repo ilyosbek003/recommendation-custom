@@ -1,0 +1,100 @@
+<expended-accordion class="contact__us--accordion">
+    <div class="accordion-item-header small-text" data-component="header">
+        {{ section.settings.contact_us_title }}
+        <span class="accordion-arrow-icon-plus">
+            {% render 'icon' with 'plus' %}
+        </span>
+        <span class="accordion-arrow-icon-minus">
+            {% render 'icon' with 'minus' %}
+        </span>
+    </div>
+    <div class="accordion-item-body" data-body="header">
+        <div class="accordion-item-body-content">
+            <h4 class="ly-modal__orders--title small-text">{{ section.settings.contact_us_description }}</h4>
+            <div class="contact">
+                {%- form 'contact', id: 'ContactForm', class: 'isolate' -%}
+                    {%- if form.posted_successfully? -%}
+                    <h2 class="form-status form-status-list form__message" tabindex="-1" autofocus>{% render 'icon-success' %} {{ 'templates.contact.form.post_success' | t }}</h2>
+                    {%- elsif form.errors -%}
+                    <div class="form__message">
+                        <h2 class="form-status caption-large text-body" role="alert" tabindex="-1" autofocus>{% render 'icon-error' %} {{ 'templates.contact.form.error_heading' | t }}</h2>
+                    </div>
+                    <ul class="form-status-list caption-large" role="list">
+                        <li>
+                        <a href="#ContactForm-email" class="link" aria-label="Contact form email">
+                            {{ form.errors.translated_fields['email'] | capitalize }} {{ form.errors.messages['email'] }}
+                        </a>
+                        </li>
+                    </ul>
+                    {%- endif -%}
+                    <div class="contact__fields">
+                    <div class="field">
+                        <input class="field__input" required autocomplete="name" type="text" id="ContactForm-name" name="contact[{{ 'templates.contact.form.name' | t }}]" value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}" placeholder="{{ 'templates.contact.form.name' | t }}">
+                        <label class="field__label" for="ContactForm-name">{{ 'templates.contact.form.name' | t }}</label>
+                    </div>
+                    <div class="field field--with-error">
+                        <input
+                        autocomplete="email"
+                        type="email"
+                        id="ContactForm-email"
+                        class="field__input"
+                        name="contact[email]"
+                        spellcheck="false"
+                        autocapitalize="off"
+                        required
+                        value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
+                        aria-required="true"
+                        {% if form.errors contains 'email' %}
+                            aria-invalid="true"
+                            aria-describedby="ContactForm-email-error"
+                        {% endif %}
+                        placeholder="{{ 'templates.contact.form.email' | t }}"
+                        >
+                        <label class="field__label" for="ContactForm-email">{{ 'templates.contact.form.email' | t }} <span aria-hidden="true">*</span></label>
+                        {%- if form.errors contains 'email' -%}
+                        <small class="contact__field-error" id="ContactForm-email-error">
+                            <span class="visually-hidden">{{ 'accessibility.error' | t }}</span>
+                            <span class="form__message">{% render 'icon-error' %}{{ form.errors.translated_fields['email'] | capitalize }} {{ form.errors.messages['email'] }}</span>
+                        </small>
+                        {%- endif -%}
+                    </div>
+                    </div>
+                    <div class="contact__fields">
+                        <div class="field">
+                            <input type="text" id="ContactForm-order-number" class="field__input" name="contact[order-number]" placeholder="Order Number">
+                            <label class="field__label" for="ContactForm-order-number">{{ section.settings.order_number }}</label>
+                        </div>
+                        <div class="field">
+                            <input type="text" id="ContactForm-subject" class="field__input" name="contact[_Subject]" placeholder="Subject">
+                            <label class="field__label" for="ContactForm-subject">{{ section.settings.subject_title }}</label>
+                        </div>
+                    </div>
+                    <div class="field">
+                    <textarea
+                        rows="10"
+                        id="ContactForm-body"
+                        class="text-area field__input"
+                        name="contact[Message]"
+                        placeholder="Message"
+                    >
+                        {{- form.body -}}
+                    </textarea>
+                    <label class="form__label field__label" for="ContactForm-body">{{ section.settings.message_label }}</label>
+                    </div>
+                    <div class="contact__button contact__button--submit">
+                    <button type="submit" class="button" aria-label="Submit button">
+                        {{ section.settings.message_button }}
+                    </button>
+                    </div>
+                {%- endform -%}
+
+                <ul class="ly-modal__contact--list">
+                    <li class="ly-modal__contact--item"><b>{{ section.settings.customer_inquiries }}</b> <span>Monday - Friday, 9AM - 5PM EST</span></li>
+                    <li class="ly-modal__contact--item">{{ section.settings.chat_with_us }} <a href="{{ section.settings.chat_with_url }}" aria-label="Chat Url button">{{ section.settings.chat_with_title }}</a></li>
+                    <li class="ly-modal__contact--item">{{ section.settings.contact_telephone }} <a href="tel: {{ section.settings.contact_phone_number }}" aria-label="Calling to phone number">{{ section.settings.phone_number_title }}</a></li>
+                    <li class="ly-modal__contact--item">{{ section.settings.contact_email_label }} <a href="mailto: {{ section.settings.contact_email }}" aria-label="Sending email">{{ section.settings.contact_email_title }}</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</expended-accordion>

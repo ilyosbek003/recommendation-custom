@@ -1,0 +1,145 @@
+<link rel="stylesheet" href="{{ 'section-main-page.css' | asset_url }}" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="{{ 'component-rte.css' | asset_url }}" media="print" onload="this.media='all'">
+
+<noscript>{{ 'section-main-page.css' | asset_url | stylesheet_tag }}</noscript>
+<noscript>{{ 'component-rte.css' | asset_url | stylesheet_tag }}</noscript>
+
+{%- style -%}
+  .page-width {
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  .center {
+    text-align: center!important;
+  }
+
+  .rte {
+    margin-bottom: 2rem;
+  }
+
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  .title-{{ section.id }}-margin {
+    margin-top: {{ section.settings.margin_top | times: 0.75 | round: 0 }}px;
+    margin-bottom: {{ section.settings.margin_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+
+    .title-{{ section.id }}-margin {
+      margin-top: {{ section.settings.margin_top }}px;
+      margin-bottom: {{ section.settings.margin_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<div class="page-width section-{{ section.id }}-padding">
+  <h1 class="main-page-title page-title h3 center title-{{ section.id }}-margin">
+    {{ page.title | escape }}
+  </h1>
+  {% if section.settings.show_content == true %}
+    <div class="rte center">
+      {{ page.content }}
+    </div>
+  {% endif %}
+  <div id="mmWrapper"></div>
+</div>
+
+
+
+<script>
+    // Enter your Mention Me partner code here:
+    let partnerCode = "{{page.metafields.custom.mention_me_id}}";
+
+    let urlComponents = [
+        "https://tag.mention-me.com/api/v2/referreroffer/",
+        partnerCode
+    ]
+
+    let queryComponents = [
+        ["situation", "landingpage"],
+
+        // Locale
+        ["locale", Shopify.locale + "_" + Shopify.country],
+    ];
+
+    queryComponents = queryComponents.map((qc) => qc[0] + "=" + encodeURIComponent(qc[1]));
+
+    let url = urlComponents.join("") + "?" + queryComponents.join("&");
+    let script = document.createElement("script");
+    script.src = url;
+    document.getElementsByTagName("head")[0].appendChild(script);
+</script>
+
+
+{% schema %}
+{
+  "name": "Mention Me",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 36
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.margin.section_margin_heading"
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "t:sections.all.margin.margin_top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "t:sections.all.margin.margin_bottom",
+      "default": 0
+    },
+    {
+      "type": "checkbox",
+      "id": "show_content",
+      "label": "Show page content",
+      "default": true
+    }
+  ]
+}
+{% endschema %} 

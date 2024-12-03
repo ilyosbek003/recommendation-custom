@@ -1,0 +1,410 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "hero_banner_WqHB8g": {
+      "type": "hero-banner",
+      "blocks": {
+        "column_4T9BJf": {
+          "type": "column",
+          "settings": {
+            "heading": "",
+            "heading_size_desktop": 40,
+            "heading_size_mobile": 20,
+            "sub_heading": "<br>STARTING <br>NOVEMBER 14<br><br>",
+            "sub_heading_weight": "regular",
+            "btn_text": "",
+            "btn_url": ""
+          }
+        },
+        "column_Qt4HBA": {
+          "type": "column",
+          "settings": {
+            "heading": "30% OFF",
+            "heading_size_desktop": 45,
+            "heading_size_mobile": 45,
+            "sub_heading": "DOUBLE POINTS ON ALL PURCHASES<br><br>EARLY ACCESS  TO BLACK FRIDAY - LOYALTY MEMBERS ONLY",
+            "sub_heading_weight": "regular",
+            "btn_text": "JOIN THE 1981 CLUB",
+            "btn_url": "/pages/rewards"
+          }
+        },
+        "column_arjWm6": {
+          "type": "column",
+          "settings": {
+            "heading": "",
+            "heading_size_desktop": 40,
+            "heading_size_mobile": 20,
+            "sub_heading": "<br>*EXCLUDES <br> OOOHCOTTON&REG;<br><br>",
+            "sub_heading_weight": "regular",
+            "btn_text": "",
+            "btn_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "column_4T9BJf",
+        "column_Qt4HBA",
+        "column_arjWm6"
+      ],
+      "settings": {
+        "title": "Hero banner",
+        "bg_type": "image",
+        "background": "shopify://shop_images/Bugatchi_LoyaltyProgram_Banner_BlackFriday_BG_Wide.jpg",
+        "bg_color": "",
+        "overlay": 0,
+        "layout": "contained",
+        "padding_block": 25,
+        "padding_inline": 35
+      }
+    },
+    "background_video_a3wp6a": {
+      "type": "background-video",
+      "blocks": {
+        "heading_fft4Qg": {
+          "type": "heading",
+          "settings": {
+            "heading": "NEW ARRIVALS",
+            "heading_size": "h3",
+            "heading_size_mobile": "h2_mobile"
+          }
+        },
+        "text_gR9mgd": {
+          "type": "text",
+          "settings": {
+            "text": "BUGATCHI welcomes you Home for the Holidays. Here, rich textures, premium fabrics, and statement pieces invite us to connect and appreciate the little things that bring us joy.",
+            "text_size": "text-large"
+          }
+        },
+        "buttons_L4BjgX": {
+          "type": "buttons",
+          "settings": {
+            "buttons_style": "tertiary",
+            "button_background": false,
+            "button_1_text": "DISCOVER MORE",
+            "button_1_link": "/collections/new-arrivals-fall-2024",
+            "button_2_text": "",
+            "button_2_link": "",
+            "button_3_text": "",
+            "button_3_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "heading_fft4Qg",
+        "text_gR9mgd",
+        "buttons_L4BjgX"
+      ],
+      "settings": {
+        "section_style_type": "full_top",
+        "section_type": "video",
+        "overlay": 0,
+        "lazyload": true,
+        "section_link": "/collections/new-arrivals-fall-2024",
+        "video_url_desktop": "https://player.vimeo.com/progressive_redirect/playback/1024361219/rendition/720p/file.mp4?loc=external&log_user=0&signature=bb8136b951ff5b12bf0592f1f6297050ccea9ddda3693f716dd96f94866d47fe",
+        "video_url_mobile": "https://player.vimeo.com/progressive_redirect/playback/1024361180/rendition/720p/file.mp4?loc=external&log_user=0&signature=f2de024eb8bb6cfe29225ab3aa8e40586e2b3d01c22ffb8c4b3d9c9a27c6e346",
+        "video_poster": "shopify://shop_images/transparent.png",
+        "control_btns": "left",
+        "background_image": "shopify://shop_images/2024_FW24_BRANDED_CROPS_07.03_16x932_1_b7d1185a-3e28-4f93-90bd-911d34461857.jpg",
+        "background_image_mobile": "shopify://shop_images/2024_FW24_BRANDED_CROPS_07.03_4x532_1_c0147d55-22ad-4882-8156-f3768e0bfb16.jpg",
+        "content_position": "bottomCenter",
+        "desktop_margin_top": 0,
+        "desktop_margin_bottom": 50,
+        "mobile_margin_top": 0,
+        "mobile_margin_bottom": 50
+      }
+    },
+    "background_video_D83TLp": {
+      "type": "background-video",
+      "blocks": {
+        "heading_jBFztR": {
+          "type": "heading",
+          "settings": {
+            "heading": "GIFT GUIDE",
+            "heading_size": "h3",
+            "heading_size_mobile": "h2_mobile"
+          }
+        },
+        "text_hXaTKt": {
+          "type": "text",
+          "settings": {
+            "text": "From sophisticated printed shirts to leather jackets, shop our curated selection and find the perfect gift.",
+            "text_size": "text-large"
+          }
+        },
+        "buttons_THkPDX": {
+          "type": "buttons",
+          "settings": {
+            "buttons_style": "tertiary",
+            "button_background": false,
+            "button_1_text": "DISCOVER NOW",
+            "button_1_link": "shopify://pages/gift-guide",
+            "button_2_text": "",
+            "button_2_link": "",
+            "button_3_text": "",
+            "button_3_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "heading_jBFztR",
+        "text_hXaTKt",
+        "buttons_THkPDX"
+      ],
+      "settings": {
+        "section_style_type": "small",
+        "section_type": "image",
+        "overlay": 0,
+        "lazyload": true,
+        "section_link": "shopify://pages/gift-guide",
+        "video_url_desktop": "https://player.vimeo.com/progressive_redirect/playback/958610416/rendition/1080p/file.mp4?loc=external&log_user=0&signature=7a350148973601f1ddb4ef39f6a883e2b30247f669450df89400407fad3c7be6",
+        "video_url_mobile": "https://player.vimeo.com/progressive_redirect/playback/958610368/rendition/1080p/file.mp4?loc=external&log_user=0&signature=fed6ea23f9d4cf452aa39b6b9be8d5e8b1c8cb94088fbd5ea45ea4e7adb01f39",
+        "video_poster": "shopify://shop_images/transparent.png",
+        "control_btns": "left",
+        "background_image": "shopify://shop_images/GiftGuide_Header_Image_01_18ef65cf-5823-492a-99b9-30a1e3fe139b.jpg",
+        "background_image_mobile": "shopify://shop_images/GiftGuide_Artist_01_1_5e85de6f-b98f-4700-b5d5-8499ab722aaf.jpg",
+        "content_position": "bottomCenter",
+        "desktop_margin_top": 50,
+        "desktop_margin_bottom": 50,
+        "mobile_margin_top": 50,
+        "mobile_margin_bottom": 25
+      }
+    },
+    "0b8de595-ec84-40c7-a125-d4386c8ccf09": {
+      "type": "quick-shop",
+      "blocks": {
+        "e3bf3f88-2be7-47d6-8beb-6b1636816d68": {
+          "type": "product",
+          "settings": {
+            "block_type": "product",
+            "product": "stretch-wool-travel-shirt-jacket-navy",
+            "title": "",
+            "url": ""
+          }
+        },
+        "33187ace-45d0-402e-8e90-6aa2b74da01c": {
+          "type": "product",
+          "settings": {
+            "block_type": "product",
+            "product": "sawyer-turtle-neck-merino-sweater-navy",
+            "title": "",
+            "url": ""
+          }
+        },
+        "0604e5e6-6ac9-4add-b3f7-b454b4b34bfc": {
+          "type": "product",
+          "settings": {
+            "block_type": "product",
+            "product": "stretch-wool-travel-dress-pants-navy",
+            "title": "",
+            "url": ""
+          }
+        },
+        "be6196f6-beef-498c-b4a1-1d900e16b5a8": {
+          "type": "product",
+          "settings": {
+            "block_type": "product",
+            "product": "leather-knit-jacket-truffle",
+            "title": "",
+            "url": ""
+          }
+        },
+        "b59e6e31-ab19-47a7-a35c-f602f65b598b": {
+          "type": "product",
+          "settings": {
+            "block_type": "product",
+            "product": "sawyer-turtle-neck-merino-sweater-camel",
+            "title": "",
+            "url": ""
+          }
+        },
+        "d04ffbc4-3af7-49fe-8c86-1a23a5aea735": {
+          "type": "product",
+          "settings": {
+            "block_type": "product",
+            "product": "wool-blend-knit-dress-pants-zinc",
+            "title": "",
+            "url": ""
+          }
+        },
+        "product_r4AiMQ": {
+          "type": "product",
+          "settings": {
+            "block_type": "product",
+            "product": "leather-aviator-jacket-truffle",
+            "title": "",
+            "url": ""
+          }
+        },
+        "product_f8VGDh": {
+          "type": "product",
+          "settings": {
+            "block_type": "product",
+            "product": "mixed-stitch-turtleneck-sweater-stone",
+            "title": "",
+            "url": ""
+          }
+        },
+        "product_Jjch3M": {
+          "type": "product",
+          "settings": {
+            "block_type": "product",
+            "product": "preston-five-pocket-pants-desert",
+            "title": "",
+            "url": ""
+          }
+        },
+        "product_qmh8Dz": {
+          "type": "product",
+          "settings": {
+            "block_type": "product",
+            "product": "three-button-quilted-blazer-with-detachable-bib-truffle",
+            "title": "",
+            "url": ""
+          }
+        },
+        "product_DnJcfU": {
+          "type": "product",
+          "settings": {
+            "block_type": "product",
+            "product": "karl-checkered-shirt-dusty-rose",
+            "title": "",
+            "url": ""
+          }
+        },
+        "product_nCPjrR": {
+          "type": "product",
+          "settings": {
+            "block_type": "product",
+            "product": "preston-micro-basketweave-printed-five-pocket-pants-caramel",
+            "title": "",
+            "url": ""
+          }
+        },
+        "product_MahTKA": {
+          "type": "product",
+          "settings": {
+            "block_type": "product",
+            "product": "fisherman-rib-stitch-quarter-zip-sweater-chalk",
+            "title": "",
+            "url": ""
+          }
+        },
+        "product_DDJgTL": {
+          "type": "product",
+          "settings": {
+            "block_type": "product",
+            "product": "karl-mosaic-shirt-navy",
+            "title": "",
+            "url": ""
+          }
+        },
+        "product_WKNzQy": {
+          "type": "product",
+          "settings": {
+            "block_type": "product",
+            "product": "wool-blend-knit-cargo-pants-zinc",
+            "title": "",
+            "url": ""
+          }
+        },
+        "product_Ciebky": {
+          "type": "product",
+          "settings": {
+            "block_type": "product",
+            "product": "cashmere-flight-jacket-black",
+            "title": "",
+            "url": ""
+          }
+        },
+        "product_zwidkd": {
+          "type": "product",
+          "settings": {
+            "block_type": "product",
+            "product": "diagonal-pinstripe-quarter-zip-pull-over-black",
+            "title": "",
+            "url": ""
+          }
+        },
+        "product_jqgN7z": {
+          "type": "product",
+          "settings": {
+            "block_type": "product",
+            "product": "soft-touch-performance-pants-caviar",
+            "title": "",
+            "url": ""
+          }
+        }
+      },
+      "block_order": [
+        "e3bf3f88-2be7-47d6-8beb-6b1636816d68",
+        "33187ace-45d0-402e-8e90-6aa2b74da01c",
+        "0604e5e6-6ac9-4add-b3f7-b454b4b34bfc",
+        "be6196f6-beef-498c-b4a1-1d900e16b5a8",
+        "b59e6e31-ab19-47a7-a35c-f602f65b598b",
+        "d04ffbc4-3af7-49fe-8c86-1a23a5aea735",
+        "product_r4AiMQ",
+        "product_f8VGDh",
+        "product_Jjch3M",
+        "product_qmh8Dz",
+        "product_DnJcfU",
+        "product_nCPjrR",
+        "product_MahTKA",
+        "product_DDJgTL",
+        "product_WKNzQy",
+        "product_Ciebky",
+        "product_zwidkd",
+        "product_jqgN7z"
+      ],
+      "settings": {
+        "simplified": true,
+        "product_card_background": "#e3e3e3",
+        "product_card_layout": "layout_2",
+        "title": "NEW ARRIVALS",
+        "url": "/collections/new-arrivals-fall-2024",
+        "link_label": "SHOP NOW"
+      }
+    },
+    "image_text_BTji9L": {
+      "type": "image-text",
+      "settings": {
+        "content_order": "section-ordered",
+        "media_size": "medium",
+        "section_type": "image",
+        "lazyload": true,
+        "section_link": "shopify://collections/performance-knits-and-pullovers",
+        "video_url": "",
+        "video_url_mobile": "",
+        "control_btns": "disabled",
+        "background_image": "shopify://shop_images/GiftGuide_Header_Popout_04_9b9307d9-9491-4100-b4db-a65a5152bbac.jpg",
+        "background_image_mobile": "shopify://shop_images/GiftGuide_Header_Popout_04_9b9307d9-9491-4100-b4db-a65a5152bbac.jpg",
+        "heading": "THE KNIT EDIT",
+        "heading_size": "h4",
+        "heading_size_mobile": "h2_mobile",
+        "text": "Discover our winter knitwear selection and shop quarter-zips, polos, and turtlenecks in rich textures and seasonal colorways.",
+        "text_size": "text",
+        "buttons_style": "tertiary",
+        "button_text": "SHOP KNITWEAR",
+        "button_link": "shopify://collections/performance-knits-and-pullovers",
+        "desktop_padding_top": 50,
+        "desktop_padding_bottom": 50,
+        "mobile_padding_top": 25,
+        "mobile_padding_bottom": 25
+      }
+    }
+  },
+  "order": [
+    "hero_banner_WqHB8g",
+    "background_video_a3wp6a",
+    "background_video_D83TLp",
+    "0b8de595-ec84-40c7-a125-d4386c8ccf09",
+    "image_text_BTji9L"
+  ]
+}

@@ -1,0 +1,117 @@
+{% assign keepCaseFilters = "Size" | split: ', ' %}
+{% assign filterValues = filter.values | map: "count" | sum %}
+{% assign filterIndex = forloop.index %}
+{% if filter.label == 'hidden'  %}
+  {% continue %}
+{% endif %}
+
+{% assign custom_filter_with_current_key = section.blocks | where: "type", "custom_filters" | map: "settings" | where: "filter_key", filter.label %}
+{% assign custom_filter_with_current_collection = custom_filter_with_current_key | where: "filter_collection", collection %}
+{% assign custom_filter_with_empty_collection = custom_filter_with_current_key | where: "filter_collection", blank %}
+
+{% if custom_filter_with_current_collection.size > 0 %}
+  {% assign customValues = custom_filter_with_current_collection[0].filter_values | split: ", " %}
+  {% assign replaceValues = custom_filter_with_current_collection[0].replace_values %}
+{% else %}
+  {% assign customValues = custom_filter_with_empty_collection[0].filter_values | split: ", " %}
+  {% assign replaceValues = custom_filter_with_empty_collection[0].replace_values %}
+{% endif %}
+
+{% assign hasValues = false %}
+{% for value in customValues %}
+  {% assign customValue = value | strip %}
+  {% assign filterValue = filter.values | where: "label", customValue | first %}
+  {% if filterValue %}
+    {% assign hasValues = true %}
+    {% break %}
+  {% endif %}
+{% endfor %}
+
+{% if customValues.size > 0 and hasValues == false %}
+  {% continue %}
+{% endif %}
+
+<div class="filters__item--wrapper" data-filter-param="{{ filter.param_name }}" count="{{ filterValues }}">
+  <div class="filters__item upper-case text cursor-pointer">
+    {{ filter.label }}
+    <button class="filters__item-btn--arrow" title="Open filter tab">
+      <svg class="arrow-right" role="presentation" viewBox="0 0 11 18">
+        <path d="M1.5 1.5l8 7.5-8 7.5" stroke-width="1" stroke="currentColor" fill="none"   fill-rule="evenodd" stroke-linecap="square"></path>
+      </svg>
+    </button>
+  </div>
+  <div class="filters__options-group collapsable">
+    <div class="filters__options-wrapper">
+      <ul>
+        {% if customValues.size > 0 %}
+  
+          {% for value in customValues %}
+            {% assign valueIndex = forloop.index %}
+            {% assign customValue = value | strip %}
+            {%- capture valueToReplace -%}
+              [{{ customValue }}|
+            {%- endcapture -%}
+            {% assign replacedValueRow = replaceValues | split: valueToReplace %}
+            {% assign replacedValue = replacedValueRow[1] | split: "]" | first %}
+            {% assign filterValue = filter.values | where: "label", customValue | first %}
+            {%- if replacedValue.size > 0 -%}
+              {% assign displayValue = replacedValue %}
+            {%- else -%}
+              {% assign displayValue = filterValue.label %}
+            {%- endif -%}
+            {% if filterValue %}
+              {% assign dynamicClass = "" %}
+              {% if filterValue.count < 1 %}
+                {% assign dynamicClass = "disabled" %}
+              {% endif %}
+              {% if filterValue.active %}
+                {% assign dynamicClass = "active" %}
+              {% endif %}
+              <li 
+                class="text cursor-pointer filters__option-item {{ dynamicClass }}" 
+                data-value='{{ filterValue.value }}' 
+                data-handle='filter-{{ filterIndex }}-{{ filter.param_name }}-{{ filterValue.value | handleize }}-{{ valueIndex }}' 
+                data-key="{{ filter.param_name }}"
+              >
+                {% render "filter-value-label", filter_label: filter.label, filter_value: displayValue %}
+              </li>
+            {% endif %}
+          {% endfor %}
+  
+        {% else %}
+  
+          {%- for value in filter.values -%}
+            {% assign valueIndex = forloop.index %}
+            {%- capture valueToReplace -%}
+              [{{ value.label }}|
+            {%- endcapture -%}
+            {% assign replacedValueRow = replaceValues | split: valueToReplace %}
+            {% assign replacedValue = replacedValueRow[1] | split: "]" | first %}
+            {%- if replacedValue.size > 0 -%}
+              {% assign displayValue = replacedValue %}
+            {%- else -%}
+              {% assign displayValue = value.label %}
+            {%- endif -%}
+            {% assign dynamicClass = "" %}
+            {% if value.count < 1  %}
+              {% assign dynamicClass = "disabled" %}
+            {% endif %}
+            {% if value.active %}
+              {% assign dynamicClass = "active" %}
+            {% endif %}
+            <li 
+              class="text cursor-pointer filters__option-item {{ dynamicClass }}"
+              data-value='{{ value.value }}'
+              data-handle='filter-{{ filterIndex }}-{{ filter.param_name }}-{{ value.value | handleize }}-{{ valueIndex }}' 
+              data-key="{{ filter.param_name }}" 
+              data-count={{ value.count }}
+            >
+              {% render "filter-value-label", filter_label: filter.label, filter_value: displayValue %}
+            </li>
+          {%- endfor -%}
+  
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+</div>

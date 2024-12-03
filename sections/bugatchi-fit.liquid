@@ -1,0 +1,417 @@
+<div class="hub-fit" data-section="hub-fit" data-overlay-id="{{ section.settings.overlay_id | handleize }}">
+  
+  {%- if section.settings.title != blank -%}
+    <h2 
+      class="hub-fit__title hub-font{%- if section.settings.is_dynamic_title -%}--dynamic{%- endif -%}"
+      style="--font-desktop: {{ section.settings.font_size_desktop_title }}px; --font-mobile: {{ section.settings.font_size_mobile_title }}px; --clamp-value: {{ section.settings.clamp_value_title }}vw"
+    >{{ section.settings.title }}</h2>    
+  {%- endif -%}
+
+  <div class="hub-fit__media-container">
+    <div class="hub-fit__media-wrapper"> 
+      {% if section.settings.image != nil %}
+        {%- assign img_obj = section.settings.image -%}
+        {%- assign alt = img_obj.alt | default: block.settings.title -%}
+        {{ img_obj 
+          | image_url: width: 1500 
+          | image_tag:
+          sizes: "100vw", 
+          widths: '375, 550, 750, 1100, 1500, 1780, 2000, 3000, 3840',
+          alt: alt,
+          class: "hub-fit__media-item"
+        }}
+      {%- else -%}
+        {{ "image" | placeholder_svg_tag: "hub-fit__media-item placeholder" }}
+      {% endif %}
+
+      {%- for block in section.blocks -%}
+
+        {%- capture css_variables -%}
+          --horizontal-desktop: {{ block.settings.horizontal_alignemnt_desktop }}%;
+          --horizontal-tablet: {{ block.settings.horizontal_alignemnt_tablet }}%;
+          --horizontal-mobile: {{ block.settings.horizontal_alignemnt_mobile }}%;
+          --vertical-desktop: {{ block.settings.vertical_alignment_desktop }}%;
+          --vertical-tablet: {{ block.settings.vertical_alignment_tablet }}%;
+          --vertical-mobile: {{ block.settings.vertical_alignment_mobile }}%;
+          --width-desktop: {{ block.settings.pointer_width_desktop }}%;
+          --width-tablet: {{ block.settings.pointer_width_tablet }}%;
+          --width-mobile: {{ block.settings.pointer_width_mobile }}%;
+          --font-desktop: {{ block.settings.font_size_desktop }}px; 
+          --font-mobile: {{ block.settings.font_size_mobile }}px; 
+          --clamp-value: {{ block.settings.clamp_value }}vw;
+        {%- endcapture -%}
+        <div data-fit-viewer-title class="hub-fit__item hub-fit__item--{{ block.settings.side }} hub-font{%- if block.settings.is_dynamic -%}--dynamic{%- endif -%}" style="{{ css_variables }}">
+          {{ block.settings.text }}
+        </div>
+
+        <div
+          data-fit-viewer-hotspot
+          class="fit-viewer__hotspot hotspot--{{ block.settings.side }} medium-hide large-up-hide"
+          style="
+            --hotspot-horizontal: {{block.settings.horizontal_alignment_hotspot}}%; 
+            --hotspot-vertical: {{block.settings.vertical_alignment_hotspot}}%; 
+            --hotspot-inner: {{section.settings.hotspot_inner}}; 
+            --hotspot-outline: {{section.settings.hotspot_outline}}; 
+            --hotspot-outline-active: {{section.settings.hotspot_outline_active}};"
+        >
+          <div class="fit-viewer__hotspot-inner"></div>
+          <span class="fit-viewer__hotspot-center"></span>
+        </div>
+
+        <div class="hub-fit__item--pointer hub-fit__item--pointer--{{ block.settings.side }} hub-font{%- if block.settings.is_dynamic -%}--dynamic{%- endif -%}" style="{{ css_variables }}">pointer</div>
+      {%- endfor -%}
+    </div>
+  </div>
+
+  {%- if section.settings.description != blank -%}
+    <p 
+      class="hub-fit__description text hub-font{%- if section.settings.is_dynamic_description -%}--dynamic{%- endif -%}"
+      style="--font-desktop: {{ section.settings.font_size_desktop_description }}px; --font-mobile: {{ section.settings.font_size_mobile_description }}px; --clamp-value: {{ section.settings.clamp_value_description }}vw"
+    >{{ section.settings.description }}</p>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "Hub Page - Bugatchi fit",
+  "class": "overlay-section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "overlay_id",
+      "label": "Overlay ID",
+      "info": "ID of overlay is used to link overlay to other blocks"
+    },
+    {
+      "type": "header",
+      "content": "Text content"
+    },
+    {
+      "type": "paragraph",
+      "content": "Enable responsive font sizing for dynamic text adjustments based on screen width. The Clamp ensures font size stays within defined range (Mobile - Desktop). Proportional scaling guarantees readability on various devices. Larger screens display larger text; smaller screens show appropriately scaled-down text. For example, 5vw clamp value means the font size is 5% of the screen width. If the screen width is 1600px, the font size is 80. If outside the range, the nearest valid value is selected"
+    },
+    {
+      "type": "header",
+      "content": "Title"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Content"
+    },
+    {
+      "type": "checkbox",
+      "id": "is_dynamic_title",
+      "label": "Use responsive font size (Clamp)",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "font_size_desktop_title",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Font size | Desktop",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "font_size_mobile_title",
+      "min": 8,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "Font size | Mobile",
+      "default": 25
+    },
+    {
+      "type": "range",
+      "id": "clamp_value_title",
+      "min": 0.2,
+      "max": 20,
+      "step": 0.2,
+      "unit": "vw",
+      "label": "Clamp value",
+      "default": 5
+    },
+    {
+      "type": "header",
+      "content": "Description"
+    },
+    {
+      "type": "checkbox",
+      "id": "is_dynamic_description",
+      "label": "Use responsive font size (Clamp)",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "description",
+      "label": "Description"
+    },
+    {
+      "type": "range",
+      "id": "font_size_desktop_description",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Font size | Desktop",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "font_size_mobile_description",
+      "min": 8,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "Font size | Mobile",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "clamp_value_description",
+      "min": 0.2,
+      "max": 20,
+      "step": 0.2,
+      "unit": "vw",
+      "label": "Clamp value",
+      "default": 4
+    },
+    {
+      "type": "header",
+      "content": "Hotspot Settings"
+    },
+    {
+      "type": "color",
+      "id": "hotspot_inner",
+      "label": "Hotspot Inner",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "hotspot_outline",
+      "label": "Hotspot Outline",
+      "default": "#4f4949"
+    },
+    {
+      "type": "color",
+      "id": "hotspot_outline_active",
+      "label": "Hotspot Outline Active",
+      "default": "#7e7e7e"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Item",
+      "settings": [
+        {
+          "type": "select",
+          "id": "side",
+          "label": "Side of the item",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "right",
+              "label": "Right"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Content"
+        },
+        {
+          "type": "header",
+          "content": "Aligment | Desktop"
+        },
+        {
+          "type": "range",
+          "id": "vertical_alignment_desktop",
+          "label": "Vertical alignment",
+          "unit": "%",
+          "step": 1,
+          "max": 100,
+          "min": 0,
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "horizontal_alignemnt_desktop",
+          "label": "Horizontal alignment",
+          "unit": "%",
+          "step": 2,
+          "max": 100,
+          "min": -100,
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "pointer_width_desktop",
+          "label": "Line width",
+          "unit": "%",
+          "step": 2,
+          "max": 200,
+          "min": 10,
+          "default": 10
+        },
+        {
+          "type": "header",
+          "content": "Aligment | Tablet"
+        },
+        {
+          "type": "range",
+          "id": "vertical_alignment_tablet",
+          "label": "Vertical alignment",
+          "unit": "%",
+          "step": 1,
+          "max": 100,
+          "min": 0,
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "horizontal_alignemnt_tablet",
+          "label": "Horizontal alignment",
+          "unit": "%",
+          "step": 2,
+          "max": 100,
+          "min": -100,
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "pointer_width_tablet",
+          "label": "Line width",
+          "unit": "%",
+          "step": 2,
+          "max": 200,
+          "min": 10,
+          "default": 10
+        },
+        {
+          "type": "header",
+          "content": "Aligment | Mobile"
+        },
+        {
+          "type": "range",
+          "id": "vertical_alignment_mobile",
+          "label": "Vertical alignment",
+          "unit": "%",
+          "step": 1,
+          "max": 100,
+          "min": 0,
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "horizontal_alignemnt_mobile",
+          "label": "Horizontal alignment",
+          "unit": "%",
+          "step": 2,
+          "max": 100,
+          "min": -100,
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "pointer_width_mobile",
+          "label": "Line width",
+          "unit": "%",
+          "step": 2,
+          "max": 200,
+          "min": 10,
+          "default": 10
+        },
+        {
+          "type": "header",
+          "content": "Hotspot Settings"
+        },
+        {
+          "type": "range",
+          "id": "vertical_alignment_hotspot",
+          "label": "Vertical alignment",
+          "unit": "%",
+          "step": 1,
+          "max": 100,
+          "min": 0,
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "horizontal_alignment_hotspot",
+          "label": "Horizontal alignment",
+          "unit": "%",
+          "step": 2,
+          "max": 100,
+          "min": -100,
+          "default": 0
+        },
+        {
+          "type": "header",
+          "content": "Typography"
+        },
+        {
+          "type": "paragraph",
+          "content": "Enable responsive font sizing for dynamic text adjustments based on screen width. The Clamp ensures font size stays within defined range (Mobile - Desktop). Proportional scaling guarantees readability on various devices. Larger screens display larger text; smaller screens show appropriately scaled-down text. For example, 5vw clamp value means the font size is 5% of the screen width. If the screen width is 1600px, the font size is 80. If outside the range, the nearest valid value is selected"
+        },
+        {
+          "type": "checkbox",
+          "id": "is_dynamic",
+          "label": "Use responsive font size (Clamp)",
+          "default": false
+        },
+        {
+          "type": "range",
+          "id": "font_size_desktop",
+          "min": 10,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "label": "Font size | Desktop",
+          "default": 14
+        },
+        {
+          "type": "range",
+          "id": "font_size_mobile",
+          "min": 8,
+          "max": 50,
+          "step": 1,
+          "unit": "px",
+          "label": "Font size | Mobile",
+          "default": 14
+        },
+        {
+          "type": "range",
+          "id": "clamp_value",
+          "min": 0.2,
+          "max": 20,
+          "step": 0.2,
+          "unit": "vw",
+          "label": "Clamp value",
+          "default": 4
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "category": "Hub Page",
+      "name": "Hub Page - Bugatchi fit", 
+      "settings": {}
+    } 
+  ]
+}
+{% endschema %}

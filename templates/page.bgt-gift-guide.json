@@ -1,0 +1,468 @@
+{
+  "sections": {
+    "1661346084a9f29505": {
+      "type": "background-video",
+      "settings": {
+        "section_style_type": "full_top",
+        "section_type": "video",
+        "overlay": 0,
+        "lazyload": true,
+        "section_link": "shopify:\/\/collections\/fathers-day-gift-guide",
+        "video_url_desktop": "https:\/\/player.vimeo.com\/progressive_redirect\/playback\/944983249\/rendition\/1080p\/file.mp4?loc=external&log_user=0&signature=be6fd22954e2de387ca21fb9b3d080b3887116648bbd7d6d78a048fbcf7108af",
+        "video_url_mobile": "https:\/\/player.vimeo.com\/progressive_redirect\/playback\/944983199\/rendition\/1080p\/file.mp4?loc=external&log_user=0&signature=5c5f5c39b0094b202b969532a8ec58ee36ae8cfdbab7aceb30fd6b0b4cbc62c8",
+        "video_poster": "shopify:\/\/shop_images\/transparent.png",
+        "control_btns": "auto",
+        "background_image": "shopify:\/\/shop_images\/Picture1.png",
+        "background_image_mobile": "shopify:\/\/shop_images\/Picture1.png",
+        "content_position": "middleLeft",
+        "desktop_margin_top": 0,
+        "desktop_margin_bottom": 50,
+        "mobile_margin_top": 0,
+        "mobile_margin_bottom": 25
+      }
+    },
+    "rich_text_qhUHch": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_jDrycB": {
+          "type": "heading",
+          "settings": {
+            "heading": "<h2>A GIFT FOR DAD<\/h2>",
+            "heading_size": "h2"
+          }
+        },
+        "text_iYFfNM": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Catch a glimpse into the making of BUGATCHI’s Father’s Day Gift Guide where we asked models to select a gift for their dads. Join Oliver as he shares the heartfelt significance behind his choice. Allow his thoughtful story to inspire you to find the perfect token of appreciation for the dad in your life.<\/p>"
+          }
+        },
+        "button_XQDqtD": {
+          "type": "button",
+          "settings": {
+            "button_label": "SHOP GIFT GUIDE",
+            "button_link": "shopify:\/\/collections\/fathers-day-gift-guide",
+            "button_style_secondary": true,
+            "button_label_2": "",
+            "button_link_2": "",
+            "button_style_secondary_2": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_jDrycB",
+        "text_iYFfNM",
+        "button_XQDqtD"
+      ],
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "background-1",
+        "full_width": true,
+        "padding_top": 0,
+        "padding_bottom": 52
+      }
+    },
+    "quick_shop_xJybkP": {
+      "type": "quick-shop",
+      "blocks": {
+        "product_rqdBHN": {
+          "type": "product",
+          "settings": {
+            "block_type": "image",
+            "product": "cable-stitch-short-sleeve-polo-sweater-caramel",
+            "image": "shopify:\/\/shop_images\/FATHERS_DAY_LANDING_05.jpg",
+            "title": "",
+            "url": "shopify:\/\/products\/cable-stitch-short-sleeve-polo-sweater-caramel"
+          }
+        },
+        "product_PKyTqe": {
+          "type": "product",
+          "settings": {
+            "block_type": "image",
+            "product": "orson-floral-short-sleeve-shirt-olive",
+            "image": "shopify:\/\/shop_images\/FATHERS_DAY_LANDING_06.jpg",
+            "title": "",
+            "url": "shopify:\/\/products\/orson-floral-short-sleeve-shirt-olive"
+          }
+        },
+        "product_Hxx4XL": {
+          "type": "product",
+          "settings": {
+            "block_type": "image",
+            "product": "orson-floral-short-sleeve-shirt-caramel",
+            "image": "shopify:\/\/shop_images\/FATHERS_DAY_LANDING_07.jpg",
+            "title": "",
+            "url": "shopify:\/\/products\/orson-floral-short-sleeve-shirt-caramel"
+          }
+        },
+        "product_AYJA7T": {
+          "type": "product",
+          "settings": {
+            "block_type": "image",
+            "product": "axel-solid-linen-shirt-white-1",
+            "image": "shopify:\/\/shop_images\/FATHERS_DAY_LANDING_08.jpg",
+            "title": "",
+            "url": "shopify:\/\/products\/axel-solid-linen-shirt-white-1"
+          }
+        },
+        "product_9yQ8jJ": {
+          "type": "product",
+          "settings": {
+            "block_type": "image",
+            "product": "jackson-abstract-short-sleeve-shirt-seafoam",
+            "image": "shopify:\/\/shop_images\/FATHERS_DAY_LANDING_09.jpg",
+            "title": "",
+            "url": "shopify:\/\/products\/jackson-abstract-short-sleeve-shirt-seafoam"
+          }
+        },
+        "product_JqJdUR": {
+          "type": "product",
+          "settings": {
+            "block_type": "image",
+            "product": "checkerboard-polo-dusty-pink",
+            "image": "shopify:\/\/shop_images\/FATHERS_DAY_LANDING_11.jpg",
+            "title": "",
+            "url": "shopify:\/\/products\/checkerboard-polo-dusty-pink"
+          }
+        },
+        "product_CPCWz7": {
+          "type": "product",
+          "settings": {
+            "block_type": "image",
+            "product": "axel-floral-shirt-caramel",
+            "image": "shopify:\/\/shop_images\/FATHERS_DAY_LANDING_10.jpg",
+            "title": "",
+            "url": "shopify:\/\/products\/axel-floral-shirt-caramel"
+          }
+        }
+      },
+      "block_order": [
+        "product_rqdBHN",
+        "product_PKyTqe",
+        "product_Hxx4XL",
+        "product_AYJA7T",
+        "product_9yQ8jJ",
+        "product_JqJdUR",
+        "product_CPCWz7"
+      ],
+      "settings": {
+        "simplified": true,
+        "product_card_background": "#e3e3e3",
+        "product_card_layout": "layout_1",
+        "title": "Fresh Picks for Summer",
+        "url": "shopify:\/\/collections\/fathers-day-gift-guide",
+        "link_label": "GET THE LOOK"
+      }
+    },
+    "a404a1ef-3a49-4b0b-b29e-cfb47bc3d21c": {
+      "type": "video-image-blocks",
+      "blocks": {
+        "66f21659-5040-46a8-b5b0-e84fbe0ec163": {
+          "type": "card",
+          "settings": {
+            "block_type": "image",
+            "content_position": "bottom",
+            "content_align": "left",
+            "block_overlay": 0,
+            "background_img": "shopify:\/\/shop_images\/FATHERS_DAY_LANDING_01.jpg",
+            "alt": "hero-img alt",
+            "background_video": "",
+            "control_btns": "disabled",
+            "heading": "",
+            "heading_size": "h3",
+            "heading_size_mobile": "h2_mobile",
+            "heading_letter_spacing": "1",
+            "heading_letter_spacing_mobile": "1",
+            "text": "",
+            "text_size": "text",
+            "text_margin_top": 15,
+            "text_letter_spacing": "1",
+            "text_letter_spacing_mobile": "1",
+            "button_text": "DISCOVER POLOS",
+            "button_url": "shopify:\/\/collections\/polo-shirts",
+            "button_margin_top": 15,
+            "block_clickable": true
+          }
+        },
+        "b801b3b4-9dcf-4daa-b95b-39a55555a80b": {
+          "type": "card",
+          "settings": {
+            "block_type": "image",
+            "content_position": "bottom",
+            "content_align": "right",
+            "block_overlay": 0,
+            "background_img": "shopify:\/\/shop_images\/FATHERS_DAY_LANDING_02.jpg",
+            "alt": "hero-img alt",
+            "background_video": "",
+            "control_btns": "disabled",
+            "heading": "",
+            "heading_size": "h2",
+            "heading_size_mobile": "h1_mobile",
+            "heading_letter_spacing": "1",
+            "heading_letter_spacing_mobile": "1",
+            "text": "",
+            "text_size": "text",
+            "text_margin_top": 15,
+            "text_letter_spacing": "1",
+            "text_letter_spacing_mobile": "1",
+            "button_text": "SHOP PULLOVERS",
+            "button_url": "shopify:\/\/collections\/performance-knits-and-pullovers",
+            "button_margin_top": 15,
+            "block_clickable": true
+          }
+        }
+      },
+      "block_order": [
+        "66f21659-5040-46a8-b5b0-e84fbe0ec163",
+        "b801b3b4-9dcf-4daa-b95b-39a55555a80b"
+      ],
+      "custom_css": [
+        "span.Button.Button-primary-outline.Button-inverted.text {justify-content: center !important;}"
+      ],
+      "settings": {
+        "section_type": "full",
+        "mobile_aignement": "carousel",
+        "lazyload": true,
+        "heading": "POLOS & PULLOVERS",
+        "text": "Offer Dad an elegant yet understated alternative for any occasion. Featuring vibrant colors and relaxed silhouettes, he’ll love these versatile essentials.",
+        "desktop_padding_top": 50,
+        "desktop_padding_bottom": 50,
+        "mobile_padding_top": 25,
+        "mobile_padding_bottom": 25
+      }
+    },
+    "image_text_6Npfdn": {
+      "type": "image-text",
+      "settings": {
+        "content_order": "section-ordered",
+        "media_size": "large",
+        "section_type": "image",
+        "lazyload": true,
+        "section_link": "shopify:\/\/collections\/socks-fashion",
+        "video_url": "",
+        "video_url_mobile": "",
+        "control_btns": "disabled",
+        "background_image": "shopify:\/\/shop_images\/FATHERS_DAY_LANDING_SOCK.jpg",
+        "background_image_mobile": "shopify:\/\/shop_images\/FATHERS_DAY_LANDING_SOCK.jpg",
+        "heading": "CRAFTED DETAILS: SOCKS",
+        "heading_size": "h5",
+        "heading_size_mobile": "h2_mobile",
+        "text": "Celebrate Dad with our range of casual and novelty socks; an essential finishing touch to any of his outfits.",
+        "text_size": "text",
+        "buttons_style": "secondary",
+        "button_text": "VIEW SELECTION",
+        "button_link": "shopify:\/\/collections\/socks-fashion",
+        "desktop_padding_top": 50,
+        "desktop_padding_bottom": 50,
+        "mobile_padding_top": 25,
+        "mobile_padding_bottom": 25
+      }
+    },
+    "38088961-2dcb-4c2c-a0df-ef804abdeb84": {
+      "type": "quick-shop",
+      "blocks": {
+        "3f19d541-b036-45c6-afda-4b95a15adcfa": {
+          "type": "product",
+          "settings": {
+            "block_type": "product",
+            "product": "geometric-mid-calf-socks-sand-4",
+            "image": "shopify:\/\/shop_images\/GG-4x5-1.jpg",
+            "title": "",
+            "url": "\/collections\/shirts?filter.v.availability=1"
+          }
+        },
+        "45992dfc-431a-4116-af2c-3b66591428c3": {
+          "type": "product",
+          "settings": {
+            "block_type": "product",
+            "product": "geometric-mid-calf-socks-aqua-1",
+            "image": "shopify:\/\/shop_images\/GG-4x5-2.jpg",
+            "title": "",
+            "url": "\/products\/rib-stitch-knit-cardigan-sweater-cement"
+          }
+        },
+        "584e8826-37fc-4d69-807a-3251605e21e9": {
+          "type": "product",
+          "settings": {
+            "block_type": "product",
+            "product": "coffee-cups-mid-calf-socks-navy",
+            "image": "shopify:\/\/shop_images\/GG-4x5-3.jpg",
+            "title": "",
+            "url": "\/collections\/socks-fashion?filter.v.availability=1"
+          }
+        },
+        "53bc7566-4839-4a2a-8464-685d1f12fec0": {
+          "type": "product",
+          "settings": {
+            "block_type": "product",
+            "product": "striped-mid-calf-socks-sand-14",
+            "image": "shopify:\/\/shop_images\/GG-4x5-4.jpg",
+            "title": "",
+            "url": "\/products\/leather-biker-jacket-burgundy"
+          }
+        },
+        "8c0c228a-6387-47a7-b201-6034dfe27158": {
+          "type": "product",
+          "settings": {
+            "block_type": "product",
+            "product": "geometric-mid-calf-socks-sand-6",
+            "image": "shopify:\/\/shop_images\/GG-4x5-5.jpg",
+            "title": "",
+            "url": "\/collections\/sweaters?filter.v.availability=1&sort_by=manual&filter.p.m.global.collar=Turtleneck"
+          }
+        },
+        "521104d1-cb1f-4204-9e84-a3444bb8e029": {
+          "type": "product",
+          "settings": {
+            "block_type": "product",
+            "product": "heather-striped-mid-calf-socks-lava",
+            "image": "shopify:\/\/shop_images\/GG-4x5-6.jpg",
+            "title": "",
+            "url": "\/products\/leather-bomber-jacket-with-removable-shearling-collar-truffle"
+          }
+        },
+        "product_9jN4nc": {
+          "type": "product",
+          "settings": {
+            "block_type": "product",
+            "product": "palm-trees-mid-calf-socks-sand",
+            "title": "",
+            "url": ""
+          }
+        }
+      },
+      "block_order": [
+        "3f19d541-b036-45c6-afda-4b95a15adcfa",
+        "45992dfc-431a-4116-af2c-3b66591428c3",
+        "584e8826-37fc-4d69-807a-3251605e21e9",
+        "53bc7566-4839-4a2a-8464-685d1f12fec0",
+        "8c0c228a-6387-47a7-b201-6034dfe27158",
+        "521104d1-cb1f-4204-9e84-a3444bb8e029",
+        "product_9jN4nc"
+      ],
+      "settings": {
+        "simplified": false,
+        "product_card_background": "#e3e3e3",
+        "product_card_layout": "layout_1",
+        "title": "Find the perfect pair",
+        "url": "shopify:\/\/collections\/socks-fashion",
+        "link_label": "SHOP NOW"
+      }
+    },
+    "video_image_blocks_RyP3wp": {
+      "type": "video-image-blocks",
+      "blocks": {
+        "card_KjrtYY": {
+          "type": "card",
+          "settings": {
+            "block_type": "image",
+            "content_position": "bottom",
+            "content_align": "left",
+            "block_overlay": 0,
+            "background_img": "shopify:\/\/shop_images\/FATHERS_DAY_LANDING_03.jpg",
+            "alt": "hero-img alt",
+            "background_video": "",
+            "control_btns": "disabled",
+            "heading": "",
+            "heading_size": "h3",
+            "heading_size_mobile": "h2_mobile",
+            "heading_letter_spacing": "1",
+            "heading_letter_spacing_mobile": "1",
+            "text": "",
+            "text_size": "text",
+            "text_margin_top": 15,
+            "text_letter_spacing": "1",
+            "text_letter_spacing_mobile": "1",
+            "button_text": "EXPLORE LINEN",
+            "button_url": "shopify:\/\/collections\/linen-collection",
+            "button_margin_top": 15,
+            "block_clickable": true
+          }
+        },
+        "card_wBigPe": {
+          "type": "card",
+          "settings": {
+            "block_type": "image",
+            "content_position": "bottom",
+            "content_align": "right",
+            "block_overlay": 0,
+            "background_img": "shopify:\/\/shop_images\/FATHERS_DAY_LANDING_04.jpg",
+            "alt": "hero-img alt",
+            "background_video": "",
+            "control_btns": "disabled",
+            "heading": "",
+            "heading_size": "h2",
+            "heading_size_mobile": "h1_mobile",
+            "heading_letter_spacing": "1",
+            "heading_letter_spacing_mobile": "1",
+            "text": "",
+            "text_size": "text",
+            "text_margin_top": 15,
+            "text_letter_spacing": "1",
+            "text_letter_spacing_mobile": "1",
+            "button_text": "EXPLORE LINEN",
+            "button_url": "shopify:\/\/collections\/linen-collection",
+            "button_margin_top": 15,
+            "block_clickable": true
+          }
+        }
+      },
+      "block_order": [
+        "card_KjrtYY",
+        "card_wBigPe"
+      ],
+      "custom_css": [
+        "span.Button.Button-primary-outline.Button-inverted.text {justify-content: center !important;}"
+      ],
+      "settings": {
+        "section_type": "full",
+        "mobile_aignement": "carousel",
+        "lazyload": true,
+        "heading": "GIFT DAD: LINEN",
+        "text": "Lightweight fabrics, updated silhouettes, and contemporary colorways; shop our summer linen selection and offer him a timeless staple that will inspire his summer wardrobe.",
+        "desktop_padding_top": 50,
+        "desktop_padding_bottom": 50,
+        "mobile_padding_top": 25,
+        "mobile_padding_bottom": 25
+      }
+    },
+    "image_text_z6zkCj": {
+      "type": "image-text",
+      "settings": {
+        "content_order": "section-ordered",
+        "media_size": "large",
+        "section_type": "image",
+        "lazyload": true,
+        "section_link": "shopify:\/\/collections\/candles",
+        "video_url": "",
+        "video_url_mobile": "",
+        "control_btns": "disabled",
+        "background_image": "shopify:\/\/shop_images\/FATHERS_DAY_LANDING_CANDLE.jpg",
+        "background_image_mobile": "shopify:\/\/shop_images\/FATHERS_DAY_LANDING_CANDLE.jpg",
+        "heading": "OFFER HIM JOIE DE VIVRE",
+        "heading_size": "h5",
+        "heading_size_mobile": "h2_mobile",
+        "text": "Crafted from a blend of soy and coconut wax and hand-poured in California, our selection of candles will remind Dad to savor life’s special moments. Inspired by shared moments, Joie de Nuit and Joie de Jour embody the scents that are reminiscent of the early day and late night; a reminder to appreciate life’s simple joys. ",
+        "text_size": "text",
+        "buttons_style": "tertiary",
+        "button_text": "SHOP CANDLES",
+        "button_link": "shopify:\/\/collections\/candles",
+        "desktop_padding_top": 50,
+        "desktop_padding_bottom": 50,
+        "mobile_padding_top": 25,
+        "mobile_padding_bottom": 25
+      }
+    }
+  },
+  "order": [
+    "1661346084a9f29505",
+    "rich_text_qhUHch",
+    "quick_shop_xJybkP",
+    "a404a1ef-3a49-4b0b-b29e-cfb47bc3d21c",
+    "image_text_6Npfdn",
+    "38088961-2dcb-4c2c-a0df-ef804abdeb84",
+    "video_image_blocks_RyP3wp",
+    "image_text_z6zkCj"
+  ]
+}

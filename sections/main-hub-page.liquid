@@ -1,0 +1,465 @@
+{%- assign media_blocks = section.blocks | where: "type", "media" -%}
+{%- assign left_column_media_blocks = media_blocks | map: "settings" | where: "column", "left" -%}
+{%- assign right_column_media_blocks = media_blocks | map: "settings" | where: "column", "right" -%}
+
+<script>
+  window.Shopify.request = {
+    designMode: {{ request.design_mode }}
+  }
+</script>
+
+<div id="hub-main" class="hub-main">
+  <div class="hub-main__left">
+    {%- for block in left_column_media_blocks -%}
+      <div class="hub-main__item{% if block.show_hover %} show-on-hover{% endif %}" {%- if block.overlay_id != blank -%}data-trigger-id="{{ block.overlay_id | handleize }}"{%- endif -%} data-alignment="{{ block.alignment }}" data-alignment-mob="{{ block.alignment_mob }}" data-title="{{ block.title }}">
+        <div class="hub-main__media-wrapper" data-ratio="{{ block.ratio }}">
+          <div class="hub-main__content flex flex-x--{{ block.alignment_x }} flex-y--{{ block.alignment_y }}">
+            <div class="hub-main__content--wrapper">
+              {%- if block.title != blank and block.title_position == "top" -%}
+                <h2 align={{ block.title_alignment }} class="h5-res sp-reset">{{ block.title }}</h2>
+              {%- endif -%}
+              {%- if block.text != blank -%}
+                <p align={{ block.text_alignment }} class="hub-main__text">{{ block.text }}</p>
+              {%- endif -%}
+              {%- if block.cta_text != blank and block.cta_url != blank and block.title_position != "below" -%}
+                <div class="hub-main__cta--wrapper flex flex-x--{{ block.cta_alignment }}">
+                  <a href="{{ block.cta_url }}" title="{{ block.cta_text }}" class="hub-main__cta Button Button-tertiary">{{ block.cta_text }}</a>
+                </div>
+              {%- endif -%}
+            </div>
+          </div>
+          <div class="hub-main__overlay" style="--overlay-opacity: rgba(0,0,0, {{ block.overlay | divided_by: 100.0 }})"></div>
+          {%- if block.image != nil -%}
+            {%- assign img_obj = block.image -%}
+            {%- assign alt = img_obj.alt | default: block.title -%}
+            {{ img_obj 
+              | image_url: width: 1500 
+              | image_tag:
+              sizes: "55vw", 
+              widths: '375, 550, 750, 1100, 1500, 1780, 2000, 3000, 3840',
+              alt: alt,
+              class: "hub-main__media-item",
+              title: block.title
+            }}
+          {%- else -%}
+            {{ "image" | placeholder_svg_tag: "hub-main__media-item placeholder"  }}
+          {%- endif -%}
+        </div>
+        {%- if block.title != blank and block.title_position == "below" -%}
+          <p
+            class="hub-font{%- if section.settings.is_dynamic -%}--dynamic{%- endif -%}"
+            style="--font-desktop: {{ section.settings.font_size_desktop }}px; --font-mobile: {{ section.settings.font_size_mobile }}px; --clamp-value: {{ section.settings.clamp_value }}vw"
+          >{{ block.title }}</p>
+          {%- if block.cta_text != blank and block.cta_url != blank -%}
+            <div class="hub-main__cta--wrapper flex flex-x--{{ block.cta_alignment }}">
+              <a href="{{ block.cta_url }}" title="{{ block.cta_text }}" class="hub-main--cta hub-main__cta Button Button-tertiary">{{ block.cta_text }}</a>
+            </div>
+          {%- endif -%}
+        {%- endif -%}
+      </div>
+    {%- endfor -%}
+  </div>
+  <div class="hub-main__right">
+    {%- for block in right_column_media_blocks -%}
+      <div class="hub-main__item{% if block.show_hover %} show-on-hover{% endif %}" {%- if block.overlay_id != blank -%}data-trigger-id="{{ block.overlay_id | handleize }}"{%- endif -%} data-alignment="{{ block.alignment }}" data-alignment-mob="{{ block.alignment_mob }}" data-title="{{ block.title }}">
+        <div class="hub-main__media-wrapper" data-ratio="{{ block.ratio }}">
+          <div class="hub-main__content flex flex-x--{{ block.alignment_x }} flex-y--{{ block.alignment_y }}">
+            <div class="hub-main__content--wrapper">
+              {%- if block.title != blank and block.title_position == "top" -%}
+                <h2 align={{ block.title_alignment }} class="h5-res sp-reset">{{ block.title }}</h2>
+              {%- endif -%}
+              {%- if block.text != blank -%}
+                <p align={{ block.text_alignment }} class="hub-main__text">{{ block.text }}</p>
+              {%- endif -%}
+              {%- if block.cta_text != blank and block.cta_url != blank and block.title_position != "below" -%}
+                <div class="hub-main__cta--wrapper flex flex-x--{{ block.cta_alignment }}">
+                  <a href="{{ block.cta_url }}" title="{{ block.cta_text }}" class="hub-main__cta Button Button-tertiary">{{ block.cta_text }}</a>
+                </div>
+              {%- endif -%}
+            </div>
+          </div>
+          <div class="hub-main__overlay" style="--overlay-opacity: rgba(0,0,0, {{ block.overlay | divided_by: 100.0 }})"></div>
+          {%- if block.image != nil -%}
+            {%- assign img_obj = block.image -%}
+            {%- assign alt = img_obj.alt | default: block.title -%}
+            {{ img_obj 
+              | image_url: width: 1500 
+              | image_tag:
+              sizes: "55vw", 
+              widths: '375, 550, 750, 1100, 1500, 1780, 2000, 3000, 3840',
+              alt: alt,
+              class: "hub-main__media-item",
+              title: block.title
+            }}
+          {%- else -%}
+            {{ "image" | placeholder_svg_tag: "hub-main__media-item placeholder"  }}
+          {%- endif -%}
+        </div>
+        {%- if block.title != blank and block.title_position == "below" -%}
+          <p 
+            class="hub-font{%- if section.settings.is_dynamic -%}--dynamic{%- endif -%}"
+            style="--font-desktop: {{ section.settings.font_size_desktop }}px; --font-mobile: {{ section.settings.font_size_mobile }}px; --clamp-value: {{ section.settings.clamp_value }}vw"
+          >{{ block.title }}</p>
+          <div class="hub-main__cta--wrapper flex flex-x--{{ block.cta_alignment }}">
+            <a href="{{ block.cta_url }}" title="{{ block.cta_text }}" class="hub-main--cta hub-main__cta Button Button-tertiary">{{ block.cta_text }}</a>
+          </div>
+        {%- endif -%}
+      </div>
+    {%- endfor -%}
+  </div>
+</div>
+<div id="hub-main__overlays" class="hub-main__overlays">
+  <button class="hub-main__overlays--close">
+    <span>X</span>
+    {% render 'icons-new' with 'x-close-bold' %}
+  </button>
+  <div class="hub-main__overlays--list swiper">
+    <div class="swiper-wrapper"></div>
+  </div>
+  <div class="hub-main__overlays--wrapper"></div>
+</div>
+
+{% schema %}
+{
+  "name": "Hub Page - Main",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Typography | Block titles"
+    },
+    {
+      "type": "paragraph",
+      "content": "Enable responsive font sizing for dynamic text adjustments based on screen width. The Clamp ensures font size stays within defined range (Mobile - Desktop). Proportional scaling guarantees readability on various devices. Larger screens display larger text; smaller screens show appropriately scaled-down text. For example, 5vw clamp value means the font size is 5% of the screen width. If the screen width is 1600px, the font size is 80. If outside the range, the nearest valid value is selected"
+    },
+    {
+      "type": "checkbox",
+      "id": "is_dynamic",
+      "label": "Use responsive font size (Clamp)",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "font_size_desktop",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Font size | Desktop",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "font_size_mobile",
+      "min": 8,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "Font size | Mobile",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "clamp_value",
+      "min": 0.2,
+      "max": 20,
+      "step": 0.2,
+      "unit": "vw",
+      "label": "Clamp value",
+      "default": 1
+    }
+  ],
+  "blocks": [
+    {
+      "type": "media",
+      "name": "Media",
+      "settings": [
+        {
+          "type": "text",
+          "id": "overlay_id",
+          "label": "Linked overlay ID",
+          "info": "ID of overlay that needs to be triggered by this image. Enter the same ID in the desired overlay"
+        },
+        {
+          "type": "header",
+          "content": "Content"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_hover",
+          "label": "Show content only on hover",
+          "info": "Title, text, link, and overlay will be shown only on hover"
+        },
+        {
+          "type": "range",
+          "id": "overlay",
+          "min": 0,
+          "max": 80,
+          "step": 1,
+          "unit": "%",
+          "label": "Overlay opacity",
+          "default": 0
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image",
+          "info": "Image to display"
+        },
+        {
+          "type": "radio",
+          "id": "title_position",
+          "label": "Position of title",
+          "options": [
+            {
+              "value": "top",
+              "label": "On image"
+            },
+            {
+              "value": "below",
+              "label": "Below image"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "info": "Title will be displayed below/on image"
+        },
+        {
+          "type": "text_alignment",
+          "id": "title_alignment",
+          "label": "Title alignment",
+          "default": "left"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "info": "Text will be displayed below title on the image"
+        },
+        {
+          "type": "text_alignment",
+          "id": "text_alignment",
+          "label": "Text alignment",
+          "default": "left"
+        },
+        {
+          "type": "text",
+          "id": "cta_text",
+          "label": "Link text",
+          "info": "Link will be displayed below the text on the image"
+        },
+        {
+          "type": "url",
+          "id": "cta_url",
+          "label": "Link URL"
+        },
+        {
+          "type": "text_alignment",
+          "id": "cta_alignment",
+          "label": "CTA alignment",
+          "default": "left"
+        },
+        {
+          "type": "header",
+          "content": "Layout"
+        },
+        {
+          "type": "select",
+          "id": "column",
+          "label": "Column",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "right",
+              "label": "Right"
+            }
+          ],
+          "info": "Side of page where image will be displayed"
+        },
+        {
+          "type": "select",
+          "id": "alignment",
+          "label": "Alignment | Desktop",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "right",
+              "label": "Right"
+            }
+          ],
+          "info": "Set alignment of media within the column for DESKTOP"
+        },
+        {
+          "type": "select",
+          "id": "alignment_mob",
+          "label": "Alignment | Mobile",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "right",
+              "label": "Right"
+            },
+          ],
+          "info": "Set alignment of media within the column for MOBILE"
+        },
+        {
+          "type": "select",
+          "id": "ratio",
+          "label": "Aspect ratio",
+          "options": [
+            {
+              "value": "ratio-1",
+              "label": "145% (The Silhouettes)"
+            },
+            {
+              "value": "ratio-2",
+              "label": "110% (The Details)"
+            },
+            {
+              "value": "ratio-3",
+              "label": "120% (The Bugatchi Fit)"
+            },
+            {
+              "value": "ratio-4",
+              "label": "75% (FAQ & Testimonials)"
+            }
+          ],
+          "info": "Ratio of image height compared to its width"
+        },
+        {
+          "type": "header",
+          "content": "Content alignment"
+        },
+        {
+          "type": "select",
+          "id": "alignment_x",
+          "label": "Horizontal alignment",
+          "options": [
+              {
+                  "value": "start",
+                  "label": "Left"
+              },
+              {
+                  "value": "center",
+                  "label": "Center"
+              },
+              {
+                  "value": "end",
+                  "label": "Right"
+              }
+          ]
+      },
+      {
+          "type": "select",
+          "id": "alignment_y",
+          "label": "Vertical alignment",
+          "options": [
+              {
+                  "value": "start",
+                  "label": "Top"
+              },
+              {
+                  "value": "center",
+                  "label": "Center"
+              },
+              {
+                  "value": "end",
+                  "label": "Bottom"
+              }
+          ]
+      }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "category": "Hub Page",
+      "name": "Hub Page - Main",
+      "settings": {},
+      "blocks": [
+        {
+          "type": "media",
+          "settings": {
+            "overlay_id": "",
+            "title": "The Silhouettes",
+            "image": "shopify:\/\/shop_images\/Rectangle_80.png",
+            "column": "left",
+            "alignment": "left",
+            "ratio": "ratio-1"
+          }
+        },
+        {
+          "type": "media",
+          "settings": {
+            "overlay_id": "",
+            "title": "The Details",
+            "image": "shopify:\/\/shop_images\/Rectangle_164.png",
+            "column": "left",
+            "alignment": "right",
+            "ratio": "ratio-2"
+          }
+        },
+        {
+          "type": "media",
+          "settings": {
+            "overlay_id": "",
+            "title": "Prints & Patterns",
+            "image": "shopify:\/\/shop_images\/Group_689.png",
+            "column": "left",
+            "alignment": "left",
+            "ratio": "ratio-1"
+          }
+        },
+        {
+          "type": "media",
+          "settings": {
+            "overlay_id": "",
+            "title": "The Bugatchi Fit",
+            "image": "shopify:\/\/shop_images\/Rectangle_25.png",
+            "column": "right",
+            "alignment": "left",
+            "ratio": "ratio-3"
+          }
+        },
+        {
+          "type": "media",
+          "settings": {
+            "overlay_id": "",
+            "title": "Features & Benefits",
+            "image": "shopify:\/\/shop_images\/Rectangle_168.png",
+            "column": "right",
+            "alignment": "right",
+            "ratio": "ratio-1"
+          }
+        },
+        {
+          "type": "media",
+          "settings": {
+            "overlay_id": "",
+            "title": "FAQ & Testimonials",
+            "image": "shopify:\/\/shop_images\/Rectangle_30_main.png",
+            "column": "right",
+            "alignment": "left",
+            "ratio": "ratio-4"
+          }
+        }
+      ]
+    } 
+  ]
+}
+{% endschema %}

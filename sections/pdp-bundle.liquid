@@ -1,0 +1,225 @@
+{% assign bundle_settings = product.metafields.discountsGuruNativeBundle.offerObject.value %}
+{% assign collection_handle = bundle_settings.bundleOfferCollection.handle %}
+{%- assign productGid = "gid://shopify/Product/" | append: product.id | strip -%}
+
+{% assign MAX_ITEMS_COUNT = bundle_settings.collectionProductsToDiscount | default: 3 %}
+
+{% assign bundled_products_inventory = 0 %} 
+{% assign unlimited_inventory = false %}
+{% assign first_variant_select_quantity = '' %}
+{%- assign selected_qty = MAX_ITEMS_COUNT -%}
+{% assign discountObject = shop.metafields["discounts-guru"].settings.value.nativeBundles[productGid].discount %}
+
+{% assign discountValue = discountObject.value %}
+{% assign discountType = discountObject.type %}
+{% assign discountMessage = discountObject.message %}
+
+<script>
+  window.Bundle = {
+    product: {{ product | json }},
+    selectedVariant: {{ product.selected_or_first_available_variant | json }},
+    selectedQuantity: {{ selected_qty | json }},
+    bundleId: {{ bundle_settings.id | json }},
+    parentVariantId: {{ product.first_available_variant.id | json }},
+    bundleCollection: {{ bundle_settings.bundleOfferCollection | json }},
+    bundleQuantityAllowed: {{ MAX_ITEMS_COUNT }},
+    discount: {
+      value: Number("{{ discountValue }}"),
+      type: `{{ discountType }}`,
+      message: `{{ discountMessage }}`,
+    },
+  };
+</script>
+
+<div
+  class="Bundle"
+  id="{{ product.id }}"
+  style="--padding-desktop: {{ section.settings.padding_inline_desktop | divided_by: 10 }}rem; --padding-mobile:{{ section.settings.padding_inline_mobile | divided_by: 10 }}rem;"
+>
+  <div class="Bundle__media">
+    <div class="Bundle__child-images-container">
+      <div class="Bundle__loader hidden">
+        <div class="spinner">
+          <span class="spinner__circle"></span>
+        </div>
+      </div>
+      <div class="Bundle__custom-image">
+        <div class="Bundle__images-list">
+        </div>
+        {% if product.metafields.custom.bundle_trigger_image.value != blank %}
+          <img id="box-image" src="{{ product.metafields.custom.bundle_trigger_image.value | image_url: width: 1000 }}" alt="Sock box">
+        {% else %}
+          <img id="box-image" src="https://cdn.shopify.com/s/files/1/0830/0573/5197/files/socks_box_new.png?v=1698841338" alt="Sock box">
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <div class="Bundle__form">
+    <div class="Bundle__form-head">
+      <div class="Bundle__breadcrumbs"></div>
+
+      <div class="Bundle__title">
+        <h1 class="Bundle__title h5">
+          {% render 'product-detail-item', inputString: product.title %}
+        </h1>
+      </div>
+      <div class="Bundle__price-group empty-price">
+        <span id="compare-price" class="Bundle__price Bundle__price--compare h5"></span>
+        <span id="price" class="Bundle__price h5"></span>
+        <span class="Bundle__price--placeholder">Select options to see price</span>
+      </div>
+      {% if discountType == "percentage" and discountValue != 0 and discountMessage != blank %}
+        <span class="Bundle__discount">{%- render 'icon-discount' -%}{{ discountMessage }}</span>
+      {% endif %}
+    </div>
+
+    <div class="Bundle__form-body">
+      <div class="Bundle__products" data-section-id="{{ section.id }}">
+        {% render 'bundle-products' | collection_handle: collection_handle %}
+      </div>
+    </div>
+
+    <div class="Bundle__form-footer">
+      <div class="Bundle__cta-available">
+        <div class="Bundle__error-msg text-small">
+          <div class="Bundle__cta-wrapper">
+            <div class="Bundle__quantity">
+              {% include 'icon' with 'socks' %}
+              <span class="Bundle__quantity-selected">0</span> / <span class="Bundle__quantity-max">{{ MAX_ITEMS_COUNT }}</span> ITEMS
+            </div>
+            <button class="Button Button-primary Bundle__btn-cart">ADD TO BAG</button>
+            <div class="klarna-pay--wrapper klarna-pay--wrapper-desktop">
+              <div id="klarna-pay--desktop"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="Bundle__error-container"></p> 
+      <div class="Bundle__cta-unavailable">
+        <div class="Bundle__btn-sold_out Button" style="display: none;">
+          <span class="text upper-case">notify me when back in stock</span>
+          <div class="notify__backdrop"></div>
+          <div class="notify__form">
+            <span class="upper-case text-large notify__form--title">back in stock notification</span>
+            <p class="text">
+              Enter your email address to be notified when this item will be back in stock. By entering your email you agree to our Privacy Policy and Terms & Conditions.
+            </p>
+            <form>
+              <div class="notify__form-input-wrapper">
+                <input class="text" type="email" placeholder="Enter your email address" required>
+                <div class="invalid-email-message">
+                  <div class="message-wrapper">
+                    <span class="text-small upper-case">invalid email address</span>
+                  </div>
+                </div>
+              </div>
+              <button class="Button Button-primary-outline">Notify me</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    {%- if product.description != blank -%}
+      <div class="Bundle__details">
+        <p class="Bundle__details--title">Product details</p>
+          {{ product.description }}
+      </div>
+    {%- endif -%}
+    
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Product bundle",
+    "class": "shopify-section--bordered page-width",
+    "settings": [
+      {
+        "type": "select",
+        "id": "layout",
+        "label": "Layout",
+        "options": [
+          {
+            "value": "normal",
+            "label": "Normal"
+          }, {
+            "value": "equal",
+            "label": "Equal Split"
+          }
+        ],
+        "default": "normal"
+      },
+      {
+        "type": "checkbox",
+        "id": "animate_nav",
+        "label": "Animate navigation on scroll",
+        "default": true,
+        "info": "Hide and show navigation on scroll"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_sku",
+        "label": "Show SKU",
+        "default": false
+      },
+      {
+        "type": "header",
+        "content": "Media"
+      }, {
+        "type": "checkbox",
+        "id": "show_thumbnails",
+        "label": "Show thumbnails on desktop",
+        "default": false
+      }, {
+        "type": "checkbox",
+        "id": "enable_video_looping",
+        "label": "Enable video looping",
+        "default": true
+      }, {
+        "type": "header",
+        "content": "Details' Tabs"
+      }, {
+        "type": "page",
+        "id": "tab_page_1_handle",
+        "label": "First page"
+      }, {
+        "type": "page",
+        "id": "tab_page_2_handle",
+        "label": "Second page"
+      },
+      {
+        "type": "link_list",
+        "id": "menu",
+        "default": "main-menu",
+        "label": "Menu | Desktop"
+      },
+      {
+        "type": "link_list",
+        "id": "menu_mobile",
+        "default": "main-menu",
+        "label": "Menu | Mobile"
+      },
+      {
+        "type": "range",
+        "id": "padding_inline_desktop",
+        "min": 0,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "label": "Inline padding | Desktop",
+        "default": 40
+      },
+      {
+        "type": "range",
+        "id": "padding_inline_mobile",
+        "min": 0,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "label": "Inline padding | Mobile",
+        "default": 20
+      }
+    ]
+  }
+{% endschema %}

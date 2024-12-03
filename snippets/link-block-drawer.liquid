@@ -1,0 +1,110 @@
+{% if pointedList.size > 0 %}
+    {% if pointedList.size == 1 and pointedList[0].title == parent_title %}
+        {% assign pointedList = pointedList[0].links %}
+    {% endif %}
+    <ul class="menu-drawer__menu list-menu" role="list" tabindex="-1">
+        {%- for link in pointedList -%}
+            {% assign isThirdCollapsable = false %}
+            {% if link.links != blank and section.settings.child_type == 'collapsable' %}
+                {% assign isThirdCollapsable = true %}
+            {% endif %}
+            <li class="{% if isThirdCollapsable == true %}menu-drawer__menu--item-collapsable{% endif %}">
+                {%- if link.links == blank -%}
+                    <a 
+                        href="{{ link.url }}?nav.p1={{ itemHandle }}.e1{%- if link.type == "collection_link" -%}&filter.v.availability=1{%- endif -%}" 
+                        class="menu-drawer__menu-item link link--text list-menu__item text-large focus-inset menu-drawer__menu-item--level-2"{% if childlink.current %} aria-current="page"{% endif %}
+                        title="{{ link.title | escape }}"
+                    >
+                        {{ link.title | escape }}
+                    </a>
+                {%- else -%}
+                    {% if isThirdCollapsable == true %}<div class="menu-drawer__menu-collapsable-wrapper" data-behaviour="{{ behaviour }}">{% endif %}
+
+                        {% if isThirdCollapsable == true and behaviour == 'collapse' %}
+                            <span 
+                                class="menu-drawer__menu-item link link--text list-menu__item text-large focus-inset menu-drawer__menu-item--level-2 w-full"
+                            >
+                                {{ link.title | escape }}
+                            </span>
+                        {% else %}
+                            <a 
+                                href="{{ link.url }}?nav.p1={{ itemHandle }}.e1&nav.p2={{ link.handle }}.e2{%- if link.type == "collection_link" -%}&filter.v.availability=1{%- endif -%}" 
+                                class="menu-drawer__menu-item link link--text list-menu__item text-large focus-inset menu-drawer__menu-item--level-2"{% if link.current %} aria-current="page"{% endif %}
+                                title="{{ link.title | escape }}"
+                            >
+                                {{ link.title | escape }}
+                            </a>
+                        {% endif %}
+
+                        {% if isThirdCollapsable == true %}
+                            <div class="menu-drawer__menu-collapsable-icons">
+                                {% render 'icon' with 'plus' %}
+                                {% render 'icon' with 'minus' %}
+                            </div>
+                        {% endif %}
+                    {% if isThirdCollapsable == true %}</div>{% endif %}
+                    <ul class="menu-drawer__menu--item-content menu-drawer__menu list-menu{% if section.settings.child_indentation == 'indented' %} child-list-menu{% endif %}" role="list" tabindex="-1">
+                        {%- for childlink in link.links -%}
+                            {% assign isCollapsable = false %}
+                            {% if childlink.links != blank and section.settings.grand_child_type == 'collapsable' %}
+                                {% assign isCollapsable = true %}
+                            {% endif %}
+                            <div class="animation-container">
+                                <li class="menu-drawer__menu--item {% if isCollapsable == true %}menu-drawer__menu--item-collapsable{% endif %}">
+                                    {% if childlink.links == blank %}
+                                        <a 
+                                            href="{{ childlink.url }}?nav.p1={{ itemHandle }}.e1&nav.p2={{ link.handle }}.e2{%- if childlink.type == "collection_link" -%}&filter.v.availability=1{%- endif -%}" 
+                                            class="menu-drawer__menu-item link link--text list-menu__item text-large focus-inset menu-drawer__menu-item--level-3"
+                                            title="{{ childlink.title | escape }}"
+                                            {% if childlink.current %} aria-current="page"{% endif %}
+                                        >
+                                            {{ childlink.title | escape }}
+                                        </a>
+                                    {% else %}
+                                    {% if isCollapsable == true %}<div class="menu-drawer__menu-collapsable-wrapper" data-behaviour="{{ behaviour }}">{% endif %}
+                                    {% if isCollapsable == true and behaviour == 'collapse' %}
+                                        <span class="menu-drawer__menu-item link link--text list-menu__item text-large focus-inset has-children menu-drawer__menu-item--level-3 w-full">{{ childlink.title | escape }}</span>
+                                    {% else %}
+                                        <a 
+                                        href="{{ childlink.url }}?nav.p1={{ itemHandle  }}.e1&nav.p2={{ link.handle }}.e2&nav.p3={{ childlink.handle }}.e3{%- if childlink.type == "collection_link" -%}&filter.v.availability=1{%- endif -%}" 
+                                        class="menu-drawer__menu-item link link--text list-menu__item text-large focus-inset has-children menu-drawer__menu-item--level-3"
+                                        title="{{ childlink.title | escape }}"
+                                        {% if childlink.current %} aria-current="page"{% endif %}
+                                        >
+                                            {{ childlink.title | escape }}
+                                        </a>
+                                    {% endif %}
+
+                                        {% if isCollapsable == true %}
+                                            <div class="menu-drawer__menu-collapsable-icons">
+                                                {% render 'icon' with 'plus' %}
+                                                {% render 'icon' with 'minus' %}
+                                            </div>
+                                        {% endif %}
+                                    {% if isCollapsable == true %}</div>{% endif %}
+                                    <ul class="menu-drawer__menu--item-content list-unstyled{% if section.settings.grand_child_indentation == 'indented' %} list-grandchild{% endif %}">
+                                        {% for grandchildlink in childlink.links %}
+                                            <div class="animation-container">
+                                                <li>
+                                                    <a 
+                                                    href="{{ grandchildlink.url }}?nav.p1={{ itemHandle }}.e1&nav.p2={{ link.handle }}.e2&nav.p3={{ childlink.handle }}.e3{%- if grandchildlink.type == "collection_link" -%}&filter.v.availability=1{%- endif -%}" 
+                                                    class="menu-drawer__menu-item link link--text list-menu__item text-large focus-inset menu-drawer__menu-item--level-4"
+                                                    title="{{ grandchildlink.title | escape }}"
+                                                    {% if grandchildlink.current %} aria-current="page"{% endif %}
+                                                    >
+                                                    {{ grandchildlink.title | escape }}
+                                                    </a>
+                                                </li>
+                                            </div>
+                                        {% endfor %}
+                                    </ul>
+                                    {% endif %}
+                                </li>
+                            </div>
+                        {%- endfor -%}
+                    </ul>
+                {%- endif -%}
+            </li>
+        {%- endfor -%}
+    </ul>
+{% endif %}

@@ -1,0 +1,313 @@
+<div class="hub-faq" data-section="hub-faq" data-overlay-id="{{ section.settings.overlay_id | handleize }}">
+  <div class="hub-faq--wrapper">
+    <div class="hub-faq__testimonials-list">
+      {%- assign testimonial_blocks = section.blocks | where: "type", "testimonial" -%}
+      {%- for block in testimonial_blocks -%}
+        <div class="hub-faq__testimonial">
+          {% if block.settings.testimonial != blank %}
+            <h2 
+              class="hub-faq__testimonial--review hub-font{%- if section.settings.is_dynamic_rev -%}--dynamic{%- endif -%}"
+              style="--font-desktop: {{ section.settings.font_size_desktop_rev }}px; --font-mobile: {{ section.settings.font_size_mobile_rev }}px; --clamp-value: {{ section.settings.clamp_value_rev }}vw"
+            >{{ block.settings.testimonial }}</h2>
+          {% endif %}
+          {% if block.settings.author != blank %}
+            <p 
+              class="hub-faq__testimonial--author hub-font{%- if section.settings.is_dynamic_aut -%}--dynamic{%- endif -%}"
+              style="--font-desktop: {{ section.settings.font_size_desktop_aut }}px; --font-mobile: {{ section.settings.font_size_mobile_aut }}px; --clamp-value: {{ section.settings.clamp_value_aut }}vw"
+            >&mdash; {{ block.settings.author }}</p>
+          {% endif %}
+        </div>
+      {%- endfor -%}
+    </div>
+    <div class="hub-faq__questions-list">
+      <h2 
+        class="hub-faq__title hub-font{%- if section.settings.is_dynamic_faq -%}--dynamic{%- endif -%}"
+        style="--font-desktop: {{ section.settings.font_size_desktop_faq }}px; --font-mobile: {{ section.settings.font_size_mobile_faq }}px; --clamp-value: {{ section.settings.clamp_value_faq }}vw"
+      >FAQ</h2>
+      {%- assign question_blocks = section.blocks | where: "type", "question_answer" -%}
+      {%- for block in question_blocks -%}
+        <div class="hub-faq__question-item">
+          <div 
+            class="hub-faq__question hub-font{%- if section.settings.is_dynamic_que -%}--dynamic{%- endif -%}"
+            style="--font-desktop: {{ section.settings.font_size_desktop_que }}px; --font-mobile: {{ section.settings.font_size_mobile_que }}px; --clamp-value: {{ section.settings.clamp_value_que }}vw"
+          >
+            {{ block.settings.question }}
+            {% render "icons-new" with "hub-arrow-down" %}
+          </div>
+          <div class="hub-faq__answer">
+            <div class="hub-faq__answer--wrapper">
+              <p
+                class="hub-font{%- if section.settings.is_dynamic_ans -%}--dynamic{%- endif -%}"
+                style="--font-desktop: {{ section.settings.font_size_desktop_ans }}px; --font-mobile: {{ section.settings.font_size_mobile_ans }}px; --clamp-value: {{ section.settings.clamp_value_ans }}vw"
+              >{{ block.settings.answer }}</p>
+            </div>
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Hub Page - FAQ",
+  "class": "overlay-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "overlay_id",
+      "label": "Overlay ID",
+      "info": "ID of overlay is used to link overlay to other blocks"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "paragraph",
+      "content": "Enable responsive font sizing for dynamic text adjustments based on screen width. The Clamp ensures font size stays within defined range (Mobile - Desktop). Proportional scaling guarantees readability on various devices. Larger screens display larger text; smaller screens show appropriately scaled-down text. For example, 5vw clamp value means the font size is 5% of the screen width. If the screen width is 1600px, the font size is 80. If outside the range, the nearest valid value is selected"
+    },
+    {
+      "type": "header",
+      "content": "Typography | Reviews"
+    },
+    {
+      "type": "checkbox",
+      "id": "is_dynamic_rev",
+      "label": "Use responsive font size (Clamp)",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "font_size_desktop_rev",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Font size | Desktop",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "font_size_mobile_rev",
+      "min": 8,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "Font size | Mobile",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "clamp_value_rev",
+      "min": 0.2,
+      "max": 20,
+      "step": 0.2,
+      "unit": "vw",
+      "label": "Clamp value",
+      "default": 3
+    },
+    {
+      "type": "header",
+      "content": "Typography | Author"
+    },
+    {
+      "type": "checkbox",
+      "id": "is_dynamic_aut",
+      "label": "Use responsive font size (Clamp)",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "font_size_desktop_aut",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Font size | Desktop",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "font_size_mobile_aut",
+      "min": 8,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "Font size | Mobile",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "clamp_value_aut",
+      "min": 0.2,
+      "max": 20,
+      "step": 0.2,
+      "unit": "vw",
+      "label": "Clamp value",
+      "default": 1
+    },
+    {
+      "type": "header",
+      "content": "Typography | FAQ Title"
+    },
+    {
+      "type": "checkbox",
+      "id": "is_dynamic_faq",
+      "label": "Use responsive font size (Clamp)",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "font_size_desktop_faq",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Font size | Desktop",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "font_size_mobile_faq",
+      "min": 8,
+      "max": 80,
+      "step": 1,
+      "unit": "px",
+      "label": "Font size | Mobile",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "clamp_value_faq",
+      "min": 0.2,
+      "max": 20,
+      "step": 0.2,
+      "unit": "vw",
+      "label": "Clamp value",
+      "default": 3
+    },
+    {
+      "type": "header",
+      "content": "Typography | Question"
+    },
+    {
+      "type": "checkbox",
+      "id": "is_dynamic_que",
+      "label": "Use responsive font size (Clamp)",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "font_size_desktop_que",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Font size | Desktop",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "font_size_mobile_que",
+      "min": 8,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "Font size | Mobile",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "clamp_value_que",
+      "min": 0.2,
+      "max": 20,
+      "step": 0.2,
+      "unit": "vw",
+      "label": "Clamp value",
+      "default": 3
+    },
+    {
+      "type": "header",
+      "content": "Typography | Answer"
+    },
+    {
+      "type": "checkbox",
+      "id": "is_dynamic_ans",
+      "label": "Use responsive font size (Clamp)",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "font_size_desktop_ans",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Font size | Desktop",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "font_size_mobile_ans",
+      "min": 8,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "Font size | Mobile",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "clamp_value_ans",
+      "min": 0.2,
+      "max": 20,
+      "step": 0.2,
+      "unit": "vw",
+      "label": "Clamp value",
+      "default": 3
+    }
+  ],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "Testimonial",
+      "settings": [
+        {
+          "type": "text",
+          "id": "testimonial",
+          "label": "Testimonial"
+        },
+        {
+          "type": "text",
+          "id": "author",
+          "label": "Author"
+        }
+      ]
+    },
+    {
+      "type": "question_answer",
+      "name": "Question & Answer",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question"
+        },
+        {
+          "type": "text",
+          "id": "answer",
+          "label": "Answer"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "category": "Hub Page",
+      "name": "Hub Page - FAQ", 
+      "settings": {}
+    } 
+  ]
+}
+{% endschema %}

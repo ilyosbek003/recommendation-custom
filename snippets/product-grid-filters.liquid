@@ -1,0 +1,79 @@
+<div class="filters filters__bar" style="--padding-desktop: {{ section.settings.padding_inline_desktop_filters | divided_by: 10 }}rem; --padding-mobile:{{ section.settings.padding_inline_mobile_filters | divided_by: 10 }}rem;">
+  <div class="filters__header text upper-case">
+    <div class="filters__count" data-value={{ paginate.items }}>{{ paginate.items }} RESULTS</div>
+    <div class="filters__filterBtn cursor-pointer">FILTERS</div>
+
+    {%- assign sort_by = "manual" -%}
+    {%- if resource.sort_by != blank -%}
+      {%- assign sort_by = resource.sort_by -%}
+    {%- endif -%}
+
+    <div class="filters__sortBtn" data-value="{{ sort_by }}">
+      <span id="sortBtn" class="cursor-pointer sort-btn text">SORT BY: {{ sort_by }} </span>
+      {% render 'icon-chevron-down' | class: 'collection-filters__icon' %}
+
+      <div class="filters__sort-dropdown">
+        <ul>
+          {%- for option in resource.sort_options -%}
+            {%- assign optionName = option.name -%}
+            {%- if option.value == "manual" -%}
+              {%- assign optionName = "MANUAL" -%}
+            {%- elsif option.value == "title-ascending" -%}
+              {%- assign optionName = "TITLE ASCENDING" -%}
+            {%- elsif option.value == "title-descending" -%}
+              {%- assign optionName = "TITLE DESCENDING" -%}
+            {%- elsif option.value == "price-ascending" -%}
+              {%- assign optionName = "PRICE ASCENDING" -%}
+            {%- elsif option.value == "price-descending" -%}
+              {%- assign optionName = "PRICE DESCENDING" -%}
+            {%- elsif option.value == "created-ascending" -%}
+              {%- assign optionName = "CREATED ASCENDING" -%}
+            {%- elsif option.value == "created-descending" -%}
+              {%- assign optionName = "CREATED DESCENDING" -%}
+            {%- endif -%}
+
+            <li class="cursor-pointer filters__sort-option {% if sort_by == option.value %}active{% endif %}" data-value={{ option.value }}>{{ optionName }}</li>
+          {%- endfor -%}
+        </ul>
+      </div>
+      <div class="filters__sort-backdrop"></div>
+    </div>
+  </div>  
+</div>
+<div class="filters filters__drawer" style="--padding-desktop: {{ section.settings.padding_inline_desktop_filters | divided_by: 10 }}rem; --padding-mobile:{{ section.settings.padding_inline_mobile_filters | divided_by: 10 }}rem;">
+  <div class="filters__drawer-header">
+    <span>FILTERS</span>
+    <button class="filters__drawer-closeBtn">
+      {% render 'icon-cross' | class: 'mobile-filters__drawer__icon close' %}
+    </button>
+  </div>
+  <div class="filters__drawer-body">
+    {%- for filter in resource.filters -%}
+      {% include "product-grid-filter-custom-values" %}
+    {%- endfor -%}
+  </div>
+  <div class="filters__drawer-footer">
+    <button class="Button Button-primary filters__drawer-apply text">APPLY FILTERS</button>
+    <button class="Button Button-secondary filters__drawer-clear text">CLEAR ALL</button>
+  </div>
+</div>
+<div class="filters__drawer-backdrop"></div>
+{% assign sizeOfActiveFilters = resource.filters | map: "active_values" | where: "active" | size %}
+{% assign sizeOfHiddenFilters = resource.filters | where: "label", "hidden" | size %}
+{% assign sizeOfSelectedFilters = sizeOfActiveFilters | minus: sizeOfHiddenFilters %}
+<div class="filters__selected{% if sizeOfSelectedFilters < 1 %} hidden{% endif %}" style="--padding-desktop: {{ section.settings.padding_inline_desktop_filters | divided_by: 10 }}rem; --padding-mobile:{{ section.settings.padding_inline_mobile_filters | divided_by: 10 }}rem;">
+  {% for filter in resource.filters %}
+    {% if filter.label == "hidden" %}
+      {% continue %}
+    {% endif %}
+    {% for value in filter.active_values %}
+      <div class="filters__selected--item {% unless filter.label == "Size" %} item-capitalized{% endunless %}" data-value='{{ value.value }}' data-type="item">
+        {% render "filter-value-label", filter_label: filter.label, filter_value: value.label %}
+        {% render 'icon-cross-full' | class: 'mobile-filters__drawer__icon close' %}
+      </div>
+    {% endfor %}
+  {% endfor %}
+  <div data-type="clear" class="filters__selected--remove">
+    <a href="{{ collection.url }}">Clear All</a>
+  </div>
+</div>

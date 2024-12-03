@@ -1,0 +1,97 @@
+{
+  "sections": {
+    "2fc9476b-dc2d-4845-901b-1a0b698a83c5": {
+      "type": "newsletter",
+      "blocks": {
+        "template--15139494690899__2fc9476b-dc2d-4845-901b-1a0b698a83c5-heading-1": {
+          "type": "heading",
+          "settings": {
+            "heading": "15% OFF Your Next Order",
+            "heading_size": "h2"
+          }
+        },
+        "template--15139494690899__2fc9476b-dc2d-4845-901b-1a0b698a83c5-paragraph-1": {
+          "type": "paragraph",
+          "settings": {
+            "text": "<p>When You Subscribe Now!<\/p>"
+          }
+        },
+        "template--15139494690899__2fc9476b-dc2d-4845-901b-1a0b698a83c5-email_form-1": {
+          "type": "email_form",
+          "settings": {
+          }
+        }
+      },
+      "block_order": [
+        "template--15139494690899__2fc9476b-dc2d-4845-901b-1a0b698a83c5-heading-1",
+        "template--15139494690899__2fc9476b-dc2d-4845-901b-1a0b698a83c5-paragraph-1",
+        "template--15139494690899__2fc9476b-dc2d-4845-901b-1a0b698a83c5-email_form-1"
+      ],
+      "settings": {
+        "color_scheme": "background-2",
+        "full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
+    },
+    "e230d089-5b47-46ca-bfd8-dfe8ab88d2c7": {
+      "type": "background-video",
+      "blocks": {
+        "b723805c-2f4a-4b34-a539-9fa39fa05ca3": {
+          "type": "heading",
+          "settings": {
+            "heading": "Holiday Dressing",
+            "heading_size": "h3",
+            "heading_size_mobile": "h2_mobile"
+          }
+        },
+        "5af67fcd-5cec-40f9-963f-debb0b308a18": {
+          "type": "text",
+          "settings": {
+            "text": "Introducing the latest arrivals showcasing vibrant reds and cold greys, a seamless blend of warmth and sophistication for holiday dressing.",
+            "text_size": "text"
+          }
+        },
+        "11e20f8e-e57b-42a3-8490-8a567c53f89a": {
+          "type": "buttons",
+          "settings": {
+            "buttons_style": "secondary",
+            "button_background": false,
+            "button_1_text": "EXPLORE NOW",
+            "button_1_link": "shopify:\/\/collections\/new-arrival-fall-2023-trend-3",
+            "button_2_text": "",
+            "button_2_link": "",
+            "button_3_text": "",
+            "button_3_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "b723805c-2f4a-4b34-a539-9fa39fa05ca3",
+        "5af67fcd-5cec-40f9-963f-debb0b308a18",
+        "11e20f8e-e57b-42a3-8490-8a567c53f89a"
+      ],
+      "settings": {
+        "section_style_type": "small",
+        "section_type": "image",
+        "overlay": 20,
+        "lazyload": true,
+        "section_link": "shopify:\/\/collections\/new-arrival-fall-2023-trend-3",
+        "video_url_desktop": "",
+        "video_url_mobile": "",
+        "control_btns": "disabled",
+        "background_image": "shopify:\/\/shop_images\/2023_FW23_CROPS_09.01_16x97_b18ac4d6-28a7-405f-8c5c-868e005455e4.jpg",
+        "background_image_mobile": "shopify:\/\/shop_images\/2023_FW23_CROPS_UNBRANDED_10.30_1_0b3adc36-5ab4-4ed7-bf8a-e72e2a29a2e2.jpg",
+        "content_position": "bottomRight",
+        "desktop_margin_top": 50,
+        "desktop_margin_bottom": 50,
+        "mobile_margin_top": 25,
+        "mobile_margin_bottom": 25
+      }
+    }
+  },
+  "order": [
+    "2fc9476b-dc2d-4845-901b-1a0b698a83c5",
+    "e230d089-5b47-46ca-bfd8-dfe8ab88d2c7"
+  ]
+}

@@ -1,0 +1,362 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-loyalty",
+      "blocks": {
+        "loyalty_CWfBiA": {
+          "type": "loyalty",
+          "settings": {
+            "header_select": "center",
+            "header_title": "You’re Invited",
+            "header_title_size": 4,
+            "header_image": "shopify:\/\/shop_images\/00180_067_D_copy_1_1_c60afb1e-c166-4e65-9b32-ce662f0eacdb.png",
+            "header_mobile_image": "shopify:\/\/shop_images\/00180_067_D_copy_1_4_d90c305c-2af2-48af-883c-7895498ef978.png",
+            "header_description": "Your gateway to an unparalleled BUGATCHI experience.",
+            "header_description_size": 2,
+            "header_cta": "Join The 1981 Club",
+            "header_cta_size": 1.8,
+            "header_url": "\/account\/login"
+          }
+        },
+        "loyalty_y7NwPY": {
+          "type": "loyalty",
+          "settings": {
+            "header_select": "left",
+            "header_title": "How it Works",
+            "header_title_size": 4,
+            "header_image": "shopify:\/\/shop_images\/00180_067_D_copy_1_2_b017aa4f-cd14-4b7b-9cd2-58ec790de807.png",
+            "header_mobile_image": "shopify:\/\/shop_images\/00180_067_D_copy_1_5_845dfdf1-a625-4c79-add5-62b05e9cb5c0.png",
+            "header_description": "Register for an account and stay logged in when completing a purchase to start earning points today. Points will upgrade your tier and unlock exclusive rewards so you can enjoy members-only advantages and benefits!",
+            "header_description_size": 2,
+            "header_cta": "Join Now",
+            "header_cta_size": 1.8,
+            "header_url": "\/account\/login"
+          }
+        },
+        "loyalty_blocks_jwp3hq": {
+          "type": "loyalty_blocks",
+          "settings": {
+            "block_svg": "rewards",
+            "title": "rewards",
+            "description": "View your tier status, points, benefits, and rewards.",
+            "modal_title": "Modal title"
+          }
+        },
+        "loyalty_blocks_kYtbGG": {
+          "type": "loyalty_blocks",
+          "settings": {
+            "block_svg": "orders",
+            "title": "orders",
+            "description": "Track and view orders and history ",
+            "modal_title": "Modal title"
+          }
+        },
+        "loyalty_blocks_L3RDXh": {
+          "type": "loyalty_blocks",
+          "settings": {
+            "block_svg": "wishlist",
+            "title": "wishlist",
+            "description": "Search, view, and manage your saved items ",
+            "modal_title": "Modal title"
+          }
+        },
+        "loyalty_blocks_kFDWf3": {
+          "type": "loyalty_blocks",
+          "settings": {
+            "block_svg": "loyalty-account",
+            "title": "account",
+            "description": "View or edit your contact and billing info, addresses, and password ",
+            "modal_title": "Modal title"
+          }
+        },
+        "loyalty_blocks_N88gKM": {
+          "type": "loyalty_blocks",
+          "settings": {
+            "block_svg": "faq",
+            "title": "faq",
+            "description": "Consult answers to frequently asked questions about The 1981 Club ",
+            "modal_title": "Modal title"
+          }
+        },
+        "loyalty_blocks_rAWHxL": {
+          "type": "loyalty_blocks",
+          "settings": {
+            "block_svg": "contact",
+            "title": "contact us",
+            "description": "Contact customer service for questions or additional information  ",
+            "modal_title": "Modal title"
+          }
+        },
+        "faq_nHxRjj": {
+          "type": "faq",
+          "settings": {
+            "faq_title": "What is The 1981 Club?",
+            "faq_description": "<p>The 1981 Club is our loyalty program for our customers. It offers 4 tier levels, each with distinct rewards and benefits based on your annual spending at BUGATCHI. <br\/><br\/>FOUNDER – Enjoy an annual birthday gift of 600 points that may be redeemed for $30 voucher. <br\/><br\/>HERITAGE – Receive an annual birthday gift of 1,500 points that may be redeemed for $75 voucher, free standard ground shipping (US only) and early access to sales and promotions. <br\/><br\/>LEGACY – Receive an annual birthday gift of 3,000 points that may be redeemed for $150 voucher, early access to sales and promotions, and free expedited three business day shipping on all orders (US only). <br\/><br\/>AMBASSADOR – Receive an annual birthday gift of 5,000 points that may be redeemed for $250 voucher, early access to sales and promotions, free expedited three business day shipping on all orders (US only), and exclusive access to private sales and events. <\/p>"
+          }
+        },
+        "faq_XU8WEi": {
+          "type": "faq",
+          "settings": {
+            "faq_title": "I am an existing customer, how do I join The 1981 Club?",
+            "faq_description": "<p>As an existing customer at BUGATCHI, your customer account will be automatically registered for The 1981 Club, as long as you have a valid email address. Your status within The 1981 Club will be based on your annual spending. To keep earning points and enjoying your benefits, please ensure that you log in to your existing account when making a purchase. <\/p>"
+          }
+        },
+        "faq_MRWwQD": {
+          "type": "faq",
+          "settings": {
+            "faq_title": "I am a new customer, how can I register for The 1981 Club?",
+            "faq_description": "<p>When you complete a purchase with a valid email address, you will immediately be placed in the tier corresponding to your total spend. Alternatively, you can create an account on our website’s ‘Account’ section. <\/p>"
+          }
+        },
+        "faq_bcyGP8": {
+          "type": "faq",
+          "settings": {
+            "faq_title": "How do I receive my member benefits?",
+            "faq_description": "<p>To access and take advantage of your member benefits, please ensure you are logged into your account when completing an order so that you can benefit from perks and rewards.  <\/p>"
+          }
+        },
+        "faq_neqULU": {
+          "type": "faq",
+          "settings": {
+            "faq_title": "How can I manage my account details?",
+            "faq_description": "<p>You can manage your account details by signing into your existing customer account and visiting the ‘Account’ tab, situated on your Member Homepage. <br\/><br\/>If you require further assistance, you can reach out to our customer service team at customerservice@bugatchi.com. Please include your telephone number with your inquiry so that we may reach you during our standard business hours (Monday through Friday, from 8:00 a.m. to 5:00 p.m. EST). <br\/><br\/> <\/p>"
+          }
+        },
+        "faq_B8G7Py": {
+          "type": "faq",
+          "settings": {
+            "faq_title": "Can I opt-out or close my account?",
+            "faq_description": "<p>If you wish to complete a purchase without creating an account, you may opt to ‘Check Out as Guest’ at Checkout. Should you decide to close your account, please note that your account cannot be recovered and you will lose any accumulated points, rewards, and benefits, in addition to your current tier status. <br\/><br\/>To close your account, please contact our customer service team at customerservice@bugatchi.com. Please include your telephone number with your inquiry so that we may reach you during our standard business hours (Monday through Friday, from 8:00 a.m. to 5:00 p.m. EST). <\/p>"
+          }
+        },
+        "faq_NT4n3d": {
+          "type": "faq",
+          "settings": {
+            "faq_title": "Can I use two different email addresses for the same account?",
+            "faq_description": "<p>Only one email may be used per account. If you wish to merge two existing accounts, please contact our customer service team at customerservice@bugatchi.com. Please include your telephone number with your inquiry so that we may reach you during our standard business hours (Monday through Friday, from 8:00 a.m. to 5:00 p.m. EST). <\/p>"
+          }
+        },
+        "faq_KWnYx6": {
+          "type": "faq",
+          "settings": {
+            "faq_title": "How do I reset my account password?",
+            "faq_description": "<p>To reset your account password, visit our website’s ‘Account’ section and click ‘Forgot your password?’, you will then be prompted to reset your password.  <br\/><br\/>If you require further assistance, please contact our customer service team at customerservice@bugatchi.com. Please include your telephone number with your inquiry so that we may reach you during our standard business hours (Monday through Friday, from 8:00 a.m. to 5:00 p.m. EST). <\/p>"
+          }
+        },
+        "faq_mbB7mT": {
+          "type": "faq",
+          "settings": {
+            "faq_title": "How do I reach the next loyalty tier?",
+            "faq_description": "<p>Your loyalty tier status is determined by your total annual spending at BUGATCHI.com. To reach the next tier, you must meet the spending requirements for that tier. Please note that it may take up to 20 days for the upgrade to take effect. Once your tier status has been upgraded, you will begin to receive the benefits and advantages corresponding to your loyalty tier. For details regarding loyalty tiers and their perks, please visit the ‘Rewards’ tab, situated on your Member Homepage. <\/p>"
+          }
+        },
+        "faq_JFRmVc": {
+          "type": "faq",
+          "settings": {
+            "faq_title": "Why has my membership status changed?",
+            "faq_description": "<p>When you become a member of The 1981 Club, you have 12 months, from the day you create your account, to earn enough points to upgrade your tier status to the next loyalty tier. If your membership status has regressed, it means that you did not meet the minimum spending requirement to remain in your current tier. Alternatively, if your membership status has upgraded, it is a result of your annual spending corresponding to the minimum annual spending required to advance to a higher tier. <\/p>"
+          }
+        },
+        "faq_66rqqd": {
+          "type": "faq",
+          "settings": {
+            "faq_title": "How do I maintain my tier status?",
+            "faq_description": "<p>To maintain your tier status, you must meet the annual spending requirement for that tier. Your tier status is assigned according to your annual spending for the past 365 days. Once you upgrade tiers, you have 365 days to spend the required amount to remain in that tier or to upgrade tiers. <\/p>"
+          }
+        },
+        "faq_7gp4CQ": {
+          "type": "faq",
+          "settings": {
+            "faq_title": "Can I earn points on purchases made with a gift card\/on the purchase of a gift card?",
+            "faq_description": "<p>Points will be earned for the purchase of a gift card. Points are not earned upon redemption of a gift card. <\/p>"
+          }
+        },
+        "faq_4KzjcW": {
+          "type": "faq",
+          "settings": {
+            "faq_title": "Can I earn points on BUGATCHI purchases made at retail partners?",
+            "faq_description": "<p>Points can only be earned on purchases made at BUGATCHI.com<\/p>"
+          }
+        },
+        "faq_NbDLPz": {
+          "type": "faq",
+          "settings": {
+            "faq_title": "How long will it take for points to show up on my account?",
+            "faq_description": "<p>From the time your order was placed, there may be a delay of up to 20 days for the points to be added to your account. <\/p>"
+          }
+        },
+        "faq_ANCeKC": {
+          "type": "faq",
+          "settings": {
+            "faq_title": "What is the BUGATCHI.com Return\/Exchange Policy? How do I make a return\/exchange products?",
+            "faq_description": "<p>Purchases from BUGATCHI.com may be returned or exchanged within 14 days of delivery. <br\/><br\/>If your order included two or more items with separate delivery dates, time will be calculated from the date of receipt of the last item in your order. <br\/><br\/>All items must be returned in perfect, unworn condition, in their original packaging, complete with accessories, labels, a copy of the packing slip in its original shipping container (or one of equivalent durability), with tags and seals, where present, still attached to the items. BUGATCHI will not accept returns\/exchanges for items marked as “Final Sale”. Please note that all swimwear, as well as Products discounted by Forty Percent (40%) or more, and masks are considered Final Sale at the time or order and are not eligible for returns or exchanges. BUGATCHI reserves the right to refuse returns communicated and\/or shipped late and items that are not in the same condition in which they were received, at BUGATCHI’s sole discretion. <br\/><br\/>Please carefully and securely package the unworn\/unused items, complete and enclose the RETURNS\/EXCHANGE FORM, included with your BUGATCHI.com order and return them to us using the prepaid FedEx return shipping label requested from our Customer Service Department (customerservice@bugatchi.com) in accordance with the procedures outlined in Section 6 of our <a href=\"\/pages\/terms-conditions\" title=\"Terms & Conditions\">Terms and Conditions<\/a>. <br\/><br\/>Following receipt of your return and upon verification of its integrity, we will process your refund as soon as possible. The refund credit will be applied toward your original payment method. You will receive a Refund Confirmation email from us outlining this transaction, upon its completion. Following receipt of your return, please allow 7-10 business days for this process. <br\/><br\/>This Return\/Exchange Information is subject to our Refunds, Returns, and Cancellation Policy described in more detail in our Terms and Conditions. For international returns, please skip to Section 6.10 and 6.11 of our <a href=\"\/pages\/terms-conditions\" title=\"Terms & Conditions\">Terms and Conditions<\/a>. <\/p>"
+          }
+        },
+        "faq_nhinKd": {
+          "type": "faq",
+          "settings": {
+            "faq_title": "What happens to my points when I make a return?",
+            "faq_description": "<p>When a return is made, the points obtained for the items returned will be revoked from your account. <\/p>"
+          }
+        },
+        "faq_e4FXxX": {
+          "type": "faq",
+          "settings": {
+            "faq_title": "Can I use multiple offers on a single order?",
+            "faq_description": "<p>Multiple offers cannot be combined, this includes promotions, discounts, and offers. <\/p>"
+          }
+        },
+        "faq_z4BJk7": {
+          "type": "faq",
+          "settings": {
+            "faq_title": "What payment methods do you accept?",
+            "faq_description": "<p>BUGATCHI.com accepts payments by all major credit and debit cards (Visa, MasterCard, American Express, Discover, JCB, Diners Club, Elo), as well as Shop Pay, Apple Pay, Google Pay, and PayPal. <\/p>"
+          }
+        },
+        "faq_KjjfeX": {
+          "type": "faq",
+          "settings": {
+            "faq_title": "How do I know that my online order has been processed\/shipped?",
+            "faq_description": "<p>After your order has been placed, you will receive an auto-generated Order Confirmation email from BUGATCHI.com outlining the details of your order. Following shipment, you will also receive an auto-generated Shipping Confirmation email, with your FedEx tracking information. <\/p>"
+          }
+        },
+        "faq_VVKDGD": {
+          "type": "faq",
+          "settings": {
+            "faq_title": "Do you ship to Canada\/Internationally?",
+            "faq_description": "<p>Yes. We currently ship to the following countries and are working on adding more: <br\/><br\/>Australia, Bahamas, Bahrain, Barbados, Belize, Bermuda, Brazil, Brunei Darussalam, Canada, Chile, China, Costa Rica, Dominican Republic, France, Guatemala, Hong Kong, Ireland, Israel, Italy, Jamaica, Japan, Lebanon, Macao, Mexico, Morocco, Panama, Paraguay, Portugal, Qatar, Saint Kitts and Nevis, Spain, Thailand, Turkey, United Arab Emirates, and the United Kingdom. <\/p>"
+          }
+        },
+        "faq_4Di69j": {
+          "type": "faq",
+          "settings": {
+            "faq_title": "Do you offer expedited shipping?",
+            "faq_description": "<p>We offer FedEx 3-Day Shipping (which means three business days, starting the following business day after your order has shipped) for a standard Twenty-Five USD shipping fee. <\/p>"
+          }
+        },
+        "faq_3h86ep": {
+          "type": "faq",
+          "settings": {
+            "faq_title": "How do I contact customer service?",
+            "faq_description": "<p>You can reach out to our customer service team at customerservice@bugatchi.com. Please include your telephone number with your inquiry so that we may reach you during our standard business hours (Monday through Friday, from 8:00 a.m. to 5:00 p.m. EST). <\/p>"
+          }
+        }
+      },
+      "block_order": [
+        "loyalty_CWfBiA",
+        "loyalty_y7NwPY",
+        "loyalty_blocks_jwp3hq",
+        "loyalty_blocks_kYtbGG",
+        "loyalty_blocks_L3RDXh",
+        "loyalty_blocks_kFDWf3",
+        "loyalty_blocks_N88gKM",
+        "loyalty_blocks_rAWHxL",
+        "faq_nHxRjj",
+        "faq_XU8WEi",
+        "faq_MRWwQD",
+        "faq_bcyGP8",
+        "faq_neqULU",
+        "faq_B8G7Py",
+        "faq_NT4n3d",
+        "faq_KWnYx6",
+        "faq_mbB7mT",
+        "faq_JFRmVc",
+        "faq_66rqqd",
+        "faq_7gp4CQ",
+        "faq_4KzjcW",
+        "faq_NbDLPz",
+        "faq_ANCeKC",
+        "faq_nhinKd",
+        "faq_e4FXxX",
+        "faq_z4BJk7",
+        "faq_KjjfeX",
+        "faq_VVKDGD",
+        "faq_4Di69j",
+        "faq_3h86ep"
+      ],
+      "settings": {
+        "scroll_image": "shopify:\/\/shop_images\/Embossed_Paper_Text_Effect_1981_02_1.png",
+        "scroll_mobile_image": "shopify:\/\/shop_images\/Embossed_Paper_Text_Effect_1981_mobile_1_ed558b79-9229-4adb-ac1d-d33f1f1f5a4b.png",
+        "background_opacity": 0.5,
+        "blurness": 5,
+        "scroll_second_image": "shopify:\/\/shop_images\/Embossed_Paper_Text_Effect_member_1.png",
+        "scroll_second_mobile": "shopify:\/\/shop_images\/Embossed_Paper_Text_Effect_member_mobile_1.png",
+        "membership_title": "Earn Points and Get Rewarded",
+        "membership_heading": "Join The Club",
+        "membership_cta": "Sign Up Now",
+        "membership_url": "\/account\/login",
+        "auth_blurness": 6,
+        "auth_image": "shopify:\/\/shop_images\/Image_or_Video_Content_6ec1cfe3-00d2-4992-ab64-81b9c47e2970.png",
+        "auth_mobile_image": "shopify:\/\/shop_images\/Image_or_Video_Content_1eaf331b-1d4a-4b25-bfe9-9f7cbf9d2a66.png",
+        "home_image": "shopify:\/\/shop_images\/25_Look_108_1_copy_1_645d0cf2-0be8-448f-8eaa-9cde1c0f875e.png",
+        "home_mobile_image": "shopify:\/\/shop_images\/25_Look_108_1_copy_1_26ae2c72-9276-4e4a-90a2-29731c0dfec7.png",
+        "rewards_title": "Benefits",
+        "address_title": "ADDRESS BOOK",
+        "email_title": "Email",
+        "update_email_btn": "Update Email",
+        "email_success_msg": "Email updated successfully !",
+        "email_error_msg": "Error updating email",
+        "phone_title": "Telephone",
+        "phone_subtitle": "Phone Number",
+        "update_phone_btn": "Update Phone Number",
+        "phone_success_msg": "Phone number updated successfully !",
+        "phone_error_msg": "Error updating phone number",
+        "password_title": "Password",
+        "update_password_btn": "Update Password",
+        "password_success_msg": "Password updated successfully !",
+        "password_error_msg": "Error updating Password",
+        "faq_title": "FAQ",
+        "order_title": "Orders",
+        "order_description": "Track and view orders and history",
+        "empty_orders": "You don't have any orders yet.",
+        "earn_points": "EARN POINTS",
+        "available_rewards": "YOUR AVAILABLE REWARDS",
+        "claim_rewards": "CLAIM YOUR REWARDS",
+        "rewards_history": "REWARDS HISTORY",
+        "contact_us_title": "Contact Us",
+        "contact_us_description": "Fill out the form below and our customer service team will get in touch with you as soon as possible.",
+        "order_number": "Order Number",
+        "subject_title": "Subject",
+        "message_label": "Message",
+        "message_button": "SUBMIT",
+        "customer_inquiries": "CUSTOMER INQUIRIES",
+        "chat_with_us": "Chat with us",
+        "chat_with_url": "\/",
+        "chat_with_title": "Start a live chat",
+        "contact_telephone": "Telephone",
+        "contact_phone_number": 5618930555,
+        "phone_number_title": "(561) 893-0555",
+        "contact_email_label": "Email",
+        "contact_email": "customerservice@bugatchi.com",
+        "contact_email_title": "customerservice@bugatchi.com",
+        "wishlist_title": "Wishlist",
+        "wishlist_description": "Click the SAVE on an item page to add it to your Wishlist. When you're ready, add your saved items to your cart before you checkout",
+        "welcome_back": "welcome back",
+        "member_title": "member",
+        "points_title": "points",
+        "you_have_text": "you have",
+        "home_cta_title": "view",
+        "is_not_member": "NOT YET A MEMBER",
+        "join_title": "JOIN the club",
+        "privacy_title": "i accept the privacy statement",
+        "signup_title": "sign up now",
+        "already_member_title": "already a member",
+        "login_title": "Login",
+        "signin_title": "Sign In",
+        "forgot_password_title": "FORGOT PASSWORD?"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

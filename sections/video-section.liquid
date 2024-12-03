@@ -1,0 +1,223 @@
+<style>
+  .video-section {
+    padding: {{ section.settings.desktop_padding_vertical }}px {{ section.settings.desktop_padding_horizontal }}px;
+  }
+
+  @media screen and (max-width: 750px) {
+    .video-section {
+      padding: {{ section.settings.mobile_padding_horizontal }}px {{ section.settings.mobile_padding_vertical }}px;
+    }
+  }
+</style>
+
+<section 
+  class="video-section header"
+  style="width: 100%;
+         display: flex !important;
+         flex-direction: column;
+         gap: 1rem;"
+  >
+  <div 
+    class="video-container" 
+    style="width: 100%;
+           height: 100%;
+           display: block;
+           aspect-ratio: 16/9;"
+  >
+    <iframe 
+      src="{{ section.settings.video_url }}"
+      width="426" 
+      height="240" 
+      frameborder="0" 
+      allow="autoplay; fullscreen; picture-in-picture"
+      style="width: 100%;
+             height: 100%;
+             display: block;
+             aspect-ratio: 16/9;">
+    </iframe>
+  </div>
+  <div class="content" style="display: flex; justify-content: space-between;">
+    <div class="titles" style="flex: 0.2;">
+      <div class="title-container" style="width: max-content; text-align: center;">
+        <h3 class="h4">{{ section.settings.heading }}</h3>
+        <p>{{ section.settings.sub-heading }}</p>
+      </div>
+    </div>
+    <div class="desc-container">
+      <p class="desc show-less" style="--lines-to-be-hidden: {{ section.settings.lines_to_be_hidden }}">{{ section.settings.content }}</p>
+      <div class="toggle-container">
+        <button class="toggle" data-toggle-show="less" data-less="Read less" data-more="Read more">Read more</button>
+      </div>
+
+      <div 
+        class="ctas" 
+        style="padding: 2rem 0;
+               display: flex;
+               justify-content: center;
+               gap: 8rem;"
+      >
+        {% for i in (1..2) %}
+          {%- assign currentUrl = "cta_url_" | append: i -%}
+          {%- assign currentText = "cta_text_" | append: i -%}
+          {%- assign currentWindowSettings = "open_new_window_" | append: i -%}
+
+          {%- assign ctaUrl = section.settings[currentUrl] -%}
+          {%- assign ctaText = section.settings[currentText] -%}
+          {%- assign ctaWindow = section.settings[currentWindowSettings] -%}
+
+          <a 
+            href="{{ ctaUrl }}" 
+            class="Button-primary-outline" 
+            {% if ctaWindow %} target="_blank" {% endif %}
+            style="padding: 0.5rem 1rem;
+                   font-size: 10px;
+                   min-width: 170px;
+                   text-align: center;"
+          >
+            {{ ctaText }}
+          </a>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Video Section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Padding | Desktop"
+    },
+    {
+      "type": "range",
+      "id": "desktop_padding_horizontal", 
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding Horizontal | Desktop",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "desktop_padding_vertical",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding Vertical | Desktop",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Padding | Mobile"
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_horizontal",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding Horizontal | Mobile",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_vertical",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding Vertical | Mobile",
+      "default": 10
+    },
+    {
+      "type": "header",
+      "content": "Video"
+    },
+    {
+      "type": "video_url",
+      "label": "Video URL",
+      "id": "video_url",
+      "accept": [
+        "vimeo", "youtube"
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Heading and Texts"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "UN HÔTEL SUR LA MER"
+    },
+    {
+      "type": "text",
+      "id": "sub-heading",
+      "label": "Sub-heading",
+      "default": "-A HOTEL BY THE SEA-"
+    },
+    {
+      "type": "textarea",
+      "id": "content",
+      "label": "Content",
+      "default": "The BUGATCHI Spring/Summer 2024 collection is inspired by worldwide destinations and their essential connections to the journey before them. It comes to life through several chapters that illustrate the beauty of the journey within the destination. The Digital Presentation explores and indulges in the hotel experience, shot on location at The Boca Raton, a historic sea-side resort. Hotel guests move through environments that represent the real moments of a seaside retreat. The collection has evolved into a versatile, upscale, relaxed and purpose-led assortment. Sun-kissed tans move freely under soft natural materials while BUGATCHI’s legacy of stretch and comfort finds a new expression across fine linens, allowing for ease and movement. Sweaters achieve rich textures by transcending into new silhouettes that were once reserved for jerseys, highlighting craft and an artisanal finish suitable for the most important occasions. Layers have lightened, allowing indoor and outdoor living experiences, pushing traditional outerwear into a new landscape.This season we rediscover that the best experiences are the simplest and most unexpected. While arriving to a destination is often regarded as the end of the journey, we see it as the beginning of a new one."
+    },
+    {
+      "type": "number",
+      "id": "lines_to_be_hidden",
+      "label": "Lines on the show-less",
+      "default": 4
+    },
+    {
+      "type": "header",
+      "content": "CTA texts and URLs"
+    },
+    {
+      "type": "text",
+      "label": "CTA 1 Text",
+      "id": "cta_text_1",
+      "default": "Download Style Index"
+    },
+    {
+      "type": "text",
+      "id": "cta_url_1",
+      "label": "CTA 1 URL"
+    },
+    {
+      "type": "checkbox",
+      "id": "open_new_window_1",
+      "label": "Open in new window",
+      "default": true
+    },
+    {
+      "type": "text",
+      "label": "CTA 2 Text",
+      "id": "cta_text_2",
+      "default": "Contact Sales@bugatchi.com"
+    },
+    {
+      "type": "text",
+      "id": "cta_url_2",
+      "label": "CTA 2 URL",
+      "default": "mailto:Sales@bugatchi.com"
+    },
+    {
+      "type": "checkbox",
+      "id": "open_new_window_2",
+      "label": "Open in new window",
+      "default": false
+    }
+  ],
+  "presets": [
+    {
+      "name": "Video Section"
+    }
+  ]
+}
+{% endschema %}

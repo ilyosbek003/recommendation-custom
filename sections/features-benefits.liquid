@@ -1,0 +1,367 @@
+<script src="{{ 'product-title-replacement.js' | asset_url }}"></script>
+
+<div class="hub-features" data-section="hub-features-benefits" data-overlay-id="{{ section.settings.overlay_id | handleize }}">
+  <div class="hub-features__body swiper">
+    <div class="hub-features__body-slider swiper-wrapper">
+      {%- for block in section.blocks -%}
+        <div class="hub-features__item swiper-slide">
+          {%- if block.settings.title != blank -%}
+            <h2 
+              class="hub-features__title hub-font{%- if block.settings.is_dynamic_title -%}--dynamic{%- endif -%}"
+              style="--font-desktop: {{ block.settings.font_size_desktop_title }}px; --font-mobile: {{ block.settings.font_size_mobile_title }}px; --clamp-value: {{ block.settings.clamp_value_title }}vw"
+            >{{ block.settings.title }}</h2>
+          {%- endif -%}
+          <div class="hub-features__media-content" data-media-count="{{ block.settings.layout }}">
+            {% render 'hub-features-media', block: block, order: 1 %}
+            {% render 'hub-features-media', block: block, order: 2 %}
+            {%- if block.settings.layout == "3" -%}
+              {% render 'hub-features-media', block: block, order: 3 %}
+            {%- endif -%}
+          </div>
+          {%- if block.settings.description != blank -%}
+            <p 
+              class="hub-features__description hub-font{%- if block.settings.is_dynamic_description -%}--dynamic{%- endif -%}"
+              style="--font-desktop: {{ block.settings.font_size_desktop_description }}px; --font-mobile: {{ block.settings.font_size_mobile_description }}px; --clamp-value: {{ block.settings.clamp_value_description }}vw"
+            >{{ block.settings.description }}</p>
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+    
+    <div data-scroll-down class="scroll-down__btn">
+      <button>
+        {% render 'icons-new' with 'hub-arrow-down' %}
+      </button>
+    </div>
+
+    <button class="hub-features__navigation hub-features__navigation--prev" data-action="slidePrev">{% render 'icons-new' with 'arrow-left-long' %}</button>
+    <button class="hub-features__navigation hub-features__navigation--next" data-action="slideNext">{% render 'icons-new' with 'arrow-right-long' %}</button>
+  </div>
+  <div class="hub-features__footer swiper" data-slider-type={{ section.settings.footer_slider_type }}>
+  {%- if section.settings.footer_slider_type == 'features' -%}
+      <div class="hub-features__footer-slider swiper-wrapper">
+        {%- for block in section.blocks -%}
+          <div class="hub-features__footer-item hub-features__footer-item--feature cursor-pointer swiper-slide{% if forloop.index == 1 %} hidden-tablet{% endif %}">
+            <div class="hub-features__footer-item--outer">
+              <div class="hub-features__footer-item--inner">
+                
+                {%- if block.settings.title != blank -%}
+                  <p class="hub-features__footer-title">{{ block.settings.title }}</p>
+                {%- endif -%}
+                {%- if block.settings.icon != nil -%}
+                  {%- assign img_obj = block.settings.icon -%}
+                  {%- assign alt = img_obj.alt | default: block.settings.title -%}
+                  {{ img_obj 
+                    | image_url: width: 400 
+                    | image_tag:
+                    sizes: "40vw",
+                    alt: alt,
+                    class: "hub-features__icon"
+                  }}
+                {%- endif -%}
+              </div>
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+  {%- elsif section.settings.footer_slider_type == 'product' -%}
+    <div class="hub-features__footer-slider swiper-wrapper">
+      {%- for block in section.blocks -%}
+        {%- if block.settings.product == blank -%}
+          {% continue %}
+        {%- endif -%}
+        
+        {%- assign product = block.settings.product -%}
+        <script>
+          window.products = {
+            ...(window.products || {}),
+            {{ product.id }}: {
+              id: {{ product.id }},
+              title: window.replaceWords(`{{ product.title | escape }}`),
+              options: {{ product.options_with_values | json }},
+              variants: {{ product.variants | json }},
+              tags: {{ product.tags | json }},
+              type: `{{ product.type }}`,
+            },
+          }
+        </script>
+        <div class="hub-features__footer-item hub-features__footer-item--product swiper-slide">
+          {% render 'product-grid-item', product: product %}
+        </div>
+      {%- endfor -%}
+    </div>
+  {%- endif -%}
+
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Hub Page - Features",
+  "class": "overlay-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "overlay_id",
+      "label": "Overlay ID",
+      "info": "ID of overlay is used to link overlay to other blocks"
+    },
+    {
+      "type": "select",
+      "id": "footer_slider_type",
+      "label": "Lower slider type",
+      "options": [
+        {
+          "value": "features",
+          "label": "Features"
+        },
+        {
+          "value": "product",
+          "label": "Product"
+        },
+        {
+          "value": "disabled",
+          "label": "Disabled"
+        }
+      ]
+    }
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Layout"
+        },
+        {
+          "type": "select",
+          "id": "layout",
+          "label": "Type",
+          "options": [
+            {
+              "label": "2 Media blocks",
+              "value": "2"
+            },
+            {
+              "label": "3 Media blocks",
+              "value": "3"
+            }
+          ]
+        },
+        {
+          "type": "header",
+          "content": "Text content"
+        },
+        {
+          "type": "paragraph",
+          "content": "Enable responsive font sizing for dynamic text adjustments based on screen width. The Clamp ensures font size stays within defined range (Mobile - Desktop). Proportional scaling guarantees readability on various devices. Larger screens display larger text; smaller screens show appropriately scaled-down text. For example, 5vw clamp value means the font size is 5% of the screen width. If the screen width is 1600px, the font size is 80. If outside the range, the nearest valid value is selected"
+        },
+        {
+          "type": "header",
+          "content": "Title"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Content"
+        },
+        {
+          "type": "checkbox",
+          "id": "is_dynamic_title",
+          "label": "Use responsive font size (Clamp)",
+          "default": true
+        },
+        {
+          "type": "range",
+          "id": "font_size_desktop_title",
+          "min": 10,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "label": "Font size | Desktop",
+          "default": 60
+        },
+        {
+          "type": "range",
+          "id": "font_size_mobile_title",
+          "min": 8,
+          "max": 50,
+          "step": 1,
+          "unit": "px",
+          "label": "Font size | Mobile",
+          "default": 30
+        },
+        {
+          "type": "range",
+          "id": "clamp_value_title",
+          "min": 0.2,
+          "max": 20,
+          "step": 0.2,
+          "unit": "vw",
+          "label": "Clamp value",
+          "default": 4
+        },
+        {
+          "type": "header",
+          "content": "Description"
+        },
+        {
+          "type": "text",
+          "id": "description",
+          "label": "Content"
+        },
+        {
+          "type": "checkbox",
+          "id": "is_dynamic_description",
+          "label": "Use responsive font size (Clamp)",
+          "default": false
+        },
+        {
+          "type": "range",
+          "id": "font_size_desktop_description",
+          "min": 10,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "label": "Font size | Desktop",
+          "default": 16
+        },
+        {
+          "type": "range",
+          "id": "font_size_mobile_description",
+          "min": 8,
+          "max": 50,
+          "step": 1,
+          "unit": "px",
+          "label": "Font size | Mobile",
+          "default": 16
+        },
+        {
+          "type": "range",
+          "id": "clamp_value_description",
+          "min": 0.2,
+          "max": 20,
+          "step": 0.2,
+          "unit": "vw",
+          "label": "Clamp value",
+          "default": 1
+        },
+        {
+          "type": "header",
+          "content": "Media content"
+        },
+        {
+          "type": "header",
+          "content": "Media 1"
+        },
+        {
+          "type": "select",
+          "id": "media_type_1",
+          "label": "Media type",
+          "options": [
+            {
+              "value": "image",
+              "label": "Image"
+            },
+            {
+              "value": "video",
+              "label": "Video"
+            }
+          ]
+        },
+        {
+          "type": "image_picker",
+          "id": "image_1",
+          "label": "Image"
+        },
+        {
+          "type": "video",
+          "id": "video_1",
+          "label": "Video"
+        },
+        {
+          "type": "header",
+          "content": "Media 2"
+        },
+        {
+          "type": "select",
+          "id": "media_type_2",
+          "label": "Media type",
+          "options": [
+            {
+              "value": "image",
+              "label": "Image"
+            },
+            {
+              "value": "video",
+              "label": "Video"
+            }
+          ]
+        },
+        {
+          "type": "image_picker",
+          "id": "image_2",
+          "label": "Image"
+        },
+        {
+          "type": "video",
+          "id": "video_2",
+          "label": "Video"
+        },
+        {
+          "type": "header",
+          "content": "Media 3"
+        },
+        {
+          "type": "select",
+          "id": "media_type_3",
+          "label": "Media type",
+          "options": [
+            {
+              "value": "image",
+              "label": "Image"
+            },
+            {
+              "value": "video",
+              "label": "Video"
+            }
+          ]
+        },
+        {
+          "type": "image_picker",
+          "id": "image_3",
+          "label": "Image"
+        },
+        {
+          "type": "video",
+          "id": "video_3",
+          "label": "Video"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon"
+        },
+        {
+          "type": "header",
+          "content": "Other"
+        },
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Linked product for slider"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "category": "Hub Page",
+      "name": "Hub Page - Features", 
+      "settings": {}
+    } 
+  ]
+}
+{% endschema %}

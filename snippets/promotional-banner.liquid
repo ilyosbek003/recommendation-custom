@@ -1,0 +1,57 @@
+{%- assign index = forloop.index | plus: paginate.current_offset | minus: 1 | strip -%}
+{%- assign banner = section.blocks | where: "type", "promotional_banner" | map: "settings" | where: "banner_collection", collection | where: "products_count", index | first -%}
+
+{% if banner %}
+  <div 
+    class="collections__promoBanner collections__promoBanner--{{ banner.banner_size }} product-grid-item" 
+    style="--padding-bottom-mobile: {{ banner.padding_bottom_mobile }}px"
+    data-index="{{ forloop.index | plus: paginate.current_offset | minus: 0.5 }}"
+  >
+    <div class="collections__promoBanner-media">
+      {% if banner.banner_type == "image" and banner.img_desktop != blank %}
+        <picture style="--focal-desktop: {{ banner.img_desktop.presentation.focal_point }}; --focal-mobile: {{ banner.img_mobile.presentation.focal_point }}">
+          <source 
+            srcset="{{ banner.img_mobile | img_url: 'master' }}" 
+            media="(max-width: 980px)"
+          >
+          <source 
+            srcset="{{ banner.img_desktop | img_url: 'master' }}" 
+            media="(min-width: 980px)"
+          >
+          <img 
+            srcset="{{ banner.img_desktop | img_url: 'master' }}"
+            alt="{{ banner.alt }}"
+          >
+        </picture>
+      {% elsif banner.banner_type == "video" and banner.video_desktop != blank %}
+        <video src="{{ banner.video_desktop }}" muted autoplay loop poster="{{ banner.video_poster | img_url: 'master' }}" data-mob-src="{{ banner.video_mobile }}"></video>
+      {% endif %}
+    </div>
+    <div class="collections__promoBanner-content" style="color: rgba({{ banner.content_color.rgba }}); --overlay: {{ banner.overlay | divided_by: 100.0 }}">
+      <div class="collections__promoBanner-content-inner  collections__promoBanner-content-inner--{{ banner.content_position }}">
+        {% if banner.heading_text != blank %}
+          <h2 class="{{ banner.heading_size_mobile }} {{ banner.heading_size }}"> {{ banner.heading_text }} </h2>
+        {% endif %}
+        {% if banner.text != blank %}
+          <p class="{{ banner.text_size }}">{{ banner.text }}</p>
+        {% endif %}
+        {% if banner.button_link != blank %}
+          <a class="Button Button-{{ banner.buttons_style }}" href="{{ banner.button_link }}">{{ banner.button_text }}</a>
+        {% endif %}
+        {% if banner.link != blank %}
+          <a href="{{ banner.link }}" class="collections__promoBanner-link"></a>
+        {% endif %}
+        <div class="collections__promoBanner-overlay"></div>
+        <div class="contetn-filler"></div>
+      </div>
+    </div>
+    <div class="collections__promoBanner-footer content--{{ banner.content_position }}">
+      {% if banner.button_link != blank %}
+        <a class="text" href="{{ banner.button_link }} "style="text-align:{{ banner.heading_align }}">{{ banner.heading_text }}</a>
+      {% else %}
+        <span class="text" style="text-align:{{ banner.heading_align }}">{{ banner.heading_text }}</span>
+      {% endif %}
+    </div>
+  </div>
+{% endif %}
+

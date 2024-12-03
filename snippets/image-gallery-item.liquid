@@ -1,0 +1,45 @@
+<div 
+  class="flexible-images"  
+  style="
+    display: flex;
+    width: 100%;
+    gap: {{ section.settings.gap }}px;
+    --gap-mobile: {{ section.settings.gap_mobile }}px;
+    --border-thickness: {{ section.settings.border_thickness }}px;
+    --border-color: {{ section.settings.border_color }};
+    margin-bottom: {{ section.settings.gap }}px;
+    {% unless section_max_height == blank %}max-height: {{ section_max_height }}rem;{% endunless %}"
+  >
+  {% for i in (0..2), limit: limit %}
+    {%- assign loop1 = i | plus: 1 -%}
+    {%- assign width = proportions[i] | append: '%' -%}
+
+    {%- assign currentId = "block_image_" | append: loop1 -%}
+    {%- assign titleId = "title_" | append: loop1 -%}
+    {%- assign subtitleId = "subtitle_" | append: loop1 -%}
+    {%- assign descriptionId = "description_" | append: loop1 -%}
+
+    {%- assign currentImage = block.settings[currentId] -%}
+    {%- assign titleImage = block.settings[titleId] -%}
+    {%- assign subtitleImage = block.settings[subtitleId] -%}
+    {%- assign descriptionImage = block.settings[descriptionId] -%}
+
+    {% if currentImage %}
+      <div
+        data-title="{{ titleImage }}"
+        data-subtitle="{{ subtitleImage }}" 
+        data-description="{{ descriptionImage }}" 
+        data-image 
+        class="flexible-image" 
+        style="
+          display: block;
+          width: {{ width }}; 
+          max-height: {{ section_max_height }}rem;" 
+      >
+        {{ currentImage |
+          image_url: width: 800 |
+          image_tag: widths: '300, 600, 900, 1200, 1500' }}
+      </div>
+    {% endif %}
+  {% endfor %}
+</div>

@@ -1,0 +1,171 @@
+<div class="hub-video" data-section="video-with-control" data-overlay-id="{{ section.settings.overlay_id | handleize }}">
+  {%- if section.settings.video_desktop != nil -%}
+    <div class="hub-video__media-wrapper hub-video__media-wrapper--desktop" data-playing="false" data-volume="false" data-overlay-id="{{ section.settings.overlay_id | handleize }}"  style="--aspect-ratio-desktop:{{ section.settings.aspect_ratio_desktop }}; --aspect-ratio-tablet:{{ section.settings.aspect_ratio_tablet }}; --aspect-ratio-mobile:{{ section.settings.aspect_ratio_mobile }}">
+      {%- if section.settings.bg_type == "video" -%}
+        {%- assign desktop_video_url =  section.settings.video_desktop.sources 
+          | where: "format", "mp4" 
+          | map: "url" 
+          | first 
+        -%}
+        {%- assign mobile_video_url =  section.settings.video_mobile.sources 
+            | where: "format", "mp4" 
+            | map: "url" 
+            | first 
+        -%}
+        <video 
+          data-component="video" 
+          preload="none" 
+          playsinline
+          muted
+          loop
+          data-src-desktop="{{ desktop_video_url }}"
+          data-src-mobile="{{ mobile_video_url }}"
+          class="hub-video__media-item"
+        >
+        </video>
+        <picture>
+          <source media="(max-width: 769px)" srcset="{{ section.settings.video_mobile.preview_image | image_url: width: 400 }}">
+          {{ section.settings.video_desktop.preview_image | image_url: width: 800 | image_tag: class: "hub-video__media-item hub-video__media-item--poster" }}
+        </picture>
+        
+        <div class="hub-video__media-control hub-video__media-control--video" data-component="controller">
+          {% render "icons-new" with "play", fill: "#fff" %}
+          {% render "icons-new" with "pause" fill: "#fff" %}
+        </div>
+        <div class="hub-video__media-control hub-video__media-control--audio" data-component="controller">
+          {% render "icons-new" with "volume-on", fill: "#fff" %}
+          {% render "icons-new" with "volume-off-crop", fill: "#fff" %}
+        </div>
+      {%- else -%}
+        <picture>
+          <source media="(max-width: 769px)" srcset="{{ section.settings.image_mobile | image_url: width: 1000 }}">
+          {%- if section.settings.image_desktop != nil -%}
+            {%- assign alt = section.settings.image_desktop.alt | default: "Overlay image" -%}
+            {{ section.settings.image_desktop | image_url: width: 1500 | image_tag: class: "hub-video__media-item", alt: alt }}
+          {%- else -%}
+            {{ "image" | placeholder_svg_tag: "hub-header__media-item placeholder"  }}
+          {%- endif -%}
+        </picture>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "Hub Page - Video | Image",
+  "class": "overlay-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "overlay_id",
+      "label": "Overlay ID",
+      "info": "ID of overlay is used to link overlay to other blocks"
+    },
+    {
+      "type": "select",
+      "id": "bg_type",
+      "label": "Background type",
+      "options": [
+        {
+          "value": "image",
+          "label": "Image"
+        },
+        {
+          "value": "video",
+          "label": "Video"
+        }
+      ],
+      "default": "video"
+    },
+    {
+      "type": "header",
+      "content": "Aspect ratio"
+    },
+    {
+      "type": "select",
+      "id": "aspect_ratio_desktop",
+      "label": "Desktop",
+      "options": [
+        {
+          "value": "calc(9 / 16 * 100%)",
+          "label": "9/16 : W/H"
+        },
+        {
+          "value": "80vh",
+          "label": "80% of screen"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "aspect_ratio_tablet",
+      "label": "Tablet",
+      "options": [
+        {
+          "value": "calc(9 / 16 * 100%)",
+          "label": "9/16 : W/H"
+        },
+        {
+          "value": "80vh",
+          "label": "80% of screen"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "aspect_ratio_mobile",
+      "label": "Mobile",
+      "options": [
+        {
+          "value": "calc(16 / 9 * 100%)",
+          "label": "16/9 : W/H"
+        },
+        {
+          "value": "80vh",
+          "label": "80% of screen"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Video content"
+    },
+    {
+      "type": "video",
+      "id": "video_desktop",
+      "label": "Video | Desktop",
+      "info": "Recommended aspect ratio - 16/9 : (W/H)"
+    },
+    {
+      "type": "video",
+      "id": "video_mobile",
+      "label": "Video | Mobile",
+      "info": "Recommended aspect ratio - 9:16 : (W/H)"
+    },
+    {
+      "type": "header",
+      "content": "Image content"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_desktop",
+      "label": "Image | Desktop",
+      "info": "Recommended aspect ratio - 16/9 : (W/H)"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_mobile",
+      "label": "Image | Mobile",
+      "info": "Recommended aspect ratio - 9:16 : (W/H)"
+    }
+  ],
+  "presets": [
+    {
+      "category": "Hub Page",
+      "name": "Hub Page - Video | Image", 
+      "settings": {}
+    } 
+  ]
+}
+{% endschema %}

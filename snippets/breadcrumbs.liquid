@@ -1,0 +1,165 @@
+{% comment %} 
+  Accepts: 
+    - menu: navigation linklist on which breadcrumbs should be build on
+    - class: class to be added to main div
+{% endcomment %}
+{%- capture contentForQuerystring -%}{{ content_for_header }}{%- endcapture -%}
+{%- assign pageUrl = contentForQuerystring
+  | split: '"pageurl":"'
+  | last
+  | split: '"'
+  | first
+  | split: '.myshopify.com'
+  | last
+  | replace: '\/', '/'
+  | replace: '%20', ' '
+  | replace: '\u0026', '&'
+-%}
+
+{% assign product_collections_handles = product.collections | map: "handle" %}
+{% assign cat_lvl_1_title = '' %}
+{% assign cat_lvl_1 = '' %}
+{% assign cat_lvl_2 = '' %}
+{% assign cat_lvl_3 = '' %}
+{% assign cat_lvl_4 = '' %}
+{% assign cat_lvl_1_handle = '' %}
+{% assign cat_lvl_2_handle = '' %}
+{% assign cat_lvl_3_handle = '' %}
+
+{% assign page_url_split_direct_parent = pageUrl | split: "nav.dp=" %}
+{% assign cat_direct_parent_handle = '' %}
+{% assign cat_direct_parent = '' %}
+
+{% if page_url_split_direct_parent.size > 1 %} 
+  {% assign cat_direct_parent_handle = pageUrl | split: "nav.dp=" | last | split: ".edp" | first %}
+{% endif %}
+
+{% for item in menu.links %}
+  {% if cat_direct_parent != blank %}
+    {% break %}
+  {% endif %}
+
+  {% if item.handle == cat_direct_parent_handle %}
+    {% assign cat_direct_parent = item %}
+    {% break %}
+  {% endif %}
+
+  {% assign pointed_list = linklists[item.title] %}
+
+  {% for link in pointed_list.links %}
+    {% if cat_direct_parent != blank %}
+      {% break %}
+    {% endif %}
+
+    {% if link.object.handle == cat_direct_parent_handle %}
+      {% assign cat_direct_parent = link %}
+      {% break %}
+    {% endif %}
+
+    {% for child_link in link.links %}
+      {% if cat_direct_parent != blank %}
+        {% break %}
+      {% endif %}
+
+      {% if child_link.object.handle == cat_direct_parent_handle %}
+        {% assign cat_direct_parent = child_link %}
+        {% break %}
+      {% endif %}
+
+      {% for grand_child_link in child_link.links %}
+        {% if grand_child_link.object.handle == cat_direct_parent_handle %}
+          {% assign cat_direct_parent = grand_child_link %}
+          {% break %}
+        {% endif %}
+      {% endfor %}
+    {% endfor %}
+    
+  {% endfor %}
+  
+{% endfor %}
+
+{% if cat_direct_parent != blank %}
+  {% assign page_url_split_lvl_1 = pageUrl | split: "nav.p1=" %}
+  {% assign page_url_split_lvl_2 = pageUrl | split: "nav.p2=" %}
+  {% assign page_url_split_lvl_3 = pageUrl | split: "nav.p3=" %}
+
+  {% if page_url_split_lvl_1.size > 1 %}
+    {% assign cat_lvl_1_handle = pageUrl | split: "nav.p1=" | last | split: ".e1" | first %}
+  {% endif %}
+  {% if page_url_split_lvl_2.size > 1 %}
+    {% assign cat_lvl_2_handle = pageUrl | split: "nav.p2=" | last | split: ".e2" | first %}
+  {% endif %}
+  {% if page_url_split_lvl_3.size > 1 %}
+    {% assign cat_lvl_3_handle = pageUrl | split: "nav.p3=" | last | split: ".e3" | first %}
+  {% endif %}
+
+  {% assign cat_lvl_1 = menu.links | where: 'handle', cat_lvl_1_handle | first %}
+  {% assign ponited_list = linklists[cat_lvl_1.title] %}
+  {% assign cat_lvl_2 = ponited_list.links | where: 'handle', cat_lvl_2_handle | first %}
+  {% assign cat_lvl_3 = cat_lvl_2.links | where: 'handle', cat_lvl_3_handle | first %}
+
+  {% assign cat_lvl_1_title = cat_lvl_1.handle | strip %}
+  {% assign pointed_list = linklists[cat_lvl_1_title] %}
+  {% if pointed_list %}
+    {% assign cat_lvl_1_title = pointed_list.title %}
+  {% endif %}
+  {% assign selected_cat_children = pointed_list %}
+{% else %}
+  {% for item in menu.links %}
+    {% if product_collections_handles contains item.handle %}
+      {% assign cat_lvl_1_title = item.title %}
+      {% assign cat_lvl_1 = item %}
+      {% assign pointed_list = linklists[cat_lvl_1_title] %}
+      {% if pointed_list != blank %}
+        {% assign cat_lvl_1_title = pointed_list.title %}
+      {% endif %}
+
+      {% for link in pointed_list.links %}
+        {% if product_collections_handles contains link.handle %}
+          {% assign cat_lvl_2 = link %}
+        {%- endif -%}
+
+        {% for child_link in link.links %}
+          {% if product_collections_handles contains child_link.handle %}
+            {% assign cat_lvl_3 = child_link %}
+          {% endif %}
+
+          {% for grand_child_link in child_link.links %}
+            {% if product_collections_handles contains grand_child_link.handle %}
+              {% assign cat_lvl_4 = grand_child_link %}
+            {% endif %}
+          {% endfor %}
+        {% endfor %}
+      {% endfor %}
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
+<span class="Product__breadcrumb Product__breadcrumb--{{ class }} text-small upper-case">
+  {% assign last_handle = '' %}
+  <ul>
+    {% if cat_lvl_1_title != blank %}
+      {% assign last_handle = cat_lvl_1.handle %}
+      <li data-index="1">
+        <a href="{{ cat_lvl_1.url }}" title="{{ cat_lvl_1_title }}">{{ cat_lvl_1_title }}</a>
+      </li>
+    {% endif %}
+    {% if cat_lvl_2.title %}
+      {% assign last_handle = cat_lvl_2.handle %}
+      <li data-index="2">
+        <a href="{{ cat_lvl_2.url }}?nav.p1={{ cat_lvl_1.handle }}.e1{%- if cat_lvl_2.links != blank -%}&nav.p2={{ cat_lvl_2.handle }}.e2{%- endif -%}&filter.v.availability=1" title="{{ cat_lvl_2.title }}">{{ cat_lvl_2.title }}</a>
+      </li>
+    {% endif %}
+    {% if cat_lvl_3.title %}
+      {% assign last_handle = cat_lvl_3.handle %}
+      <li data-index="3">
+        <a href="{{ cat_lvl_3.url }}?nav.p1={{ cat_lvl_1.handle }}.e1&nav.p2={{ cat_lvl_2.handle }}.e2{%- if cat_lvl_3.links != blank -%}&nav.p3={{ cat_lvl_3.handle }}.e3{%- endif -%}&filter.v.availability=1" title="{{ cat_lvl_3.title }}">{{ cat_lvl_3.title }}</a>
+      </li>
+    {% endif %}
+    {% if cat_direct_parent.title and last_handle != cat_direct_parent.handle %}
+      <li data-index="dp">
+        <a href="{{ cat_direct_parent.url }}?nav.p1={{ cat_lvl_1.handle }}.e1&nav.p2={{ cat_lvl_2.handle }}.e2&nav.p3={{ cat_lvl_3.handle }}.e3&filter.v.availability=1" title="{{ cat_direct_parent.title }}">{{ cat_direct_parent.title }}</a>
+      </li>
+    {% endif %}
+  </ul>
+</span>

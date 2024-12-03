@@ -1,0 +1,20 @@
+ 
+<script>
+  window.looksSettings = {
+    ...(window.looksSettings || {}),
+    "{{ section.id }}": {
+      products: {},
+      ...({{ section.settings | json }})
+    }
+  };
+  {% for block in section.blocks %}
+    window.looksSettings["{{ section.id }}"].products[{{ block.id | json }}] = [];
+    {% for index in (1..6) %}
+      {% assign access_handle = 'product_' | append: index %}
+      {% assign product_handle = block.settings[access_handle] %}
+      {% if product_handle != nil %}
+        window.looksSettings["{{ section.id }}"].products[{{ block.id | json }}].push({{ all_products[product_handle].id }});
+      {% endif %}
+    {% endfor %}
+  {% endfor %}
+</script>

@@ -1,0 +1,66 @@
+{% assign image_keys = "image_1,image_2,image_3,image_4" | split: "," %}
+
+{% if block.settings.mobile_image %}
+  <div class="slider__item swiper-slide slider__item-{{ block.id }} {{ desktop_class }} {{ mobile_class }} {{ block.settings.block_width }}">
+    {% assign loading_attr = "lazy" %}
+    {% assign fetchpriority_attr = "" %}
+    {% assign primaryImage = "" %}
+
+    {% if forloop.first or forloop.index == 2 %}
+      {% assign loading_attr = "high" %}
+      {% assign fetchpriority_attr = "high" %}
+    {% endif %}
+
+    {{ block.settings.mobile_image
+    | image_url: width: 800
+    | image_tag:
+    sizes: "100vw",
+    widths: '375, 550, 750, 1100, 1500, 1780, 2000, 3000, 3840',
+    class: "slider__image image-lazy",
+    loading: loading_attr,
+    fetchpriority: fetchpriority_attr
+    }}
+
+    <div class="slider__content {{ block.settings.content_choice }}" style="gap: {{ block.settings.content_gap }}px;">
+      {% if block.settings.title_select == 'title_top' %}
+        <h2 class="slider__title">{{ block.settings.title }}</h2>
+        <span class="slider__description">{{ block.settings.description }}</span>
+      {% else %}
+        <span class="slider__description">{{ block.settings.description }}</span>
+        <h2 class="slider__title">{{ block.settings.title }}</h2>
+      {% endif %}
+    </div>
+
+  {% if block.settings.product_list != blank %}
+    <div data-shop-modal-open>
+      {% for product in block.settings.product_list %}
+        {% render 'create-product-object', product: product %}
+      {% endfor %}
+      {% render 'create-shop-images', keys: image_keys, settings: block.settings, class: "image-lazy shopable-images__image", loading: "lazy" %}
+      <button class="slider__shop--button" title="{{ block.settings.button_title }}" aria-label="{{ block.settings.button_title }}">{{ block.settings.button_title }}</button>
+    </div>
+  {% endif %}
+  </div>
+{% endif %}
+{% if block.settings.second_mobile_image %}
+  <div class="slider__item swiper-slide slider__item-{{ block.id }} {{ desktop_class }} {{ mobile_class }} {{ block.settings.block_width }}">
+    {% assign loading_attr = "lazy" %}
+    {% assign fetchpriority_attr = "" %}
+    {% assign primaryImage = "" %}
+
+    {% if forloop.first or forloop.index == 2 %}
+      {% assign loading_attr = "high" %}
+      {% assign fetchpriority_attr = "high" %}
+    {% endif %}
+
+    {{ block.settings.second_mobile_image
+    | image_url: width: 1500
+    | image_tag:
+    sizes: "20vw",
+    widths: '150, 300, 450, 600',
+    class: "slider__image image-lazy",
+    loading: loading_attr,
+    fetchpriority: fetchpriority_attr
+    }}
+  </div>
+{% endif %}

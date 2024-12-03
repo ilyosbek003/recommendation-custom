@@ -1,0 +1,11 @@
+{
+  "sections": {
+    "typography": {
+      "type": "typography",
+      "settings": {}
+    }
+  },
+  "order": [
+    "typography"
+  ]
+}

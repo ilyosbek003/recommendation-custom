@@ -1,0 +1,59 @@
+{% liquid
+    assign block_settings = block.settings
+
+    if block_settings.header_select == 'left'
+        assign header_type = 'ly-header__left'
+    elsif block_settings.header_select == 'center'
+        assign header_type = 'ly-header__center'
+    else 
+        assign header_type = 'ly-header__right'
+    endif
+%}
+
+{% if block.settings.header_title or block.settings.header_description or block.settings.header_cta %}  
+    <div class="ly-header {{ header_type }}">
+        <picture>
+            {% if block.settings.header_image or block.settings.header_mobile_image %}
+                <source 
+                    media="(max-width: 800px)"
+                    srcset="{{ block.settings.header_mobile_image | image_url: width: 300 }} 300w,
+                            {{ block.settings.header_mobile_image | image_url: width: 720 }} 720w,
+                            {{ block.settings.header_mobile_image | image_url: width: 1080 }} 1080w,
+                            {{ block.settings.header_mobile_image | image_url: width: 1512 }} 1512w"
+                >
+                <img 
+                    class="ly-header__image"
+                    loading="lazy"
+                    src="{{ block.settings.header_image | image_url: width: 1512 }}"
+                    data-src="{{ block.settings.header_image | image_url: width: 1512 }}"
+                    data-widths="[360, 720, 1080, 1512]"
+                    data-aspectratio="{{ block.settings.header_image.aspect_ratio }}"
+                    data-sizes="auto"
+                    data-parent-fit="cover"
+                    alt="{{ block.settings.header_image.alt | escape }}">
+            {% else %}
+                <source 
+                    srcset="{{ 'default-img.png' | asset_url }}" 
+                    media="(max-width: 639.99px)"
+                >
+                <img class="ly-header__image" loading="lazy" src="{{ 'default-img.png' | asset_url }}" alt="Background Image">
+            {% endif %}
+        </picture>
+        <div class="ly-header__container page-width">
+            <div class="ly-header__wrapper">
+                {% if block_settings.header_select == 'center' %}
+                    <h1 class="ly-header__title primary-heading">{{ block.settings.header_title }}</h1>
+                {% else %}
+                    <h2 class="ly-header__title secondary-heading">{{ block.settings.header_title }}</h2>
+                {% endif %}
+                <h4 class="ly-header__description {% if block_settings.header_select == 'center' %}primary-text{% else %}secondary-text{% endif %}">{{ block.settings.header_description }}</h4>
+                <div class="ly-header__buttons--wrapper">
+                    <a aria-label="Redirecting to login page" class="ly-header__cta" href="{{ block.settings.header_url }}">{{ block.settings.header_cta }}</a>
+                    {% if block_settings.header_select == 'left' or block_settings.header_select == 'right' %}
+                        <a aria-label="Redirecting to account page" class="ly-header__cta" href="/account">Already a member</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}

@@ -1,0 +1,99 @@
+{{ 'recommended-products.min.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'recommended-products.min.js' | asset_url }}" defer></script>
+
+<section 
+  data-section-id="{{ section.id }}" 
+  id="section-wrapper-{{ section.id }}" 
+  data-product-card-layout="{{ section.settings.product_card_layout }}" 
+  data-section-type="pdp-viewed-products",
+  style="--padding-desktop: {{ section.settings.padding_inline_desktop | divided_by: 10 }}rem; --padding-mobile:{{ section.settings.padding_inline_mobile | divided_by: 10 }}rem;"
+>
+  <div class="recommendations recommendations--main" style="--card-background: {{ section.settings.product_card_background }}">
+    {%- if section.settings.title != blank -%}
+      <div class="recommendations__head">
+        <h3 class="h5 text upper-case">{{ section.settings.title | escape }}</h3>
+      </div> 
+    {%- endif -%}
+    <div class="recommendations__loader">
+    </div>
+    <div class="recommendations__slider swiper-container">
+      <div class="swiper-wrapper">
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  window.recommendedProductsSettings = {{ section.settings | json }};
+</script>
+
+{% schema %}
+  {
+    "name": "Recommended Products",
+    "class": "page-width",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Section Title",
+        "placeholder": "title"
+      },
+      {
+        "type": "range",
+        "id": "max_products_recommended",
+        "min": 1,
+        "max": 10,
+        "step": 1,
+        "unit": "pd",
+        "label": "Max number of products recommended",
+        "default": 5 
+      },
+      {
+        "type": "header",
+        "content": "Product Card Layout"
+      }, 
+      {
+        "type": "color",
+        "id": "product_card_background",
+        "label": "Product card background color",
+        "default": "#e3e3e3"
+      },
+      {
+        "type": "select",
+        "id": "product_card_layout",
+        "label": "Product Card Layout",
+        "options": [
+          {
+            "value": "layout_1",
+            "label": "Layout 1"
+          },
+          {
+            "value": "layout_2",
+            "label": "Layout 2"
+          }
+        ],
+        "default": "layout_1"
+      },
+      {
+        "type": "range",
+        "id": "padding_inline_desktop",
+        "min": 0,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "label": "Inline padding | Desktop",
+        "default": 40
+      },
+      {
+        "type": "range",
+        "id": "padding_inline_mobile",
+        "min": 0,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "label": "Inline padding | Mobile",
+        "default": 20
+      }
+    ]
+  }
+{% endschema %}

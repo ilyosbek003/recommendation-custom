@@ -1,0 +1,24 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "padding_top": 28,
+        "padding_bottom": 28,
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "show_content": true
+      }
+    },
+    "style-guidelines": {
+      "type": "style-guidelines",
+      "settings": {
+      }
+    }
+  },
+  "order": [
+    "main",
+    "style-guidelines"
+  ]
+}  

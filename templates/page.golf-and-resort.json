@@ -1,0 +1,293 @@
+{
+  "sections": {
+    "1661346084a9f29505": {
+      "type": "background-video",
+      "blocks": {
+        "d35cba18-5755-4c4d-898d-bb94fc73967f": {
+          "type": "heading",
+          "settings": {
+            "heading": "GOLF & RESORT 2023",
+            "heading_size": "h2",
+            "heading_size_mobile": "h2_mobile"
+          }
+        },
+        "bed68ee7-9ccf-4fd9-aebc-35659d4b076f": {
+          "type": "text",
+          "settings": {
+            "text": "Welcome to BUGATCHI Golf & Resort, where luxury meets the greens.",
+            "text_size": "text"
+          }
+        },
+        "6bf36a99-e3b6-45eb-8762-1c649f874d44": {
+          "type": "buttons",
+          "settings": {
+            "buttons_style": "secondary",
+            "button_background": true,
+            "button_1_text": "SHOP COLLECTION",
+            "button_1_link": "shopify:\/\/collections\/golf-resort",
+            "button_2_text": "",
+            "button_2_link": "",
+            "button_3_text": "",
+            "button_3_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "d35cba18-5755-4c4d-898d-bb94fc73967f",
+        "bed68ee7-9ccf-4fd9-aebc-35659d4b076f",
+        "6bf36a99-e3b6-45eb-8762-1c649f874d44"
+      ],
+      "settings": {
+        "section_style_type": "big-stretch",
+        "section_type": "image",
+        "overlay": 5,
+        "lazyload": true,
+        "section_link": "shopify:\/\/collections\/golf-resort",
+        "video_url_desktop": "",
+        "video_url_mobile": "",
+        "control_btns": "auto",
+        "background_image": "shopify:\/\/shop_images\/9x16_0000s_0008_34_Look_Golf_008_B_1.jpg",
+        "background_image_mobile": "shopify:\/\/shop_images\/4x5_0011_34_Look_Golf_008_B_1.jpg",
+        "content_position": "bottomLeft",
+        "desktop_margin_top": 20,
+        "desktop_margin_bottom": 50,
+        "mobile_margin_top": 25,
+        "mobile_margin_bottom": 25
+      }
+    },
+    "166322669914cfceab": {
+      "type": "image-text",
+      "settings": {
+        "content_order": "section-ordered",
+        "media_size": "medium",
+        "section_type": "image",
+        "lazyload": true,
+        "section_link": "\/collections\/golf-resort?filter.v.availability=1&sort_by=manual&filter.p.m.custom.features=8-Way+Stretch",
+        "video_url": "",
+        "video_url_mobile": "",
+        "control_btns": "disabled",
+        "background_image": "shopify:\/\/shop_images\/4x5_0016_29_Look_Golf_138_B_1.jpg",
+        "background_image_mobile": "shopify:\/\/shop_images\/4x5_0016_29_Look_Golf_138_B_1.jpg",
+        "heading": "WHY OOOHCOTTON®?",
+        "heading_size": "h4",
+        "heading_size_mobile": "h3_mobile",
+        "text": "Featuring innovative 8-way stretch for unrestricted movement, high breathability, and enhanced comfort, guaranteed to be the perfect choice for on and off the green.",
+        "text_size": "text",
+        "buttons_style": "secondary",
+        "button_text": "DISCOVER NOW",
+        "button_link": "\/collections\/golf-resort?filter.v.availability=1&sort_by=manual&filter.p.m.custom.features=8-Way+Stretch",
+        "desktop_padding_top": 50,
+        "desktop_padding_bottom": 50,
+        "mobile_padding_top": 25,
+        "mobile_padding_bottom": 25
+      }
+    },
+    "quick-shop": {
+      "type": "quick-shop",
+      "blocks": {
+        "64020f93-61c0-41aa-a9fd-1d3b243d7d81": {
+          "type": "product",
+          "settings": {
+            "product": "hendrix-palm-tree-print-polo-shirt-cobalt"
+          }
+        },
+        "506bd50f-30cd-4620-9ee2-2d1815145f04": {
+          "type": "product",
+          "settings": {
+            "product": "miles-floral-ooohcotton-short-sleeve-shirt-air-blue"
+          }
+        },
+        "63bb2222-c95d-4b07-af0e-7688cb06fed4": {
+          "type": "product",
+          "settings": {
+            "product": "stripe-stitch-johnny-collar-sweater-air-blue"
+          }
+        },
+        "3ecf4c11-a470-4393-8632-fbf472b06097": {
+          "type": "product",
+          "settings": {
+            "product": "miles-leaf-print-ooohcotton-short-sleeve-shirt-air-blue-4"
+          }
+        },
+        "20827d3a-bc69-456c-acf9-7d33a0693b7c": {
+          "type": "product",
+          "settings": {
+            "product": "uv-50-performance-pullover-navy-1"
+          }
+        },
+        "46374be3-f874-48d7-8804-d05f5a82c6c2": {
+          "type": "product",
+          "settings": {
+            "product": "victor-illusion-print-ooohcotton-polo-classic-blue"
+          }
+        },
+        "d3fdc160-c30a-46ad-b91a-c41eb96fa5bf": {
+          "type": "product",
+          "settings": {
+            "product": "anthony-leaf-print-ooohcotton-quarter-zip-pullover-air-blue"
+          }
+        },
+        "d0a6c5eb-91ad-4e3d-9a4f-ea93b032615d": {
+          "type": "product",
+          "settings": {
+            "product": "uv-50-performance-polo-french-blue"
+          }
+        }
+      },
+      "block_order": [
+        "64020f93-61c0-41aa-a9fd-1d3b243d7d81",
+        "506bd50f-30cd-4620-9ee2-2d1815145f04",
+        "63bb2222-c95d-4b07-af0e-7688cb06fed4",
+        "3ecf4c11-a470-4393-8632-fbf472b06097",
+        "20827d3a-bc69-456c-acf9-7d33a0693b7c",
+        "46374be3-f874-48d7-8804-d05f5a82c6c2",
+        "d3fdc160-c30a-46ad-b91a-c41eb96fa5bf",
+        "d0a6c5eb-91ad-4e3d-9a4f-ea93b032615d"
+      ],
+      "settings": {
+        "simplified": true,
+        "product_card_background": "#e3e3e3",
+        "product_card_layout": "layout_1",
+        "title": "GOLF & REOSRT PIECES",
+        "url": "shopify:\/\/collections\/golf-resort",
+        "link_label": "Shop"
+      }
+    },
+    "16639374124719b9ce": {
+      "type": "image-text",
+      "settings": {
+        "content_order": "section-ordered",
+        "media_size": "large-vertical",
+        "section_type": "image",
+        "lazyload": true,
+        "section_link": "shopify:\/\/collections\/golf-resort",
+        "video_url": "",
+        "video_url_mobile": "",
+        "control_btns": "disabled",
+        "background_image": "shopify:\/\/shop_images\/9x16_0000s_0002_50_Look_Boat_156_B_1.jpg",
+        "background_image_mobile": "shopify:\/\/shop_images\/4x5_0004_50_Look_Boat_156_B_1.jpg",
+        "heading": "RESORT READY",
+        "heading_size": "h4",
+        "heading_size_mobile": "h3_mobile",
+        "text": "Capturing the essence of  coastal living, we embrace timeless style with contemporary trends in our  resort wear collection.",
+        "text_size": "text",
+        "buttons_style": "secondary",
+        "button_text": "EXPLORE NOW",
+        "button_link": "shopify:\/\/collections\/golf-resort",
+        "desktop_padding_top": 50,
+        "desktop_padding_bottom": 50,
+        "mobile_padding_top": 25,
+        "mobile_padding_bottom": 25
+      }
+    },
+    "16635811541f880ef3": {
+      "type": "video-image-blocks",
+      "blocks": {
+        "f882f403-61de-476a-9c8c-febfd1d7f5f8": {
+          "type": "card",
+          "settings": {
+            "block_type": "image",
+            "content_position": "bottom",
+            "content_align": "center",
+            "block_overlay": 20,
+            "background_img": "shopify:\/\/shop_images\/4x5_0000_61_Look_Suite_030_B_1.jpg",
+            "alt": "hero-img alt",
+            "background_video": "",
+            "control_btns": "disabled",
+            "heading": "shirts",
+            "heading_size": "h3",
+            "heading_size_mobile": "h2_mobile",
+            "heading_letter_spacing": "1",
+            "heading_letter_spacing_mobile": "1",
+            "text": "",
+            "text_size": "text",
+            "text_margin_top": 15,
+            "text_letter_spacing": "1",
+            "text_letter_spacing_mobile": "1",
+            "button_text": "DISCOVER",
+            "button_url": "shopify:\/\/collections\/shirts-short-sleeved",
+            "button_margin_top": 15,
+            "block_clickable": true
+          }
+        },
+        "ed92b9d3-391a-4f00-9f0f-979dde9e0e85": {
+          "type": "card",
+          "settings": {
+            "block_type": "image",
+            "content_position": "bottom",
+            "content_align": "center",
+            "block_overlay": 20,
+            "background_img": "shopify:\/\/shop_images\/4x5_0010_35_Look_Golf_135_C_1.jpg",
+            "alt": "hero-img alt",
+            "background_video": "",
+            "control_btns": "disabled",
+            "heading": "POLOS",
+            "heading_size": "h3",
+            "heading_size_mobile": "h2_mobile",
+            "heading_letter_spacing": "1",
+            "heading_letter_spacing_mobile": "1",
+            "text": "",
+            "text_size": "text",
+            "text_margin_top": 15,
+            "text_letter_spacing": "1",
+            "text_letter_spacing_mobile": "1",
+            "button_text": "EXPLORE",
+            "button_url": "shopify:\/\/collections\/polo-shirts",
+            "button_margin_top": 15,
+            "block_clickable": true
+          }
+        },
+        "37ae7ebf-2af3-4aff-ae34-a1d497b38d07": {
+          "type": "card",
+          "settings": {
+            "block_type": "image",
+            "content_position": "bottom",
+            "content_align": "center",
+            "block_overlay": 0,
+            "background_img": "shopify:\/\/shop_images\/4x5_0003_51_Look_Boat_121_1.jpg",
+            "alt": "hero-img alt",
+            "background_video": "",
+            "control_btns": "disabled",
+            "heading": "SWIMWEAR",
+            "heading_size": "h3",
+            "heading_size_mobile": "h2_mobile",
+            "heading_letter_spacing": "1",
+            "heading_letter_spacing_mobile": "1",
+            "text": "",
+            "text_size": "text",
+            "text_margin_top": 15,
+            "text_letter_spacing": "1",
+            "text_letter_spacing_mobile": "1",
+            "button_text": "LEARN MORE",
+            "button_url": "shopify:\/\/collections\/swimwear",
+            "button_margin_top": 15,
+            "block_clickable": true
+          }
+        }
+      },
+      "block_order": [
+        "f882f403-61de-476a-9c8c-febfd1d7f5f8",
+        "ed92b9d3-391a-4f00-9f0f-979dde9e0e85",
+        "37ae7ebf-2af3-4aff-ae34-a1d497b38d07"
+      ],
+      "settings": {
+        "section_type": "seperated",
+        "mobile_aignement": "carousel",
+        "lazyload": true,
+        "heading": "",
+        "text": "",
+        "desktop_padding_top": 50,
+        "desktop_padding_bottom": 50,
+        "mobile_padding_top": 25,
+        "mobile_padding_bottom": 25
+      }
+    }
+  },
+  "order": [
+    "1661346084a9f29505",
+    "166322669914cfceab",
+    "quick-shop",
+    "16639374124719b9ce",
+    "16635811541f880ef3"
+  ]
+}

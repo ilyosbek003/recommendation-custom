@@ -1,0 +1,116 @@
+{% include 'pdp-settings' %}
+{% include 'kiwi-sizing' %}
+{% include 'ssp-pdp' %}
+
+{{ 'pdp-section.min.css' | asset_url | stylesheet_tag }}
+<script data-js-quick-view src="{{'pdp-gallery.min.js' | asset_url}}" defer></script>
+<script data-js-quick-view src="{{ 'pdp-section.min.js' |  asset_url }}" defer></script>
+
+{% liquid
+    assign videoUrls = product.metafields.global.metafield_video_url | split: ','
+    assign relatedColorHandles = product.metafields.global.metafield_product_handle
+    assign productHandles = relatedColorHandles | prepend: ',' | prepend: product.handle | split: ','
+%}
+
+<script id="related-products-json" type="application/json">
+  [
+    {% for handle in productHandles %}
+      {% liquid
+        assign videoUrl = ""
+        assign currentProduct = all_products[handle].variants[0].product
+        assign currentProductColor = currentProduct.options_by_name.Color.values[0]
+
+        for url in videoUrls
+          assign color = url | split: "|" | first
+          assign urlAddress = url | split: "|" | last
+          if color == currentProductColor
+            assign videoUrl = urlAddress
+            break
+          endif
+        endfor
+      %}
+      {
+        "product": {{ currentProduct | json }},
+        "video": {{ videoUrl | json }}
+      }{% if forloop.last == false %},{% endif %}
+    {% endfor %}
+  ]
+</script>
+
+
+<script>
+  (function() {
+    window.product = {{ product | json }};
+    window.relatedProducts = [];
+
+    const relatedProducts = JSON.parse(document.getElementById('related-products-json').textContent);
+    relatedProducts.forEach((relatedProduct) => {
+      const obj = {
+        ...relatedProduct.product,
+        video: relatedProduct.video,
+      };
+      window.relatedProducts.push(obj);
+    });
+  })();
+</script>
+
+<section class='pdp font__galano'>
+  <div class='pdp--container'>
+    <div class='pdp-grid'>
+      <div class='pdp-grid--container swiper'>
+        <div class="page-width">
+          <div class="pdp__content--breadcrumbs pdp__content--mobile">
+              {% render 'breadcrumbs', menu: settings.pointer_menu_mobile, class: "mobile" %}
+            </div>
+        </div>
+        {% render 'pdp-slider', product: product %}
+      </div>
+
+    </div>
+    <div class='pdp-info'>
+        <div class='pdp-info--container'  data-sticky-element>
+          {% render 'pdp-content', product: product %}
+        </div>
+    </div>
+  </div>
+</section>
+
+{% render 'modal-fit-guide' %}
+{% render 'global-init-styles' %}
+{% include 'klarna-config' %}
+
+{% schema %}
+{
+  "name": "PDP",
+  "class": "shopify-section--bordered page-width",
+  "settings": [
+    {
+        "type": "select",
+        "id": "layout",
+        "label": "Layout",
+        "options": [
+          {
+            "value": "normal",
+            "label": "Normal"
+          }, {
+            "value": "equal",
+            "label": "Equal Split"
+          }
+        ],
+        "default": "normal"
+      },
+      {
+        "type": "header",
+        "content": "Details' Tabs"
+      }, {
+        "type": "page",
+        "id": "tab_page_1_handle",
+        "label": "First page"
+      }, {
+        "type": "page",
+        "id": "tab_page_2_handle",
+        "label": "Second page"
+      }
+  ]
+}
+{% endschema %}

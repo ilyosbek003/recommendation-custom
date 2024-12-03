@@ -1,0 +1,118 @@
+<section class="text-section" data-id="{{ section.settings.section_id }}">
+    <div class="container">
+        <div class="text__wrapper">
+            <p class="text">{{ section.settings.text }}</p>
+        </div>
+    </div>
+</section>
+
+<style>
+    #shopify-section-{{ section.id }} .text-section{
+        width: 100%;
+        padding-top: {{ section.settings.spacing_top }}px;
+        padding-bottom: {{ section.settings.spacing_bottom }}px;
+    }
+    #shopify-section-{{ section.id }} .text__wrapper{
+        max-width: 78rem;
+        width: 100%;
+        margin: 0 auto;
+    }
+    #shopify-section-{{ section.id }} .text-section .text{
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 24px;
+        letter-spacing: .2em;
+        margin: 0;
+    }
+    @media (max-width: 900px) {
+        #shopify-section-{{ section.id }} .text-section{
+            padding-top: {{ section.settings.spacing_mobile_top }}px;
+            padding-bottom: {{ section.settings.spacing_mobile_bottom }}px;
+        }
+        #shopify-section-{{ section.id }} .text-section .text {
+            font-size: 12px;
+            line-height: 22px;
+            text-align: center;
+        }
+    }
+</style>
+
+{% schema %}
+{
+    "name": "Text",
+    "settings": [
+        {
+            "type": "text",
+            "id": "section_id",
+            "default": "unique_id",
+            "label": "Section ID",
+            "info": "Enter a unique data ID for this section"
+        },
+        {
+            "type": "header",
+            "content": "Spacing | Desktop"
+        },
+        {
+            "type": "range",
+            "id": "spacing_top",
+            "default": 0,
+            "min": 0,
+            "max": 100,
+            "step": 5,
+            "unit": "px",
+            "label": "Section top spacing",
+            "info": "Choose section top spacing"
+        },
+        {
+            "type": "range",
+            "id": "spacing_bottom",
+            "default": 0,
+            "min": 0,
+            "max": 100,
+            "step": 5,
+            "unit": "px",
+            "label": "Section bottom spacing",
+            "info": "Choose section bottom spacing"
+        },
+        {
+            "type": "header",
+            "content": "Spacing | Mobile"
+        },
+        {
+            "type": "range",
+            "id": "spacing_mobile_top",
+            "default": 0,
+            "min": 0,
+            "max": 100,
+            "step": 5,
+            "unit": "px",
+            "label": "Section top spacing",
+            "info": "Choose section top spacing"
+        },
+        {
+            "type": "range",
+            "id": "spacing_mobile_bottom",
+            "default": 0,
+            "min": 0,
+            "max": 100,
+            "step": 5,
+            "unit": "px",
+            "label": "Section bottom spacing",
+            "info": "Choose section bottom spacing"
+        },
+        {
+            "type": "textarea",
+            "id": "text",
+            "default": "lorem ipsum dolor set amet",
+            "label": "Text",
+            "placeholder": "Text"
+        }
+    ],
+    "presets": [
+        {
+            "name": "Text",
+            "settings": {}
+        }
+    ]
+}
+{% endschema %}

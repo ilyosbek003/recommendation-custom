@@ -1,0 +1,405 @@
+<style>
+  .image-gallery {
+    padding: {{ section.settings.desktop_padding_vertical }}px {{ section.settings.desktop_padding_horizontal  }}px;
+  }
+
+  @media screen and (max-width: 750px) {
+    .image-gallery {
+      padding: {{ section.settings.mobile_padding_horizontal }}px {{ section.settings.mobile_padding_vertical }}px;
+    }
+  }
+</style>
+
+<section class="image-gallery">
+  <div class="image-gallery-items">
+    {% for block in section.blocks %}
+      {%- assign section_max_height = block.settings.section_max_height -%}
+      {%- assign proportions = block.settings.section_choice | split: "/" -%}
+      {% assign limit = 3 %}
+      {% if block.type == "dual_images" %}
+        {% assign limit = 2 %}
+      {% endif %}
+  
+      {% render 'image-gallery-item', block: block, section: section, proportions: proportions, section_max_height: section_max_height, limit: limit %}
+    {% endfor %}
+  </div>
+  <div class="image-gallery-modal" 
+       style="visibility: hidden;
+              opacity: 0;
+              display: flex !important;
+              flex-direction: column;
+              transition: all 0.3s;
+              position: fixed;
+              top: 0;
+              left: 0;
+              z-index: 99999;
+              width: 100%;
+              height: 100%;
+              overflow: hidden;
+              background: linear-gradient(180deg,rgba(199,199,199,1),rgba(232,230,230,1));"
+  >
+    <span data-close class="close">
+      {% render 'icon-close' %}
+    </span>
+    <div data-gallery-swiper class="swiper gallery-swiper" style="width: 100%;height: 100%;">
+      <div class="swiper-wrapper {{ section.settings.effect_choice }}">
+      </div>
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-button-next"></div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Images Gallery",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Padding | Desktop"
+    },
+    {
+      "type": "range",
+      "id": "desktop_padding_horizontal", 
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding Horizontal | Desktop",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "desktop_padding_vertical",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding Vertical | Desktop",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Padding | Mobile"
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_horizontal",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding Horizontal | Mobile",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_vertical",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding Vertical | Mobile",
+      "default": 10
+    },
+    {
+      "type": "header",
+      "content": "Gap"
+    },
+    {
+      "type": "range",
+      "id": "gap",
+      "label": "Gap between images",
+      "max": 100,
+      "min": 0,
+      "step": 1,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "gap_mobile",
+      "label": "Gap between images for Mobile",
+      "max": 100,
+      "min": 0,
+      "step": 1,
+      "unit": "px",
+      "default": 10
+    },
+    {
+      "type": "header",
+      "content": "Image"
+    },
+    {
+      "type": "number",
+      "id": "border_thickness",
+      "label": "Border thickness",
+      "default": 1
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "default": "#000000",
+      "label": "Border Color"
+    },
+    {
+      "type": "header",
+      "content": "Effect"
+    },
+    {
+      "type": "select",
+      "id": "effect_choice",
+      "label": "Choose transition effect",
+      "default": "fade",
+      "options": [
+        {
+          "label": "Fade",
+          "value": "fade"
+        },
+        {
+          "label": "Transform",
+          "value": "transform"
+        }
+      ]
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Flexible Dual Images",
+      "type": "dual_images",
+      "settings": [
+        {
+          "type": "select",
+          "id": "section_choice",
+          "info": "Choose the proportion of the section to be occupied by each image.",
+          "label": "Image Proportion",
+          "default": "50/50",
+          "options": [
+            {
+              "value": "25/75",
+              "label": "25/75"
+            },
+            {
+              "value": "30/70",
+              "label": "30/70"
+            },
+            {
+              "value": "35/65",
+              "label": "35/65"
+            },
+            {
+              "value": "40/60",
+              "label": "40/60"
+            },
+            {
+              "value": "45/55",
+              "label": "45/55"
+            },
+            {
+              "value": "50/50",
+              "label": "50/50"
+            },
+            {
+              "value": "55/45",
+              "label": "55/45"
+            },
+            {
+              "value": "60/40",
+              "label": "60/40"
+            },
+            {
+              "value": "65/35",
+              "label": "65/35"
+            },
+            {
+              "value": "70/30",
+              "label": "70/30"
+            },
+            {
+              "value": "75/25",
+              "label": "75/25"
+            }
+          ]
+        },
+        {
+          "type": "image_picker",
+          "id": "block_image_1",
+          "label": "Image 1",
+          "info": "Select an image to display in this section."
+        },
+        {
+          "type": "text",
+          "id": "title_1",
+          "label": "Image 1 Title",
+          "default": "Look N"
+        },
+        {
+          "type": "text",
+          "id": "subtitle_1",
+          "label": "Image 1 Subtitle"
+        },
+        {
+          "type": "richtext",
+          "id": "description_1",
+          "label": "Image 1 Description",
+          "default": "<p>Jacket: DX5000J77 - Dusty Pink<\/p><p>Short: DX5000P80 - Dusty Pink<\/p>"
+        },  
+        {
+          "type": "image_picker",
+          "id": "block_image_2",
+          "label": "Image 2",
+          "info": "Select an image to display in this section."
+        },
+        {
+          "type": "text",
+          "id": "title_2",
+          "label": "Image 2 Title",
+          "default": "Look N"
+        },
+        {
+          "type": "text",
+          "id": "subtitle_2",
+          "label": "Image 2 Subtitle"
+        },
+        {
+          "type": "richtext",
+          "id": "description_2",
+          "label": "Image 2 Description",
+          "default": "<p>Jacket: DX5000J77 - Dusty Pink<\/p><p>Short: DX5000P80 - Dusty Pink<\/p>"
+        },
+        {
+          "type": "number",
+          "id": "section_max_height",
+          "label": "Max Image Height",
+          "info": "You can set the maximum height (in rem) for the images in this section. eg: 60",
+          "default": 60
+        }
+      ]
+    },
+    {
+      "name": "Flexible Triple Images",
+      "type": "three_images",
+      "settings": [
+        {
+          "type": "select",
+          "id": "section_choice",
+          "info": "Choose the proportion of the section to be occupied by each image.",
+          "label": "Image Proportion",
+          "default": "33/33/33",
+          "options": [
+            {
+              "value": "33/33/33",
+              "label": "33/33/33"
+            },
+            {
+              "value": "40/30/30",
+              "label": "40/30/30"
+            },
+            {
+              "value": "30/40/30",
+              "label": "30/40/30"
+            },
+            {
+              "value": "30/30/40",
+              "label": "30/30/40"
+            },
+            {
+              "value": "50/25/25",
+              "label": "50/25/25"
+            },
+            {
+              "value": "25/50/25",
+              "label": "25/50/25"
+            },
+            {
+              "value": "25/25/50",
+              "label": "25/25/50"
+            }
+          ]
+        },
+        {
+          "type": "image_picker",
+          "id": "block_image_1",
+          "label": "Image 1",
+          "info": "Select an image to display in this section. The image will take up 33% of the width of the section."
+        },
+        {
+          "type": "text",
+          "id": "title_1",
+          "label": "Image 1 Title",
+          "default": "Look N"
+        },
+        {
+          "type": "text",
+          "id": "subtitle_1",
+          "label": "Image 1 Subtitle"
+        },
+        {
+          "type": "richtext",
+          "id": "description_1",
+          "label": "Image 1 Description",
+          "default": "<p>Jacket: DX5000J77 - Dusty Pink<\/p><p>Short: DX5000P80 - Dusty Pink<\/p>"
+        },
+        {
+          "type": "image_picker",
+          "id": "block_image_2",
+          "label": "Image 2",
+          "info": "Select an image to display in this section. The image will take up 33% of the width of the section."
+        },
+        {
+          "type": "text",
+          "id": "title_2",
+          "label": "Image 2 Title",
+          "default": "Look N"
+        },
+        {
+          "type": "text",
+          "id": "subtitle_2",
+          "label": "Image 2 Subtitle"
+        },
+        {
+          "type": "richtext",
+          "id": "description_2",
+          "label": "Image 2 Description",
+         "default": "<p>Jacket: DX5000J77 - Dusty Pink<\/p><p>Short: DX5000P80 - Dusty Pink<\/p>"
+        },
+        {
+          "type": "image_picker",
+          "id": "block_image_3",
+          "label": "Image 3",
+          "info": "Select an image to display in this section. The image will take up 33% of the width of the section."
+        },
+        {
+          "type": "text",
+          "id": "title_3",
+          "label": "Image 3 Title",
+          "default": "Look N"
+        },
+        {
+          "type": "text",
+          "id": "subtitle_3",
+          "label": "Image 3 Subtitle"
+        },
+        {
+          "type": "richtext",
+          "id": "description_3",
+          "label": "Image  Description",
+          "default": "<p>Jacket: DX5000J77 - Dusty Pink<\/p><p>Short: DX5000P80 - Dusty Pink<\/p>"
+        },
+        {
+          "type": "number",
+          "id": "section_max_height",
+          "label": "Max Image Height",
+          "info": "You can set the maximum height (in rem) for the images in this section. eg: 60",
+          "default": 60
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Images Gallery"
+    }
+  ]
+}
+{% endschema %}

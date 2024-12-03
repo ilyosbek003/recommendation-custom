@@ -1,0 +1,2 @@
+.Golf-links--wrapper{align-items:center;display:flex;flex-direction:column;flex-wrap:wrap;gap:1rem;justify-content:space-around;max-width:100%;padding:2rem}@media screen and (min-width:990px){.Golf-links--wrapper{flex-direction:row;padding:3.5rem 4rem}}.Golf-links--item{font-family:var(--heading-font-small);font-size:clamp(1.2rem,2vw,2rem);letter-spacing:2px}
+/*# sourceMappingURL=golf-links.min.css.map*/

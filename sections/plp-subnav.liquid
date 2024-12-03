@@ -1,0 +1,54 @@
+{% render 'plp-subnav-component', menu: settings.pointer_menu_desktop, class: "desktop" %}
+{% render 'plp-subnav-component', menu: settings.pointer_menu_mobile, class: "mobile" %}
+
+{% schema %}
+{
+  "name": "PLP subnav",
+  "class": "plp-subnav",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "menu",
+      "default": "main-menu",
+      "label": "Menu | Desktop"
+    },
+    {
+      "type": "link_list",
+      "id": "menu_mobile",
+      "default": "main-menu",
+      "label": "Menu | Mobile"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "padding_inline_desktop",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "Inline padding | Desktop",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_inline_mobile",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "Inline padding | Mobile",
+      "default": 20
+    }
+  ],
+  "presets": [
+    {
+      "category": "Video",
+      "name": "PLP Subnav",
+      "settings": {}
+    } 
+  ]
+}
+{% endschema %}

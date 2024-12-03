@@ -1,0 +1,148 @@
+{% capture look_items %}
+  {% render 'look-views' | blocks: section.blocks %}
+{% endcapture %}
+ 
+<div 
+  id="section-wrapper-{{ section.id }}" 
+  class="looks--wrapper"
+  data-product-card-layout="{{ section.settings.product_card_layout }}"
+>
+  <div class="looks">
+    <div class="looks__head">
+      <h2>{{ section.settings.title }}</h2>
+      {% if section.settings.link != blank and section.settings.link_label != blank %}
+        <a 
+          href="{{ section.settings.link }}" 
+          class="Link Link--underline Link--underlineShort"
+        >
+          {{ section.settings.link_label }}
+        </a>
+      {% endif %}
+    </div>
+    <div class="looks__body--wrapper">
+      <div class="looks__body--hover-navigation looks__body--prev"></div>
+      <div class="looks__body--hover-navigation looks__body--next"></div>
+      <div class="looks__body carousel">
+        {{ look_items }}
+        {{ look_items }}
+      </div>
+    </div>
+    <div class="looks__content" style="--card-background: {{ section.settings.product_card_background }}">
+      <button class="looks__close-btn">
+        {% render 'icon' with 'close' %}
+      </button>
+      <div class="looks__products--next looks__products--hover-navigation"></div>
+      <div class="looks__products--prev looks__products--hover-navigation"></div>
+      <div class="looks__products carousel">
+      </div>
+    </div>
+  </div>
+</div>
+
+{% render 'looks-settings' | section: section %}
+
+{% schema %}
+  {
+    "name": "Looks",
+    "class": "page-width",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Section Title",
+        "placeholder": "title"
+      },
+      {
+        "type": "text",
+        "id": "link_label",
+        "label": "Link Label"
+      },
+      {
+        "type": "url",
+        "id": "link",
+        "label": "Section link"
+      },
+      {
+        "type": "color",
+        "id": "product_card_background",
+        "label": "Product card background color",
+        "default": "#e3e3e3"
+      },
+      {
+        "type": "select",
+        "id": "product_card_layout",
+        "label": "Product Card Layout",
+        "options": [
+          {
+            "value": "layout_1",
+            "label": "Layout 1"
+          },
+          {
+            "value": "layout_2",
+            "label": "Layout 2"
+          }
+        ],
+        "default": "layout_2"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "look_products",
+        "name": "Look Products",
+        "settings": [
+          {
+            "type": "header",
+            "content": "Details"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Title"
+          },
+          {
+            "type": "image_picker",
+            "id": "featured_image",
+            "label": "Featured image"
+          },
+          {
+            "type": "product",
+            "id": "product_1",
+            "label": "Product One"
+          },
+          {
+            "type": "product",
+            "id": "product_2",
+            "label": "Product Two"
+          },
+          {
+            "type": "product",
+            "id": "product_3",
+            "label": "Product Three"
+          },
+          {
+            "type": "product",
+            "id": "product_4",
+            "label": "Product Four"
+          },
+          {
+            "type": "product",
+            "id": "product_5",
+            "label": "Product Five"
+          },
+          {
+            "type": "product",
+            "id": "product_6",
+            "label": "Product Six"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "category": "home",
+        "name": "Looks",
+        "settings": {}
+      } 
+    ]
+  }
+{% endschema %}

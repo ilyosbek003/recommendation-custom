@@ -1,0 +1,129 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "show_content": true
+      }
+    },
+    "form": {
+      "type": "contact-form",
+      "disabled": true,
+      "settings": {
+        "heading": "",
+        "heading_size": "h1",
+        "color_scheme": "background-1",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "1659351784df51796e": {
+      "type": "multicolumn",
+      "disabled": true,
+      "blocks": {
+        "16593517843bf31d54-0": {
+          "type": "column",
+          "settings": {
+            "title": "CUSTOMER INQUIRIES",
+            "text": "<p>Monday - Friday, 9AM - 5PM EST<\/p><p>Chat With Us: <a href=\"javascript:void(0)\">Click Here!<\/a><\/p><p>Call Us: <a href=\"tel:+15618930555\">(561) 893-0555<\/a><\/p><p>Email Us: <a href=\"mailto:customerservice@bugatchi.com\">customerservice@bugatchi.com<\/a><\/p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "16593517843bf31d54-1": {
+          "type": "column",
+          "settings": {
+            "title": "TRACK YOUR ORDER",
+            "text": "<p>Check the status of your order.<\/p><p><a href=\"https:\/\/www.bugatchi.com\/apps\/trackingmore\"><span style=\"text-decoration:underline\">Track Your Order<\/span><\/a><\/p>",
+            "link_label": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "16593517843bf31d54-0",
+        "16593517843bf31d54-1"
+      ],
+      "settings": {
+        "title": "",
+        "heading_size": "h2",
+        "image_width": "full",
+        "image_ratio": "adapt",
+        "columns_desktop": 2,
+        "column_alignment": "left",
+        "background_style": "primary",
+        "button_label": "",
+        "button_link": "",
+        "color_scheme": "background-1",
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "b7bd3b57-6dd8-4e04-8154-f5e926749ec6": {
+      "type": "image-with-text",
+      "blocks": {
+        "template--14990000816211__b7bd3b57-6dd8-4e04-8154-f5e926749ec6-168869888953941416-0": {
+          "type": "heading",
+          "settings": {
+            "heading": "Contact us",
+            "heading_size": "h3"
+          }
+        },
+        "template--14990000816211__b7bd3b57-6dd8-4e04-8154-f5e926749ec6-168869888953941416-1": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Our Client Advisors are available Monday through Friday from 8:30am to 5pm EST.<\/p><p>Feel free to email us:<\/p>",
+            "text_style": "body"
+          }
+        },
+        "10387536-78c9-44ff-9679-53fb70278be7": {
+          "type": "html",
+          "settings": {
+            "html": "<a href=\"mailto:customerservice@bugatchi.com\" target=\"_blank\" title=\"mailto:customerservice@bugatchi.com\">customerservice@bugatchi.com<\/a>\n\n<a href=\"support@bugatchi.com\" target=\"_blank\" title=\"mailto:support@bugatchi.com\">support@bugatchi.com<\/a>"
+          }
+        },
+        "template--14990000816211__b7bd3b57-6dd8-4e04-8154-f5e926749ec6-168869888953941416-2": {
+          "type": "button",
+          "settings": {
+            "button_label": "Request a call",
+            "button_link": "shopify:\/\/policies\/privacy-policy"
+          }
+        }
+      },
+      "block_order": [
+        "template--14990000816211__b7bd3b57-6dd8-4e04-8154-f5e926749ec6-168869888953941416-0",
+        "template--14990000816211__b7bd3b57-6dd8-4e04-8154-f5e926749ec6-168869888953941416-1",
+        "10387536-78c9-44ff-9679-53fb70278be7",
+        "template--14990000816211__b7bd3b57-6dd8-4e04-8154-f5e926749ec6-168869888953941416-2"
+      ],
+      "settings": {
+        "image": "shopify:\/\/shop_images\/2023_HP_06.29_HP_DESKTOP.jpg",
+        "height": "adapt",
+        "desktop_image_width": "medium",
+        "layout": "image_first",
+        "image_caption": "",
+        "desktop_content_position": "top",
+        "desktop_header_alignment": "left",
+        "desktop_content_alignment": "left",
+        "content_layout": "no-overlap",
+        "color_scheme": "background-1",
+        "mobile_content_alignment": "left",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    }
+  },
+  "order": [
+    "main",
+    "form",
+    "1659351784df51796e",
+    "b7bd3b57-6dd8-4e04-8154-f5e926749ec6"
+  ]
+}

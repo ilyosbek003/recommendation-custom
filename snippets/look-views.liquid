@@ -1,0 +1,30 @@
+{% for block in blocks %}
+  {% assign image_alt = 'Look Product ' | append: forloop.index %}
+  {% if block.settings.title != blank %}
+    {% assign image_alt = block.settings.title %}
+  {% endif %} 
+  
+  <div class="carousel-cell look-view" data-block-id="{{ block.id }}" tabIndex="0">
+    <figure class="look-view__figure">
+      <picture class="look-view__img">
+        <source
+          srcset="{{ block.settings.featured_image | img_url: '768x' }}"
+          media="(max-width: 1024px)"
+        >
+        <source
+          srcset="{{ block.settings.featured_image | img_url: '1200x' }}"
+          media="(min-width: 1025px)"
+        >
+        <img 
+          class="look-view__img" 
+          loading="lazy" 
+          srcset="{{ block.settings.featured_image | img_url: '1000px' }}"
+          alt="{{ image_alt }}"
+        >
+      </picture>
+    </figure>
+    <div class="look-view__footer">
+      <h3 class="look-view__title">{{ block.settings.title }}</h3>
+    </div>
+  </div>
+{% endfor %}

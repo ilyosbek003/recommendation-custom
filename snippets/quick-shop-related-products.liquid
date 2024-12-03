@@ -1,0 +1,7 @@
+{% assign productHandleArr = product.metafields.global.metafield_product_handle | split: ',' %}
+[
+  {% for handle in productHandleArr %}
+    {% assign related_product = all_products[handle] %}
+    {% if related_product.id != blank %}{{ related_product | json }},{% endif %}
+  {% endfor %}
+]

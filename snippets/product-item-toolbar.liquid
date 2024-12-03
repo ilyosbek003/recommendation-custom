@@ -1,0 +1,69 @@
+ <div class="product-item__toolbar-wrapper{% if product.tags contains "lc_bwd" %} hidden{% endif %}">
+  <div class="product-item__toolbar">
+
+    {%- for option in product.options_with_values -%}
+      {%- assign count = 0 -%}
+      {%- if option.name != "Color" -%}
+        {%- assign count = count | plus: 1 -%}
+        <div class="product-item__option-wrapper">
+          <button 
+            class="product-item__option"
+            data-option="{{ option.name }}"
+            data-option-index="{{ option.position }}"
+          >
+            <span>{{ option.name }}</span>
+          </button>
+          <ul 
+            class="product-item__dropdown"
+            data-product-option
+            data-option="{{ option.name }}"
+            data-option-index="{{ option.position }}"
+          >
+            
+            {%- for value in option.values -%}
+              {%- assign productVariant = '' -%}
+              {%- assign optionPosition = '' -%}
+              {%- if count == 1 -%}
+                {%- assign optionPosition = "option" | append: option.position -%}
+                {%- assign productVariant = product.variants | where: optionPosition, value -%}
+                {%- assign availabelVariantSize = productVariant | where: "available", true | size -%}
+                {%- assign isAvailable = true -%}
+                {%- assign disabledClass = "" -%}
+
+                {%- if availabelVariantSize < 1 -%}
+                  {%- assign disabledClass = 'disabled' -%}
+                {%- endif -%}
+              {%- endif -%}
+              <li
+                class="product-item__dropdown__item {{ disabledClass }} Link Link--underline Link--underlineReverse" 
+                data-available="{{ isAvailable }}"
+                data-id="{{ productVariant[0].id }}"
+                data-value="{{ value | upcase }}"
+              >
+                {{ value }}
+              </li>
+            {%- endfor -%}
+
+          </ul>
+        </div>
+      {%- endif -%}
+    {%- endfor -%}
+
+  </div>
+
+  <button 
+    class="product-item__cart-btn" 
+    data-add-to-cart-action 
+    data-layout-toggler
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+    <path d="M19.7526 10.0012H0.19657M9.97461 0.223145V19.7792" stroke="black"/>
+    </svg>
+    <span class="short">Add</span>
+  </button>
+  <button class="product-item__btn-toolbar-toggle" style="display: none;">
+    <svg width="13" height="9" viewBox="0 0 13 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0.665364 0.875488L6.4987 7.58382L12.332 0.875488" stroke="black" stroke-width="0.8"/>
+    </svg>
+  </button>
+</div>

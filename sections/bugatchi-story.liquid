@@ -1,0 +1,1465 @@
+<div class="story-container" data-title="{{ section.settings.title }}" id="section-{{ section.settings.title }}">
+  <div class="story-wrapper">
+    {%- for block in section.blocks -%}
+      {%- if block.type == "image" -%}
+        <div class="block--{{ block.id }} image-container animated-component"  data-translate="[{{ block.settings.translatex }},{{ block.settings.translatey }}]">
+          {% assign lazyload_class = "lazyload" %}
+          {% if section.settings.lazyload == true and block.settings.content_type == "image" %}
+            {% capture lazyload_data %}
+              data-bg-desktop="{{ block.settings.image | img_url: 'master' }}"
+            {% endcapture %}
+          {% elsif section.settings.lazyload == true and block.settings.content_type == "video" %}
+            {% if block.settings.poster != blank %}
+              {% capture lazyload_data %}
+                data-bg-desktop="{{ block.settings.poster | img_url: 'master' }}"
+              {% endcapture %}
+            {% endif %}
+          {% else %}
+            {% capture lazyload_data %}
+              style="background-image:url({{ block.settings.image | img_url: 'master' }})"
+            {% endcapture %}
+            {% assign lazyload_class = "" %}
+          {% endif %}
+          <div class="image_wrapper {{ block.settings.image_ratio }} {{ lazyload_class }}" {{ lazyload_data }}>
+            {% if block.settings.content_type == "video" %}
+              <div class="video_inner">
+                <iframe 
+                  class="story-year-video" 
+                  src="https://player.vimeo.com/video/{{ block.settings.video_url | split: 'https://vimeo.com/' }}?api=1&background=1&mute=1&loop=1"
+                  width="640" 
+                  height="360" 
+                  frameborder="0"
+                  allow="autoplay; fullscreen; picture-in-picture" 
+                  allowfullscreen 
+                  >
+                </iframe>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+        
+
+        <style>
+          .block--{{ block.id }}.image-container {
+            {%- if block.settings.enable_top == true -%}
+              top: {{ block.settings.top }}%;
+            {%- endif -%}
+            {%- if block.settings.enable_left == true -%}
+              left: {{ block.settings.left }}%;
+            {%- endif -%}
+            {%- if block.settings.enable_bottom == true -%}
+              bottom: {{ block.settings.bottom }}%;
+            {%- endif -%}
+            {%- if block.settings.enable_right == true -%}
+              right: {{ block.settings.right }}%; 
+            {%- endif -%}
+            width: {{ block.settings.width }}%;
+            transform: translate({{ block.settings.translatex}}%, {{ block.settings.translatey | plus: 100}}%);
+            opacity: 0;
+            transition: all 1s linear;
+          }
+
+          .block--{{ block.id }}.image-container.animated {
+            transform: translate({{ block.settings.translatex }}%, {{ block.settings.translatey }}%);
+          }
+
+          {%- if block.settings.is_tablet == true -%}
+            @media screen and (max-width: 1140px) {
+              .block--{{ block.id }}.image-container {
+                top: initial;
+                left: initial;
+                right: initial;
+                bottom: initial;
+                {%- if block.settings.enable_top_tablet == true -%}
+                  top: {{ block.settings.top_tablet }}%;
+                {%- endif -%}
+                {%- if block.settings.enable_left_tablet == true -%}
+                  left: {{ block.settings.left_tablet }}%;
+                {%- endif -%}
+                {%- if block.settings.enable_bottom_tablet == true -%}
+                  bottom: {{ block.settings.bottom_tablet }}%;
+                {%- endif -%}
+                {%- if block.settings.enable_right_tablet == true -%}
+                  right: {{ block.settings.right_tablet }}%;
+                {%- endif -%}
+                width: {{ block.settings.width_tablet }}%;
+                transform: translate({{ block.settings.translatex_tablet}}%, {{ block.settings.translatey_tablet | plus: 100 }}%)
+              }
+
+              .block--{{ block.id }}.image-container.animated {
+                transform: translate({{ block.settings.translatex_tablet}}%, {{ block.settings.translatey_tablet }}%)
+              }
+
+            }
+          {%- endif -%}
+
+          {%- if block.settings.is_mobile == true -%}
+            @media screen and (max-width: 750px) {
+              .block--{{ block.id }}.image-container {
+                top: initial;
+                left: initial;
+                right: initial;
+                bottom: initial;
+                {%- if block.settings.enable_top_mobile == true -%}
+                  top: {{ block.settings.top_mobile }}%;
+                {%- endif -%}
+                {%- if block.settings.enable_left_mobile == true -%}
+                  left: {{ block.settings.left_mobile }}%;
+                {%- endif -%}
+                {%- if block.settings.enable_bottom_mobile == true -%}
+                  bottom: {{ block.settings.bottom_mobile }}%;
+                {%- endif -%}
+                {%- if block.settings.enable_right_mobile == true -%}
+                  right: {{ block.settings.right_mobile }}%;
+                {%- endif -%}
+                width: {{ block.settings.width_mobile }}%;
+                transform: translate({{ block.settings.translatex_mobile}}%, {{ block.settings.translatey_mobile | plus: 100 }}%)
+              }
+
+              .block--{{ block.id }}.image-container.animated {
+                transform: translate({{ block.settings.translatex_mobile}}%, {{ block.settings.translatey_mobile }}%)
+              }
+            }
+          {%- endif -%}
+        </style>
+      {%- endif -%}
+
+      {%- if block.type == "heading" -%}
+        <h2 class="{{ block.settings.heading_size }} story-section__title block--{{ block.id }} animated-component" data-translate="[{{ block.settings.translatex }},{{ block.settings.translatey }}]">
+          {{ block.settings.heading | replace: '*', '<span>S<span>'}}
+        </h2>
+        <style>
+          .story-section__title.block--{{ block.id }} {
+            {%- if block.settings.enable_top == true -%}
+              top: {{ block.settings.top }}%;
+            {%- endif -%}
+            {%- if block.settings.enable_left == true -%}
+              left: {{ block.settings.left }}%;
+            {%- endif -%}
+            {%- if block.settings.enable_bottom == true -%}
+              bottom: {{ block.settings.bottom }}%;
+            {%- endif -%}
+            {%- if block.settings.enable_right == true -%}
+              right: {{ block.settings.right }}%;
+            {%- endif -%}
+            transform: translate({{ block.settings.translatex}}%, {{ block.settings.translatey | plus: 100 }}%);
+            transition: all 1s linear;
+            opacity: 0;
+          }
+          .story-section__title.block--{{ block.id }}.animated {
+            transform: translate({{ block.settings.translatex }}%, {{ block.settings.translatey }}%)
+          }
+
+          {%- if block.settings.is_tablet == true -%}
+            @media screen and (max-width: 1140px) {
+              .story-section__title.block--{{ block.id }} {
+                top: initial;
+                left: initial;
+                right: initial;
+                bottom: initial;
+                {%- if block.settings.enable_top_tablet == true -%}
+                  top: {{ block.settings.top_tablet }}%;
+                {%- endif -%}
+                {%- if block.settings.enable_left_tablet == true -%}
+                  left: {{ block.settings.left_tablet }}%;
+                {%- endif -%}
+                {%- if block.settings.enable_bottom_tablet == true -%}
+                  bottom: {{ block.settings.bottom_tablet }}%;
+                {%- endif -%}
+                {%- if block.settings.enable_right_tablet == true -%}
+                  right: {{ block.settings.right_tablet }}%;
+                {%- endif -%}
+                width: {{ block.settings.width_tablet }}%;
+                transform: translate({{ block.settings.translatex_tablet}}%, {{ block.settings.translatey_tablet | plus: 100 }}%)
+              }
+
+              .story-section__title.block--{{ block.id }}.animated {
+                transform: translate({{ block.settings.translatex_tablet}}%, {{ block.settings.translatey_tablet }}%)
+              }
+            }
+          {%- endif -%}
+
+          {%- if block.settings.is_mobile == true -%}
+            @media screen and (max-width: 750px) {
+              .story-section__title.block--{{ block.id }} {
+                top: initial;
+                left: initial;
+                right: initial;
+                bottom: initial;
+                {%- if block.settings.enable_top_mobile == true -%}
+                  top: {{ block.settings.top_mobile }}%;
+                {%- endif -%}
+                {%- if block.settings.enable_left_mobile == true -%}
+                  left: {{ block.settings.left_mobile }}%;
+                {%- endif -%}
+                {%- if block.settings.enable_bottom_mobile == true -%}
+                  bottom: {{ block.settings.bottom_mobile }}%;
+                {%- endif -%}
+                {%- if block.settings.enable_right_mobile == true -%}
+                  right: {{ block.settings.right_mobile }}%;
+                {%- endif -%}
+                width: {{ block.settings.width_mobile }}%;
+                transform: translate({{ block.settings.translatex_mobile}}%, {{ block.settings.translatey_mobile |plus: 100 }}%)
+              }
+
+              .story-section__title.block--{{ block.id }}.animated {
+                transform: translate({{ block.settings.translatex_mobile}}%, {{ block.settings.translatey_mobile }}%)
+              }
+            }
+          {%- endif -%}
+
+        </style>
+      {%- endif -%}
+
+      {%- if block.type == "text" -%}
+        <p class="story-section__text block--{{ block.id }} text--{{ block.settings.text_width }} text animated-component" data-translate="[{{ block.settings.translatex }},{{ block.settings.translatey }}]">
+          {{ block.settings.text }}
+        </p>
+        <style>
+          .story-section__text.block--{{ block.id }} {
+            {%- if block.settings.enable_top == true -%}
+              top: {{ block.settings.top }}%;
+            {%- endif -%}
+            {%- if block.settings.enable_left == true -%}
+              left: {{ block.settings.left }}%;
+            {%- endif -%}
+            {%- if block.settings.enable_bottom == true -%}
+              bottom: {{ block.settings.bottom }}%;
+            {%- endif -%}
+            {%- if block.settings.enable_right == true -%}
+              right: {{ block.settings.right }}%;
+            {%- endif -%}
+            transform: translate({{ block.settings.translatex}}%, {{ block.settings.translatey | plus: 100 }}%);
+            opacity: 0;
+            transition: all 1s linear;
+          }
+          .story-section__text.block--{{ block.id }}.animated {
+            transform: translate({{ block.settings.translatex }}%,{{ block.settings.translatey }}%);
+          }
+
+
+          {%- if block.settings.is_tablet == true -%}
+            @media screen and (max-width: 1140px) {
+              .story-section__text.block--{{ block.id }} {
+                top: initial;
+                left: initial;
+                right: initial;
+                bottom: initial;
+                {%- if block.settings.enable_top_tablet == true -%}
+                  top: {{ block.settings.top_tablet }}%;
+                {%- endif -%}
+                {%- if block.settings.enable_left_tablet == true -%}
+                  left: {{ block.settings.left_tablet }}%;
+                {%- endif -%}
+                {%- if block.settings.enable_bottom_tablet == true -%}
+                  bottom: {{ block.settings.bottom_tablet }}%;
+                {%- endif -%}
+                {%- if block.settings.enable_right_tablet == true -%}
+                  right: {{ block.settings.right_tablet }}%;
+                {%- endif -%}
+                width: {{ block.settings.width_tablet }}%;
+                transform: translate({{ block.settings.translatex_tablet}}%, {{ block.settings.translatey_tablet | plus: 100 }}%)
+              }
+
+              .story-section__text.block--{{ block.id }}.animated {
+                transform: translate({{ block.settings.translatex_tablet}}%, {{ block.settings.translatey_tablet }}%)
+              }
+            }
+          {%- endif -%}
+
+          {%- if block.settings.is_mobile == true -%}
+            @media screen and (max-width: 750px) {
+              .story-section__text.block--{{ block.id }} {
+                top: initial;
+                left: initial;
+                right: initial;
+                bottom: initial;
+                {%- if block.settings.enable_top_mobile == true -%}
+                  top: {{ block.settings.top_mobile }}%;
+                {%- endif -%}
+                {%- if block.settings.enable_left_mobile == true -%}
+                  left: {{ block.settings.left_mobile }}%;
+                {%- endif -%}
+                {%- if block.settings.enable_bottom_mobile == true -%}
+                  bottom: {{ block.settings.bottom_mobile }}%;
+                {%- endif -%}
+                {%- if block.settings.enable_right_mobile == true -%}
+                  right: {{ block.settings.right_mobile }}%;
+                {%- endif -%}
+                width: {{ block.settings.width_mobile }}%;
+                transform: translate({{ block.settings.translatex_mobile}}%, {{ block.settings.translatey_mobile | plus: 100 }}%)
+              }
+
+              .story-section__text.block--{{ block.id }}.animated {
+                transform: translate({{ block.settings.translatex_mobile}}%, {{ block.settings.translatey_mobile }}%)
+              }
+            }
+          {%- endif -%}
+        </style>
+      {%- endif -%}
+
+    {%- endfor -%}
+  </div>
+</div>
+
+<style>
+  #shopify-section-{{ section.id }} .story-container {
+    padding-top: {{ section.settings.desktop_margin_top | divided_by: 10.0 }}rem;
+    padding-bottom: {{ section.settings.desktop_margin_bottom | divided_by: 10.0 }}rem;
+  }
+
+  @media screen and (max-width: 750px) {
+      #shopify-section-{{ section.id }} .story-container {
+      padding-top: {{ section.settings.mobile_margin_top | divided_by: 10.0 }}rem;
+      padding-bottom: {{ section.settings.mobile_margin_bottom | divided_by: 10.0 }}rem;
+    }
+  }
+
+  #shopify-section-{{ section.id }} .story-wrapper {
+    position: relative;
+    height: {{ section.settings.height }}vw;
+  }
+  @media screen and (max-width: 1140px) {
+    #shopify-section-{{ section.id }} .story-wrapper {
+      height: {{ section.settings.height_tablet }}vw;
+    }
+  }
+
+  @media screen and (max-width: 750px) {
+    #shopify-section-{{ section.id }} .story-wrapper {
+      height: {{ section.settings.height_mobile }}vw;
+    }
+  }
+
+  @media screen and (max-width: 400px) {
+    #shopify-section-{{ section.id }} .story-wrapper {
+      height: {{ section.settings.height_mobile_2 }}vw;
+    }
+  }
+  
+</style>
+
+<script>
+  window.storySettings = {
+    ...(window.storySettings || {}),
+    "{{ section.id }}" : {
+        "id": "#shopify-section-{{ section.id }}",
+        "title": "{{ section.settings.title }}"
+    }
+  }
+</script>
+
+
+
+{% schema %}
+  {
+    "name": "Bugatchi story",
+    "class": "story-section",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Title"
+      },
+      {
+        "type": "range",
+        "id": "height",
+        "min": 50,
+        "max": 200,
+        "step": 5,
+        "unit": "vh",
+        "label": "Page Height | Desktop",
+        "default": 100
+      },
+      {
+        "type": "range",
+        "id": "height_tablet",
+        "min": 50,
+        "max": 200,
+        "step": 5,
+        "unit": "vh",
+        "label": "Page Height | Tablet",
+        "default": 100
+      },
+      {
+        "type": "range",
+        "id": "height_mobile",
+        "min": 50,
+        "max": 300,
+        "step": 5,
+        "unit": "vw",
+        "label": "Page Height | Mobile",
+        "default": 100
+      },
+      {
+        "type": "range",
+        "id": "height_mobile_2",
+        "min": 50,
+        "max": 300,
+        "step": 5,
+        "unit": "vw",
+        "label": "Page Height | Mobile < 400px",
+        "default": 100
+      },
+      {
+        "type": "header",
+        "content": "Margin | Desktop"
+      },
+      {
+        "type": "range",
+        "id": "desktop_margin_top",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "Margin top | Desktop",
+        "default": 50
+      },
+      {
+        "type": "range",
+        "id": "desktop_margin_bottom",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "Margin bottom | Desktop",
+        "default": 50
+      },
+      {
+        "type": "header",
+        "content": "Margin | Mobile"
+      },
+      {
+        "type": "range",
+        "id": "mobile_margin_top",
+        "min": 0,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "label": "Margin top | Mobile",
+        "default": 25
+      },
+      {
+        "type": "range",
+        "id": "mobile_margin_bottom",
+        "min": 0,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "label": "Margin bottom | Mobile",
+        "default": 25
+      },
+      {
+        "type": "checkbox",
+        "id": "lazyload",
+        "label": "Lazyload",
+        "default": true
+      }      
+    ],
+    "blocks": [
+      {
+        "type": "image",
+        "name": "Image | Video",
+        "settings": [
+          {
+            "type": "header",
+            "content": "General"
+          },
+          {
+            "type": "select",
+            "id": "content_type",
+            "label": "Content Type",
+            "options": [
+              {
+                "value": "image",
+                "label": "Image"
+              },
+              {
+                "value": "video",
+                "label": "Video"
+              }
+            ],
+            "default": "image"
+          },
+          {
+            "type": "select",
+            "id": "image_ratio",
+            "label": "Image Ratio",
+            "options": [
+              {
+                "value": "ratio_1",
+                "label": "1:1"
+              },
+              {
+                "value": "ratio_2",
+                "label": "3:4"
+              },
+              {
+                "value": "ratio_3",
+                "label": "3:5"
+              },
+              {
+                "value": "ratio_4",
+                "label": "4:3"
+              },
+              {
+                "value": "ratio_5",
+                "label": "5:3"
+              }
+            ],
+            "default": "ratio_2"
+          },
+          {
+            "type": "header",
+            "content": "Video"
+          },
+          {
+            "type": "url",
+            "id": "video_url",
+            "label": "Video URL"
+          },
+          { 
+            "type": "image_picker",
+            "id": "poster",
+            "label": "Video poster"
+          },
+          {
+            "type": "header",
+            "content": "Image"
+          },
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          },
+          {
+            "type": "header",
+            "content": "Desktop"
+          },
+          {
+            "type": "range",
+            "id": "width",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "%",
+            "label": "Image width",
+            "default": 10
+          },
+          {
+            "type": "checkbox",
+            "id": "enable_top",
+            "label": "Enable top",
+            "default": true
+          },
+          {
+            "type": "range",
+            "id": "top",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "%",
+            "label": "Top",
+            "default": 0
+          },
+          {
+            "type": "checkbox", 
+            "id": "enable_left",
+            "label": "Enable left",
+            "default": true
+          },
+          {
+            "type": "range", 
+            "id": "left",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "%",
+            "label": "Left",
+            "default": 0
+          },
+          {
+            "type": "checkbox",
+            "id": "enable_bottom",
+            "label": "Enable bottom",
+            "default": false
+          },
+          {
+            "type": "range",
+            "id": "bottom",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "%",
+            "label": "Bottom",
+            "default": 0
+          },
+          {
+            "type": "checkbox",
+            "id": "enable_right",
+            "label": "Enable right",
+            "default": false
+          },
+          {
+            "type": "range",
+            "id": "right",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "%",
+            "label": "Right",
+            "default": 0
+          },
+          {
+            "type": "range",
+            "id": "translatex",
+            "min": -100,
+            "max": 100,
+            "step": 2,
+            "unit": "%",
+            "label": "TranslateX",
+            "default": 0
+          },
+          {
+            "type": "range",
+            "id": "translatey",
+            "min": -100,
+            "max": 100,
+            "step": 2,
+            "unit": "%",
+            "label": "TranslateY",
+            "default": 0
+          },
+          
+
+          {
+            "type": "header",
+            "content": "Tablet"
+          },
+          {
+            "type": "checkbox",
+            "id": "is_tablet",
+            "label": "Include Settings for Tablet",
+            "default": false
+          },
+          {
+            "type": "range",
+            "id": "width_tablet",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "%",
+            "label": "Image width",
+            "default": 10
+          },
+          {
+            "type": "checkbox",
+            "id": "enable_top_tablet",
+            "label": "Enable top",
+            "default": true
+          },
+          {
+            "type": "range",
+            "id": "top_tablet",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "%",
+            "label": "Top",
+            "default": 0
+          },
+          {
+            "type": "checkbox", 
+            "id": "enable_left_tablet",
+            "label": "Enable left",
+            "default": true
+          },
+          {
+            "type": "range", 
+            "id": "left_tablet",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "%",
+            "label": "Left",
+            "default": 0
+          },
+          {
+            "type": "checkbox",
+            "id": "enable_bottom_tablet",
+            "label": "Enable bottom",
+            "default": false
+          },
+          {
+            "type": "range",
+            "id": "bottom_tablet",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "%",
+            "label": "Bottom",
+            "default": 0
+          },
+          {
+            "type": "checkbox",
+            "id": "enable_right_tablet",
+            "label": "Enable right",
+            "default": false
+          },
+          {
+            "type": "range",
+            "id": "right_tablet",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "%",
+            "label": "Right",
+            "default": 0
+          },
+          {
+            "type": "range",
+            "id": "translatex_tablet",
+            "min": -100,
+            "max": 100,
+            "step": 2,
+            "unit": "%",
+            "label": "TranslateX",
+            "default": 0
+          },
+          {
+            "type": "range",
+            "id": "translatey_tablet",
+            "min": -100,
+            "max": 100,
+            "step": 2,
+            "unit": "%",
+            "label": "TranslateY",
+            "default": 0
+          },
+
+
+          {
+            "type": "header",
+            "content": "Mobile"
+          },
+          {
+            "type": "checkbox",
+            "id": "is_mobile",
+            "label": "Include Settings for Mobile",
+            "default": false
+          },
+          {
+            "type": "range",
+            "id": "width_mobile",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "%",
+            "label": "Image width",
+            "default": 10
+          },
+          {
+            "type": "checkbox",
+            "id": "enable_top_mobile",
+            "label": "Enable top",
+            "default": true
+          },
+          {
+            "type": "range",
+            "id": "top_mobile",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "%",
+            "label": "Top",
+            "default": 0
+          },
+          {
+            "type": "checkbox", 
+            "id": "enable_left_mobile",
+            "label": "Enable left",
+            "default": true
+          },
+          {
+            "type": "range", 
+            "id": "left_mobile",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "%",
+            "label": "Left",
+            "default": 0
+          },
+          {
+            "type": "checkbox",
+            "id": "enable_bottom_mobile",
+            "label": "Enable bottom",
+            "default": false
+          },
+          {
+            "type": "range",
+            "id": "bottom_mobile",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "%",
+            "label": "Bottom",
+            "default": 0
+          },
+          {
+            "type": "checkbox",
+            "id": "enable_right_mobile",
+            "label": "Enable right",
+            "default": false
+          },
+          {
+            "type": "range",
+            "id": "right_mobile",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "%",
+            "label": "Right",
+            "default": 0
+          },
+          {
+            "type": "range",
+            "id": "translatex_mobile",
+            "min": -100,
+            "max": 100,
+            "step": 2,
+            "unit": "%",
+            "label": "TranslateX",
+            "default": 0
+          },
+          {
+            "type": "range",
+            "id": "translatey_mobile",
+            "min": -100,
+            "max": 100,
+            "step": 2,
+            "unit": "%",
+            "label": "TranslateY",
+            "default": 0
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "name": "Heading",
+        "limit": 1,
+        "settings": [
+          { 
+            "type": "text",
+            "id": "heading",
+            "label": "Heading",
+            "info": "For small S input *"
+          },
+          {
+            "type": "select",
+            "id": "heading_size",
+            "label": "Heading Size",
+            "options": [
+              {
+                "value": "h1",
+                "label": "h1"
+              },
+              {
+                "value": "h2",
+                "label": "h2"
+              },
+              {
+                "value": "h3",
+                "label": "h3"
+              }
+            ]
+          },
+          {
+            "type": "checkbox",
+            "id": "enable_top",
+            "label": "Enable top",
+            "default": true
+          },
+          {
+            "type": "range",
+            "id": "top",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "%",
+            "label": "Top",
+            "default": 0
+          },
+          {
+            "type": "checkbox", 
+            "id": "enable_left",
+            "label": "Enable left",
+            "default": true
+          },
+          {
+            "type": "range", 
+            "id": "left",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "%",
+            "label": "Left",
+            "default": 0
+          },
+          {
+            "type": "checkbox",
+            "id": "enable_bottom",
+            "label": "Enable bottom",
+            "default": false
+          },
+          {
+            "type": "range",
+            "id": "bottom",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "%",
+            "label": "Bottom",
+            "default": 0
+          },
+          {
+            "type": "checkbox",
+            "id": "enable_right",
+            "label": "Enable right",
+            "default": false
+          },
+          {
+            "type": "range",
+            "id": "right",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "%",
+            "label": "Right",
+            "default": 0
+          },
+          {
+            "type": "range",
+            "id": "translatex",
+            "min": -100,
+            "max": 100,
+            "step": 2,
+            "unit": "%",
+            "label": "TranslateX",
+            "default": 0
+          },
+          {
+            "type": "range",
+            "id": "translatey",
+            "min": -100,
+            "max": 100,
+            "step": 2,
+            "unit": "%",
+            "label": "TranslateY",
+            "default": 0
+          },
+          {
+            "type": "header",
+            "content": "Tablet"
+          },
+          {
+            "type": "checkbox",
+            "id": "is_tablet",
+            "label": "Include Settings for Tablet",
+            "default": false
+          },
+          {
+            "type": "checkbox",
+            "id": "enable_top_tablet",
+            "label": "Enable top",
+            "default": true
+          },
+          {
+            "type": "range",
+            "id": "top_tablet",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "%",
+            "label": "Top",
+            "default": 0
+          },
+          {
+            "type": "checkbox", 
+            "id": "enable_left_tablet",
+            "label": "Enable left",
+            "default": true
+          },
+          {
+            "type": "range", 
+            "id": "left_tablet",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "%",
+            "label": "Left",
+            "default": 0
+          },
+          {
+            "type": "checkbox",
+            "id": "enable_bottom_tablet",
+            "label": "Enable bottom",
+            "default": false
+          },
+          {
+            "type": "range",
+            "id": "bottom_tablet",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "%",
+            "label": "Bottom",
+            "default": 0
+          },
+          {
+            "type": "checkbox",
+            "id": "enable_right_tablet",
+            "label": "Enable right",
+            "default": false
+          },
+          {
+            "type": "range",
+            "id": "right_tablet",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "%",
+            "label": "Right",
+            "default": 0
+          },
+          {
+            "type": "range",
+            "id": "translatex_tablet",
+            "min": -100,
+            "max": 100,
+            "step": 2,
+            "unit": "%",
+            "label": "TranslateX",
+            "default": 0
+          },
+          {
+            "type": "range",
+            "id": "translatey_tablet",
+            "min": -100,
+            "max": 100,
+            "step": 2,
+            "unit": "%",
+            "label": "TranslateY",
+            "default": 0
+          },
+
+
+          {
+            "type": "header",
+            "content": "Mobile"
+          },
+          {
+            "type": "checkbox",
+            "id": "is_mobile",
+            "label": "Include Settings for Mobile",
+            "default": false
+          },
+          {
+            "type": "checkbox",
+            "id": "enable_top_mobile",
+            "label": "Enable top",
+            "default": true
+          },
+          {
+            "type": "range",
+            "id": "top_mobile",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "%",
+            "label": "Top",
+            "default": 0
+          },
+          {
+            "type": "checkbox", 
+            "id": "enable_left_mobile",
+            "label": "Enable left",
+            "default": true
+          },
+          {
+            "type": "range", 
+            "id": "left_mobile",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "%",
+            "label": "Left",
+            "default": 0
+          },
+          {
+            "type": "checkbox",
+            "id": "enable_bottom_mobile",
+            "label": "Enable bottom",
+            "default": false
+          },
+          {
+            "type": "range",
+            "id": "bottom_mobile",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "%",
+            "label": "Bottom",
+            "default": 0
+          },
+          {
+            "type": "checkbox",
+            "id": "enable_right_mobile",
+            "label": "Enable right",
+            "default": false
+          },
+          {
+            "type": "range",
+            "id": "right_mobile",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "%",
+            "label": "Right",
+            "default": 0
+          },
+          {
+            "type": "range",
+            "id": "translatex_mobile",
+            "min": -100,
+            "max": 100,
+            "step": 2,
+            "unit": "%",
+            "label": "TranslateX",
+            "default": 0
+          },
+          {
+            "type": "range",
+            "id": "translatey_mobile",
+            "min": -100,
+            "max": 100,
+            "step": 2,
+            "unit": "%",
+            "label": "TranslateY",
+            "default": 0
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "name": "Text",
+        "settings": [
+          {
+            "type": "textarea",
+            "id": "text",
+            "label": "Text"
+          },
+          {
+            "type": "select",
+            "id": "text_width",
+            "label": "Text width",
+            "options": [
+              {
+                "value": "small",
+                "label": "Small"
+              },
+              {
+                "value": "medium",
+                "label": "Medium"
+              },
+              {
+                "value": "big",
+                "label": "Big"
+              }
+            ],
+            "default": "small"
+          },
+          {
+            "type": "checkbox",
+            "id": "enable_top",
+            "label": "Enable top",
+            "default": true
+          },
+          {
+            "type": "range",
+            "id": "top",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "%",
+            "label": "Top",
+            "default": 0
+          },
+          {
+            "type": "checkbox", 
+            "id": "enable_left",
+            "label": "Enable left",
+            "default": true
+          },
+          {
+            "type": "range", 
+            "id": "left",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "%",
+            "label": "Left",
+            "default": 0
+          },
+          {
+            "type": "checkbox",
+            "id": "enable_bottom",
+            "label": "Enable bottom",
+            "default": false
+          },
+          {
+            "type": "range",
+            "id": "bottom",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "%",
+            "label": "Bottom",
+            "default": 0
+          },
+          {
+            "type": "checkbox",
+            "id": "enable_right",
+            "label": "Enable right",
+            "default": false
+          },
+          {
+            "type": "range",
+            "id": "right",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "%",
+            "label": "Right",
+            "default": 0
+          },
+          {
+            "type": "range",
+            "id": "translatex",
+            "min": -100,
+            "max": 100,
+            "step": 2,
+            "unit": "%",
+            "label": "TranslateX",
+            "default": 0
+          },
+          {
+            "type": "range",
+            "id": "translatey",
+            "min": -100,
+            "max": 100,
+            "step": 2,
+            "unit": "%",
+            "label": "TranslateY",
+            "default": 0
+          },
+          {
+            "type": "header",
+            "content": "Tablet"
+          },
+          {
+            "type": "checkbox",
+            "id": "is_tablet",
+            "label": "Include Settings for Tablet",
+            "default": false
+          },
+          {
+            "type": "checkbox",
+            "id": "enable_top_tablet",
+            "label": "Enable top",
+            "default": true
+          },
+          {
+            "type": "range",
+            "id": "top_tablet",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "%",
+            "label": "Top",
+            "default": 0
+          },
+          {
+            "type": "checkbox", 
+            "id": "enable_left_tablet",
+            "label": "Enable left",
+            "default": true
+          },
+          {
+            "type": "range", 
+            "id": "left_tablet",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "%",
+            "label": "Left",
+            "default": 0
+          },
+          {
+            "type": "checkbox",
+            "id": "enable_bottom_tablet",
+            "label": "Enable bottom",
+            "default": false
+          },
+          {
+            "type": "range",
+            "id": "bottom_tablet",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "%",
+            "label": "Bottom",
+            "default": 0
+          },
+          {
+            "type": "checkbox",
+            "id": "enable_right_tablet",
+            "label": "Enable right",
+            "default": false
+          },
+          {
+            "type": "range",
+            "id": "right_tablet",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "%",
+            "label": "Right",
+            "default": 0
+          },
+          {
+            "type": "range",
+            "id": "translatex_tablet",
+            "min": -100,
+            "max": 100,
+            "step": 2,
+            "unit": "%",
+            "label": "TranslateX",
+            "default": 0
+          },
+          {
+            "type": "range",
+            "id": "translatey_tablet",
+            "min": -100,
+            "max": 100,
+            "step": 2,
+            "unit": "%",
+            "label": "TranslateY",
+            "default": 0
+          },
+          {
+            "type": "header",
+            "content": "Mobile"
+          },
+          {
+            "type": "checkbox",
+            "id": "is_mobile",
+            "label": "Include Settings for Tablet",
+            "default": false
+          },
+          {
+            "type": "checkbox",
+            "id": "enable_top_mobile",
+            "label": "Enable top",
+            "default": true
+          },
+          {
+            "type": "range",
+            "id": "top_mobile",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "%",
+            "label": "Top",
+            "default": 0
+          },
+          {
+            "type": "checkbox", 
+            "id": "enable_left_mobile",
+            "label": "Enable left",
+            "default": true
+          },
+          {
+            "type": "range", 
+            "id": "left_mobile",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "%",
+            "label": "Left",
+            "default": 0
+          },
+          {
+            "type": "checkbox",
+            "id": "enable_bottom_mobile",
+            "label": "Enable bottom",
+            "default": false
+          },
+          {
+            "type": "range",
+            "id": "bottom_mobile",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "%",
+            "label": "Bottom",
+            "default": 0
+          },
+          {
+            "type": "checkbox",
+            "id": "enable_right_mobile",
+            "label": "Enable right",
+            "default": false
+          },
+          {
+            "type": "range",
+            "id": "right_mobile",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "%",
+            "label": "Right",
+            "default": 0
+          },
+          {
+            "type": "range",
+            "id": "translatex_mobile",
+            "min": -100,
+            "max": 100,
+            "step": 2,
+            "unit": "%",
+            "label": "TranslateX",
+            "default": 0
+          },
+          {
+            "type": "range",
+            "id": "translatey_mobile",
+            "min": -100,
+            "max": 100,
+            "step": 2,
+            "unit": "%",
+            "label": "TranslateY",
+            "default": 0
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "category": "Image",
+        "name": "Bugatchi Story",
+        "settings": {}
+      } 
+    ]
+  }
+{% endschema %}

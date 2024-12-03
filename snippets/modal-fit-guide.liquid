@@ -1,0 +1,179 @@
+{% assign hasFitOption = false %}
+{% assign optionNameUppercase = false %}
+
+{% for optionNames in product.options_with_values %}
+  {% assign optionNameUppercase = optionNames.name | upcase %}
+  {% if optionNameUppercase == 'FIT' %}
+    {% assign hasFitOption = true %}
+    {% break %}
+  {% endif %}
+{% endfor %}
+
+<style>
+  /* ----- standarized styling ----- */
+  .d-flex-column {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .d-inline-flex {
+    display: inline-flex;
+  }
+
+  .justify-center {
+    justify-content: center;
+  }
+
+  .align-center {
+    align-items: center;
+  }
+
+  .pl-2 {
+    padding-left: 2rem;
+  }
+  @media screen and (min-width: 1140px){
+    .pl-md-3 {
+      padding-left: 3rem;
+    }
+  }
+
+  .m-0 {
+    margin: 0;
+  }
+
+  .mt-3 {
+    margin-top: 3rem;
+  }
+  .t-center { text-align: center; }
+  @media screen and (min-width: 1140px){
+    .mt-md-0 {
+      margin-top: 0;
+    }
+  }
+
+  /* ----- specific styling ----- */
+
+  .shape-guide {
+    flex-direction: column;
+    background-color: white;
+    padding: 2rem;
+    margin: 2rem 0;
+    width: 100%;
+    max-width: 960px;
+    position: relative;
+  }
+
+  .shape-guide .guide-column {
+    margin-bottom: 2rem;
+  }
+
+  @media screen and (min-width: 1140px){
+    .shape-guide {
+      flex-direction: row;
+      margin: 2rem 0 0 0;
+    }
+
+    .shape-guide .guide-column {
+      width: 50%;
+      margin-bottom: 0;
+      z-index: 1;
+    }
+
+    .shape-guide::before {
+      content: '';
+      width: 100%;
+      height: 20%;
+      position: absolute;
+      left: 0;
+      top: 39%;
+      transform: translateY(-50%);
+      background-color: #f4f4f6;
+    }
+  }
+
+  .shape-guide-list {
+    padding-left: 20%;
+    list-style: none;
+    font-family: var(--text-font-family);
+  }
+
+  .shape-guide,
+  .shape-guide-list li {
+    position: relative;
+  }
+
+  .shape-guide-list li::before {
+    content: '-';
+    position: absolute;
+    left: -1rem;
+  }
+
+  h4 {
+    font-weight: 400;
+  }
+
+  .shape-guide .close-custom-modal {
+    z-index: 999999;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    right: 0;
+    top: 0;
+    width: 50px;
+    height: 50px;
+  }
+
+  .shape-guide .close-custom-modal > svg {
+    width: 20px;
+    height: 20px;
+  }
+  
+  #view-fit-guide {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: block;
+    text-transform: uppercase;
+    text-decoration: underline;
+    text-align: center;
+    opacity: .7;
+    font-size: .65rem;
+    font-weight: 400;
+    margin: 0;
+  }
+  
+  @media screen and (min-width: 1140px){
+    #view-fit-guide {
+      text-align: left;
+    } 
+  }
+</style>
+
+{% if hasFitOption %}
+  <div class="modal-bg">
+    <div class="shape-guide d-inline-flex justify-center modal-bg__content">
+      <button type="button" class="modal-bg__close-btn">
+        {% render 'icon' with 'close' %}
+      </button>
+      <div class="guide-column d-flex-column">
+        <h4 class="t-center m-0">Classic</h4>
+        <img class="image-lazy" data-src="{{ 'classic_sm.png' | file_img_url: '600x' }}" alt="Classic shape guide">
+        <ul class="shape-guide-list">
+          <li>Generous dimensions across shoulders.</li>
+          <li>Roomier over the chest and waiste area.</li>
+          <li>Additional space in armholes, sleeves and collar.</li>
+        </ul>
+      </div>
+      <div class="guide-column d-flex-column mt-3 mt-md-0">
+        <h4 class="Heading--upc t-center m-0">Shaped</h4>
+        <img class="image-lazy" data-src="{{ 'shaped_sm.png' | file_img_url: '600x' }}" alt="Shaped shape guide">
+        <ul class="shape-guide-list">
+          <li>Tapered torso and waist.</li>
+          <li>Slighty narrower fit in sleeves.</li>
+          <li>Form fitting for a trim look.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+{% endif %}

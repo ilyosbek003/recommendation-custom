@@ -1,0 +1,111 @@
+{% comment %} 
+Accepts:
+-product
+{% endcomment %}
+
+{% assign cat_lvl_1_title = '' %}
+{% assign cat_lvl_1_link = '' %}
+{% assign cat_lvl_2 = '' %}
+{% assign cat_lvl_3 = '' %}
+{% assign cat_lvl_4 = '' %}
+{% assign cat_lvl_1_handle = '' %}
+{% assign cat_lvl_2_handle = '' %}
+{% assign cat_lvl_3_handle = '' %}
+{% assign selected_cat_children = '' %}
+
+
+
+{%- capture contentForQuerystring -%}{{ content_for_header }}{%- endcapture -%}
+{%- assign pageUrl = contentForQuerystring
+  | split: '"pageurl":"'
+  | last
+  | split: '"'
+  | first
+  | split: '.myshopify.com'
+  | last
+  | replace: '\/', '/'
+  | replace: '%20', ' '
+  | replace: '\u0026', '&'
+-%}
+
+{% assign page_url_split_lvl_1 = pageUrl | split: "nav.p1=" %}
+{% if page_url_split_lvl_1.size > 1 %}
+  {% assign cat_lvl_1_handle = pageUrl | split: "nav.p1=" | last | split: ".e1" | first %}
+  {% assign page_url_split_lvl_2 = pageUrl | split: "nav.p2=" %}
+  {% assign page_url_split_lvl_3 = pageUrl | split: "nav.p3=" %}
+  {% if page_url_split_lvl_2.size > 1 %}
+    {% assign cat_lvl_2_handle = pageUrl | split: "nav.p2=" | last | split: ".e2" | first %}
+  {% endif %}
+  {% if page_url_split_lvl_3.size > 1 %}
+    {% assign cat_lvl_3_handle = pageUrl | split: "nav.p3=" | last | split: ".e3" | first %}
+  {% endif %}
+{% endif %}
+
+{% assign url_params = '' %}
+
+{% capture url_params %}
+  {%- if cat_lvl_1_handle != blank -%}?nav.p1={{ cat_lvl_1_handle }}.e1{%- if cat_lvl_2_handle != blank -%}&nav.p2={{ cat_lvl_2_handle }}.e2{%- if cat_lvl_3_handle -%}&nav.p3={{ cat_lvl_3_handle }}.e3{%- endif -%}{%- endif -%}{%- endif -%}
+{% endcapture %}
+
+{% if collection.handle %}
+  {% if url_params.size > 5 %}
+    {% assign url_params = url_params | append: "&nav.dp=" | append: collection.handle | append: ".edp" %}
+  {% else %}
+    {% assign url_params = "?nav.dp=" | append: collection.handle | append: ".edp" %}
+  {% endif %}
+{% endif %}
+
+{% assign productColor = product.variants[0].title | upcase | split: ' / ' %}
+{% assign productOptionsWithoutColor = product.options | join: ' ' | remove: "Color" | split: " " %}
+
+{%- assign sizeAvailableVariants = product.variants | where: "available", true | size -%}
+{%- assign isAvailable = true -%}
+{%- if sizeAvailableVariants < 1 -%}
+  {%- assign isAvailable = false -%}
+{%- endif -%}
+
+<div 
+  class="product-item product-grid-item product-item--layout_2"
+  data-id="{{product.id}}" 
+  data-color="{{ productColor[0] }}"
+  data-index="{{ forloop.index | plus: paginate.current_offset }}"
+  data-available={{ isAvailable }}
+>
+  <div class="product-item__body" style="--options-size:{{ productOptionsWithoutColor.size }}" >
+    {% render 'product-item-media', product: product %}
+    <div class="product-item__backdrop product-item__backdrop-upper"></div>
+    <div class="product-item__backdrop"></div>
+    {% render 'product-item-toolbar', product: product %}
+    {% render 'new-label', product: product %}
+  </div>
+  <div class="wishlist-engine" data-product_id="{{ product.id }}" data-variant_id="{{ product.selected_or_first_available_variant.id }}" data-full_button="false" data-css="true"></div>
+
+  
+  <div class="product-item__footer" data-available="{{ isAvailable }}">
+    <span class="text upper-case sold-out">Sold Out</span>
+    <a href="/products/{{ product.handle }}{{ url_params }}" class="product-item__link">
+      <span class="product-title text">{% render 'product-detail-item', inputString: product.title %}</span>
+    </a>
+    {% if section.settings.color_available_message_position== "afterbegin" %}
+      {% render 'colors-message', product: product, ss:section.settings %}
+    {% endif %}
+    {% if product.tags contains "lc_bwd" %} 
+      <a href="/products/{{ product.handle }}{{ url_params }}">See prices</a>
+    {% else %}
+      <div class="product-item__price-group">
+        <div class="producti-item__price-inner">
+          {%- if product.compare_at_price_max > product.price_min -%}
+            <span class="product-price product-price--real">
+              {{- product.compare_at_price_max | money_without_trailing_zeros -}}
+            </span>
+          {%- endif -%}
+          <span class="product-price text">{{- product.price | money_without_trailing_zeros -}}</span>
+        </div>
+      </div>
+    {% endif %}
+    {% if section.settings.color_available_message_position== "beforeend" %}
+      {% render 'colors-message', product: product, ss:section.settings %}
+    {% endif %}
+    {% render 'new-label', product: product %}
+  </div>
+</div>

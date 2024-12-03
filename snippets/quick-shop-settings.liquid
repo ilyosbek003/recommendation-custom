@@ -1,0 +1,32 @@
+<script>
+  window.quickShopSettings = {
+    ...(window.quickShopSettings || {}),
+    "{{ section.id }}": {
+      products: [], 
+      ...({{ section.settings | json }})
+    }
+  };
+  {% for block in section.blocks %}
+    {% if block.type == 'product' and block.settings.product != blank %}
+      {% assign product = block.settings.product.selected_or_first_available_variant.product %}
+      var product = {{ product | json }};
+      product.blockType = `{{ block.settings.block_type  }}`
+      {% if section.settings.simplified == false %}
+        var relatedProducts = {% render 'quick-shop-related-products' | product: product %};
+        relatedProducts = relatedProducts.filter(product => typeof product === 'object')
+        product['relatedProducts'] = relatedProducts
+        product['relatedProducts'] = product['relatedProducts'].filter(product => !('error' in product))
+      {% endif %}
+      {% if block.settings.block_type == 'image' %}
+        product.userImage = `{{ block.settings.image | image_url: width: 768 }}`;
+        product.userTitle = `{{ block.settings.title }}`;
+        product.userUrl = `{{ block.settings.url }}`;
+        product.userImageWidth = `{{ block.settings.image.width }}`;
+        product.userImageHeight = `{{ block.settings.image.height }}`;
+      {% endif %}
+      if (typeof product === "object") {
+        window.quickShopSettings[`{{ section.id }}`].products.push(product);
+      }
+    {% endif %} 
+  {% endfor %}
+</script> 

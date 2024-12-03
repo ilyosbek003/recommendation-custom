@@ -1,0 +1,10 @@
+{% assign replaceValues = "ecovero, EcoVero; eco vero, EcoVero; Ecovero, EcoVero; Eco vero, EcoVero; ecoVero, EcoVero; eco Vero, EcoVero; Eco Vero, EcoVero; EcoVero, EcoVero™; uv, UV; Uv, UV; OoohCotton, OoohCotton®; Super Merino, Super Merino™; super merino, Super Merino™"  | split: "; " %}
+{% assign resultStr = inputString %}
+
+{% for strSet in replaceValues %}
+  {% assign key = strSet | split: ", " | first %}
+  {% assign value = strSet | split: ", " | last %}
+  {% assign resultStr = resultStr | replace: key, value %}
+{% endfor %}
+
+{{ resultStr }}

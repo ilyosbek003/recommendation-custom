@@ -1,0 +1,93 @@
+<expended-accordion class="orders--accordion">
+    <div class="accordion-item-header small-text" data-component="header">
+        {{ section.settings.order_title }}
+        <span class="accordion-arrow-icon-plus">
+            {% render 'icon' with 'plus' %}
+        </span>
+        <span class="accordion-arrow-icon-minus">
+            {% render 'icon' with 'minus' %}
+        </span>
+    </div>
+    <div class="accordion-item-body" data-body="header">
+        <div class="accordion-item-body-content">
+            <h4 class="ly-modal__orders--title small-text">{{ section.settings.order_description }}</h4>
+            <div class="ly-modal__orders--wrapper">
+                {% if customer.orders != blank %}
+                    <table>
+                        <tr class="ly-modal__order-headers ly-modal__order-items">
+                            <th>Order #</th>
+                            <th>Date</th>
+                            <th>PAYMENT STATUS</th>
+                            <th>FULFULMENT STATUS</th>
+                            <th>TRACKING #</th>
+                            <th>TOTAL</th>
+                        </tr>
+                        {% for order in customer.orders %}
+                            <tr class="ly-modal__order-headers ly-modal__order-items">
+                                <td class="ly-modal__td">
+                                    <a href="{{ order.customer_url }}"
+                                        target="_blank"
+                                        title="View details for Order {{ order.name }}"
+                                        aria-label="View details for Order number {{ order.name }}"
+                                    >
+                                        {{ order.name }}
+                                    </a>
+                                </td>
+                                <td>{{ order.created_at | date: "%d/%m/%y" }}</td>
+                                <td>{{ order.financial_status }}</td>
+                                <td>{{ order.fulfillment_status }}</td>
+                                <td>
+                                    {% if line_item.fulfillment.tracking_company %}
+                                        {{ line_item.fulfillment.tracking_company }}#{{ line_item.fulfillment.tracking_number }}
+                                    {% endif %} 
+                                </td>
+                                <td>{{ order.total_price | money_with_currency }}</td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                    {% for order in customer.orders %}
+                        <collapsible-accordion class="ly-modal__orders--item">
+                            <div class="ly-modal__order--header collapsible-item-header small-text" data-header='header'>
+                                <span class="ly-modal__order--number">{{ order.name }}</span>
+                                <span class="ly-modal__order--date">{{ order.created_at | date: "%d/%m/%y" }}</span>
+                                <span class="ly-modal__order--price">{{ order.total_price | money }}</span>
+                                <span class="accordion-arrow-icon">
+                                    {% render 'icon' with 'select-arrow-right' %}
+                                </span>
+                            </div>
+                            <div class="ly-modal__order--body collapsible-item-body" data-bodyComponent='header'>
+                                <div class="collapsible-item-body-content">
+                                    <div class="ly-modal__order--row">
+                                        <p class="ly-modal__order--heading">PAYMENT STATUS</p>
+                                        <p class="ly-modal__order--status">{{ order.financial_status }}</p>
+                                    </div>
+                                    <div class="ly-modal__order--row">
+                                        <p class="ly-modal__order--heading">FULFULMENT STATUS</p>
+                                        <p class="ly-modal__order--status">{{ order.fulfillment_status }}</p>
+                                    </div>
+                                    {% for line_item in order.line_items %}
+                                            <div class="ly-modal__order--row">
+                                                {% if line_item.fulfillment.tracking_company or line_item.fulfillment.tracking_number %}
+                                                    <p class="ly-modal__order--heading">TRACKING #</p>
+                                                    <p class="ly-modal__order--status">{{ line_item.fulfillment.tracking_company }}#{{ line_item.fulfillment.tracking_number }}</p>
+                                                {% endif %}
+                                            </div>
+                                    {% endfor %}
+                                    {% for fulfillment in order.fulfillments %}
+                                        <div>
+                                            <p>{{ fulfillment.order_number }}</p>
+                                            <p>Carrier: {{ fulfillment.tracking_company }}</p>
+                                            <p>TRACKING #: {{ fulfillment.tracking_number }}</p>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </collapsible-accordion>
+                    {% endfor %}
+                {% else %}
+                    <p class="wishlist-empty">{{ section.settings.empty_orders }}</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</expended-accordion>

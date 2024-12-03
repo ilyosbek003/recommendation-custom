@@ -1,0 +1,84 @@
+<div class="ly-home">
+    <picture>
+        {% if section.settings.home_image or section.settings.home_mobile_image %}
+            <source 
+                media="(max-width: 800px)"
+                srcset="{{ section.settings.home_mobile_image | image_url: width: 300 }} 300w,
+                        {{ section.settings.home_mobile_image | image_url: width: 720 }} 720w,
+                        {{ section.settings.home_mobile_image | image_url: width: 1080 }} 1080w,
+                        {{ section.settings.home_mobile_image | image_url: width: 1512 }} 1512w"
+            >
+            <img 
+                class="ly-home__image"
+                loading="lazy"
+                src="{{ section.settings.home_image | image_url: width: 1512 }}"
+                data-src="{{ section.settings.home_image | image_url: width: 1512 }}"
+                data-widths="[360, 720, 1080, 1512]"
+                data-aspectratio="{{ section.settings.home_image.aspect_ratio }}"
+                data-sizes="auto"
+                data-parent-fit="cover"
+                alt="{{ section.settings.home_image.alt | escape }}">
+        {% else %}
+            <source 
+                srcset="{{ 'default-img.png' | asset_url }}" 
+                media="(max-width: 639.99px)"
+            >
+            <img class="ly-home__image" loading="lazy" src="{{ 'default-img.png' | asset_url }}" alt="Background Image">
+        {% endif %}
+    </picture>
+    <div class="ly-home__container page-width">
+        <div class="ly-home__header">
+            <div class="ly-home__left--content">
+                <span>{{ section.settings.welcome_back }}</span>
+                <p>{{ customer.first_name }}</p>
+            </div>
+            <div class="ly-home__title--wrapper">
+                <h3 class="ly-home__title"><span class="ly-home__title--span">Founder</span> {{ section.settings.member_title }}</h3>
+            </div>
+            <div class="ly-home__left--content">
+                <span>{{ section.settings.you_have_text }}</span>
+                <p class="ly-home__reward--point"><span data-lion-points="approved"></span> {{ section.settings.points_title }}</p>
+            </div>
+        </div>
+        <div class="ly-home__data-lion-tier-overview" data-lion-tier-overview></div>
+        <div class="ly-home__wrapper">
+            {% render 'loyalty-modal', blocks: blocks %}
+            {% for block in blocks %}
+                {% if block.settings.title or block.settings.description %}
+                    <div class="ly-home__item">
+                        {% case block.settings.block_svg %}
+                            {% when "rewards" %}
+                                {% render 'icon' with 'rewards' %}
+                            {% when "orders" %}
+                                {% render 'icon' with 'orders' %}
+                            {% when "wishlist" %}
+                                {% render 'icon' with 'icon-wishlist' %}
+                            {% when "loyalty-account" %}
+                                {% render 'icon' with 'icon-profile' %}
+                            {% when "faq" %}
+                                {% render 'icon' with 'faq' %}
+                            {% when "contact" %}
+                                {% render 'icon' with 'icon-contact' %}
+                        {% endcase %}
+                        <h4 class="ly-home__item--heading primary-text">{{ block.settings.title }}</h4>
+                        <p class="ly-home__item--description">{{ block.settings.description }}</p>
+                        {% case block.settings.block_svg %}
+                            {% when "rewards" %}
+                                <button class="ly-home__item--cta rewards--cta" aria-label="View the rewards modal">{{ section.settings.home_cta_title }}</button>
+                            {% when "orders" %}
+                                <button class="ly-home__item--cta orders--cta" aria-label="View the orders modal">{{ section.settings.home_cta_title }}</button>
+                            {% when "wishlist" %}
+                                <button class="ly-home__item--cta wishlist--cta" aria-label="View the wishlist modal">{{ section.settings.home_cta_title }}</button>
+                            {% when "loyalty-account" %}
+                                <button class="ly-home__item--cta account--cta" aria-label="View the account modal">{{ section.settings.home_cta_title }}</button>
+                            {% when "faq" %}
+                                <button class="ly-home__item--cta faq--cta" aria-label="View the faq modal">{{ section.settings.home_cta_title }}</button>
+                            {% when "contact" %}
+                                <button class="ly-home__item--cta contact__us--cta" aria-label="View the contact modal">{{ section.settings.home_cta_title }}</button>
+                        {% endcase %}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</div>

@@ -1,0 +1,250 @@
+{% liquid
+    assign activation_date = product.metafields.pdp.activation_date.value | date: "%s"
+    assign current_time = 'now' | date: "%s"
+    assign days_passed = current_time | minus: activation_date | divided_by: 86400 | plus: 1
+    assign label_text = ''
+%}
+
+{% if days_passed < 22 and product.tags contains settings.primary_label_tag %}
+    {% assign label_text = settings.primary_label_text %}
+  {% elsif days_passed < 31 and product.tags contains settings.secondary_label_tag %}
+    {% assign label_text = settings.secondary_label_text %}
+  {% elsif product.tags contains settings.tertiary_label_tag %}
+    {% assign label_text = settings.tertiary_label_text %}
+{% endif %}
+
+<div class="pdp__content--wrapper">
+    {% if product.available %}
+        <div class="pdp__content--breadcrumbs pdp__content--desktop">
+            {% render 'breadcrumbs', menu: settings.pointer_menu_desktop, class: "desktop" %}
+        </div>
+    {% endif %}
+    <div class="pdp__content--label{% if label_text != blank %} active{% endif %}">
+        <span class="pdp__label--span">{{ label_text }}</span>
+    </div>
+    <div class="pdp__content--title-price">
+        <h3 class="pdp__content--title h5">{% render 'product-detail-item', inputString: product.title %}</h3>
+        <p class="pdp__content--price h5 line">
+            <span class="pdp__content--price">{{ product.price | money_without_trailing_zeros }}</span> 
+            <span class="pdp__content--compare-price">{{ product.compare_at_price |  money_without_trailing_zeros }}</span>
+            {% assign originalPrice = product.price %}
+            {% assign comparePrice = product.compare_at_price %}
+            {% if comparePrice > originalPrice %}
+                {% assign priceDifference = comparePrice | times: 1.0 | minus: originalPrice %}
+                {% assign comparePriceRatio = priceDifference | divided_by: originalPrice %}
+                {% assign totalSavingsInPercent = comparePriceRatio | times: 100 %}
+            {% else %}
+                {% assign totalSavingsInPercent = 0 %}
+            {% endif %}
+            {% if totalSavingsInPercent >= 40 or product.type == 'MASK' or product.type == 'SWIMWEAR' %}
+                <span class="pdp__content--final-sale">Final sale</span>
+            {% endif %}
+        </p>
+    </div>
+    {% for option in product.options_with_values %}
+    {%- capture option_index -%}
+    option{{- option.position -}}
+    {%- endcapture -%}
+    
+    <div class="pdp__options--card">
+        {% if option.name == 'Color' %}
+        <div class="pdp__options line">
+            <div class="pdp__options--header">
+                <span>
+                    {% for value in option.values %}
+                    <span>{{ option.name }}: </span>
+                    <span class="pdp__options--color">{{ value }}</span>
+                    {% endfor %}
+                </span>
+                {% if product.available %}
+                    <span class="pdp__options--sold-out">SOLD OUT</span>
+                {% else %}
+                    <span class="pdp__options--sold-out out-of-stock">SOLD OUT</span>
+                {% endif %}
+            </div>
+            {% assign productHandles = product.metafields.global.metafield_product_handle | split: ',' %}
+            <div class="pdp__options--mobile-header">
+                {% for value in option.values %}
+                    <span>{{ option.name }}: </span>
+                    <span class="pdp__options--color">{{ value }}</span>
+                    {% if productHandles.size > 1 %}
+                    <span class="pdp__options--color-icon">
+                        {% render 'icon' with 'arrow-right' %}
+                    </span>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <div class="pdp__options--backdrop"></div>
+            <div class="pdp__options--bottom">
+                <span class="pdp__options--color-title">Select a color <span class="pdp__options--color-close">{% render 'icon' with 'close' %}</span></span>
+                {% if productHandles.size >= 1 %}
+                <div>
+                    <div class="pdp__options--item placeholder-loader__content active {% unless product.available %} out-of-stock{% endunless %}" data-handle="{{ product.handle }}" {% if label_text %}
+                        data-exclusive="{{ label_text }}"
+                    {% endif %}>
+                        <img loading="lazy" alt="{{ product.title | escape }}" src="{{ product.featured_media | image_url: width: 300 }}" />
+                    </div>
+                    <span class="pdp__options--mobile-color">{{ product.variants[0].option1 }}</span>
+                </div>
+                {% for productHandle in productHandles %}
+                {% assign currentProduct = all_products[productHandle] %}
+                {% liquid
+                    assign activation_date = currentProduct.metafields.pdp.activation_date.value | date: "%s"
+                    assign current_time = 'now' | date: "%s"
+                    assign days_passed = current_time | minus: activation_date | divided_by: 86400 | plus: 1
+                    assign label_text = ''
+                %}
+                {% if days_passed < 22 and currentProduct.tags contains settings.primary_label_tag %}
+                    {% assign label_text = settings.primary_label_text %}
+                  {% elsif days_passed < 31 and currentProduct.tags contains settings.secondary_label_tag %}
+                    {% assign label_text = settings.secondary_label_text %}
+                  {% elsif currentProduct.tags contains settings.tertiary_label_tag %}
+                    {% assign label_text = settings.tertiary_label_text %}
+                {% endif %}
+                <div>
+                    <div class="pdp__options--item placeholder-loader__content {% unless currentProduct.available %} out-of-stock{% endunless %}" data-handle="{{ currentProduct.handle }}" {% if label_text %}
+                        data-exclusive="{{ label_text }}"
+                    {% endif %}>
+                        <img loading="lazy" alt="{{ currentProduct.title | escape }}" src="{{ currentProduct.featured_media | image_url: width: 300 }}" />
+                    </div>
+                    <span class="pdp__options--mobile-color">{{ currentProduct.variants[0].option1 }}</span>
+                </div>
+                {% endfor %}
+                {% else %}
+                <div>
+                    <div class="pdp__options--item placeholder-loader__content active {% unless product.available %} out-of-stock{% endunless %}" data-handle="{{ currentProduct.handle }}" {% if label_text %}
+                        data-exclusive="{{ label_text }}"
+                    {% endif %}>
+                        <img loading="lazy" alt="{{ currentProduct.title | escape }}" src="{{ product.featured_media | image_url: width: 300 }}" />
+                    </div>
+                    <span class="pdp__options--mobile-color">{{ product.variants[0].option1 }}</span>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        {% else %}
+        <div class="pdp__options--wrapper">
+            {% if option.name == 'Size' %}
+                <div class="fp-container" style="height: 20px; margin-bottom: 8px;"></div>
+            {% endif %}
+            <div class="pdp__option--wrapper Product__option line"{% if option.name == 'Size' %}data-option="Size"{% endif %}>
+                <div class="pdp__option--top">
+                    <div class="pdp__option--left">
+                        <span>{{ option.name }}:</span>
+                        <span class="pdp__option--selected"> {{ product.selected_variant[option_index] }}</span>
+                        <span class="pdp__option--error">Choose your {{ option.name }}:</span>
+                    </div>
+                    {% if option.name == 'Size' %}
+                    <div class="pdp__option--right">
+                        <div class="Product__modal-trigger">
+                            <div class="Product__Label-Size"></div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% if option.name == 'Fit' %}
+                    <div class="pdp__option--right">
+                        <div class="Product__modal-trigger">
+                            <span class="fitGuideModal ks-chart-modal-link" style="color: #000 !important;">
+                                Fit Guide
+                            </span>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="pdp__option--bottom">
+                    <div class="pdp__option--fieldset">
+                        {% for value in option.values %}
+                        {% assign optionItem = option.values | size %}
+                        {% assign is_selected = false %}
+
+                        {% assign is_out_of_stock = true %}
+                        {% for variant in product.variants %}
+                        {% if variant[option_index] == value and variant.available == true %}
+                        {% assign is_out_of_stock = false %}
+                        {% endif %}
+                        {% endfor %}
+
+                        {% if product.selected_variant[option_index] == value %}
+                        {% assign is_selected = true %}
+                        {% endif %}
+                        <div class="pdp__option--variants">
+                            <input class="pdp__option--input" type="radio" required name="{{ option.name }}" {% if
+                                is_selected==true %} checked {% endif %} value="{{ value }}"
+                                id="{{ option.name | handleize }}-{{ value | handleize }}">
+                            <label class="pdp__option--variants-label{% if is_out_of_stock %} pdp__option--disabled{% endif %}"
+                                for="{{ option.name | handleize }}-{{ value | handleize }}">{{ value }}</label>
+                            {% if is_out_of_stock %}
+                                <span class="pdp__option--sold-out">Sold Out</span>
+                            {% endif %}
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+    {% endfor %}
+
+    <div
+        class="pdp__quantity--box{% unless product.selected_or_first_available_variant.available %} out-of-stock{% endunless %}">
+        <p class="pdp__error--message"></p>
+        <div class="pdp__quantity--wrapper">
+            <div class="quantity__selector">
+                <button class="quantity__selector--minus" data-type="minus" title="Minus">
+                    {% render 'icon' with 'minus' %}
+                </button>
+                <label class="hidden" for="quantity">Quantity</label>
+                <input id="quantity" name="quantity" value="1" class="quantity__selector--inputSelector" aria-label="quantity">
+                <button class="quantity__selector--plus" data-type="plus" title="Plus">
+                    {% render 'icon' with 'plus' %}
+                </button>
+            </div>
+            <div class="pdp__form--actions">
+                <button {% unless product.selected_or_first_available_variant.available %}disabled{% endunless %}
+                    type="submit" class="pdp__add--button Product__btn-cart" id="add-to-cart">
+                    Add to cart
+                </button>
+                {%- if localization.country.iso_code == 'US' -%}
+                    <div class="klarna-pay--wrapper klarna-pay--wrapper-desktop" style="height: 41px;">
+                        <div id="klarna-pay--desktop"></div>
+                    </div>
+                {%- endif -%}
+            </div>
+        </div>
+        <div class="Product__form-cta--sold_out Button">
+            <span class="text upper-case notify__button">notify me when back in stock</span>
+            <div class="notify__backdrop"></div>
+            <div class="notify__form">
+                <span class="upper-case text-large notify__form--title">back in stock notification</span>
+                <p class="text">
+                    Enter your email address to be notified when this item will be back in stock. By entering your email
+                    you agree to our Privacy Policy and Terms & Conditions.
+                </p>
+                <form>
+                    <div class="notify__form-input-wrapper">
+                        <input class="text" type="email" placeholder="Enter your email address" required>
+                        <div class="invalid-email-message">
+                            <div class="message-wrapper">
+                                <span class="text-small upper-case">invalid email address</span>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="Button Button-primary-outline">Notify me</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    {%- if localization.country.iso_code == 'US' -%}
+        <div class="klarna-pay--wrapper klarna-mobile-wrapper" style="height: 41px;">
+            <div id="klarna-pay"></div>
+        </div>
+    {%- endif -%}
+    
+    <div class="wishlist-engine" style="height: 22.04px;" data-product_id="{{ product.id }}" data-variant_id="{{product.variants[0].id}}"
+    data-full_button="true" data-css="true"></div>
+    {% if customer %}
+        {% render 'points-label' %}
+    {% endif %}
+    {% render 'pdp-collapsible', product: product %}
+</div>

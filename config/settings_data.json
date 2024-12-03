@@ -1,0 +1,478 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "current": {
+    "pointer_menu_desktop": "store-navigation",
+    "pointer_menu_mobile": "store-navigation",
+    "colors_solid_button_labels": "#ffffff",
+    "colors_accent_1": "#000000",
+    "gradient_accent_1": "",
+    "colors_accent_2": "#334fb4",
+    "gradient_accent_2": "",
+    "colors_text": "#0b0b0b",
+    "colors_outline_button_labels": "#121212",
+    "colors_background_1": "#ffffff",
+    "gradient_background_1": "",
+    "colors_background_2": "#f3f3f3",
+    "gradient_background_2": "",
+    "type_header_font": "roboto_n5",
+    "heading_scale": 100,
+    "type_body_font": "monotype_news_gothic_n4",
+    "body_scale": 100,
+    "container_layout": "fluid",
+    "page_width": 1800,
+    "spacing_sections": 0,
+    "spacing_grid_horizontal": 8,
+    "spacing_grid_vertical": 8,
+    "buttons_border_thickness": 1,
+    "buttons_border_opacity": 100,
+    "buttons_radius": 0,
+    "buttons_shadow_opacity": 0,
+    "buttons_shadow_horizontal_offset": 0,
+    "buttons_shadow_vertical_offset": 4,
+    "buttons_shadow_blur": 5,
+    "variant_pills_border_thickness": 1,
+    "variant_pills_border_opacity": 55,
+    "variant_pills_radius": 40,
+    "variant_pills_shadow_opacity": 0,
+    "variant_pills_shadow_horizontal_offset": 0,
+    "variant_pills_shadow_vertical_offset": 4,
+    "variant_pills_shadow_blur": 5,
+    "inputs_border_thickness": 1,
+    "inputs_border_opacity": 55,
+    "inputs_radius": 0,
+    "inputs_shadow_opacity": 0,
+    "inputs_shadow_horizontal_offset": 0,
+    "inputs_shadow_vertical_offset": 4,
+    "inputs_shadow_blur": 5,
+    "card_style": "standard",
+    "card_image_padding": 0,
+    "card_text_alignment": "left",
+    "card_color_scheme": "background-2",
+    "card_border_thickness": 0,
+    "card_border_opacity": 10,
+    "card_corner_radius": 0,
+    "card_shadow_opacity": 0,
+    "card_shadow_horizontal_offset": 0,
+    "card_shadow_vertical_offset": 4,
+    "card_shadow_blur": 5,
+    "text_boxes_border_thickness": 0,
+    "text_boxes_border_opacity": 10,
+    "text_boxes_radius": 0,
+    "text_boxes_shadow_opacity": 0,
+    "text_boxes_shadow_horizontal_offset": 0,
+    "text_boxes_shadow_vertical_offset": 4,
+    "text_boxes_shadow_blur": 5,
+    "media_border_thickness": 1,
+    "media_border_opacity": 5,
+    "media_radius": 0,
+    "media_shadow_opacity": 0,
+    "media_shadow_horizontal_offset": 0,
+    "media_shadow_vertical_offset": 4,
+    "media_shadow_blur": 5,
+    "popup_border_thickness": 1,
+    "popup_border_opacity": 10,
+    "popup_corner_radius": 0,
+    "popup_shadow_opacity": 0,
+    "popup_shadow_horizontal_offset": 0,
+    "popup_shadow_vertical_offset": 4,
+    "popup_shadow_blur": 5,
+    "drawer_border_thickness": 1,
+    "drawer_border_opacity": 10,
+    "drawer_shadow_opacity": 0,
+    "drawer_shadow_horizontal_offset": 0,
+    "drawer_shadow_vertical_offset": 4,
+    "drawer_shadow_blur": 5,
+    "badge_position": "bottom left",
+    "badge_corner_radius": 40,
+    "sale_badge_color_scheme": "accent-2",
+    "sold_out_badge_color_scheme": "inverse",
+    "accent_icons": "text",
+    "social_twitter_link": "",
+    "social_facebook_link": "https://www.facebook.com/Bugatchi",
+    "social_pinterest_link": "https://www.pinterest.com/bugatchi_/",
+    "social_instagram_link": "https://www.instagram.com/bugatchi/",
+    "social_tiktok_link": "",
+    "social_tumblr_link": "",
+    "social_snapchat_link": "",
+    "social_youtube_link": "",
+    "social_vimeo_link": "",
+    "social_linkedin_link": "https://www.linkedin.com/company/bugatchi/",
+    "predictive_search_enabled": true,
+    "predictive_search_show_vendor": false,
+    "predictive_search_show_price": false,
+    "favicon": "shopify://shop_images/2022_FAVICON.jpg",
+    "currency_code_enabled": true,
+    "free_shipping_amount": "120",
+    "cart_type": "drawer",
+    "show_vendor": false,
+    "show_cart_note": true,
+    "checkout_logo_image": "shopify://shop_images/Bugatchi_Logotype_BLACK_0.0156.png",
+    "checkout_logo_position": "center",
+    "checkout_logo_size": "small",
+    "checkout_sidebar_background_color": "#efefef",
+    "checkout_heading_font": "Roboto",
+    "checkout_accent_color": "#6a6a6a",
+    "checkout_button_color": "#1c1b1b",
+    "pointer_menu": "store-navigation",
+    "sections": {
+      "announcement-bar": {
+        "type": "announcement-bar",
+        "blocks": {
+          "announcement-bar-0": {
+            "type": "announcement",
+            "settings": {
+              "text": "FREE SHIPPING & EASY RETURNS ON ALL U.S. ORDERS OVER $120*",
+              "color_scheme": "accent-1",
+              "link": ""
+            }
+          }
+        },
+        "block_order": [
+          "announcement-bar-0"
+        ],
+        "settings": {}
+      },
+      "header": {
+        "type": "header",
+        "settings": {
+          "product_card_layout": "layout_2",
+          "product_card_background": "#e3e3e3",
+          "search_products_count": 6,
+          "clear_content_on_close": true,
+          "show_loading_spinner": true,
+          "show_videos": false,
+          "logo_width": 130,
+          "logo_position": "middle-left",
+          "menu_type_desktop": "mega",
+          "mega_menu_color_lvl2": "#000000",
+          "mega_menu_color_hover_lvl2": "#757575",
+          "mega_menu_color": "#000000",
+          "mega_menu_color_hover": "#757575",
+          "mega_menu_shadow": true,
+          "show_line_separator": false,
+          "enable_sticky_header": true,
+          "margin_bottom": 0,
+          "padding_top": 12,
+          "padding_bottom": 12
+        }
+      },
+      "footer": {
+        "type": "footer",
+        "blocks": {
+          "26d737f6-1e93-4f5f-851c-cb5dca127688": {
+            "type": "text",
+            "settings": {
+              "heading": "Need help?",
+              "subtext": "<p>Our Client Advisors are available Monday through Friday from 8:30am to 5pm EST.</p><p></p><p><a href=\"mailto:customerservice@bugatchi.com\" target=\"_blank\" title=\"mailto:customerservice@bugatchi.com\">Email Us </a><br/>customerservice@bugatchi.com</p><p></p><p><a href=\"/pages/frequently-asked-questions\" target=\"_blank\" title=\"Frequently Asked Questions\">FAQ</a></p>"
+            }
+          },
+          "8311b53d-87d9-4cfa-b1ba-69396d9ef01c": {
+            "type": "link_list",
+            "settings": {
+              "heading": "Customer Care",
+              "menu": "bottom-footer-menu"
+            }
+          },
+          "ef758156-9dcb-409f-95b0-f24516dfbd67": {
+            "type": "link_list",
+            "settings": {
+              "heading": "Legal",
+              "menu": "legal-new-design"
+            }
+          },
+          "35f8bd17-e195-4d32-8523-4300bcac8480": {
+            "type": "link_list",
+            "settings": {
+              "heading": "Company",
+              "menu": "company-new-design"
+            }
+          }
+        },
+        "block_order": [
+          "26d737f6-1e93-4f5f-851c-cb5dca127688",
+          "8311b53d-87d9-4cfa-b1ba-69396d9ef01c",
+          "ef758156-9dcb-409f-95b0-f24516dfbd67",
+          "35f8bd17-e195-4d32-8523-4300bcac8480"
+        ],
+        "settings": {
+          "color_scheme": "inverse",
+          "newsletter_enable": true,
+          "newsletter_heading": "Newsletter",
+          "newsletter_content": "Subscribe to receive updates, access to exclusive deals, and more. By subscribing you agree to our Privacy Policy and Terms & Conditions.",
+          "show_social": true,
+          "enable_country_selector": false,
+          "enable_language_selector": false,
+          "payment_enable": false,
+          "margin_top": 8,
+          "padding_top": 60,
+          "padding_bottom": 36
+        }
+      },
+      "main-password-header": {
+        "type": "main-password-header",
+        "settings": {
+          "logo": "{{ shop.brand.logo }}",
+          "logo_max_width": 100,
+          "color_scheme": "background-1"
+        }
+      },
+      "main-password-footer": {
+        "type": "main-password-footer",
+        "settings": {
+          "color_scheme": "background-1"
+        }
+      },
+      "section-login": {
+        "type": "section-login",
+        "settings": {
+          "left_text": "The",
+          "heading": "1981",
+          "right_text": "Club",
+          "mobile_image": "shopify://shop_images/25_Look_108_1_copy_1.jpg",
+          "desktop_image": "shopify://shop_images/41_Look_Golf_042_B_1_674e98f0-a4e4-41f7-9a68-31cef5158dc4.png",
+          "blurness": 6,
+          "join_title": "JOIN the club",
+          "privacy_title": "i accept the privacy statement",
+          "signup_title": "sign up now",
+          "already_member_title": "already a member",
+          "login_title": "Login",
+          "signin_title": "Sign In",
+          "forgot_password_title": "FORGOT PASSWORD?"
+        }
+      }
+    },
+    "content_for_index": [],
+    "blocks": {
+      "15538933556969892470": {
+        "type": "shopify://apps/upsell-dev-ilyosbek/blocks/app-embed/cfbcd3f8-077b-4195-acd4-033de6181bf7",
+        "disabled": false,
+        "settings": {
+          "smartCartCustomizationKey": "customization",
+          "enableSmartCart": true
+        }
+      },
+      "14198427981142892921": {
+        "type": "shopify://apps/wishlist-engine/blocks/app-embed/8f7c0857-8e71-463d-a168-8e133094753b",
+        "disabled": false,
+        "settings": {
+          "wishlist_unfill_icon": "",
+          "wishlist_fill_icon": ""
+        }
+      }
+    }
+  },
+  "presets": {
+    "Default": {
+      "colors_solid_button_labels": "#ffffff",
+      "colors_accent_1": "#121212",
+      "gradient_accent_1": "",
+      "colors_accent_2": "#334fb4",
+      "gradient_accent_2": "",
+      "colors_text": "#121212",
+      "colors_outline_button_labels": "#121212",
+      "colors_background_1": "#ffffff",
+      "gradient_background_1": "",
+      "colors_background_2": "#f3f3f3",
+      "gradient_background_2": "",
+      "type_header_font": "assistant_n4",
+      "heading_scale": 100,
+      "type_body_font": "assistant_n4",
+      "body_scale": 100,
+      "page_width": 1200,
+      "spacing_sections": 0,
+      "spacing_grid_horizontal": 8,
+      "spacing_grid_vertical": 8,
+      "buttons_border_thickness": 1,
+      "buttons_border_opacity": 100,
+      "buttons_radius": 0,
+      "buttons_shadow_opacity": 0,
+      "buttons_shadow_horizontal_offset": 0,
+      "buttons_shadow_vertical_offset": 4,
+      "buttons_shadow_blur": 5,
+      "variant_pills_border_thickness": 1,
+      "variant_pills_border_opacity": 55,
+      "variant_pills_radius": 40,
+      "variant_pills_shadow_opacity": 0,
+      "variant_pills_shadow_horizontal_offset": 0,
+      "variant_pills_shadow_vertical_offset": 4,
+      "variant_pills_shadow_blur": 5,
+      "inputs_border_thickness": 1,
+      "inputs_border_opacity": 55,
+      "inputs_radius": 0,
+      "inputs_shadow_opacity": 0,
+      "inputs_shadow_horizontal_offset": 0,
+      "inputs_shadow_vertical_offset": 4,
+      "inputs_shadow_blur": 5,
+      "card_style": "standard",
+      "card_image_padding": 0,
+      "card_text_alignment": "left",
+      "card_color_scheme": "background-2",
+      "card_border_thickness": 0,
+      "card_border_opacity": 10,
+      "card_corner_radius": 0,
+      "card_shadow_opacity": 0,
+      "card_shadow_horizontal_offset": 0,
+      "card_shadow_vertical_offset": 4,
+      "card_shadow_blur": 5,
+      "text_boxes_border_thickness": 0,
+      "text_boxes_border_opacity": 10,
+      "text_boxes_radius": 0,
+      "text_boxes_shadow_opacity": 0,
+      "text_boxes_shadow_horizontal_offset": 0,
+      "text_boxes_shadow_vertical_offset": 4,
+      "text_boxes_shadow_blur": 5,
+      "media_border_thickness": 1,
+      "media_border_opacity": 5,
+      "media_radius": 0,
+      "media_shadow_opacity": 0,
+      "media_shadow_horizontal_offset": 0,
+      "media_shadow_vertical_offset": 4,
+      "media_shadow_blur": 5,
+      "popup_border_thickness": 1,
+      "popup_border_opacity": 10,
+      "popup_corner_radius": 0,
+      "popup_shadow_opacity": 0,
+      "popup_shadow_horizontal_offset": 0,
+      "popup_shadow_vertical_offset": 4,
+      "popup_shadow_blur": 5,
+      "drawer_border_thickness": 1,
+      "drawer_border_opacity": 10,
+      "drawer_shadow_opacity": 0,
+      "drawer_shadow_horizontal_offset": 0,
+      "drawer_shadow_vertical_offset": 4,
+      "drawer_shadow_blur": 5,
+      "badge_position": "bottom left",
+      "badge_corner_radius": 40,
+      "sale_badge_color_scheme": "accent-2",
+      "sold_out_badge_color_scheme": "inverse",
+      "accent_icons": "text",
+      "social_twitter_link": "",
+      "social_facebook_link": "",
+      "social_pinterest_link": "",
+      "social_instagram_link": "",
+      "social_tiktok_link": "",
+      "social_tumblr_link": "",
+      "social_snapchat_link": "",
+      "social_youtube_link": "",
+      "social_vimeo_link": "",
+      "predictive_search_enabled": true,
+      "predictive_search_show_vendor": false,
+      "predictive_search_show_price": false,
+      "currency_code_enabled": true,
+      "cart_type": "notification",
+      "show_vendor": false,
+      "show_cart_note": false,
+      "sections": {
+        "announcement-bar": {
+          "type": "announcement-bar",
+          "blocks": {
+            "announcement-bar-0": {
+              "type": "announcement",
+              "settings": {
+                "text": "Welcome to our store",
+                "color_scheme": "background-1",
+                "link": ""
+              }
+            }
+          },
+          "block_order": [
+            "announcement-bar-0"
+          ],
+          "settings": {}
+        },
+        "header": {
+          "type": "header",
+          "settings": {
+            "product_card_background": "#e3e3e3",
+            "logo": "{{ shop.brand.logo }}",
+            "logo_width": 90,
+            "logo_position": "middle-left",
+            "mega_menu_color_lvl2": "#000",
+            "mega_menu_color_hover_lvl2": "#757575",
+            "mega_menu_color": "#000",
+            "mega_menu_color_hover": "#757575",
+            "show_line_separator": true,
+            "enable_sticky_header": true,
+            "margin_bottom": 0,
+            "padding_top": 20,
+            "padding_bottom": 20
+          }
+        },
+        "footer": {
+          "type": "footer",
+          "blocks": {
+            "footer-0": {
+              "type": "link_list",
+              "settings": {
+                "heading": "Quick links",
+                "menu": "footer"
+              }
+            },
+            "footer-1": {
+              "type": "link_list",
+              "settings": {
+                "heading": "Info",
+                "menu": "footer"
+              }
+            },
+            "footer-2": {
+              "type": "text",
+              "settings": {
+                "heading": "Our mission",
+                "subtext": "<p>Share contact information, store details, and brand content with your customers.</p>"
+              }
+            }
+          },
+          "block_order": [
+            "footer-0",
+            "footer-1",
+            "footer-2"
+          ],
+          "settings": {
+            "color_scheme": "background-1",
+            "newsletter_enable": true,
+            "newsletter_heading": "Subscribe to our emails",
+            "show_social": true,
+            "enable_country_selector": false,
+            "enable_language_selector": false,
+            "payment_enable": true,
+            "margin_top": 48,
+            "padding_top": 36,
+            "padding_bottom": 36
+          }
+        },
+        "main-password-header": {
+          "type": "main-password-header",
+          "settings": {
+            "logo": "{{ shop.brand.logo }}",
+            "logo_max_width": 100,
+            "color_scheme": "background-1"
+          }
+        },
+        "main-password-footer": {
+          "type": "main-password-footer",
+          "settings": {
+            "color_scheme": "background-1"
+          }
+        }
+      }
+    }
+  },
+  "platform_customizations": {
+    "custom_css": [
+      "/* ShipInsure */[data-vendor=\"ShipInsure\"] {display: none !important;}",
+      ".product-shipinsure {display: none !important;}",
+      "button.Button.Button-primary.Button--load-more {margin: 2rem 0 4rem;}",
+      ".pdp__option--variants-label:hover,.accordion-item-header:hover {font-weight: 400 !important;}",
+      ".hero-banner--template--23537379148145__hero_banner_WqHB8g .Button-tertiary.hero-banner__btn:hover {background: none; color: #fff !important; text-decoration: underline !important;}"
+    ]
+  }
+}

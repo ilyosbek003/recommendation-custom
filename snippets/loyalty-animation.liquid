@@ -1,0 +1,7 @@
+<div class="ly-animation" style="background: rgba(0, 0, 0, {{ opacity }});">
+    <div class="ly-animation__wrapper">
+        <figure class="ly-animation__desktop" style="background-image: url({{ image | image_url: width: 1500 }}); backdrop-filter: blur({{ blurness }}px); -webkit-backdrop-filter: blur({{ blurness }}px);">
+        </figure>
+        <figure class="ly-animation__mobile" style="background-image: url({{ mobileImage | image_url: width: 1500 }}); backdrop-filter: blur({{ blurness }}px); -webkit-backdrop-filter: blur({{ blurness }}px);"></figure>
+    </div>
+</div>

@@ -1,0 +1,21 @@
+{% comment %} 
+  Input variables:
+    filter_label
+    filter_value
+{% endcomment %}
+
+{% assign keep_case_filters = "Size" | split: ', ' %}
+{% assign replace_values = "ecovero, EcoVero; eco vero, EcoVero; Ecovero, EcoVero; Eco vero, EcoVero; ecoVero, EcoVero; eco Vero, EcoVero; Eco Vero, EcoVero; EcoVero, EcoVero™; uv, UV; Uv, UV; OoohCotton, OoohCotton®; Super Merino, Super Merino™; super merino, Super Merino™"  | split: "; " %}
+{% assign display_value = filter_value %}
+
+{% unless keep_case_filters contains filter_label %}
+  {% assign display_value = display_value | capitalize %}
+{% endunless %}
+
+{% for str_set in replace_values %}
+  {% assign key = str_set | split: ", " | first %}
+  {% assign value = str_set | split: ", " | last %}
+  {% assign display_value = display_value | replace: key, value %}
+{% endfor %}
+
+{{ display_value | strip }}

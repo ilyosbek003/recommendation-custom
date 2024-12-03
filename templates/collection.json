@@ -1,0 +1,724 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "adb9a889-8379-4bef-8ab9-2e272706a4bf": {
+      "type": "custom-liquid",
+      "settings": {
+        "custom_liquid": "<script>\nif (window.location.pathname === '/collections/all') {\nwindow.location = '/collections/ready-to-wear'\n}\n</script>",
+        "color_scheme": "background-1",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "451e8af9-ea07-4ec2-aa3c-a3cf00e7d4ae": {
+      "type": "plp-subnav",
+      "settings": {
+        "menu": "main-menu",
+        "menu_mobile": "main-menu",
+        "padding_inline_desktop": 40,
+        "padding_inline_mobile": 20
+      }
+    },
+    "collections-default": {
+      "type": "collections-page-default",
+      "blocks": {
+        "ae1fde20-4ce8-4b51-b625-f3f78b7d445a": {
+          "type": "custom_filters",
+          "settings": {
+            "heading": "Features | GENERAL",
+            "filter_collection": "",
+            "filter_key": "Features",
+            "filter_values": "2-Way Stretch, 4-Way Stretch, 8-Way Stretch, Adjustable Hood, Comfort Stretch, Crease Proof, Easy-Care, EcoVero, Sustainable Fabric, Elasticized Waistband, Genuine Shell Button, High Moisture Absorption, Machine Washable, Quick-Dry, Reversible, Soft Touch Fabric, Stretch, Thermal Comfort, UV & Chlorine Resistant, UV Protection (UPF 50+), Water Repellent, Soft Touch, Double-Sided",
+            "replace_values": ""
+          }
+        },
+        "b133e164-6dbc-4a8a-b5c1-805e118c6740": {
+          "type": "custom_filters",
+          "settings": {
+            "heading": "Material | GENERAL",
+            "filter_collection": "",
+            "filter_key": "Material",
+            "filter_values": "100% Cotton, 100% Linen, 100% Lyocell, 100% Organic Cotton, 100% Suede, 100% Wool, Cashmere Blend, Cotton Blend, Cowhide, EcoVero, Viscose, Leather, Linen Blend, Suede, Synthetic, Denim, Leather, Nylon, Silk, Wool Blend, Ecovero Viscose",
+            "replace_values": ""
+          }
+        },
+        "4ee0a5ac-04cf-4b15-8c77-b5e5bb313f89": {
+          "type": "custom_filters",
+          "settings": {
+            "heading": "Neckline | GENERAL",
+            "filter_collection": "",
+            "filter_key": "Neckline",
+            "filter_values": "Baseball Collar, Button Down Collar, Camp Collar, Crew Neck, Hidden Button Down Collar, High Standing Collar, Henley, Johnny Collar, Mock Neck, Notched Lapel, Point Collar, Polo Collar, Quarter Zip, Self Collar, Self Fabric Collar, Small Point Collar, Spread Collar, Shawl Collar, Turtleneck, V-Neck",
+            "replace_values": ""
+          }
+        },
+        "9816860f-8309-48bc-b1e9-222427c2e7dc": {
+          "type": "custom_filters",
+          "settings": {
+            "heading": "Pattern | GENERAL",
+            "filter_collection": "",
+            "filter_key": "Pattern",
+            "filter_values": "Abstract,  Argyle, Barrel, Basketweave, Bird’s Eye, Block Rib, Bull’s Eye, Cable,  Camouflage, Chambray, Checks, Chevron, Color Block, Conversational, Dashes,  Diagonal Stitch, Diamond, Diamond Check, Distressed, Dots, Fisherman Stitch,  Floral, Geometric, Gradient, Heather, Herringbone, Honeycomb, Horizontal,  Hound’s Tooth, Illusion, Intersia, Patchwork, Jacquard, Landscape, Marbled,  Marled, Melange, Mesh Effect, Nautical, Novelty, Ogee, Ombre, Paisley,  Photoprint, Plaid & Check, Rib Knit, Scallop, Slub, Solid, Solid Twill,  Stitch, Stonewashed, Stripes, Tie-Dye, Tonal, Tropical, Two Tone, Waffel",
+            "replace_values": ""
+          }
+        },
+        "7b81cd2b-fab1-4380-a11d-e6a95acbc695": {
+          "type": "custom_filters",
+          "settings": {
+            "heading": "Outseam | GENERAL",
+            "filter_collection": "",
+            "filter_key": "Outseam",
+            "filter_values": "15.5\" Outseam, 17.5\" Outseam",
+            "replace_values": ""
+          }
+        },
+        "33ed69e9-5e4a-46bd-8664-457c516af310": {
+          "type": "custom_filters",
+          "settings": {
+            "heading": "Sleeve Length | GENERAL",
+            "filter_collection": "",
+            "filter_key": "Sleeve Length",
+            "filter_values": "Long Sleeve, Short Sleeve, Sleeveless",
+            "replace_values": ""
+          }
+        },
+        "11560a3e-3b61-4dd4-8fc5-77554db9f4de": {
+          "type": "custom_filters",
+          "settings": {
+            "heading": "Color | GENERAL",
+            "filter_collection": "",
+            "filter_key": "Color",
+            "filter_values": "Beige, Black, Blue, Brown, Green, Grey, Multi, Orange, Pink, Purple, Red, White, Yellow",
+            "replace_values": ""
+          }
+        },
+        "440f9fea-6115-4c47-8744-f2e19b17ca75": {
+          "type": "promotional_banner",
+          "settings": {
+            "heading": "Linen Collection",
+            "banner_size": "small",
+            "banner_collection": "linen-collection",
+            "products_count": "0",
+            "banner_type": "image",
+            "link": "shopify://products/julian-leaf-print-shirt-chalk",
+            "overlay": 18,
+            "padding_bottom_mobile": 20,
+            "content_color": "#ffffff",
+            "content_position": "bottom",
+            "heading_text": "SUMMER LINEN",
+            "heading_size": "h3",
+            "heading_size_mobile": "h1_mobile",
+            "heading_align": "left",
+            "text": "Discover our SS24 linen collection, crafted from a premium fabric and designed in an array of classic styles.",
+            "text_size": "text-large",
+            "button_text": "",
+            "button_link": "",
+            "buttons_style": "tertiary",
+            "img_desktop": "shopify://shop_images/16x9_0000s_0037_21_Look_Car_051_B_1_c16b6f74-fd76-4967-b3bd-2810f00d6e8c.jpg",
+            "img_mobile": "shopify://shop_images/1x1_0000s_0048_21_Look_Car_051_B_2_1.jpg",
+            "alt": "Linen Collection",
+            "video_desktop": "",
+            "video_mobile": "",
+            "iframe_title": "Featured video"
+          }
+        },
+        "c38c5b1a-72d1-417f-a4bd-c8d119273f21": {
+          "type": "promotional_banner",
+          "settings": {
+            "heading": "French Terry Collection",
+            "banner_size": "small",
+            "banner_collection": "french-terry",
+            "products_count": "0",
+            "banner_type": "image",
+            "link": "shopify://products/towelling-french-terry-johnny-collar-polo-white",
+            "overlay": 22,
+            "padding_bottom_mobile": 20,
+            "content_color": "#ffffff",
+            "content_position": "bottom",
+            "heading_text": "FRENCH TERRY",
+            "heading_size": "h3",
+            "heading_size_mobile": "h1_mobile",
+            "heading_align": "left",
+            "text": "Perfect pool-side  companion for the summer weather. Lounge in style in our latest French Terry Collection.",
+            "text_size": "text-large",
+            "button_text": "",
+            "button_link": "",
+            "buttons_style": "tertiary",
+            "img_desktop": "shopify://shop_images/2023_HP_06.29_HP_DESKTOP_1_da9bbd90-5787-4929-b699-5fc5d322180f.jpg",
+            "img_mobile": "shopify://shop_images/2023_HP_06.29_1x1_2_ca3aced7-9352-4f20-80b5-27c89abe3724.jpg",
+            "alt": "French Terry Collection",
+            "video_desktop": "",
+            "video_mobile": "",
+            "iframe_title": "Featured video"
+          }
+        },
+        "a934dd6c-c23a-485e-bd50-abfcaee45040": {
+          "type": "promotional_banner",
+          "settings": {
+            "heading": "Swimwear Collection",
+            "banner_size": "small",
+            "banner_collection": "swimwear",
+            "products_count": "0",
+            "banner_type": "image",
+            "link": "shopify://products/archer-pineapples-swim-trunks-black",
+            "overlay": 23,
+            "padding_bottom_mobile": 20,
+            "content_color": "#ffffff",
+            "content_position": "bottom",
+            "heading_text": "SWIM STORY",
+            "heading_size": "h3",
+            "heading_size_mobile": "h1_mobile",
+            "heading_align": "left",
+            "text": "Vibrant colors and prints constructed with an updated stretch fabric resistant to UV rays,      salt and chlorine.",
+            "text_size": "text-large",
+            "button_text": "",
+            "button_link": "",
+            "buttons_style": "tertiary",
+            "img_desktop": "shopify://shop_images/16x9_0000s_0006_54_Look_Boat_040_B_1.jpg",
+            "img_mobile": "shopify://shop_images/4x5_0010_54_Look_Boat_040_B_1.jpg",
+            "alt": "Swimwear Collection",
+            "video_desktop": "",
+            "video_mobile": "",
+            "iframe_title": "Featured video"
+          }
+        },
+        "9d1e9042-39a9-4587-a743-0ae5d543c316": {
+          "type": "promotional_banner",
+          "settings": {
+            "heading": "OoohCotton Collection",
+            "banner_size": "small",
+            "banner_collection": "ooohcotton",
+            "products_count": "0",
+            "banner_type": "image",
+            "link": "",
+            "overlay": 24,
+            "padding_bottom_mobile": 20,
+            "content_color": "#ffffff",
+            "content_position": "bottom",
+            "heading_text": "OOOHCOTTON®",
+            "heading_size": "h3",
+            "heading_size_mobile": "h1_mobile",
+            "heading_align": "left",
+            "text": "Crafted from our exclusive, breathable and 8-way stretch fabric, our signature OoohCotton®     shirts are perfect for the warm weather.",
+            "text_size": "text-large",
+            "button_text": "",
+            "button_link": "",
+            "buttons_style": "tertiary",
+            "img_desktop": "shopify://shop_images/ooohcotton_Header_1_6efb9ba7-c512-41bb-8fa9-20044f0136f7.jpg",
+            "img_mobile": "shopify://shop_images/2024_CROPS_03.19_1x1_1.jpg",
+            "alt": "OoohCotton Collection",
+            "video_desktop": "",
+            "video_mobile": "",
+            "iframe_title": "Featured video"
+          }
+        },
+        "791b116a-8df7-4792-869e-ec72f42bf89b": {
+          "type": "promotional_banner",
+          "settings": {
+            "heading": "Golf & Resort - Polo",
+            "banner_size": "small",
+            "banner_collection": "golf-resort",
+            "products_count": "0",
+            "banner_type": "image",
+            "link": "shopify://pages/golf-resort",
+            "overlay": 23,
+            "padding_bottom_mobile": 20,
+            "content_color": "#ffffff",
+            "content_position": "bottom",
+            "heading_text": "GOLF & RESORT",
+            "heading_size": "h3",
+            "heading_size_mobile": "h1_mobile",
+            "heading_align": "left",
+            "text": "Elevate your look on and off the green with our Golf & Resort pieces.",
+            "text_size": "text-large",
+            "button_text": "LEARN MORE",
+            "button_link": "shopify://pages/golf-resort",
+            "buttons_style": "tertiary",
+            "img_desktop": "shopify://shop_images/9x16_0000s_0008_34_Look_Golf_008_B_1_861df46d-cd6a-47d3-8910-0da84d230b41.jpg",
+            "img_mobile": "shopify://shop_images/4x5_0011_34_Look_Golf_008_B_1_698f08b4-8c02-4fba-b065-4bc3f1e6db3a.jpg",
+            "alt": "Golf & Resort - Polo",
+            "video_desktop": "",
+            "video_mobile": "",
+            "iframe_title": "Featured video"
+          }
+        },
+        "0bb94943-7b5a-4328-9ac3-3973f4af8176": {
+          "type": "promotional_banner",
+          "disabled": true,
+          "settings": {
+            "heading": "50% off sale",
+            "banner_size": "small",
+            "banner_collection": "sale",
+            "products_count": "0",
+            "banner_type": "image",
+            "link": "",
+            "overlay": 0,
+            "padding_bottom_mobile": 20,
+            "content_color": "#ffffff",
+            "content_position": "bottom",
+            "heading_text": "",
+            "heading_size": "h2",
+            "heading_size_mobile": "h1_mobile",
+            "heading_align": "left",
+            "text": "",
+            "text_size": "text",
+            "button_text": "",
+            "button_link": "",
+            "buttons_style": "tertiary",
+            "img_desktop": "shopify://shop_images/Banner_Last_Chance_0725_16x9_copia.jpg",
+            "img_mobile": "shopify://shop_images/Banner_Last_Chance_0725_4x5_copia.jpg",
+            "alt": "50% off sale",
+            "video_desktop": "",
+            "video_mobile": "",
+            "iframe_title": "Featured video"
+          }
+        },
+        "bfee5877-1281-4c22-92c4-9b4c61a6324f": {
+          "type": "promotional_banner",
+          "disabled": true,
+          "settings": {
+            "heading": "UV Collection",
+            "banner_size": "small",
+            "banner_collection": "uv-protection-performance-collection",
+            "products_count": "0",
+            "banner_type": "image",
+            "link": "",
+            "overlay": 0,
+            "padding_bottom_mobile": 20,
+            "content_color": "#ffffff",
+            "content_position": "bottom",
+            "heading_text": "UV50 COLLECTION",
+            "heading_size": "h3",
+            "heading_size_mobile": "h1_mobile",
+            "heading_align": "left",
+            "text": "Experience the perfect blend of comfort and function with UPF50+ protection.",
+            "text_size": "text",
+            "button_text": "",
+            "button_link": "",
+            "buttons_style": "tertiary",
+            "img_desktop": "shopify://shop_images/1_U.V.50-POLO_16x9_1.jpg",
+            "img_mobile": "shopify://shop_images/1_U.V.50-POLO_4x5_1.jpg",
+            "alt": "UV50 COLLECTION",
+            "video_desktop": "",
+            "video_mobile": "",
+            "iframe_title": "Featured video"
+          }
+        },
+        "21f8d82f-dfa5-4556-a4c0-8b8421196143": {
+          "type": "promotional_banner",
+          "settings": {
+            "heading": "Super Merino Sweaters",
+            "banner_size": "small",
+            "banner_collection": "super-merino-sweaters",
+            "products_count": "0",
+            "banner_type": "image",
+            "link": "",
+            "overlay": 0,
+            "padding_bottom_mobile": 20,
+            "content_color": "#ffffff",
+            "content_position": "bottom",
+            "heading_text": "Super Merino",
+            "heading_size": "h3",
+            "heading_size_mobile": "h1_mobile",
+            "heading_align": "left",
+            "text": "Woven from water-repellent yarn allowing it to be washable and crease-proof.",
+            "text_size": "text",
+            "button_text": "",
+            "button_link": "",
+            "buttons_style": "tertiary",
+            "img_desktop": "shopify://shop_images/Pre_Fall_desktop_1_b365c4da-938b-49ce-bed5-33f0fba1ef43.jpg",
+            "img_mobile": "shopify://shop_images/2024_FW24_BRANDED_CROPS_07.03_4x57_1_502ddcf9-68e0-42d2-9b73-f602d4a1d821.jpg",
+            "alt": "Super Merino",
+            "video_desktop": "",
+            "video_mobile": "",
+            "iframe_title": "Featured video"
+          }
+        },
+        "promotional_banner_3yd83W": {
+          "type": "promotional_banner",
+          "settings": {
+            "heading": "New Arrivals",
+            "banner_size": "small",
+            "banner_collection": "new-arrivals-fall-2024",
+            "products_count": "0",
+            "banner_type": "image",
+            "link": "",
+            "overlay": 0,
+            "padding_bottom_mobile": 20,
+            "content_color": "#ffffff",
+            "content_position": "bottom",
+            "heading_text": "NEW ARRIVALS: THE CABERNET EDIT",
+            "heading_size": "h4",
+            "heading_size_mobile": "h2_mobile",
+            "heading_align": "left",
+            "text": "Embrace the spirit of the season with our exclusive collection and make lasting memories with family and friends.",
+            "text_size": "text",
+            "button_text": "",
+            "button_link": "",
+            "buttons_style": "tertiary",
+            "img_desktop": "shopify://shop_images/2024_FW24_BRANDED_CROPS_07.03_16x970_1.jpg",
+            "img_mobile": "shopify://shop_images/2024_FW24_BRANDED_CROPS_07.03_4x570_1.jpg",
+            "alt": "New Arrivals",
+            "video_desktop": "",
+            "video_mobile": "",
+            "iframe_title": "Featured video"
+          }
+        },
+        "be12cef6-c38c-4ed9-99f7-efd67c3e2d92": {
+          "type": "scroll_settings",
+          "settings": {
+            "collection": "ooohcotton",
+            "scroll_behaviour": "btn",
+            "product_count": 50,
+            "load_btn_text": "Load more"
+          }
+        },
+        "5649a254-34ae-4574-b412-5b2cdfe1884b": {
+          "type": "scroll_settings",
+          "settings": {
+            "collection": "ready-to-wear",
+            "scroll_behaviour": "btn",
+            "product_count": 48,
+            "load_btn_text": "Load more"
+          }
+        },
+        "b7f23a0a-b415-4a75-8cdd-c4f1a13045ee": {
+          "type": "scroll_settings",
+          "settings": {
+            "collection": "ooohcotton-shirts",
+            "scroll_behaviour": "btn",
+            "product_count": 48,
+            "load_btn_text": "Load more"
+          }
+        },
+        "35c7202e-6270-4e9e-ba2d-ccfed22a0711": {
+          "type": "scroll_settings",
+          "settings": {
+            "collection": "ooohcotton®-pullovers",
+            "scroll_behaviour": "btn",
+            "product_count": 48,
+            "load_btn_text": "Load more"
+          }
+        },
+        "3aa82fcf-85f9-4089-8d23-e37d4aa0009d": {
+          "type": "scroll_settings",
+          "settings": {
+            "collection": "new-arrival-fall-2023",
+            "scroll_behaviour": "btn",
+            "product_count": 48,
+            "load_btn_text": "Load more"
+          }
+        },
+        "d175d653-a0d9-4cfa-9d55-a2595ea52548": {
+          "type": "scroll_settings",
+          "settings": {
+            "collection": "tops",
+            "scroll_behaviour": "btn",
+            "product_count": 48,
+            "load_btn_text": "Load more"
+          }
+        },
+        "dce34771-f5f3-4a2c-917f-951076a0a0e8": {
+          "type": "scroll_settings",
+          "settings": {
+            "collection": "bottoms",
+            "scroll_behaviour": "btn",
+            "product_count": 48,
+            "load_btn_text": "Load more"
+          }
+        },
+        "bdfcfdbb-d8b5-4db2-bb28-e4d6ac0b6c18": {
+          "type": "scroll_settings",
+          "settings": {
+            "collection": "casual-shirts",
+            "scroll_behaviour": "btn",
+            "product_count": 48,
+            "load_btn_text": "Load more"
+          }
+        },
+        "5d441a0e-3b20-4686-8448-879ec4df84b8": {
+          "type": "scroll_settings",
+          "settings": {
+            "collection": "shirts",
+            "scroll_behaviour": "btn",
+            "product_count": 48,
+            "load_btn_text": "Load more"
+          }
+        },
+        "0a10375a-78fb-470a-9ea7-5e2793f5dc6f": {
+          "type": "scroll_settings",
+          "settings": {
+            "collection": "polo-shirts",
+            "scroll_behaviour": "btn",
+            "product_count": 48,
+            "load_btn_text": "Load more"
+          }
+        },
+        "e79adfd0-e5af-47c7-8c3f-a4aa98772339": {
+          "type": "scroll_settings",
+          "settings": {
+            "collection": "sweaters",
+            "scroll_behaviour": "btn",
+            "product_count": 48,
+            "load_btn_text": "Load more"
+          }
+        },
+        "46c28d23-6e82-442f-8e86-cd10029ce72b": {
+          "type": "scroll_settings",
+          "settings": {
+            "collection": "performance-knits-and-pullovers",
+            "scroll_behaviour": "btn",
+            "product_count": 48,
+            "load_btn_text": "Load more"
+          }
+        },
+        "34c558e6-81cb-408f-bcfd-0f5cd3860522": {
+          "type": "scroll_settings",
+          "settings": {
+            "collection": "jackets-outerwear",
+            "scroll_behaviour": "btn",
+            "product_count": 48,
+            "load_btn_text": "Load more"
+          }
+        },
+        "e3721b5e-35c6-4e9e-9d49-cad64905ebd6": {
+          "type": "scroll_settings",
+          "settings": {
+            "collection": "jackets-coats",
+            "scroll_behaviour": "btn",
+            "product_count": 48,
+            "load_btn_text": "Load more"
+          }
+        },
+        "2f48b36f-8fa4-4f09-8914-8ebb665ca01e": {
+          "type": "scroll_settings",
+          "settings": {
+            "collection": "shorts",
+            "scroll_behaviour": "btn",
+            "product_count": 48,
+            "load_btn_text": "Load more"
+          }
+        },
+        "0951afd5-4842-4359-a9ba-29664a170267": {
+          "type": "scroll_settings",
+          "settings": {
+            "collection": "swimwear",
+            "scroll_behaviour": "btn",
+            "product_count": 48,
+            "load_btn_text": "Load more"
+          }
+        },
+        "8b9a9fa3-287b-4c42-ae12-0fc5ed5ceaa6": {
+          "type": "scroll_settings",
+          "settings": {
+            "collection": "accessories",
+            "scroll_behaviour": "btn",
+            "product_count": 48,
+            "load_btn_text": "Load more"
+          }
+        },
+        "97da24b6-2367-42ee-8bf6-d1c6b729a7fa": {
+          "type": "scroll_settings",
+          "settings": {
+            "collection": "socks",
+            "scroll_behaviour": "btn",
+            "product_count": 48,
+            "load_btn_text": "Load more"
+          }
+        },
+        "5510456b-009a-447e-a9c3-f7415b4df76a": {
+          "type": "scroll_settings",
+          "settings": {
+            "collection": "socks-fashion",
+            "scroll_behaviour": "btn",
+            "product_count": 48,
+            "load_btn_text": "Load more"
+          }
+        },
+        "86724cf8-daca-467a-bcf0-1095fb7c2f67": {
+          "type": "scroll_settings",
+          "settings": {
+            "collection": "sale",
+            "scroll_behaviour": "btn",
+            "product_count": 48,
+            "load_btn_text": "Load more"
+          }
+        },
+        "182d15cd-2e86-4d3d-bae6-530fa1edd83d": {
+          "type": "scroll_settings",
+          "settings": {
+            "collection": "sale-tops",
+            "scroll_behaviour": "btn",
+            "product_count": 48,
+            "load_btn_text": "Load more"
+          }
+        },
+        "d7ae0f3f-f35b-44da-902d-a62e44a81494": {
+          "type": "scroll_settings",
+          "settings": {
+            "collection": "sale-bottoms",
+            "scroll_behaviour": "btn",
+            "product_count": 48,
+            "load_btn_text": "Load more"
+          }
+        },
+        "8e124aac-43a0-4079-be7c-c09d500288e5": {
+          "type": "scroll_settings",
+          "settings": {
+            "collection": "sale-socks",
+            "scroll_behaviour": "btn",
+            "product_count": 48,
+            "load_btn_text": "Load more"
+          }
+        },
+        "eae59eff-2304-4662-a80c-775e0f5c16b1": {
+          "type": "scroll_settings",
+          "settings": {
+            "collection": "sale-fashion-socks",
+            "scroll_behaviour": "btn",
+            "product_count": 48,
+            "load_btn_text": "Load more"
+          }
+        },
+        "62354e2c-c727-4a9f-a2b7-27328c2c28ed": {
+          "type": "scroll_settings",
+          "settings": {
+            "collection": "sale-shorts",
+            "scroll_behaviour": "btn",
+            "product_count": 48,
+            "load_btn_text": "Load more"
+          }
+        },
+        "f81393df-fb05-4cd8-abf8-3d0cb5b5a822": {
+          "type": "scroll_settings",
+          "settings": {
+            "collection": "sale-performance-knits-pullovers",
+            "scroll_behaviour": "btn",
+            "product_count": 50,
+            "load_btn_text": "Load more"
+          }
+        },
+        "scroll_settings_WqeTQK": {
+          "type": "scroll_settings",
+          "settings": {
+            "collection": "super-merino-sweaters",
+            "scroll_behaviour": "btn",
+            "product_count": 50,
+            "load_btn_text": "Load more"
+          }
+        },
+        "scroll_settings_JLADxx": {
+          "type": "scroll_settings",
+          "settings": {
+            "collection": "uv-protection-performance-collection",
+            "scroll_behaviour": "btn",
+            "product_count": 48,
+            "load_btn_text": "Load more"
+          }
+        },
+        "scroll_settings_mWbBmj": {
+          "type": "scroll_settings",
+          "settings": {
+            "collection": "soft-touch-collection",
+            "scroll_behaviour": "btn",
+            "product_count": 48,
+            "load_btn_text": "Load more"
+          }
+        },
+        "scroll_settings_hBiie4": {
+          "type": "scroll_settings",
+          "settings": {
+            "collection": "ooohcotton®-double-sided",
+            "scroll_behaviour": "btn",
+            "product_count": 48,
+            "load_btn_text": "Load more"
+          }
+        },
+        "scroll_settings_Wp6HwX": {
+          "type": "scroll_settings",
+          "settings": {
+            "collection": "black-friday",
+            "scroll_behaviour": "btn",
+            "product_count": 48,
+            "load_btn_text": "Load more"
+          }
+        }
+      },
+      "block_order": [
+        "ae1fde20-4ce8-4b51-b625-f3f78b7d445a",
+        "b133e164-6dbc-4a8a-b5c1-805e118c6740",
+        "4ee0a5ac-04cf-4b15-8c77-b5e5bb313f89",
+        "9816860f-8309-48bc-b1e9-222427c2e7dc",
+        "7b81cd2b-fab1-4380-a11d-e6a95acbc695",
+        "33ed69e9-5e4a-46bd-8664-457c516af310",
+        "11560a3e-3b61-4dd4-8fc5-77554db9f4de",
+        "440f9fea-6115-4c47-8744-f2e19b17ca75",
+        "c38c5b1a-72d1-417f-a4bd-c8d119273f21",
+        "a934dd6c-c23a-485e-bd50-abfcaee45040",
+        "9d1e9042-39a9-4587-a743-0ae5d543c316",
+        "791b116a-8df7-4792-869e-ec72f42bf89b",
+        "0bb94943-7b5a-4328-9ac3-3973f4af8176",
+        "bfee5877-1281-4c22-92c4-9b4c61a6324f",
+        "21f8d82f-dfa5-4556-a4c0-8b8421196143",
+        "promotional_banner_3yd83W",
+        "be12cef6-c38c-4ed9-99f7-efd67c3e2d92",
+        "5649a254-34ae-4574-b412-5b2cdfe1884b",
+        "b7f23a0a-b415-4a75-8cdd-c4f1a13045ee",
+        "35c7202e-6270-4e9e-ba2d-ccfed22a0711",
+        "3aa82fcf-85f9-4089-8d23-e37d4aa0009d",
+        "d175d653-a0d9-4cfa-9d55-a2595ea52548",
+        "dce34771-f5f3-4a2c-917f-951076a0a0e8",
+        "bdfcfdbb-d8b5-4db2-bb28-e4d6ac0b6c18",
+        "5d441a0e-3b20-4686-8448-879ec4df84b8",
+        "0a10375a-78fb-470a-9ea7-5e2793f5dc6f",
+        "e79adfd0-e5af-47c7-8c3f-a4aa98772339",
+        "46c28d23-6e82-442f-8e86-cd10029ce72b",
+        "34c558e6-81cb-408f-bcfd-0f5cd3860522",
+        "e3721b5e-35c6-4e9e-9d49-cad64905ebd6",
+        "2f48b36f-8fa4-4f09-8914-8ebb665ca01e",
+        "0951afd5-4842-4359-a9ba-29664a170267",
+        "8b9a9fa3-287b-4c42-ae12-0fc5ed5ceaa6",
+        "97da24b6-2367-42ee-8bf6-d1c6b729a7fa",
+        "5510456b-009a-447e-a9c3-f7415b4df76a",
+        "86724cf8-daca-467a-bcf0-1095fb7c2f67",
+        "182d15cd-2e86-4d3d-bae6-530fa1edd83d",
+        "d7ae0f3f-f35b-44da-902d-a62e44a81494",
+        "8e124aac-43a0-4079-be7c-c09d500288e5",
+        "eae59eff-2304-4662-a80c-775e0f5c16b1",
+        "62354e2c-c727-4a9f-a2b7-27328c2c28ed",
+        "f81393df-fb05-4cd8-abf8-3d0cb5b5a822",
+        "scroll_settings_WqeTQK",
+        "scroll_settings_JLADxx",
+        "scroll_settings_mWbBmj",
+        "scroll_settings_hBiie4",
+        "scroll_settings_Wp6HwX"
+      ],
+      "settings": {
+        "product_card_background": "#e3e3e3",
+        "padding_inline_desktop_filters": 40,
+        "padding_inline_mobile_filters": 20,
+        "padding_inline_desktop_products": 40,
+        "padding_inline_mobile_products": 20,
+        "scroll_behaviour": "infinite",
+        "product_count_before_btn": 16,
+        "load_btn_text": "Load more",
+        "color_available": true,
+        "color_available_message_position": "beforeend",
+        "available_color_message": ""
+      }
+    }
+  },
+  "order": [
+    "adb9a889-8379-4bef-8ab9-2e272706a4bf",
+    "451e8af9-ea07-4ec2-aa3c-a3cf00e7d4ae",
+    "collections-default"
+  ]
+}

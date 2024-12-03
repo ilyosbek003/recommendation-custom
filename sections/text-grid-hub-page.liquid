@@ -1,0 +1,130 @@
+<div class="hub-text" data-section="hub-text-grid" data-overlay-id="{{ section.settings.overlay_id | handleize }}">
+  <h2 
+    class="hub-text--large hub-font{%- if section.settings.is_dynamic -%}--dynamic{%- endif -%}"
+    style="--font-desktop: {{ section.settings.font_size_desktop }}px; --font-mobile: {{ section.settings.font_size_mobile }}px; --clamp-value: {{ section.settings.clamp_value }}vw"
+  >{{ section.settings.text_large }}</h2>
+  <p 
+    class="hub-text--small hub-font{%- if section.settings.is_dynamic_small -%}--dynamic{%- endif -%}"
+    style="--font-desktop: {{ section.settings.font_size_desktop_small }}px; --font-mobile: {{ section.settings.font_size_mobile_small }}px; --clamp-value: {{ section.settings.clamp_value_small }}vw"
+  >{{ section.settings.text_small }}</p>
+</div>
+
+{% schema %}
+{
+  "name": "Hub Page - Text grid",
+  "class": "overlay-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "overlay_id",
+      "label": "Overlay ID",
+      "info": "ID of overlay is used to link overlay to other blocks"
+    },
+    {
+      "type": "header",
+      "content": "Text content"
+    },
+    {
+      "type": "paragraph",
+      "content": "Enable responsive font sizing for dynamic text adjustments based on screen width. The Clamp ensures font size stays within defined range (Mobile - Desktop). Proportional scaling guarantees readability on various devices. Larger screens display larger text; smaller screens show appropriately scaled-down text. For example, 5vw clamp value means the font size is 5% of the screen width. If the screen width is 1600px, the font size is 80. If outside the range, the nearest valid value is selected"
+    },
+    {
+      "type": "header",
+      "content": "Text | Large"
+    },
+    {
+      "type": "text",
+      "id": "text_large",
+      "label": "Content"
+    },
+    {
+      "type": "checkbox",
+      "id": "is_dynamic",
+      "label": "Use responsive font size (Clamp)",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "font_size_desktop",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Font size | Desktop",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "font_size_mobile",
+      "min": 8,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "Font size | Mobile",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "clamp_value",
+      "min": 0.2,
+      "max": 20,
+      "step": 0.2,
+      "unit": "vw",
+      "label": "Clamp value",
+      "default": 4
+    },
+    {
+      "type": "header",
+      "content": "Text | Small"
+    },
+    {
+      "type": "text",
+      "id": "text_small",
+      "label": "Content"
+    },
+    {
+      "type": "checkbox",
+      "id": "is_dynamic_small",
+      "label": "Use responsive font size (Clamp)",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "font_size_desktop_small",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Font size | Desktop",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "font_size_mobile_small",
+      "min": 8,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "Font size | Mobile",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "clamp_value_small",
+      "min": 0.2,
+      "max": 20,
+      "step": 0.2,
+      "unit": "vw",
+      "label": "Clamp value",
+      "default": 4
+    }
+  ],
+  "presets": [
+    {
+      "category": "Hub Page",
+      "name": "Hub Page - Text grid", 
+      "settings": {}
+    } 
+  ]
+}
+{% endschema %}

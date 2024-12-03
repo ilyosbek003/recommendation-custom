@@ -1,0 +1,33 @@
+{% comment %} 
+  Accepts: 
+    -product
+    -ss - section.settings
+
+{% endcomment %}
+
+<div class="labels-wrapper">
+  {% liquid
+    assign handle_metafield = product.metafields.global.metafield_product_handle.value
+    assign number_of_colors = product.metafields.global.metafield_product_handle.value | split: "," | size | plus: 1
+    assign show_color_label = section.settings.color_available
+    assign colors_msg_from_product_metafield = product.metafields.colors_available_message_meta
+    assign colors_msg_from_section_settings =  ss.available_color_message
+  %}
+
+    {%- capture colors_label -%}
+      <a href="/products/{{ product.handle }}{{ url_params }}">
+        <span class="product-color-link text">
+          {%- if colors_msg_from_product_metafield != empty -%}
+            {{ colors_msg_from_product_metafield }}
+          {%- elsif colors_msg_from_section_settings != blank -%}
+            {{ colors_msg_from_section_settings }}
+          {%- else -%}
+            {{ number_of_colors }} {{ number_of_colors | pluralize: 'Color', 'Colors' }}
+          {%- endif -%}
+        </span>
+      </a>
+    {%- endcapture -%}
+  {%- if handle_metafield != blank and show_color_label == true -%}
+    {{ colors_label }}
+  {%- endif -%}
+</div>

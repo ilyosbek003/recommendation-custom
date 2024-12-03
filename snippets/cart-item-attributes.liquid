@@ -1,0 +1,19 @@
+{% assign parent_bundle_id = item.properties.__lc_bundles_parent_id %}
+{% assign is_parent_bundle_item = item.properties.__lc_bundles_is_parent %}
+{% assign bundle_items_count = item.properties.__lc_bundles_bundle_items_count %}
+
+{% if item.discount_allocations.size > 0 or is_parent_bundle_item %}
+  data-is-discounted="true"
+{% endif %}
+{% if parent_bundle_id or is_parent_bundle_item %}
+  data-is-bundle-item="true"
+  data-bundle-items-count="{{ bundle_items_count }}"
+{% endif %}
+{% if is_parent_bundle_item %}data-bundle-key="{{ item.properties.__lc_bundles_key }}"{% endif %}
+{% if parent_bundle_id != nil %}data-parent-bundle-id="{{ item.properties.__lc_bundles_key }}"{% endif %}
+data-price="{{ item.original_price }}"
+data-index="{{ index }}"
+data-variant-id="{{ item.variant.id }}"
+data-line-key="{{ item.key }}"
+class="cart-item {% if parent_bundle_id != nil %}cart-item--child{% endif %}"
+role="row"

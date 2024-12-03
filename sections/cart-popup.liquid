@@ -1,0 +1,19 @@
+{% if section.settings.show_popup == true %}
+  <script>
+    window.showPopup = true
+  </script>
+{% endif %}
+
+{% schema %}
+  {
+    "name": "Cart popup",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "show_popup",
+        "label": "Show Popup",
+        "default": false
+      }
+    ]
+  }
+{% endschema %}

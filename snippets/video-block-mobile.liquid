@@ -1,0 +1,83 @@
+{% assign image_keys = "image_1,image_2,image_3,image_4" | split: "," %}
+
+<div class="slider__item swiper-slide slider__item-{{ block.id }} {{ desktop_class }} {{ mobile_class }} {{ block.settings.block_width }}">
+    {% assign video_id = block.settings.video.id | default: block.settings.video_url.id %}
+    {%- if block.settings.video == null and block.settings.video_url != null -%}
+        {%- liquid
+            assign loop = ''
+            if block.settings.enable_video_looping
+            assign loop = '&loop=1&playlist=' | append: video_id
+            endif
+        -%}
+        {%- if block.settings.video_url.type == 'youtube' -%}
+            <iframe
+                src="https://www.youtube.com/embed/{{ video_id }}?enablejsapi=1&autoplay=1{{ loop }}"
+                class="js-youtube youtube-iframe"
+                allow="autoplay; encrypted-media"
+                allowfullscreen
+                title="{{ block.settings.description | escape }}"
+            ></iframe>
+        {%- else -%}
+            <iframe
+                src="https://player.vimeo.com/video/{{ video_id }}?autoplay=1&loop=1&muted=1"
+                class="js-vimeo vimeo-iframe"
+                allow="autoplay; loop; encrypted-media"
+                allowfullscreen
+                title="{{ block.settings.description | escape }}"
+            ></iframe>
+        {%- endif -%}
+    {%- else -%}
+        {% assign desktop_video_url = block.settings.video.sources
+            | where: "format", "mp4"
+            | map: "url"
+            | first %}
+        {% assign mobile_video_url = block.settings.video_mobile.sources
+            | where: "format", "mp4"
+            | map: "url"
+            | first %}
+        <video
+            playsinline="playsinline"
+            autoplay="autoplay"
+            muted="muted"
+            preload="none"
+            class="slider__video"
+            loop="loop"
+            data-src-desktop="{{ desktop_video_url }}"
+            data-src-mobile="{{ mobile_video_url }}"
+        >
+        </video>
+    {%- endif -%}
+
+    <div class="slider__content {{ block.settings.content_choice }}" style="gap: {{ block.settings.content_gap }}px;">
+        {% if block.settings.title_select == 'title_top' %}
+            <h2 class="slider__title">{{ block.settings.title }}</h2>
+            <span class="slider__description">{{ block.settings.description }}</span>
+        {% else %}
+            <span class="slider__description">{{ block.settings.description }}</span>
+            <h2 class="slider__title">{{ block.settings.title }}</h2>
+        {% endif %}
+    </div>
+
+    {% if block.settings.product_list != blank %}
+        <div data-shop-modal-open>
+          {% for product in block.settings.product_list %}
+            {% render 'create-product-object', product: product %}
+          {% endfor %}
+          {% render 'create-shop-images', keys: image_keys, settings: block.settings, class: "image-lazy shopable-images__image", loading: "lazy" %}
+          <button class="slider__shop--button" title="{{ block.settings.button_title }}" aria-label="{{ block.settings.button_title }}">{{ block.settings.button_title }}</button>
+        </div>
+      {% endif %}
+
+    {% if block.settings.video != null %}
+      <div class="slider__video--controls {{ block.settings.video_controls_position }}">
+        <button data-type="video" data-state="playing" aria-label="Play video">
+          {% render 'icon' with 'play-outline', fill: block.settings.video_controls_color %}
+          {% render 'icon' with 'pause-outline', fill: block.settings.video_controls_color %}
+        </button>
+        <button data-type="audio" data-state="muted" aria-label="Unmute Audio">
+          {% render 'icon' with 'unmute-outline', fill: block.settings.video_controls_color %}
+          {% render 'icon' with 'mute-outline', fill: block.settings.video_controls_color %}
+        </button>
+      </div>
+    {% endif %}
+</div>

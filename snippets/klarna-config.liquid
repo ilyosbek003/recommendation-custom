@@ -1,0 +1,14 @@
+<script>
+  window.KlarnaThemeGlobals={};
+  {%case template.name%} 
+    {%when"product"%} 
+      {% capture amount %}
+        {%- if product.first_available_variant.price -%}
+          {{ product.first_available_variant.price }}
+        {%- else -%}
+          {{  product.variants[0].price }}
+        {%- endif -%}
+      {% endcapture %}
+
+      window.KlarnaThemeGlobals.data_purchase_amount= {{ amount }};window.KlarnaThemeGlobals.productVariants={{product.variants|json}};window.KlarnaThemeGlobals.documentCopy=document.cloneNode(true);{%when"cart"%} window.KlarnaThemeGlobals.data_purchase_amount={{cart.total_price}};window.KlarnaThemeGlobals.documentCopy=document.cloneNode(true);{%endcase%}
+</script>

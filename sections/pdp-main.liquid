@@ -1,0 +1,153 @@
+{% include 'pdp-settings' %}
+{% include 'kiwi-sizing' %}
+{% include 'ssp-pdp' %}
+
+<div
+  class="Product Product--{{ section.settings.layout }}"
+  data-section-type="pdp-main"
+  data-section-id="{{ section.id }}"
+  data-product-id="{{ product.id }}"
+  style="--padding-desktop: {{ section.settings.padding_inline_desktop | divided_by: 10 }}rem; --padding-mobile:{{ section.settings.padding_inline_mobile | divided_by: 10 }}rem;"
+>
+  {% render 'breadcrumbs', menu: settings.pointer_menu_mobile, class: "mobile" %}
+  <style>
+    .Product__breadcrumb--placeholder {
+      display: block;
+      width: 50%;
+      animation: skeleton-loading 1s linear infinite alternate;
+    }
+
+    .Product__breadcrumb--mobile.Product__breadcrumb--placeholder {
+      margin: 0 2rem;
+    }
+
+    @media screen and (min-width: 1008px) {
+      .Product__breadcrumb--mobile.Product__breadcrumb--placeholder {
+        display: none;
+      }
+    }
+
+    @media screen and (max-width: 989px) {
+      .Product__breadcrumb--mobile {
+        padding: 0 1rem;
+      }
+    }
+
+    .Product__breadcrumb--mobile ~ .Product__breadcrumb--placeholder {
+      display: none;
+    }
+
+    @keyframes skeleton-loading {
+      0% {
+        background-color: rgb(200, 200, 200);
+        color: rgb(200, 200, 200);
+      }
+      100% {
+        background-color: rgb(238, 238, 238);
+        color: rgb(238, 238, 238);
+      }
+    }
+  </style>
+  {% include 'pdp-xl-elements' %}
+  {% include 'pdp-gallery' %}
+  {% include 'pdp-form' %}
+  {% include 'linklist' %}
+</div>
+
+{% render 'modal-fit-guide' %}
+{% render 'global-init-styles' %}
+{% include 'klarna-config' %}
+
+{% schema %}
+  {
+    "name": "Product page",
+    "class": "shopify-section--bordered page-width",
+    "settings": [
+      {
+        "type": "select",
+        "id": "layout",
+        "label": "Layout",
+        "options": [
+          {
+            "value": "normal",
+            "label": "Normal"
+          }, {
+            "value": "equal",
+            "label": "Equal Split"
+          }
+        ],
+        "default": "normal"
+      },
+      {
+        "type": "checkbox",
+        "id": "animate_nav",
+        "label": "Animate navigation on scroll",
+        "default": true,
+        "info": "Hide and show navigation on scroll"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_sku",
+        "label": "Show SKU",
+        "default": false
+      },
+      {
+        "type": "header",
+        "content": "Media"
+      }, {
+        "type": "checkbox",
+        "id": "show_thumbnails",
+        "label": "Show thumbnails on desktop",
+        "default": false
+      }, {
+        "type": "checkbox",
+        "id": "enable_video_looping",
+        "label": "Enable video looping",
+        "default": true
+      }, {
+        "type": "header",
+        "content": "Details' Tabs"
+      }, {
+        "type": "page",
+        "id": "tab_page_1_handle",
+        "label": "First page"
+      }, {
+        "type": "page",
+        "id": "tab_page_2_handle",
+        "label": "Second page"
+      },
+      {
+        "type": "link_list",
+        "id": "menu",
+        "default": "main-menu",
+        "label": "Menu | Desktop"
+      },
+      {
+        "type": "link_list",
+        "id": "menu_mobile",
+        "default": "main-menu",
+        "label": "Menu | Mobile"
+      },
+      {
+        "type": "range",
+        "id": "padding_inline_desktop",
+        "min": 0,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "label": "Inline padding | Desktop",
+        "default": 40
+      },
+      {
+        "type": "range",
+        "id": "padding_inline_mobile",
+        "min": 0,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "label": "Inline padding | Mobile",
+        "default": 20
+      }
+    ]
+  }
+{% endschema %}

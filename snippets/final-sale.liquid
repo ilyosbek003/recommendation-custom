@@ -1,0 +1,58 @@
+{% comment %}
+  Accepts:
+      - is_promo_gift_card_in_cart
+      - item: line_item
+{% endcomment %}
+
+{%- assign is_final_sale = false -%}
+
+{% comment %}
+  CHECK IF ITEM HAS FINAL SALE PROPERTY
+{% endcomment %}
+{%- if item.properties._finalSale -%}
+  {%- assign is_final_sale = true -%}
+{%- endif -%}
+
+{% comment %} 
+    CHECK IF ITEM IS UNRETURNABLE
+{% endcomment %}
+ {%- assign type = item.product.type | upcase -%}
+ {%- if type == "MASK" or type == "SWIMWEAR" -%}
+    {%- assign is_final_sale = true -%}
+ {%- endif -%}
+
+{% comment %}
+  CHECK IF GIFT CARD IS IN CART
+  - ITEM SHOULD NOT BE SHIPINSURE PRODUCT
+  - ITEM SHOULD NOT BE PROMO-GIFTCARD PRODUCT
+{% endcomment %}
+{%- if is_promo_gift_card_in_cart -%}
+  {%- unless item.product.handle == 'shipinsure' -%}
+    {%- unless item.product.tags contains 'PROMO-GIFTCARD' -%}
+      {%- assign is_final_sale = true -%}
+    {%- endunless -%}
+  {%- endunless -%}
+{%- endif -%}
+
+{% comment %}
+  CHECK IF ITEM IS DISCOUNTED FOR FINAL SALE
+{% endcomment %}
+{%- assign original_price = item.variant.compare_at_price | default: item.original_price -%}
+{%- assign final_price = item.final_price -%}
+{%- assign total_savings = 0 -%}
+
+
+{%- if original_price > final_price -%}
+  {%- assign total_savings = original_price | minus: final_price -%}
+  {%- assign total_savings_percent = total_savings | times: 1.0 | divided_by: original_price | times: 100 -%}
+  {%- if total_savings_percent >= 40 -%}
+    {%- assign is_final_sale = true -%}
+  {%- endif -%}
+{%- endif -%}
+
+{% comment %}
+  RENDER THE FINAL SALE TAG
+{% endcomment %}
+{%- if is_final_sale -%}
+  <span class="cart-item__final-sale">Final Sale</span>
+{%- endif -%}

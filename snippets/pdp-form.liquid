@@ -1,0 +1,105 @@
+{% assign hide_elements_on_xl = false %}
+{% if section.settings.layout == 'normal' %}
+  {% assign hide_elements_on_xl = true %}
+{% endif %}
+
+<script>
+  window.productMetafields = {
+    ...(window.productMetafields || {}),
+  }
+  window.productMetafields.imageOrder = "{{ product.metafields.global.image_order.value }}",
+  window.productMetafields.tooltip = {{ product.metafields.global.tooltip.value | json }}
+  window.productMetafields.styledWith = {{ product.metafields.global.styled_with.value | json }}
+  window.productMetafields.collections = {{ product.collections | json }}
+</script>
+
+<div class="Product__form">
+  <div class="Product__form-head">
+    {% render 'breadcrumbs', menu: settings.pointer_menu_desktop, class: "desktop" %}
+    <style>
+      .Product__breadcrumb--desktop ~ .Product__breadcrumb--placeholder {
+        display: none;
+      }
+    </style>
+
+    {% render 'new-label', product: product %}
+
+    <h1 class="Product__title h5" data-hide-xl="{{ hide_elements_on_xl }}">
+      {% render 'product-detail-item', inputString: product.title %}
+    </h1>
+    <div class="Product__price-group">
+      <span class="Product__price Product__price--compare h5">
+        {{- product.compare_at_price | money_without_trailing_zeros -}}
+      </span>
+      <span class="Product__price h5">
+        {{ product.price | money_without_trailing_zeros }}
+      </span>
+    </div>
+    {% if section.settings.show_sku == true %}
+      <span class="Product__sku" data-hide-xl="{{ hide_elements_on_xl }}">
+        Sku: 
+        <span>{% render 'product-sku' | product: product %}</span>
+      </span>
+    {% endif %}
+  </div>
+  <div class="Product__form-body">
+  </div>
+  <div class="Product__form-cta Product__form-cta--sticky">
+    <div class="Product__form-cta--wrapper">
+      <div class="Product__form-error text-small">
+      </div>
+    
+      <div class="Product__form-quantity">
+      <button type="button" class="Product__form-minus">
+        {% render 'icon' with 'minus' %}
+      </button>
+      <input type="number" min="1" max="99" value="1" />
+      <button type="button" class="Product__form-plus">
+        {% render 'icon' with 'plus-icon' %}
+      </button>
+      </div>
+
+      <div class="Product__form-actions">
+      <button class="Button Button-primary Product__btn-cart">
+        Add to bag
+      </button>
+      <div class="klarna-pay--wrapper klarna-pay--wrapper-desktop">
+        <div id="klarna-pay--desktop"></div>
+      </div>
+      </div>
+    </div>
+    <div class="Product__form-cta--sold_out Button" style="display: none;">
+      <span class="text upper-case">notify me when back in stock</span>
+      <div class="notify__backdrop"></div>
+      <div class="notify__form">
+        <span class="upper-case text-large notify__form--title">back in stock notification</span>
+        <p class="text">
+          Enter your email address to be notified when this item will be back in stock. By entering your email you agree to our Privacy Policy and Terms & Conditions.
+        </p>
+        <form>
+          <div class="notify__form-input-wrapper">
+            <input class="text" type="email" placeholder="Enter your email address" required>
+            <div class="invalid-email-message">
+              <div class="message-wrapper">
+                <span class="text-small upper-case">invalid email address</span>
+              </div>
+            </div>
+          </div>
+          <button class="Button Button-primary-outline">Notify me</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="klarna-pay--wrapper">
+      <div id="klarna-pay"></div>
+  </div>
+  <div class="wishlist-engine" data-product_id="{{ product.id }}" data-variant_id="{{product.variants[0].id}}" data-full_button="true" data-css="true"></div>
+  {% if customer %}
+    {% render 'points-label' %}
+  {% endif %}
+  {% if hide_elements_on_xl == false %}
+    <div class="Product__details">
+      {% render 'pdp-accordions' | product: product %}
+    </div>
+  {% endif %}
+</div>

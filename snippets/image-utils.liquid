@@ -1,0 +1,20 @@
+<script>
+  window.replaceNoImage = function(image) {
+    var isNoImageSrc = image ? (/no-image/).test(image) : true;
+    return {
+      matches: isNoImageSrc, 
+      src: isNoImageSrc ? "{{ 'no-image-min.jpg' | file_url }}" : image
+    };
+  }
+  window.resizeImage = function(img, width, height) {
+    var noImage = window.replaceNoImage(img);
+    if (noImage.matches) return noImage.src; 
+    height = height || '';
+    return img.replace(
+      /.png|.jpg|.gif|.jpeg/, 
+      function (match) {
+        return `_${width}x${height}${match}`;
+      }
+    );
+  }
+</script>

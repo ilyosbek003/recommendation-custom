@@ -1,0 +1,618 @@
+
+{{ 'loyalty.min.css' | asset_url | stylesheet_tag }}
+{{ 'customer.css' | asset_url | stylesheet_tag }}
+{{ 'section-contact-form.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'loyalty.min.js' | asset_url }}" defer></script>
+<script src="{{ 'customer.js' | asset_url }}" defer></script>
+<script src="{{ 'collapsible-accordion.min.js' | asset_url }}" defer></script>
+
+<div class="ly" id="customer-email" data-token="{{ page.metafields.custom.storefront_token }}" data-customer-phone="{{ customer.phone }}" data-customer-id="{{ customer.id }}" data-customer-email="{{ customer.email }}">
+    {% if customer %}   
+        {% render 'loyalty-home', blocks: section.blocks %}
+    {% else %}
+        {% render 'loyalty-animation', image: section.settings.scroll_image, mobileImage: section.settings.scroll_mobile_image, opacity: section.settings.background_opacity, blurness: section.settings.blurness %}
+        {% for block in section.blocks %}
+            {% render 'loyalty-header', block: block %}
+        {% endfor %}
+        <div class="ly__wrapper">
+            {% render 'loyalty-animation', image: section.settings.scroll_second_image, mobileImage: section.settings.scroll_second_mobile, opacity: section.settings.background_opacity, blurness: section.settings.blurness %}
+            {% render 'loyalty-membership' %}
+        </div>
+        {% render 'loyalty-auth' %}
+    {% endif %}
+</div>
+
+{% schema %}
+{
+    "name": "Loyalty",
+    "settings": [
+        {
+            "type": "image_picker",
+            "id": "scroll_image",
+            "label": "Animation Image"
+        },
+        {
+            "type": "image_picker",
+            "id": "scroll_mobile_image",
+            "label": "Mobile Animation Image"
+        },
+        {
+            "type": "range",
+            "id": "background_opacity",
+            "min": 0,
+            "max": 1,
+            "step": 0.1,
+            "label": "Background Image Opacity",
+            "default": 0.5
+        },
+        {
+            "type": "range",
+            "id": "blurness",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "label": "Background Blurness",
+            "default": 1
+        },
+        {
+            "type": "image_picker",
+            "id": "scroll_second_image",
+            "label": "Second Animation Image"
+        },
+        {
+            "type": "image_picker",
+            "id": "scroll_second_mobile",
+            "label": "Second Mobile Animation Image"
+        },
+        {
+            "type": "text",
+            "id": "membership_title",
+            "default": "membership levels",
+            "label": "Title"
+        },
+        {
+            "type": "text",
+            "id": "membership_heading",
+            "default": "become a member",
+            "label": "Auth Title"
+        },
+        {
+            "type": "text",
+            "id": "membership_cta",
+            "default": "sign up now",
+            "label": "Cta Title"
+        },
+        {
+            "type": "url",
+            "id": "membership_url",
+            "default": "/",
+            "label": "Cta Url"
+        },
+        {
+            "type": "range",
+            "id": "auth_blurness",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "label": "Background Blurness",
+            "default": 6
+        },
+        {
+            "type": "image_picker",
+            "id": "auth_image",
+            "label": "Auth Background Image"
+        },
+        {
+            "type": "image_picker",
+            "id": "auth_mobile_image",
+            "label": "Auth Mobile Background Image"
+        },
+        {
+            "type": "image_picker",
+            "id": "home_image",
+            "label": "Dashboard Background Image"
+        },
+        {
+            "type": "image_picker",
+            "id": "home_mobile_image",
+            "label": "Dashboard Mobile Background Image"
+        },
+        {
+            "type": "text",
+            "id": "rewards_title",
+            "default": "Benefits",
+            "label": "Rewards Title"
+        },
+        {
+            "type": "text",
+            "id": "address_title",
+            "default": "ADDRESS BOOK",
+            "label": "Address Title"
+        },
+        {
+            "type": "text",
+            "id": "email_title",
+            "default": "Email",
+            "label": "Email Title"
+        },
+        {
+            "type": "text",
+            "id": "update_email_btn",
+            "default": "Update Email",
+            "label": "Email Button Title"
+        },
+        {
+            "type": "text",
+            "id": "email_success_msg",
+            "default": "Email updated successfully !",
+            "label": "Email Success Message"
+        },
+        {
+            "type": "text",
+            "id": "email_error_msg",
+            "default": "Error updating email",
+            "label": "Email Error Message"
+        },
+        {
+            "type": "text",
+            "id": "phone_title",
+            "default": "Telephone",
+            "label": "Phone Title"
+        },
+        {
+            "type": "text",
+            "id": "phone_subtitle",
+            "default": "Phone Number",
+            "label": "Phone Subtitle"
+        },
+        {
+            "type": "text",
+            "id": "update_phone_btn",
+            "default": "Update Phone Number",
+            "label": "Phone Button Title"
+        },
+        {
+            "type": "text",
+            "id": "phone_success_msg",
+            "default": "Phone number updated successfully !",
+            "label": "Phone Success Message"
+        },
+        {
+            "type": "text",
+            "id": "phone_error_msg",
+            "default": "Error updating phone number",
+            "label": "Phone Error Message"
+        },
+        {
+            "type": "text",
+            "id": "password_title",
+            "default": "Password",
+            "label": "Password Title"
+        },
+        {
+            "type": "text",
+            "id": "update_password_btn",
+            "default": "Update Password",
+            "label": "Password Button Title"
+        },
+        {
+            "type": "text",
+            "id": "password_success_msg",
+            "default": "Password updated successfully !",
+            "label": "Password Success Message"
+        },
+        {
+            "type": "text",
+            "id": "password_error_msg",
+            "default": "Error updating Password",
+            "label": "Password Error Message"
+        },
+        {
+            "type": "text",
+            "id": "faq_title",
+            "default": "FAQ",
+            "label": "FAQ Title"
+        },
+        {
+            "type": "text",
+            "id": "order_title",
+            "default": "Orders",
+            "label": "Order Title"
+        },
+        {
+            "type": "text",
+            "id": "order_description",
+            "default": "Track and view orders and history",
+            "label": "Order Description"
+        },
+        {
+            "type": "text",
+            "id": "empty_orders",
+            "default": "You don't have any orders yet.",
+            "label": "Empty Orders Title"
+        },
+        {
+            "type": "text",
+            "id": "earn_points",
+            "default": "EARN POINTS",
+            "label": "Earn Points Title"
+        },
+        {
+            "type": "text",
+            "id": "available_rewards",
+            "default": "YOUR AVAILABLE REWARDS",
+            "label": "Available Rewards Title"
+        },
+        {
+            "type": "text",
+            "id": "claim_rewards",
+            "default": "CLAIM YOUR REWARDS",
+            "label": "Claim Rewards Title"
+        },
+        {
+            "type": "text",
+            "id": "rewards_history",
+            "default": "REWARDS HISTORY",
+            "label": "Rewards History Title"
+        },
+        {
+            "type": "text",
+            "id": "contact_us_title",
+            "default": "Contact Us",
+            "label": "Contact Us Title"
+        },
+        {
+            "type": "text",
+            "id": "contact_us_description",
+            "default": "Fill out the form below and our customer service team will get in touch with you as soon as possible.",
+            "label": "Contact Us Description"
+        },
+        {
+            "type": "text",
+            "id": "order_number",
+            "default": "Order Number",
+            "label": "Order Number"
+        },
+        {
+            "type": "text",
+            "id": "subject_title",
+            "default": "Subject",
+            "label": "Subject Title"
+        },
+        {
+            "type": "text",
+            "id": "message_label",
+            "default": "Message",
+            "label": "Message Label"
+        },
+        {
+            "type": "text",
+            "id": "message_button",
+            "default": "Message",
+            "label": "Message Button"
+        },
+        {
+            "type": "text",
+            "id": "customer_inquiries",
+            "default": "CUSTOMER INQUIRIES",
+            "label": "CUSTOMER INQUIRIES"
+        },
+        {
+            "type": "text",
+            "id": "chat_with_us",
+            "default": "Chat with us",
+            "label": "Chat Link Label"
+        },
+        {
+            "type": "url",
+            "id": "chat_with_url",
+            "default": "/",
+            "label": "Chat Link Url"
+        },
+        {
+            "type": "text",
+            "id": "chat_with_title",
+            "default": "Start a live chat",
+            "label": "Chat Link Title"
+        },
+        {
+            "type": "text",
+            "id": "contact_telephone",
+            "default": "Telephone",
+            "label": "Contact Telephone Title"
+        },
+        {
+            "type": "number",
+            "id": "contact_phone_number",
+            "default": 5618930555,
+            "label": "Phone Number"
+        },
+        {
+            "type": "text",
+            "id": "phone_number_title",
+            "default": "(561) 893-0555",
+            "label": "Phone Number Title"
+        },
+        {
+            "type": "text",
+            "id": "contact_email_label",
+            "default": "Email",
+            "label": "Email Label"
+        },
+        {
+            "type": "text",
+            "id": "contact_email",
+            "default": "customerservice@bugatchi.com",
+            "label": "Contact Email"
+        },
+        {
+            "type": "text",
+            "id": "contact_email_title",
+            "default": "customerservice@bugatchi.com",
+            "label": "Email Title"
+        },
+        {
+            "type": "text",
+            "id": "wishlist_title",
+            "default": "Wishlist",
+            "label": "Wishlist Title"
+        },
+        {
+            "type": "text",
+            "id": "wishlist_description",
+            "default": "Click the SAVE on an item page to add it to your Wishlist. When you're ready, add your saved items to your cart before you checkout",
+            "label": "Wishlist Description"
+        },
+        {
+            "type": "text",
+            "id": "welcome_back",
+            "default": "welcome back",
+            "label": "Welcome Back Title"
+        },
+        {
+            "type": "text",
+            "id": "member_title",
+            "default": "member",
+            "label": "Member Title"
+        },
+        {
+            "type": "text",
+            "id": "points_title",
+            "default": "points",
+            "label": "Points Title"
+        },
+        {
+            "type": "text",
+            "id": "you_have_text",
+            "default": "you have",
+            "label": "Header text"
+        },
+        {
+            "type": "text",
+            "id": "home_cta_title",
+            "default": "view",
+            "label": "Home CTA Title"
+        },
+        {
+            "type": "text",
+            "id": "is_not_member",
+            "default": "NOT YET A MEMBER",
+            "label": "Not Yet a Member Title"
+        },
+        {
+            "type": "text",
+            "id": "join_title",
+            "default": "JOIN the club",
+            "label": "Join Title"
+        },
+        {
+            "type": "text",
+            "id": "privacy_title",
+            "default": "i accept the privacy statement",
+            "label": "Privacy Title"
+        },
+        {
+            "type": "text",
+            "id": "signup_title",
+            "default": "sign up now",
+            "label": "Signup Title"
+        },
+        {
+            "type": "text",
+            "id": "already_member_title",
+            "default": "already a member",
+            "label": "Already Member Title"
+        },
+        {
+            "type": "text",
+            "id": "login_title",
+            "default": "Login",
+            "label": "Login Title"
+        },
+        {
+            "type": "text",
+            "id": "signin_title",
+            "default": "Sign In",
+            "label": "Sign In Title"
+        },
+        {
+            "type": "text",
+            "id": "forgot_password_title",
+            "default": "FORGOT PASSWORD?",
+            "label": "Forgot Password Title"
+        }
+    ],
+    "blocks": [
+        {
+            "name": "Loyalty",
+            "type": "loyalty",
+            "settings": [
+                {
+                    "type": "select",
+                    "id": "header_select",
+                    "label": "Content Type",
+                    "default": "center",
+                    "options": [
+                        {
+                            "label": "Left",
+                            "value": "left"
+                        },
+                        {
+                            "label": "Center",
+                            "value": "center"
+                        },
+                        {
+                            "label": "Right",
+                            "value": "right"
+                        }
+                    ]
+                },
+                {
+                    "type": "text",
+                    "id": "header_title",
+                    "default": "you're invited",
+                    "label": "Title"
+                },
+                {
+                    "type": "range",
+                    "id": "header_title_size",
+                    "min": 1,
+                    "max": 10,
+                    "step": 0.2,
+                    "unit": "rem",
+                    "label": "Title Font Size",
+                    "default": 4
+                },
+                {
+                    "type": "image_picker",
+                    "id": "header_image",
+                    "label": "Background Image"
+                },
+                {
+                    "type": "image_picker",
+                    "id": "header_mobile_image",
+                    "label": "Mobile Background Image"
+                },
+                {
+                    "type": "text",
+                    "id": "header_description",
+                    "default": "Where we treat you to your Signature BUGATCHI experience.",
+                    "label": "Description"
+                },
+                {
+                    "type": "range",
+                    "id": "header_description_size",
+                    "min": 1,
+                    "max": 10,
+                    "step": 0.2,
+                    "unit": "rem",
+                    "label": "Description Font Size",
+                    "default": 2
+                },
+                {
+                    "type": "text",
+                    "id": "header_cta",
+                    "default": "become a member",
+                    "label": "Title"
+                },
+                {
+                    "type": "range",
+                    "id": "header_cta_size",
+                    "min": 1,
+                    "max": 3,
+                    "step": 0.2,
+                    "unit": "rem",
+                    "label": "Cta Font Size",
+                    "default": 1.8
+                },
+                {
+                    "type": "url",
+                    "id": "header_url",
+                    "default": "/",
+                    "label": "URL"
+                }
+            ]
+        },
+        {
+            "name": "Loyalty Blocks",
+            "type": "loyalty_blocks",
+            "settings": [
+                {
+                    "type": "select",
+                    "id": "block_svg",
+                    "label": "Select SVG",
+                    "default": "rewards",
+                    "options": [
+                        {
+                            "label": "rewards",
+                            "value": "rewards"
+                        },
+                        {
+                            "label": "orders",
+                            "value": "orders"
+                        },
+                        {
+                            "label": "wishlist",
+                            "value": "wishlist"
+                        },
+                        {
+                            "label": "loyalty-account",
+                            "value": "loyalty-account"
+                        },
+                        {
+                            "label": "faq",
+                            "value": "faq"
+                        },
+                        {
+                            "label": "contact",
+                            "value": "contact"
+                        }
+                    ]
+                },
+                {
+                    "type": "text",
+                    "id": "title",
+                    "default": "Title",
+                    "label": "Title"
+                },
+                {
+                    "type": "text",
+                    "id": "description",
+                    "default": "Description",
+                    "label": "Description"
+                },
+                {
+                    "type": "text",
+                    "id": "modal_title",
+                    "default": "Modal title",
+                    "label": "Modal title"
+                }
+            ]
+        },
+        {
+            "name": "FAQ",
+            "type": "faq",
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "faq_title",
+                    "default": "Title",
+                    "label": "Title"
+                },
+                {
+                    "type": "richtext",
+                    "id": "faq_description",
+                    "default": "<p>Description</p>",
+                    "label": "Description"
+                }
+            ]
+        }
+    ],
+    "presets": [
+        {
+            "name": "Loyalty",
+            "settings": {}
+        }
+    ]
+}
+{% endschema %}

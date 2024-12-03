@@ -1,0 +1,132 @@
+{{ 'golf-text-break.min.css' | asset_url | stylesheet_tag }}
+
+{%- assign ss = section.settings -%}
+
+<div class="Golf-text">
+    <div class="Golf-text--wrapper flex flex-y--center flex-{{ ss.layout }}">
+        {%- for block in section.blocks -%}
+            {%- assign bs = block.settings -%}
+
+            {%- if block.type == "heading" and bs.heading != blank -%}
+                <h2 class="Golf-text__heading sp-reset {{ bs.size }}" style="--align-desktop: {{ bs.alignment_desktop }}; --align-mobile: {{  bs.alignment_mobile }}">{{ bs.heading }}</h2>
+            {%- endif -%}
+            {%- if block.type == "text" and bs.text != blank -%}
+                <p class="Golf-text__text Golf-text__text--{{ bs.size }} sp-reset" style="--align-desktop: {{ bs.alignment_desktop }}; --align-mobile: {{  bs.alignment_mobile }}">{{ bs.text }}</p>
+            {%- endif -%}
+        {%- endfor -%}
+    </div>
+</div>
+
+{% schema %}
+{
+    "name": "Golf text break",
+    "settings": [
+        {
+            "type": "select",
+            "id": "layout",
+            "label": "Layout",
+            "options": [
+                {
+                    "value": "row",
+                    "label": "Row"
+                },
+                {
+                    "value": "column",
+                    "label": "Stacked"
+                }
+            ]            
+        }
+    ],
+    "blocks": [
+        {
+            "name": "Heading",
+            "type": "heading",
+            "limit": 1,
+            "settings": [
+                {
+                    "type": "text_alignment",
+                    "id": "alignment_desktop",
+                    "label": "Alignment | Desktop",
+                    "default": "center"
+                },
+                {
+                    "type": "text_alignment",
+                    "id": "alignment_mobile",
+                    "label": "Alignment | Mobile",
+                    "default": "center"
+                },
+                {
+                    "type": "select",
+                    "id": "size",
+                    "label": "Font size",
+                    "options": [
+                        {
+                            "value": "h1-res",
+                            "label": "Big"
+                        },
+                        {
+                            "value": "h2-res",
+                            "label": "Medium"
+                        },
+                        {
+                            "value": "h3-res",
+                            "label": "Small"
+                        }
+                    ]
+                },
+                {
+                    "type": "text",
+                    "id": "heading",
+                    "label": "Heading"
+                }
+            ]
+        },
+        {
+            "name": "Text",
+            "type": "text",
+            "limit": 1,
+            "settings": [
+                {
+                    "type": "text_alignment",
+                    "id": "alignment_desktop",
+                    "label": "Alignment | Desktop",
+                    "default": "center"
+                },
+                {
+                    "type": "text_alignment",
+                    "id": "alignment_mobile",
+                    "label": "Alignment | Mobile",
+                    "default": "center"
+                },
+                {
+                    "type": "select",
+                    "id": "size",
+                    "label": "Font size",
+                    "options": [
+                        {
+                            "value": "big",
+                            "label": "Big"
+                        },
+                        {
+                            "value": "small",
+                            "label": "Small"
+                        }
+                    ],
+                    "default": "small"
+                },
+                {
+                    "type": "text",
+                    "id": "text",
+                    "label": "Text"
+                }
+            ]
+        }
+    ],
+    "presets": [
+        {
+            "name": "Golf text break",
+            "settings": {}
+          } 
+    ]
+}
+{% endschema %}

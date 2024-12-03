@@ -1,0 +1,151 @@
+{{ 'pdp-collapsible.min.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'pdp-collapsible.min.js' |  asset_url }}" defer></script>
+<script src="{{ 'pdp-section.min.js' |  asset_url }}" defer></script>
+
+<div class="accordion__wrapper">
+
+<div class="accordion">
+  {% if product.description.size > 0 %}
+    <expended-accordion class="active">
+      <div class="accordion-item-header" data-component="header">
+        Product Details
+        <span class="accordion-arrow-icon">
+            {% render 'icon' with 'select-arrow-right' %}
+        </span>
+      </div>
+      <div class="accordion-item-body" data-body="header">
+        <div class="accordion-item-body-content">
+          <div>
+            <div class="accordion-product-description">
+              {{ product.description }}
+            </div>
+
+            <ul class="product-details__main accordion-product-metafield">
+              {% if product.metafields['global']['collar'] != blank %}
+                <li class="collar">{% render 'product-detail-item', inputString: product.metafields['global']['collar'] | downcase %}</li>
+              {% endif %}
+              {% if product.metafields['global']['closure'] != blank %}
+                <li class="closure">{% render 'product-detail-item', inputString: product.metafields['global']['closure'] | downcase %}</li>
+              {% endif %}
+              {% if product.metafields['global']['feature'] != blank %}
+                {% assign features = product.metafields['global']['feature'] | split: ", " %}
+                {% for feature in features %}
+                  <li class="feature">{% render 'product-detail-item', inputString: feature | downcase %}</li>
+                {% endfor %}
+              {% endif %}
+              {% if product.metafields['global']['made_in'] != blank %}
+                  {% assign metaOrigin = product.metafields['global']['made_in'] | split: " " %}
+                  {% assign origin = '' %}
+                  {% for word in metaOrigin %}
+                    {% if forloop.last == true %}
+                      {% assign country = word | capitalize %}
+                      {%- if country == "Usa" -%}
+                        {% assign country = "USA"%}
+                      {%- endif -%}
+                      {% assign origin = origin | append: country %}
+
+                    {% else %}
+                      {% assign origin = origin | append: word %}
+                      {% assign origin = origin | append: " " %}
+                    {% endif %}
+                  {% endfor %}
+                <li class="made-in">{{- origin -}}</li>
+              {% endif %}
+              {% if product.metafields['global']['fabric_care'] != blank %}
+                <li class="fabric-care">
+                  {% render 'product-detail-item', inputString: product.metafields['global']['fabric_care'] | downcase %}
+                </li>
+              {% endif %}
+              {% if product.metafields['global']['model_info'] != blank %}
+                <li class="model-info">
+                  {% render 'product-detail-item', inputString: product.metafields['global']['model_info'] %}
+                </li>
+              {% endif %}
+            </ul> 
+
+            <div style="padding: 10px 0 0 0;">
+              <p>SKU: {{ product.metafields['global']['style'] | uppercase }}</p>
+              <p>Color: <span class="accordion-product-variant">{{ product.selected_or_first_available_variant.option1 }}</span></p>
+              {% if product.metafields['global']['fabric_content'] %}
+                <p>Material: <span>{% render 'product-detail-item', inputString: product.metafields['global']['fabric_content'] | downcase %}</span></p>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </expended-accordion>
+  {% endif %}
+
+  {%- assign renderOoohCotton = false -%}
+{%- for tag in product.tags -%}
+	{%- assign downcase_tag = tag | downcase -%}
+	{%- if downcase_tag == "8-way stretch" -%}
+		{%- assign renderOoohCotton = true -%}
+		{% break %}
+	{%- endif -%}
+{%- endfor -%}
+
+{%- if renderOoohCotton -%}
+
+  <expended-accordion>
+    <div class="accordion-item-header" data-component="header"> 
+      OOOHCOTTON® TECH DETAILS 
+      <span class="accordion-arrow-icon">
+          {% render 'icon' with 'select-arrow-right' %}
+      </span>
+    </div>
+
+    <div class="accordion-item-body" data-body="header">
+      <div class="accordion-item-body-content">
+        <div class="accordion-c__content--inner">
+          {%- render 'pdp-oohcotton-details' -%}
+        </div>
+      </div>
+    </div>
+  </expended-accordion>
+  
+{%- endif -%}
+
+  <expended-accordion>
+    <div class="accordion-item-header" data-component="header">
+        DELIVERY AND RETURNS
+        <span class="accordion-arrow-icon">
+            {% render 'icon' with 'select-arrow-right' %}
+        </span>
+    </div>
+    <div class="accordion-item-body" data-body="header">
+      <div class="accordion-item-body-content">
+        <div style="display: flex; flex-direction: column; gap: 0.65rem;">
+          <span>
+            <strong>Enjoy Free Standard Shipping On All U.S. Orders Over $120 USD</strong>
+          </span>
+          <span>Place your order today and receive it within 3-6 days.</span>
+          <span>
+            <strong>Easy Returns</strong>
+          </span>
+          Enjoy free returns. *Please note that swimwear, face masks and any product discounted by forty percent (40%) or more are "Final Sale" at the time of the order and are not eligible for returns or exchanges.
+        </div>
+      </div>
+    </div>
+  </expended-accordion>
+
+  <expended-accordion>
+    <div class="accordion-item-header" data-component="header">
+        CUSTOMER CARE
+        <span class="accordion-arrow-icon">
+            {% render 'icon' with 'select-arrow-right' %}
+        </span>
+    </div>
+    <div class="accordion-item-body" data-body="header">
+      <div class="accordion-item-body-content">
+        <div>
+          Our Client Advisors are available for tips and additional information on our products.
+
+          Email us at customerservice@bugatchi.com. Our Client Advisors are available Monday to Friday, 9am to 5pm EST.
+        </div>
+      </div>
+    </div>
+  </expended-accordion>
+</div>
+
+</div>

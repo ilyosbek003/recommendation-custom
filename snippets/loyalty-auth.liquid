@@ -1,0 +1,138 @@
+<style>
+  
+@media only screen and (max-width: 769px) {
+  .ly-auth__register.register-wrapper {
+    display: none;
+  }
+}
+</style>
+
+<div class="ly-auth">
+    <picture>
+        {% if section.settings.auth_image or section.settings.auth_mobile_image %}
+            <source 
+                media="(max-width: 800px)"
+                srcset="{{ section.settings.auth_mobile_image | image_url: width: 300 }} 300w,
+                        {{ section.settings.auth_mobile_image | image_url: width: 720 }} 720w,
+                        {{ section.settings.auth_mobile_image | image_url: width: 1080 }} 1080w,
+                        {{ section.settings.auth_mobile_image | image_url: width: 1512 }} 1512w"
+            >
+            <img 
+                class="ly-auth__image"
+                loading="lazy"
+                src="{{ section.settings.auth_image | image_url: width: 1512 }}"
+                data-src="{{ section.settings.auth_image | image_url: width: 1512 }}"
+                data-widths="[360, 720, 1080, 1512]"
+                data-aspectratio="{{ section.settings.auth_image.aspect_ratio }}"
+                data-sizes="auto"
+                data-parent-fit="cover"
+                alt="{{ section.settings.auth_image.alt | escape }}">
+        {% else %}
+            <source 
+                srcset="{{ 'default-img.png' | asset_url }}" 
+                media="(max-width: 639.99px)"
+            >
+            <img class="ly-auth__image" loading="lazy" src="{{ 'default-img.png' | asset_url }}" alt="Background Image">
+        {% endif %}
+    </picture>
+    <div class="ly-auth__container page-width">
+        <div class="ly-auth__wrapper page-width">
+            <div class="ly-auth__register ly-auth__login" style="backdrop-filter: blur({{ section.settings.auth_blurness }}px); -webkit-backdrop-filter: blur({{ section.settings.auth_blurness }}px); display:flex;">
+                <h4 class="ly-auth__subtitle primary-text">{{ section.settings.already_member_title }}</h4>
+                <h4 class="ly-auth__title">{{ section.settings.login_title }}</h4>
+                {% form 'customer_login', id: "customer_login" %}
+                    {{ form.errors | default_errors }}
+                    <input type="hidden" name="checkout_url" value="/pages/rewards">
+                    <div class="ly-auth__inputs">
+                        <input type="email" placeholder="Email" class="ly-auth__input" name="customer[email]" required>
+                        <input type="password" placeholder="Password" class="ly-auth__input" name="customer[password]" required>
+                        <button class="ly-auth__button" aria-label="Login button">{{ section.settings.signin_title }}</button>
+                    </div>
+                {% endform %}
+                <button class="ly-auth__message ly-auth__forgot--password">{{ section.settings.forgot_password_title }}</button>
+                <h4 class="ly-auth__sub--text primary-text display-mobile">or</h4>
+                <h4 class="ly-auth__text ly-auth__title display-mobile">{{ section.settings.join_title }}</h4>
+                {% comment %} <button class="ly-auth__button register__btn display-mobile" aria-label="Showing sign up form">{{ section.settings.signup_title }}</button>
+                <h4 class="ly-auth__subtitle primary-text" style="margin: 2rem 0;">{{ section.settings.is_not_member }}</h4> {% endcomment %}
+                <a href="/account/register" class="ly-auth__button" title="Sign up button">{{ section.settings.signup_title }}</a>
+            </div>
+            <div class="ly-auth__register register-wrapper" style="backdrop-filter: blur({{ section.settings.auth_blurness }}px); -webkit-backdrop-filter: blur({{ section.settings.auth_blurness }}px); display: none; visibility: hidden;">
+                <h4 class="ly-auth__subtitle primary-text">{{ section.settings.is_not_member }}</h4>
+                <h4 class="ly-auth__title">{{ section.settings.join_title }}</h4>
+                {% form 'create_customer', id: 'customer_register' %}
+                    {{ form.errors | default_errors }}
+                    <input type="hidden" name="checkout_url" value="/pages/rewards">
+                    <div class="ly-auth__inputs">
+                        <div class="ly-auth__inputs--top">
+                            <input type="text" placeholder="First Name" class="ly-auth__input" name="customer[first_name]" required>
+                            <input type="text" name="customer[last_name]" placeholder="Last Name" class="ly-auth__input" required>
+                        </div>
+                        <input type="email" placeholder="Email" class="ly-auth__input" name="customer[email]" required>
+                        <input type="number" placeholder="Phone" class="ly-auth__input display-mobile" name="customer[number]">
+                        <input type="password" placeholder="Password" class="ly-auth__input" name="customer[password]" required>
+                        <label for="input_checkbox" class="ly-auth__checkbox">
+                            <input type="checkbox" id="input_checkbox" required>
+                            {{ section.settings.privacy_title }}
+                        </label>
+                        <button class="ly-auth__button" aria-label="Sign up button">{{ section.settings.signup_title }}</button>
+                    </div>
+                {% endform %}
+                <button class="ly-auth__button login__btn display-mobile" aria-label="Showing login form">{{ section.settings.already_member_title }}</button>
+            </div>
+
+            <div class="ly-auth__register customer reset-password reset-password-modal" style="max-width: 100% !important; height: 100%; margin: 0;">
+                <h3 class="h3 h2_mobile" id="recover" tabindex="-1">
+                    {{ 'customer.recover_password.title' | t }}
+                </h3>
+                <div>
+                    <p>
+                    {{ 'customer.recover_password.subtext' | t }}
+                    </p>
+
+                    {%- form 'recover_customer_password' -%}
+                    {% assign recover_success = form.posted_successfully? %}
+                    <div class="field">
+                        <input type="email"
+                        value=""
+                        name="email"
+                        id="RecoverEmail"
+                        autocorrect="off"
+                        autocapitalize="off"
+                        autocomplete="email"
+                        required
+                        {% if form.errors %}
+                            aria-invalid="true"
+                            aria-describedby="RecoverEmail-email-error"
+                            autofocus
+                        {% endif %}
+                        placeholder="{{ 'customer.login_page.email' | t }}"
+                        >
+                        <label for="RecoverEmail">
+                        {{ 'customer.login_page.email' | t }}
+                        </label>
+                    </div>
+                    {%- if form.errors -%}
+                        <small id="RecoverEmail-email-error" class="form__message">
+                        <svg aria-hidden="true" focusable="false" role="presentation" viewBox="0 0 13 13">
+                            <circle cx="6.5" cy="6.50049" r="5.5" stroke="white" stroke-width="2"/>
+                            <circle cx="6.5" cy="6.5" r="5.5" fill="#EB001B" stroke="#EB001B" stroke-width="0.7"/>
+                            <path d="M5.87413 3.52832L5.97439 7.57216H7.02713L7.12739 3.52832H5.87413ZM6.50076 9.66091C6.88091 9.66091 7.18169 9.37267 7.18169 9.00504C7.18169 8.63742 6.88091 8.34917 6.50076 8.34917C6.12061 8.34917 5.81982 8.63742 5.81982 9.00504C5.81982 9.37267 6.12061 9.66091 6.50076 9.66091Z" fill="white"/>
+                            <path d="M5.87413 3.17832H5.51535L5.52424 3.537L5.6245 7.58083L5.63296 7.92216H5.97439H7.02713H7.36856L7.37702 7.58083L7.47728 3.537L7.48617 3.17832H7.12739H5.87413ZM6.50076 10.0109C7.06121 10.0109 7.5317 9.57872 7.5317 9.00504C7.5317 8.43137 7.06121 7.99918 6.50076 7.99918C5.94031 7.99918 5.46982 8.43137 5.46982 9.00504C5.46982 9.57872 5.94031 10.0109 6.50076 10.0109Z" fill="white" stroke="#EB001B" stroke-width="0.7">
+                        </svg>
+                        {{ form.errors.messages['form'] }}
+                        </small>
+                    {%- endif -%}
+
+                    <button class="ly-auth__submit--button" aria-label="Login button">
+                        {{ 'customer.login_page.submit' | t }}
+                    </button>
+
+                {%- endform -%}
+                <a href="#login" class="cancel-reset cancel-reset-btn" aria-label="Canceling the forgot password">
+                    {{ 'customer.login_page.cancel' | t }}
+                </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

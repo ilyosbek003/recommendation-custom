@@ -1,0 +1,191 @@
+{{ 'llama-cart-recommendations.css' | asset_url | stylesheet_tag }}
+
+<script>
+  setTimeout(() => {
+    const drawerContent = document.querySelector('.lcu__drawer__content');
+    const recommendationBlock = document.querySelector('.recommendation');
+    const recommendationList = document.querySelector('.recommendation-list');
+  
+    if (drawerContent && recommendationBlock && recommendationList) {
+      drawerContent.appendChild(recommendationBlock);
+    }
+  
+    document.addEventListener('upsell:cart-updated', (event) => {
+      const newCart = event.detail.newCart;
+
+      if(!newCart.item_count) {
+        recommendationBlock.classList.add('recommendation-hidden');
+      }
+    });
+
+
+    document.addEventListener('lcu:pre-purchase-recommendations', (event) => {
+      const products = event.detail.products;
+      
+
+      if(!products.length) {
+        recommendationBlock.classList.add('recommendation-hidden')
+        return;
+      }
+      recommendationBlock.classList.remove('recommendation-hidden')
+      
+      const groupedProducts = products.reduce((acc, elem) => {
+        const productId = elem.productId;
+        if (!acc[productId]) acc[productId] = [];
+        acc[productId].push(elem);
+        return acc;
+      }, {});
+
+      recommendationList.innerHTML = '';
+  
+      Object.values(groupedProducts).forEach((productGroup) => {
+        const primaryProduct = productGroup[0];
+        const listItem = document.createElement('div');
+
+        const productCardHTML = `
+          <div class="lcu__recommendation-item">
+            <div class="lcu__recommendation-item__action">
+              <div class="wishlist-engine" data-product_id="${primaryProduct.productId}" data-variant_id="${primaryProduct.id}"
+    data-full_button="false" data-css="true"></div>
+              <div class="lcu__recommendation-item__toolbar-wrapper">
+                <button 
+                  class="lcu__recommendation-item__cart-btn" 
+                  data-product-id="${primaryProduct.productId}"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 20 20" fill="none">
+                    <path d="M19.7526 10.0012H0.19657M9.97461 0.223145V19.7792" stroke="black"/>
+                  </svg>
+                </button>
+
+                <div class="variant-options hidden lcu__recommendation-item__toolbar">
+                  <div>
+                    ${productGroup.map(variant => `
+                      <button class="variant-option" data-id="${variant.id}">
+                        ${variant.options.join(' - ')} 
+                      </button>
+                    `).join('')}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="lcu__product-card">
+              <a href="${primaryProduct.url}" class="lcu__product-card__link">
+                <div class="lcu__product-card__image">
+                  <img src="${primaryProduct.image.originalSrc}" alt="${primaryProduct.image.altText}" />
+                </div>
+
+                <div class="lcu__product-card__details">
+                  <h3 class="lcu__product-card__title">${primaryProduct.title}</h3>
+                  <span class="lcu__product-card__price">${primaryProduct.currency} ${primaryProduct.price}</span>
+                </div>
+              </a>
+            </div>
+          </div>
+        `;
+
+  
+        listItem.innerHTML = productCardHTML;
+        recommendationList.appendChild(listItem);
+      });
+
+      let activeProductItem = null;
+      
+      document.querySelectorAll('.lcu__recommendation-item__cart-btn').forEach(button => {
+        button.addEventListener('click', function (e) {
+          const productItem = e.target.closest('.lcu__recommendation-item');
+          
+          if (activeProductItem === productItem) {
+            document.querySelectorAll('.lcu__recommendation-item').forEach(item => {
+              item.classList.remove('disabled');
+            });
+      
+            const variantOptions = productItem.querySelector('.variant-options');
+            const productAction = productItem.querySelector('.lcu__recommendation-item__action');
+
+            if (variantOptions) {
+              variantOptions.classList.add('hidden');
+            }
+
+            if(productAction) {
+              productAction.style.opacity = 0
+            }
+
+            const image = productItem.querySelector('.lcu__product-card__image img');
+            if (image) {
+              image.style.transform = 'scale(1)';
+            }
+      
+            activeProductItem = null;
+            return;
+          }
+      
+          document.querySelectorAll('.lcu__recommendation-item').forEach(item => {
+            if (item !== productItem) {
+              item.classList.add('disabled');
+            } else {
+              item.classList.remove('disabled');
+            }
+          });
+      
+          activeProductItem = productItem;
+      
+          const variantOptions = productItem.querySelector('.variant-options');
+          const productAction = productItem.querySelector('.lcu__recommendation-item__action');
+          if (variantOptions) {
+            variantOptions.classList.remove('hidden');
+          }
+      
+          if (productAction) {
+            productAction.style.opacity = 1;
+          }
+
+          const image = productItem.querySelector('.lcu__product-card__image img');
+          if (image) {
+            image.style.transform = 'scale(0.8)';
+          }
+        });
+      });
+      
+    
+      document.addEventListener('click', function (e) {
+        if (activeProductItem && !activeProductItem.contains(e.target)) {
+          document.querySelectorAll('.lcu__recommendation-item').forEach(item => {
+            item.classList.remove('disabled');
+          });
+    
+          const variantOptions = activeProductItem.querySelector('.variant-options');
+          const productAction = activeProductItem.querySelector('.lcu__recommendation-item__action');
+          if (variantOptions) {
+            variantOptions.classList.add('hidden');
+          }
+          
+          if(productAction) {
+            productAction.style.opacity = 0
+          }
+
+          const image = activeProductItem.querySelector('.lcu__product-card__image img');
+          if (image) {
+            image.style.transform = 'scale(1)';
+          }
+          activeProductItem = null;
+        }
+      });
+  
+      recommendationList.addEventListener('click', (e) => {
+        if (e.target.classList.contains('variant-option')) {
+          const variantId = e.target.dataset.id;
+        }
+      });
+    });
+  }, 1000);
+</script>
+
+<div class="recommendation recommendation-hidden">
+  <h2 class="h2 text">You may also like</h2>
+  <ul
+    role="list"
+    class="recommendation-list" 
+  >
+  </ul>
+</div>

@@ -1,0 +1,159 @@
+.points-label {
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    gap: 10px;
+    padding-bottom: 0;
+}
+.points-label svg {
+    width: 22px;
+    height: 22px;
+}
+.points-text {
+    margin: 0;
+    letter-spacing: .1em;
+}
+.points-text span{
+    display: inline-block;
+    min-width: 20px;
+}
+.points-button{
+    text-decoration: underline;
+    text-transform: uppercase;
+    text-underline-offset: 4px;
+}
+.points-button:hover{
+    color: var(--dark-silver);
+}
+.points-modal{
+    display: none;
+}
+.points-modal.active{
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #d3d3d380;
+    z-index: 99999;
+}
+#points-label-id{
+    max-width: 600px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin: 0 auto;
+}
+#loyaltylion .lion-reward-item__content{
+    border: 0.5px solid black !important;
+    background: #fff !important;
+    min-height: auto !important;
+    border-radius: 0 !important;
+    padding: 10px !important;
+    cursor: pointer !important;
+    text-align: center !important;
+    position: relative !important;
+}
+#loyaltylion .lion-reward-item__content:hover{
+    background-color: #B2B0B1 !important;
+}
+#loyaltylion .lion-reward-item__content .lion-reward-item__actions{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    margin: 0 !important;
+}
+#loyaltylion .lion-reward-item__content .lion-reward-item__links,
+#loyaltylion .lion-reward-item__content .lion-reward-item__icon{
+    display: none !important;
+    margin-top: 0 !important;
+}
+#loyaltylion .lion-reward-item__content .lion-reward-item__title{
+    padding: 0 !important;
+    font-size: 12px;
+    line-height: 24px;
+    font-weight: 400;
+}
+.lion-action-button--tile{
+    border-radius: unset !important;
+    width: 100%;
+    height: 100%;
+    border: none !important;
+}
+.lion-action-button--tile:focus,
+.lion-action-button--tile:active,
+.lion-action-button--tile:hover{
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+.lion-reward-item__redeem-button-text{
+    display: none !important;
+}
+.lion-rewards-list{
+    padding: 0 !important;
+}
+#loyaltylion .lion-modal,
+#loyaltylion .lion-action-button{
+    border-radius: 0;
+}
+#loyaltylion .lion-redeem-reward-modal__button--confirm,
+#loyaltylion .lion-redeem-reward-modal__button--confirm:hover {
+    background-color: #000;
+}
+.points-label-wrapper{
+    background: #fafafa;
+    padding: 20px;
+    position: relative;
+    border-radius: 0;
+}
+.points-icon{
+    cursor: pointer;
+}
+.points-icon svg{
+    width: 16px;
+    height: 16px;
+}
+.lion-reward-item__meta{
+    color: #000 !important;
+}
+#loyaltylion .lion-disabled-content,
+#loyaltylion .lion-action-button--disabled{
+    background-color: rgb(226, 226, 226) !important;
+    border: 0.5px solid rgba(0, 0, 0, 0.3) !important;
+    opacity: 0.5 !important;
+    cursor: unset !important;
+}
+#loyaltylion .lion-disabled-content:hover{
+    background: rgb(226, 226, 226) !important;
+}
+.points-header-wrapper{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+.points-header-wrapper h4{
+    margin: 0;
+}
+
+@media (max-width: 650px){
+    .points-label{
+        padding-bottom: 0;
+    }
+    #points-label-id{
+        margin: 0 20px;
+    }
+    .points-icon svg{
+        width: 14px;
+        height: 14px;
+    }
+    .points-header-wrapper{
+        margin-bottom: 10px;
+    }
+    .points-header-wrapper h4{
+        font-size: 18px;
+    }
+}

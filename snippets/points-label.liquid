@@ -1,0 +1,22 @@
+{{ 'points-label.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'points-label.js' | asset_url }}" defer="defer"></script>
+
+<div class="points-label">
+    {% render 'icon' with 'gift' %}
+    <p class="points-text">YOU HAVE  <span data-lion-points="approved"> </span>  POINTS </p> 
+    <button class="points-button">redeem</button>
+
+    <div class="points-modal">
+        <div id="points-label-id">
+            <div class="points-label-wrapper">
+                <div class="points-header-wrapper">
+                    <h4>Claim your rewards</h4>
+                    <span class="points-icon">
+                        {% render 'icon' with 'close' %}
+                    </span>
+                </div>
+                <div data-lion-rewards-list></div>
+            </div>
+        </div>
+    </div>
+</div>

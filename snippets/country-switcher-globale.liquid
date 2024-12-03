@@ -1,0 +1,167 @@
+{% if localization.available_countries.size > 1 %}
+  <style>
+
+    .geSwitcher {
+      display: flex;
+      flex-flow: row;
+      justify-content: flex-start;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .disclosure {
+      position: relative;
+    }
+
+    .geSwitcher .disclosure__button {
+      background-color: transparent;
+      border: none;
+      color: white;
+      font-family: inherit;
+      padding: 0;
+      gap: 0.3rem;
+    }
+
+    .geSwitcher--mobile.geSwitcher .disclosure__button {
+      color: black
+    }
+
+    .geSwitcher--mobile.geSwitcher localization-form {
+      width: 100%
+    }
+
+    .geSwitcher--mobile.geSwitcher .CountryList.disclosure__list {
+      background-color: white;
+      max-width: 100%;
+      width: 100%;
+    }
+
+    @media screen and (max-width: 1139px) {
+      .geSwitcher--desktop {display:none}
+    }
+
+    .geSwitcher .disclosure__button:hover {
+      color: var(--silver)
+    }
+
+    .geSwitcher--flag {
+      width:25px;
+      height:25px;
+      display:inline;
+      vertical-align:middle;
+      margin:0!important;
+      border:none!important;
+    }
+
+    .disclosure__button .icon {
+      width: 12px;
+    }
+
+    .disclosure__button[aria-expanded="true"] svg {
+      transform: rotate(180deg);
+    }
+
+    .CountryList {
+      position: absolute;
+      background-color: black;
+      padding: 20px;
+      max-height: 40vh;
+      overflow-y: scroll;
+      margin-left: -16px;
+      scrollbar-color: #e4e4e4;
+      scrollbar-width: thin;
+      width: -moz-max-content;
+      width: max-content;
+      max-width: 290px;
+      text-align: center;
+      bottom: 100%;
+      z-index:999999;
+    }
+
+    .CountryList li {
+      display: block !important;
+    }
+
+    .CountryList li a {
+      text-decoration: none;
+      color: unset;
+      text-transform: uppercase;
+      transition: 0.2s;
+    }
+
+    .CountryList li a:hover {
+      font-weight: 600;
+    }
+
+    /* mobile nav */
+    .mobile-navigation .CountryList {
+      max-height: 30vh;
+      margin-left: -18px;
+    }
+    .mobile-navigation .disclosure__item {
+      width: 100% !important;
+      padding-left: 0;
+    }
+    .mobile-navigation .disclosure__button {
+      padding-left: 0;
+    }
+  </style>
+  <script>
+    class LocalizationForm extends HTMLElement {
+      constructor() {
+        super();
+        this.elements = {
+          input: this.querySelector('input[name="locale_code"], input[name="country_code"]'),
+          button: this.querySelector('button'),
+          panel: this.querySelector('ul')
+        };
+        this.elements.button.addEventListener('click', this.openSelector.bind(this));
+        this.elements.button.addEventListener('focusout', this.closeSelector.bind(this));
+        this.addEventListener('keyup', this.onContainerKeyUp.bind(this));
+        this.querySelectorAll('a').forEach(item => item.addEventListener('click', this.onItemClick.bind(this)));
+      }
+
+      hidePanel() {
+        this.elements.button.setAttribute('aria-expanded', 'false');
+        this.elements.panel.setAttribute('hidden', true);
+      }
+
+      onContainerKeyUp(event) {
+        if (event.code.toUpperCase() !== 'ESCAPE') 
+          return;
+        
+
+
+
+        this.hidePanel();
+        this.elements.button.focus();
+      }
+
+      onItemClick(event) {
+        event.preventDefault();
+        const form = this.querySelector('form');
+        this.elements.input.value = event.currentTarget.dataset.value;
+        if (form) 
+          form.submit();
+        
+
+
+
+      }
+
+      openSelector() {
+        this.elements.button.focus();
+        this.elements.panel.toggleAttribute('hidden');
+        this.elements.button.setAttribute('aria-expanded', (this.elements.button.getAttribute('aria-expanded') === 'false').toString());
+      }
+
+      closeSelector(event) {
+        const shouldClose = event.relatedTarget && event.relatedTarget.nodeName === 'BUTTON';
+        if (event.relatedTarget === null || shouldClose) {
+          this.hidePanel();
+        }
+      }
+    }
+    customElements.define('localization-form', LocalizationForm);
+  </script>
+{% endif %}

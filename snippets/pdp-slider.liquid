@@ -1,0 +1,54 @@
+{%- assign targetColor = product.variants[0].title | split: " / " | first -%}
+{%- assign urls = product.metafields.global.metafield_video_url | split: "," -%}
+{%- assign videoUrl = "" -%}
+{%- assign imagesLength = 1 -%}
+
+{%- for url in urls -%}
+  {%- assign color = url | split: "|" | first -%}
+  {%- assign urlAddress = url | split: "|" | last -%}
+  {%- if color == targetColor -%}
+    {%- assign videoUrl = urlAddress -%}
+    {%- break -%}
+  {%- endif -%}
+{%- endfor -%}
+
+{%- if videoUrl != blank -%}
+  {%- assign imagesLength = 1 -%}
+{%- endif -%}
+
+<div class="pdp-grid--slider swiper-wrapper pswp-gallery pswp-gallery--single-column" id="gallery">
+    {% for imageItem in product.images %}  
+        {% assign aspect_ratio = variant.featured_media.preview_image.aspect_ratio %}
+        {% assign width = 400 %}
+        {% assign height = 400 %}
+        {% assign alt = imageItem.alt | default: product.title | escape %}
+        {% assign preload = false %}
+        {% if forloop.index < 4 %}
+          {% assign preload = true %}
+        {% endif %}
+        <figure
+          itemprop="associatedMedia"
+          itemscope
+          itemtype="http://schema.org/ImageObject"
+          class="slider-item swiper-slide placeholder-loader__content"
+        >
+          <a
+            href="{{ imageItem.src | image_url: width: 2000 }}"
+            data-pswp-width="2500" 
+            data-pswp-height="2500"
+            class="pdp-slider__image"
+          >
+            {{ imageItem | image_url: width: 1100 | image_tag: alt: alt, preload: preload, sizes: '60vw', class: 'slider-img-item' }}
+          </a>
+        </figure>
+        {% if videoUrl != blank and forloop.index == 1 %}
+          <div class="slider-item item-video swiper-slide placeholder-loader__content">
+              <video class="slider-video-item" autoplay muted loop playsinline style="width: 100%; height: 100%;" type="video/mp4" src="{{ videoUrl }}">
+              </video>
+          </div>
+      {% endif %}
+    {% endfor %}
+</div>
+<div class="swiper-button-next pdp__slider-button-next"></div>
+<div class="swiper-button-prev pdp__slider-button-prev"></div>
+<div class="swiper-scrollbar pdp__slider-scrollbar"></div>

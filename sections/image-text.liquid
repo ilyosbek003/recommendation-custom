@@ -1,0 +1,453 @@
+{% assign lazyload_class = "" %}
+{% assign lazyload_data = "" %}
+
+{%- if section.settings.lazyload == true -%} 
+    {% assign lazyload_class = "lazyload" %}
+    {% capture lazyload_data %}
+      {% if section.settings.section_type == 'video' %}
+        ""
+      {% elsif section.settings.background_image != blank and section.settings.background_image_mobile != blank %}
+        data-bg-desktop="{{ section.settings.background_image | img_url: 'master' }}" data-bg-mobile="{{ section.settings.background_image_mobile | img_url: 'master' }}"
+      {% elsif section.settings.background_image != blank %}
+        data-bg-desktop="{{ section.settings.background_image | img_url: 'master' }}"
+      {% elsif section.settings.background_image_mobile != blank %}
+        data-bg-mobile="{{ section.settings.background_image_mobile | img_url: 'master' }}"
+      {% endif %}
+    {% endcapture %}
+{%- endif -%}
+
+<div class="media-text-section--container media--{{ section.settings.media_size }}">
+  <div class="media-text-section--wrapper {{ section.settings.content_order }}"> 
+    <div class="media-container">
+      {%- if section.settings.section_link != blank -%}
+        <a href="{{ section.settings.section_link }}" class="section-link">
+          <span class="visually-hidden"></span>
+        </a>
+      {%- endif -%}
+      <div class="media-wrapper section-wrapper {{ lazyload_class }}" {{ lazyload_data }}>
+        {%- if section.settings.section_type == "video" -%}
+          {%- if section.settings.control_btns != "disabled" -%}
+
+              <button class="ButtonGroup--Btn ButtonGroup--playToggle ButtonGroup--{{ section.settings.control_btns }}" data-state="playing">
+                {% render 'icon' with 'play-outline' %}
+                {% render 'icon' with 'pause-outline' %}
+              </button>
+              <button class="ButtonGroup--Btn ButtonGroup--muteToggle ButtonGroup--{{ section.settings.control_btns }}" data-state="muted">
+                {% render 'icon' with 'unmute-outline' %}
+                {% render 'icon' with 'mute-outline' %}
+              </button>
+
+          {%- endif -%}
+          <video 
+            class="embededVideo"
+            allow="autoplay; fullscreen; picture-in-picture"  
+            allowfullscreen 
+            poster="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
+            autoplay
+            muted
+            loop
+            playsinline
+            webkit-playsinline
+            style="background-image: url({{ section.settings.video_poster | img_url: 'master' }})"
+            preload = {% if section.settings.lazyload == true %} false {% endif %}
+            >
+          </video>
+        {%- endif -%}
+      </div>
+    </div>
+    <div class="text-content-wrapper">
+      {%- if section.settings.heading != blank -%}
+        <h2 class="{{ section.settings.heading_size }} {{ section.settings.heading_size_mobile }}">
+          {{ section.settings.heading }}
+        </h2>
+      {%- endif -%}
+      {%- if section.settings.text != blank -%}
+        <p class="{{ section.settings.text_size }}">{{ section.settings.text }}</p>
+      {%- endif -%}
+      {%- if section.settings.button_link != blank -%}
+        <a class="Button Button-{{ section.settings.buttons_style }}" href="{{ section.settings.button_link }}">
+          {{ section.settings.button_text }}
+        </a>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{%- if section.settings.section_type == 'video' -%}
+  <script>
+    window.BackgroundVideoSetting = {
+      ...(window.BackgroundVideoSetting || {}),
+      "{{ section.id }}" : {
+        desktop: "{{ section.settings.video_url }}",
+        mobile: "{{ section.settings.video_url_mobile }}"
+      }
+    };
+  </script>
+{%- endif -%}
+
+
+
+<style>
+  #shopify-section-{{ section.id }} .media-text-section--container {
+    padding-top: {{ section.settings.desktop_padding_top | divided_by: 10.0  }}rem;
+    padding-bottom: {{ section.settings.desktop_padding_bottom | divided_by: 10.0  }}rem;
+  }
+ 
+  @media screen and (max-width: 750px) {
+    #shopify-section-{{ section.id }} .media-text-section--container {
+      padding-top: {{ section.settings.mobible_padding_top | divided_by: 10.0  }}rem;
+      padding-bottom: {{ section.settings.mobile_padding_bottom | divided_by: 10.0  }}rem;
+    } 
+  }
+
+  {%- if section.settings.background_image.presentation.focal_point != blank -%}
+    #shopify-section-{{ section.id }} .media-wrapper {
+      background-position: {{ section.settings.background_image.presentation.focal_point.x }}% {{ section.settings.background_image.presentation.focal_point.y }}%;
+    }
+  {%- endif -%}
+  
+
+  {%- if section.settings.background_image_mobile.presentation.focal_point != blank -%}
+    @media screen and (max-width: 750px) {
+      #shopify-section-{{ section.id }} .media-wrapper {
+        background-position: {{ section.settings.background_image_mobile.presentation.focal_point.x }}% {{ section.settings.background_image_mobile.presentation.focal_point.y }}%;
+      }
+    }
+  {%- endif -%}
+
+  {%- if section.settings.section_type == "image" and section.settings.lazyload == false -%}
+
+    #shopify-section-{{ section.id }} .media-wrapper {
+      background-image: url({{ section.settings.background_image | img_url: 'master' }});
+    }
+
+    @media screen and (max-width: 750px) {
+      #shopify-section-{{ section.id }} .media-wrapper {
+        background-image: url({{ section.settings.background_image_mobile | img_url: 'master' }})
+      }
+    }
+  {%- endif -%}
+
+</style>
+
+
+
+{% schema %}
+{
+  "name": "Image/Video with text",
+  "class": "page-width",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section type settings"
+    },
+    {
+      "type": "select",
+      "id": "content_order",
+      "label": "Content order",
+      "options": [
+        {
+          "value": "section-ordered",
+          "label": "Image first"
+        },
+        {
+          "value": "section-reversed",
+          "label": "Image second"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "media_size",
+      "label": "Size of media content",
+      "options": [
+        {
+          "value": "small",
+          "label": "Small"
+        },
+        {
+          "value": "medium",
+          "label": "Medium"
+        },
+        {
+          "value": "large",
+          "label": "Large"
+        },
+        {
+          "value": "large-vertical",
+          "label": "Large Vertical"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "section_type",
+      "label": "Section content type",
+      "options": [
+        {
+          "value": "video",
+          "label": "Video"
+        },
+        {
+          "value": "image",
+          "label": "Image"
+        }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "lazyload",
+      "label": "Lazy load images",
+      "info": "Not recommended to use on the first section of the page",
+      "default": true
+    },
+    {
+      "type": "url",
+      "id": "section_link",
+      "label": "Video Link",
+      "info": "Leave empty if you do not want the section to be clickable"
+    },
+    {
+      "type": "header",
+      "content": "background content"
+    },
+    {
+      "type": "url",
+      "id": "video_url",
+      "label": "Video url | Desktop"
+    },
+    {
+      "type": "paragraph",
+      "content": "To access direct links for your video that you can use in this section please follow [this instruction](https://help.vimeo.com/hc/en-us/articles/224823567-Third-party-player-links)"
+    },
+    {
+      "type": "url",
+      "id": "video_url_mobile",
+      "label": "Video url | Mobile"
+    },
+    {
+      "type": "image_picker",
+      "id": "video_poster",
+      "label": "Video Poster"
+    },
+    {
+      "type": "select",
+      "id": "control_btns",
+      "label": "Control buttons",
+      "options": [
+        {
+          "value": "disabled",
+          "label": "Disabled"
+        },
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Either side"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ]
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background image | Desktop"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image_mobile",
+      "label": "Background image | mobile"
+    },
+    {
+      "type": "header",
+      "content": "Content settings"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Block heading"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "Heading size",
+      "options": [
+        {
+          "value": "h1",
+          "label": "h1"
+        },
+        {
+          "value": "h2",
+          "label": "h2"
+        },
+        {
+          "value": "h3",
+          "label": "h3"
+        },
+        {
+          "value": "h4",
+          "label": "h4"
+        },
+        {
+          "value": "h5",
+          "label": "h5"
+        }
+      ],
+      "default": "h5"
+    },
+    {
+      "type": "select",
+      "id": "heading_size_mobile",
+      "label": "Heading size",
+      "options": [
+        {
+          "value": "h1_mobile",
+          "label": "h1"
+        },
+        {
+          "value": "h2_mobile",
+          "label": "h2"
+        },
+        {
+          "value": "h3_mobile",
+          "label": "h3"
+        },
+        {
+          "value": "h4_mobile",
+          "label": "h4"
+        },
+        {
+          "value": "h5_mobile",
+          "label": "h5"
+        }
+      ],
+      "default": "h5_mobile"
+    },
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Text",
+      "default": "Block Text"
+    },
+    {
+      "type": "select",
+      "id": "text_size",
+      "label": "Text size",
+      "options": [
+        {
+          "value": "text-small",
+          "label": "Small"
+        },
+        {
+          "value": "text",
+          "label": "Medium"
+        },
+        {
+          "value": "text-large",
+          "label": "Large"
+        }
+      ],
+      "default": "text"
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "select",
+      "id": "buttons_style",
+      "label": "Buttons style",
+      "options": [
+        {
+          "value": "primary",
+          "label": "Primary"
+        },
+        {
+          "value": "primary-outline",
+          "label": "Outline"
+        },
+        {
+          "value": "secondary",
+          "label": "Secondary"
+        },
+        {
+          "value": "tertiary",
+          "label": "Tertiary"
+        }
+      ],
+      "default": "tertiary"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Text"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Link"
+    },
+        {
+      "type": "header",
+      "content": "Padding | Desktop"
+    },
+    {
+      "type": "range",
+      "id": "desktop_padding_top", 
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding top | Desktop",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "desktop_padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding bottom | Desktop",
+      "default": 50
+    },
+    {
+      "type": "header",
+      "content": "Padding | Mobile"
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding top | Mobile",
+      "default": 25
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding bottom | Mobile",
+      "default": 25
+    } 
+  ],
+  "presets": [
+    {
+      "category": "Video",
+      "name": "Image/Video and text",
+      "settings": {}
+    } 
+  ]
+}
+{% endschema %}

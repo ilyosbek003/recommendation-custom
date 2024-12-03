@@ -1,0 +1,168 @@
+{{ 'shopable-image-text.min.css' | asset_url | stylesheet_tag }}
+
+<style>
+  #shopify-section-{{ section.id }}.shopable-image-text {
+    padding-top: {{ section.settings.desktop_padding_top | divided_by: 10.0  }}rem;
+    padding-bottom: {{ section.settings.desktop_padding_bottom | divided_by: 10.0  }}rem;
+  }
+  @media screen and (max-width: 750px) {
+    #shopify-section-{{ section.id }}.shopable-image-text {
+      padding-top: {{ section.settings.mobile_padding_top | divided_by: 10.0  }}rem;
+      padding-bottom: {{ section.settings.mobile_padding_bottom | divided_by: 10.0  }}rem;
+    }
+  }
+</style>
+
+{% liquid
+  assign products = section.settings.products
+  assign products_size = products.count
+  assign image = section.settings.image
+%}
+
+<div data-id="{{ section.settings.section_id }}" class="container">
+  <div class="shopable-image-text__image__container">
+    {% if image %}
+      {{ image
+      | image_url:
+        width: 1500
+      | image_tag:
+        sizes: "50vw",
+        widths: '300, 450, 600, 750, 900, 1050, 1200, 1350, 1500',
+        class: "image-lazy shopable-image-text__image__img",
+        loading: "lazy"
+      }}
+    {% else %}
+      {{ "image" | placeholder_svg_tag: "placeholder shopable-image-text__image__img" }}
+    {% endif %}
+
+    {% if products_size > 0 %}
+      <div data-shop-modal-open class="shopable-image-text__shop">
+        {% for product in products %}
+          {% render 'create-product-object', product: product %}
+        {% endfor %}
+        {% render 'create-shop-images', keys: "image", settings: section.settings, class: "image-lazy shopable-images__image", loading: "lazy" %}
+        <button style="--shop-color: {{ section.settings.color }}" class="Button-tertiary">{{ section.settings.text }}</button>
+      </div>
+    {% endif %}
+  </div>
+  <div class="shopable-image-text__content">
+    <div class="shopable-image-text__description text">
+      {{ section.settings.content }}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Shopable Image Text",
+  "class": "shopable-image-text",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_id",
+      "default": "unique_id",
+      "label": "Section ID",
+      "info": "Enter a unique data ID for this section"
+    },
+    {
+      "type": "header",
+      "content": "Content Settings",
+      "info": "These settings control the content of the section."
+    },
+    {
+      "type": "richtext",
+      "id": "content",
+      "label": "Content",
+      "default": "<p>This is the content of the section.</p>",
+      "info": "This is the content of the section."
+    },
+    {
+      "type": "header",
+      "content": "Image Settings",
+      "info": "These settings control the content of the section."
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "header",
+      "content": "Shpable Settings",
+      "info": "These settings control the shopable content of the section."
+    },
+    {
+      "type": "product_list",
+      "id": "products",
+      "label": "Products",
+      "limit": 10
+    },
+    {
+      "type":"text",
+      "id":"text",
+      "label":"CTA Text",
+      "default":"SHOP"
+    },
+    {
+      "type":"color",
+      "id":"color",
+      "label":"CTA Color",
+      "default":"#FFF"
+    },
+    {
+      "type": "header",
+      "content": "Padding | Desktop"
+    },
+    {
+      "type": "range",
+      "id": "desktop_padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding top | Desktop",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "desktop_padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding bottom | Desktop",
+      "default": 50
+    },
+    {
+      "type": "header",
+      "content": "Padding | Mobile"
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding top | Mobile",
+      "default": 25
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding bottom | Mobile",
+      "default": 25
+    }
+  ],
+  "presets": [
+    {
+      "name": "Shopable Image Text",
+      "settings": {}
+    }
+  ]
+}
+{% endschema %}

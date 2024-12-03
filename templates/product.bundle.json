@@ -1,0 +1,30 @@
+{
+  "sections": {
+    "171416070870d07d9a": {
+      "type": "apps",
+      "settings": {
+        "include_margins": true
+      }
+    },
+    "pdp-bundle": {
+      "type": "pdp-bundle",
+      "settings": {
+        "layout": "normal",
+        "animate_nav": true,
+        "show_sku": false,
+        "show_thumbnails": false,
+        "enable_video_looping": true,
+        "tab_page_1_handle": "",
+        "tab_page_2_handle": "",
+        "menu": "main-menu",
+        "menu_mobile": "main-menu",
+        "padding_inline_desktop": 40,
+        "padding_inline_mobile": 20
+      }
+    }
+  },
+  "order": [
+    "171416070870d07d9a",
+    "pdp-bundle"
+  ]
+}

@@ -1,0 +1,205 @@
+{%- assign first_page = pages[section.settings.tab_page_1_handle] -%}
+{%- assign second_page = pages[section.settings.tab_page_2_handle] -%}
+{%- assign first_custom_page = '' -%}
+{%- assign second_custom_page = '' -%}
+{%- assign third_custom_page = '' -%}
+
+{%- assign has_unique_tab_1 = false -%}
+{%- assign has_unique_tab_2 = false -%}
+
+{%- if product.metafields.sf_product_tabs.tab_1_title != blank and product.metafields.sf_product_tabs.tab_1_content != blank -%}
+  {%- assign unique_tab_1_title = product.metafields.sf_product_tabs.tab_1_title -%}
+  {%- assign unique_tab_1_content = product.metafields.sf_product_tabs.tab_1_content -%}
+  {%- assign has_unique_tab_1 = true -%}
+{%- endif -%}
+
+{%- if product.metafields.sf_product_tabs.tab_2_title != blank and product.metafields.sf_product_tabs.tab_2_content != blank -%}
+  {%- assign unique_tab_2_title = product.metafields.sf_product_tabs.tab_2_title -%}
+  {%- assign unique_tab_2_content = product.metafields.sf_product_tabs.tab_2_content -%}
+  {%- assign has_unique_tab_2 = true -%}
+{%- endif -%}
+
+{%- if product.metafields.sf_product_tabs.tab_3_title != blank and product.metafields.sf_product_tabs.tab_3_content != blank -%}
+  {%- assign unique_tab_3_title = product.metafields.sf_product_tabs.tab_3_title -%}
+  {%- assign unique_tab_3_content = product.metafields.sf_product_tabs.tab_3_content -%}
+  {%- assign has_unique_tab_3 = true -%}
+{%- endif -%}
+
+{%- for tag in product.tags -%}
+  {%- if tag contains '__tab1' -%}
+    {%- assign first_custom_page = tag | split: ':' | last -%}
+    {%- assign first_custom_page = pages[first_custom_page] -%}
+
+    {%- assign unique_tab_1_title = first_custom_page.title -%}
+    {%- assign unique_tab_1_content = first_custom_page.content -%}
+    {%- assign has_unique_tab_1 = true -%}
+  {%- endif -%}
+
+  {%- if tag contains '__tab2' -%}
+    {%- assign second_custom_page = tag | split: ':' | last -%}
+    {%- assign second_custom_page = pages[second_custom_page] -%}
+
+    {%- assign unique_tab_2_title = second_custom_page.title -%}
+    {%- assign unique_tab_2_content = second_custom_page.content -%}
+    {%- assign has_unique_tab_2 = true -%}
+  {%- endif -%}
+
+  {%- if tag contains '__tab3' -%}
+    {%- assign third_custom_page = tag | split: ':' | last -%}
+    {%- assign third_custom_page = pages[third_custom_page] -%}
+
+    {%- assign unique_tab_3_title = third_custom_page.title -%}
+    {%- assign unique_tab_3_content = third_custom_page.content -%}
+    {%- assign has_unique_tab_3 = true -%}
+  {%- endif -%}
+{%- endfor -%}
+
+{% render 'pdp-details' %}
+
+{%- if first_page.handle != blank or second_page.handle != blank or has_unique_tab_1 or has_unique_tab_2 or has_unique_tab_3 or section.settings.reviews_enabled -%}
+  
+  {%- if has_unique_tab_1 -%}
+    <div class="accordion-c">
+
+      <button class="accordion-c__btn text upper-case">
+        {{- unique_tab_1_title -}} 
+        {% render 'icon' with 'arrow-bottom' %}
+      </button>
+
+      <div class="accordion-c__content-wrapper animation-container">
+        <div class="accordion-c__content">
+          <div class="accordion-c__content--inner">
+            {{- unique_tab_1_content -}}
+          </div>
+        </div>
+      </div>
+
+    </div>
+  {%- endif -%}
+
+  {%- if has_unique_tab_2 -%}
+    <div class="accordion-c">
+
+      <button class="accordion-c__btn text upper-case">
+        {{- unique_tab_2_title -}} 
+        {% render 'icon' with 'arrow-bottom' %}
+      </button>
+
+      <div class="accordion-c__content-wrapper animation-container">
+        <div class="accordion-c__content">
+          <div class="accordion-c__content--inner">
+            {{- unique_tab_2_content -}}
+          </div>
+        </div>
+      </div>
+
+    </div>
+  {%- endif -%}
+
+  {%- if has_unique_tab_3 -%}
+    <div class="accordion-c">
+
+      <button class="accordion-c__btn text upper-case">
+        {{- unique_tab_3_title -}} 
+        {% render 'icon' with 'arrow-bottom' %}
+      </button>
+
+      <div class="accordion-c__content-wrapper animation-container">
+        <div class="accordion-c__content">
+          <div class="accordion-c__content--inner">
+            {{- unique_tab_3_content -}}
+          </div>
+        </div>
+      </div>
+
+    </div> 
+  {%- endif -%}
+
+  {%- if first_page != empty -%}
+    <div class="accordion-c">
+      
+      <button class="accordion-c__btn text upper-case">
+        {{- first_page.title -}}
+        {% render 'icon' with 'arrow-bottom' %}
+      </button>
+
+      <div id="collapsibleContainer2" class="accordion-c__content-wrapper animation-container">
+        <div class="accordion-c__content">
+          <div class="accordion-c__content--inner">
+            {{- first_page.content -}}
+          </div>
+        </div>
+      </div>
+
+    </div>
+  {%- endif -%}
+
+  {%- if second_page != empty -%}
+    <div class="accordion-c">
+      
+      <button class="accordion-c__btn text upper-case">
+        {{- second_page.title -}} 
+        {% render 'icon' with 'arrow-bottom' %}
+      </button>
+
+      <div class="accordion-c__content-wrapper animation-container">
+        <div class="accordion-c__content">
+          <div class="accordion-c__content--inner">
+            {{- second_page.content -}}
+          </div>
+        </div>
+      </div>
+
+    </div>
+  {%- endif -%}
+
+  {%- if section.settings.reviews_enabled -%}
+    <div class="accordion-c">
+
+      {%- if product.metafields.spr.reviews contains 'itemprop="reviewCount"' -%}
+        {%- assign reviews_count = product.metafields.spr.reviews | split: '<meta itemprop="reviewCount" content="' | last | split: '">' | first | times: 1 -%}
+      {%- else -%}
+        {%- assign reviews_count = product.metafields.spr.reviews | split: '"reviewCount": "' | last | split: '"' | first | plus: 0 -%}
+      {%- endif -%}
+
+      <button class="accordion-c__btn text upper-case">
+        <span>
+          {{ 'product.tabs.reviews' | t }} <span class="text--light">({{ reviews_count | default: 0 }})</span>
+        </span>
+        {% render 'icon' with 'arrow-bottom' %}
+      </button>
+
+      <div class="accordion-c__content-wrapper animation-container">
+        <div class="accordion-c__content">
+          <div class="accordion-c__content--inner">
+            <div id="shopify-product-reviews" data-id="{{product.id}}">{{ product.metafields.spr.reviews }}</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  {%- endif -%}
+ 
+{%- endif -%}
+
+<div class="accordion-c">
+
+  <button class="accordion-c__btn text upper-case">
+    Customer care
+    {% render 'icon' with 'arrow-bottom' %}
+  </button>
+
+  <div class="accordion-c__content-wrapper animation-container">
+    <div class="accordion-c__content">
+      <div class="accordion-c__content--inner">
+        <p>
+          Our Client Advisors are available for tips and additional information on our products.
+        </p>
+        <p>    
+          Email us at <a href="mailto:customerservice@bugatchi.com" title="customerservice@bugatchi.com">customerservice@bugatchi.com</a>. Our Client Advisors are available Monday to Friday, 9am to 5pm EST.
+        </p>
+      </div>
+    </div>
+  </div>
+
+</div>

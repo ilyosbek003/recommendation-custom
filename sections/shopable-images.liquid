@@ -1,0 +1,176 @@
+{{ 'shopable-images.min.css' | asset_url | stylesheet_tag }}
+
+<style>
+    #shopify-section-{{ section.id }}.shopable-images {
+        padding-top: {{ section.settings.desktop_padding_top | divided_by: 10.0  }}rem;
+        padding-bottom: {{ section.settings.desktop_padding_bottom | divided_by: 10.0  }}rem;
+    }
+    @media screen and (max-width: 750px) {
+        #shopify-section-{{ section.id }}.shopable-images {
+            padding-top: {{ section.settings.mobile_padding_top | divided_by: 10.0  }}rem;
+            padding-bottom: {{ section.settings.mobile_padding_bottom | divided_by: 10.0  }}rem;
+        }
+    }
+</style>
+
+<div data-id="{{ section.settings.section_id }}" class="shopable-images__images">
+  {% for block in section.blocks %}
+    {% liquid
+      assign settings = block.settings
+      assign image = settings.image
+      assign sectioned = settings.sectioned
+      assign products = settings.products
+      assign products_size = products.count
+      assign color = settings.color
+      assign text = settings.text
+    %}
+
+    {% if image %}
+      <div class="shopable-images__image__container {% if sectioned %}shopable-images__image__container--sectioned{% endif %}">
+        <div class="shopable-images__image">
+          {{ image
+          | image_url:
+          width: 1500
+          | image_tag:
+          sizes: "40vw",
+          widths: '300, 450, 600, 750, 900, 1050, 1200, 1350, 1500',
+          class: "image-lazy",
+          loading: "lazy"
+          }}
+          {% if products_size > 0 %}
+            <div data-shop-modal-open class="shopable-images__shop">
+              {% for product in products %}
+                {% render 'create-product-object', product: product %}
+              {% endfor %}
+              {% render 'create-shop-images', keys: "image", settings: settings, class: "image-lazy shopable-images__image", loading: "lazy" %}
+              <button style="--shop-color: {{ color }}" class="Button-tertiary">{{ text }}</button>
+            </div>
+          {% endif %}
+        </div>
+
+      </div>
+    {% endif %}
+  {% endfor %}
+</div>
+
+{% schema %}
+{
+  "name": "Shopable Images",
+  "class": "shopable-images",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_id",
+      "default": "unique_id",
+      "label": "Section ID",
+      "info": "Enter a unique data ID for this section"
+    },
+    {
+      "type": "header",
+      "content": "Padding | Desktop"
+    },
+    {
+      "type": "range",
+      "id": "desktop_padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding top | Desktop",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "desktop_padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding bottom | Desktop",
+      "default": 50
+    },
+    {
+      "type": "header",
+      "content": "Padding | Mobile"
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding top | Mobile",
+      "default": 25
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding bottom | Mobile",
+      "default": 25
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Image",
+      "limit": 2,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image",
+          "info": "This is the image of the look."
+        },
+        {
+          "type": "checkbox",
+          "id": "sectioned",
+          "label": "Sectioned",
+          "default": false
+        },
+        {
+          "type": "header",
+          "content": "Shopable Settings",
+          "info": "These settings control the shopable content of the section."
+        },
+        {
+          "type": "product_list",
+          "id": "products",
+          "label": "Products",
+          "limit": 10
+        },
+        {
+          "type":"text",
+          "id":"text",
+          "label":"CTA Text",
+          "default":"SHOP"
+        },
+        {
+          "type":"color",
+          "id":"color",
+          "label":"CTA Color",
+          "default":"#FFF"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Shopable Images",
+      "settings": {},
+      "blocks": [
+        {
+          "type": "image"
+        },
+        {
+          "type": "image"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

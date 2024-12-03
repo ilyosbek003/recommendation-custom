@@ -1,0 +1,301 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "name": "t:sections.header.name",
+  "type": "header",
+  "sections": {
+    "announcement-bar": {
+      "type": "announcement-bar",
+      "blocks": {
+        "announcement-bar-0": {
+          "type": "announcement",
+          "settings": {
+            "text": "FREE SHIPPING & EASY RETURNS ON U.S. ORDERS OVER $120*",
+            "color_scheme": "accent-1",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "announcement-bar-0"
+      ],
+      "settings": {}
+    },
+    "header": {
+      "type": "header",
+      "blocks": {
+        "9bbea337-707f-4266-a2c3-67b3053d9357": {
+          "type": "mega_menu",
+          "disabled": true,
+          "settings": {
+            "heading": "Ready... | Media",
+            "navigation_mega_menu": "ready-to-wear",
+            "mega_menu_media_type": "image",
+            "media_column_size": "small",
+            "overlay": 0,
+            "video_url": "",
+            "push_image": "shopify://shop_images/16x9_0000s_0062_03_Look_Courtyard_028_B_2_1.jpg",
+            "alt": "push alt",
+            "heading_position": "below",
+            "heading_font": "--heading-font-big",
+            "push_heading": "Shop Spring/Summer 2024",
+            "push_url": "/collections/new-arrival-spring-2024",
+            "second_btn": "",
+            "second_url": ""
+          }
+        },
+        "ae7d81e4-42a2-48b5-b4dc-27e55353dc68": {
+          "type": "mega_menu",
+          "disabled": true,
+          "settings": {
+            "heading": "OoohCotton® | Media",
+            "navigation_mega_menu": "ooohcotton®",
+            "mega_menu_media_type": "image",
+            "media_column_size": "small",
+            "overlay": 60,
+            "video_url": "",
+            "push_image": "shopify://shop_images/2023_FW23_CROPS_08.2417_1_7a41eb41-4c03-4d65-9d4b-1a23979c75ff.jpg",
+            "alt": "push alt",
+            "heading_position": "bottom",
+            "heading_font": "--heading-font-big",
+            "push_heading": "Innovation",
+            "push_url": "",
+            "second_btn": "",
+            "second_url": ""
+          }
+        },
+        "5608a97c-a91c-4282-96e2-1ab3c1b3aaba": {
+          "type": "mega_menu",
+          "settings": {
+            "heading": "OoohCotton® | Media",
+            "navigation_mega_menu": "ooohcotton®",
+            "mega_menu_media_type": "image",
+            "media_column_size": "small-mid",
+            "overlay": 0,
+            "video_url": "",
+            "push_image": "shopify://shop_images/ooohcotton_Header_1_18476682-178a-49dc-911c-bc9dc0746c66.jpg",
+            "alt": "push alt",
+            "heading_position": "below",
+            "heading_font": "--heading-font-big",
+            "push_heading": "DISCOVER THE ART OF THE SHIRT",
+            "push_url": "shopify://pages/ooohcotton-the-art-of-the-shirt",
+            "second_btn": "",
+            "second_url": ""
+          }
+        },
+        "516964e2-a3f2-4f03-9c47-7d418ad904fa": {
+          "type": "mega_menu",
+          "settings": {
+            "heading": "OoohCotton® | Media",
+            "navigation_mega_menu": "ooohcotton®",
+            "mega_menu_media_type": "image",
+            "media_column_size": "small-mid",
+            "overlay": 0,
+            "video_url": "",
+            "push_image": "shopify://shop_images/ooohcotton_Details_Stitching_01_Shaded_1_a1ea6830-79fe-4e37-b3c3-9b5557ed0c2a.png",
+            "alt": "push alt",
+            "heading_position": "below",
+            "heading_font": "--heading-font-big",
+            "push_heading": "SHOP OOOHCOTTON® SHIRTS",
+            "push_url": "shopify://collections/ooohcotton-shirts",
+            "second_btn": "",
+            "second_url": ""
+          }
+        },
+        "9b0e4d80-9dd7-4422-ba62-9ae83c694644": {
+          "type": "mega_menu_layout",
+          "settings": {
+            "heading": "OoohCotton® | Layout",
+            "navigation_mega_menu": "ooohcotton®",
+            "container_layout": "left"
+          }
+        },
+        "617bcac8-8f2b-44c1-adec-d502fefb755b": {
+          "type": "mega_menu",
+          "disabled": true,
+          "settings": {
+            "heading": "Accessories | Media",
+            "navigation_mega_menu": "accessories",
+            "mega_menu_media_type": "image",
+            "media_column_size": "small-mid",
+            "overlay": 60,
+            "video_url": "",
+            "push_image": "shopify://shop_images/2023_FW23_CROPS_08.29_16x918_bd55964e-a14b-45df-9338-46ed5177045f.jpg",
+            "alt": "push alt",
+            "heading_position": "bottom",
+            "heading_font": "--heading-font-big",
+            "push_heading": "Print & Patter",
+            "push_url": "",
+            "second_btn": "",
+            "second_url": ""
+          }
+        },
+        "5dd735fc-2818-47dc-aae7-4f85879b1ac4": {
+          "type": "mega_menu",
+          "disabled": true,
+          "settings": {
+            "heading": "Accessories | Media",
+            "navigation_mega_menu": "accessories",
+            "mega_menu_media_type": "image",
+            "media_column_size": "small-mid",
+            "overlay": 60,
+            "video_url": "",
+            "push_image": "shopify://shop_images/2023_FW23_CROPS_08.29_16x928_1.jpg",
+            "alt": "push alt",
+            "heading_position": "bottom",
+            "heading_font": "--heading-font-big",
+            "push_heading": "Features & Benefits",
+            "push_url": "",
+            "second_btn": "",
+            "second_url": ""
+          }
+        },
+        "2ef2a646-a248-4b13-ab38-f7ffb2553cad": {
+          "type": "mega_menu_layout",
+          "disabled": true,
+          "settings": {
+            "heading": "Accessories | Layout",
+            "navigation_mega_menu": "accessories",
+            "container_layout": "left"
+          }
+        },
+        "40c29755-40b4-41f3-94e1-1f71703a3460": {
+          "type": "mega_menu",
+          "disabled": true,
+          "settings": {
+            "heading": "Discover| Media",
+            "navigation_mega_menu": "discover",
+            "mega_menu_media_type": "image",
+            "media_column_size": "medium",
+            "overlay": 60,
+            "video_url": "",
+            "push_image": "shopify://shop_images/2023_FW23_CROPS_08.29_16x929_2.jpg",
+            "alt": "push alt",
+            "heading_position": "bottom",
+            "heading_font": "--heading-font-big",
+            "push_heading": "Care Guide",
+            "push_url": "",
+            "second_btn": "",
+            "second_url": ""
+          }
+        },
+        "1b06196c-3fe7-41e4-9b50-6a64b06c22f1": {
+          "type": "mega_menu",
+          "disabled": true,
+          "settings": {
+            "heading": "Discover| Media",
+            "navigation_mega_menu": "discover",
+            "mega_menu_media_type": "image",
+            "media_column_size": "small",
+            "overlay": 60,
+            "video_url": "",
+            "push_image": "shopify://shop_images/2023_FW23_CROPS_08.24227_2_1.jpg",
+            "alt": "push alt",
+            "heading_position": "bottom",
+            "heading_font": "--heading-font-big",
+            "push_heading": "Anotomy of the shirt",
+            "push_url": "",
+            "second_btn": "",
+            "second_url": ""
+          }
+        },
+        "f9447825-7ad1-4a85-8a81-f492a1148dbe": {
+          "type": "mega_menu_layout",
+          "settings": {
+            "heading": "Discover | Layout",
+            "navigation_mega_menu": "discover",
+            "container_layout": "center"
+          }
+        },
+        "e7c71074-f4d8-4378-bf32-a445c636a1bd": {
+          "type": "mega_menu",
+          "disabled": true,
+          "settings": {
+            "heading": "Sale | Media",
+            "navigation_mega_menu": "sale",
+            "mega_menu_media_type": "image",
+            "media_column_size": "medium",
+            "overlay": 0,
+            "video_url": "",
+            "push_image": "shopify://shop_images/Banner_Last_Chance_0725_02_1920x1080_1.jpg",
+            "alt": "push alt",
+            "heading_position": "middle",
+            "heading_font": "--heading-font-big",
+            "push_heading": "",
+            "push_url": "shopify://collections/sale",
+            "second_btn": "",
+            "second_url": ""
+          }
+        },
+        "4545c4e1-2c2b-4414-9a51-480340064219": {
+          "type": "mega_menu_layout",
+          "settings": {
+            "heading": "Sale | Layout",
+            "navigation_mega_menu": "sale",
+            "container_layout": "left"
+          }
+        }
+      },
+      "block_order": [
+        "9bbea337-707f-4266-a2c3-67b3053d9357",
+        "ae7d81e4-42a2-48b5-b4dc-27e55353dc68",
+        "5608a97c-a91c-4282-96e2-1ab3c1b3aaba",
+        "516964e2-a3f2-4f03-9c47-7d418ad904fa",
+        "9b0e4d80-9dd7-4422-ba62-9ae83c694644",
+        "617bcac8-8f2b-44c1-adec-d502fefb755b",
+        "5dd735fc-2818-47dc-aae7-4f85879b1ac4",
+        "2ef2a646-a248-4b13-ab38-f7ffb2553cad",
+        "40c29755-40b4-41f3-94e1-1f71703a3460",
+        "1b06196c-3fe7-41e4-9b50-6a64b06c22f1",
+        "f9447825-7ad1-4a85-8a81-f492a1148dbe",
+        "e7c71074-f4d8-4378-bf32-a445c636a1bd",
+        "4545c4e1-2c2b-4414-9a51-480340064219"
+      ],
+      "settings": {
+        "product_card_layout": "layout_2",
+        "product_card_background": "#e3e3e3",
+        "search_products_count": 6,
+        "clear_content_on_close": true,
+        "show_loading_spinner": true,
+        "show_videos": false,
+        "logo_width": 130,
+        "logo_position": "middle-left",
+        "menu_type_desktop": "mega",
+        "mega_menu_color_lvl2": "#000000",
+        "mega_menu_color_hover_lvl2": "#757575",
+        "mega_menu_color": "#000000",
+        "mega_menu_color_hover": "#757575",
+        "mega_menu_shadow": true,
+        "show_line_separator": false,
+        "enable_sticky_header": true,
+        "enable_transparent_header": false,
+        "transparent_header_opacity": 49,
+        "transparent_header_style": "inverted",
+        "margin_bottom": 0,
+        "padding_top": 12,
+        "padding_bottom": 12,
+        "padding_inline_desktop": 40,
+        "padding_inline_mobile": 20,
+        "container_layout": "fluid",
+        "container_width": 1800,
+        "parent_behaviour": "collapse",
+        "parent_indentation": "indented",
+        "child_type": "collapsable",
+        "child_indentation": "indented",
+        "grand_child_type": "regular",
+        "grand_child_indentation": "indented"
+      }
+    }
+  },
+  "order": [
+    "announcement-bar",
+    "header"
+  ]
+}

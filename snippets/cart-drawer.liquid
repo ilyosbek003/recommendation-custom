@@ -1,0 +1,162 @@
+{{ 'component-cart-items.css' | asset_url | stylesheet_tag }}
+<style>
+  .drawer {
+    visibility: hidden;
+    height: 0;
+  }
+</style>
+
+{%- assign threshold_in_cents = settings.free_shipping_amount | times: 100 -%}
+
+<cart-drawer class="drawer{% if cart == empty %} is-empty{% endif %}" style="--card-background: {{ settings.product_card_background }}">
+  <div id="CartDrawer" class="cart-drawer">
+    <div id="CartDrawer-Overlay"class="cart-drawer__overlay"></div>
+    <div class="drawer__recommended drawer__recommended--desktop">
+      <div class="drawer__recommended-header">
+        <h2 class="h3 text">You may also like</h2>
+      </div>
+      <div class="body"></div>
+    </div>
+    <div class="drawer__inner" role="dialog" aria-modal="true" aria-label="{{ 'sections.cart.title' | t }}" tabindex="-1">
+      <div class="drawer__inner-empty">
+        <div class="cart-drawer__warnings center{% if settings.cart_drawer_collection != blank %} cart-drawer__warnings--has-collection{% endif %}">
+          <div class="cart-drawer__empty-content">
+            <div class="cart-drawer__empty-text-wrapper">
+              <div>
+                <h2 class="cart__empty-text text upper-case">{{ 'sections.cart.empty' | t }}</h2>
+                <a href="{{ routes.all_products_collection_url }}" class="Button Button-primary">
+                  {{ 'general.continue_shopping' | t }}
+                </a>
+              </div>
+            </div>
+            <cart-close-button class="drawer__close" type="button" aria-label="{{ 'accessibility.close' | t }}">{% render 'icon-close' %}</cart-close-button>
+              {%- if shop.customer_accounts_enabled and customer == nil -%}
+                <p class="cart__login-paragraph text-large">
+                  {{ 'sections.cart.login.paragraph_html' | t: link: routes.account_login_url, title: "Log in" }}
+                </p>
+              {%- endif -%}
+            </div>
+          </div>
+        </div>
+      <div class="drawer__header">
+        <h2 class="drawer__heading h4">{{ 'sections.cart.title' | t }}</h2>
+        <cart-close-button class="drawer__close" type="button" aria-label="{{ 'accessibility.close' | t }}">{% render 'icon-close' %}</cart-close-button>
+      </div>
+      <cart-drawer-items {% if cart == empty %}class="is-empty"{% endif %}>
+        <form action="{{ routes.cart_url }}" id="CartDrawer-Form" class="cart__contents cart-drawer__form" method="post">
+          <div id="CartDrawer-CartItems" class="drawer__contents js-contents">
+            {%- if cart != empty -%}
+              <div class="drawer__cart-items-wrapper">
+                <p class="free-shipping-message">
+                  {%- if cart.total_price >= threshold_in_cents -%}
+                    You are eligible for free shipping!
+                  {%- else -%}
+                    Spend {{ cart.total_price | minus: threshold_in_cents | abs | money_without_trailing_zeros | upcase }} more and get free shipping!
+                  {%- endif -%}
+                </p>
+                {% for item in cart.items %}
+                  {% render 'main-cart-lineitem', item: item %}
+                {% endfor %}
+
+                <div class="drawer__recommended drawer__recommended--mobile">
+                  <div>
+                    <div class="drawer__recommended-header">
+                      <h2 class="h3 text">You may also like</h2>
+                    </div>
+                    <div class="body"></div>
+                  </div>
+                </div>
+              </div>
+            {%- endif -%}
+            <p id="CartDrawer-LiveRegionText" class="visually-hidden" role="status"></p>
+            <p id="CartDrawer-LineItemStatus" class="visually-hidden" aria-hidden="true" role="status">{{ 'accessibility.loading' | t }}</p>
+          </div>
+          <div id="CartDrawer-CartErrors" role="alert"></div>
+        </form>
+      </cart-drawer-items>
+      <div class="drawer__footer">
+        {%- if settings.show_cart_note -%}
+          <details id="Details-CartDrawer">
+            <summary>
+              <span class="summary__title">
+                {{ 'sections.cart.note' | t }}
+                {% render 'icon-caret' %}
+              </span>
+            </summary>
+            <cart-note class="cart__note field">
+              <label class="visually-hidden" for="CartDrawer-Note">{{ 'sections.cart.note' | t }}</label>
+              <textarea id="CartDrawer-Note" class="text-area text-area--resize-vertical field__input" name="note" placeholder="{{ 'sections.cart.note' | t }}">{{ cart.note }}</textarea>
+            </cart-note>
+          </details>
+        {%- endif -%}
+
+        <!-- Start blocks-->
+        <!-- Subtotals-->
+
+        <div class="cart-drawer__footer" {{ block.shopify_attributes }}>
+          <div>
+            {%- if cart.cart_level_discount_applications.size > 0 -%}
+              <ul class="discounts list-unstyled" role="list" aria-label="{{ 'customer.order.discount' | t }}">
+                {%- for discount in cart.cart_level_discount_applications -%}
+                  <li class="discounts__discount discounts__discount--end">
+                    {%- render 'icon-discount' -%}
+                    {{ discount.title }}
+                    (-{{ discount.total_allocated_amount | money_without_trailing_zeros | upcase }})
+                  </li>
+                {%- endfor -%}
+              </ul>
+            {%- endif -%}
+          </div>
+
+          <small class="tax-note caption-large rte">
+            {%- if cart.taxes_included and shop.shipping_policy.body != blank -%}
+              {{ 'sections.cart.taxes_included_and_shipping_policy_html' | t: link: shop.shipping_policy.url }}
+            {%- elsif cart.taxes_included -%}
+              {{ 'sections.cart.taxes_included_but_shipping_at_checkout' | t }}
+            {%- elsif shop.shipping_policy.body != blank -%}
+              {{ 'sections.cart.taxes_and_shipping_policy_at_checkout_html' | t: link: shop.shipping_policy.url }}
+            {%- else -%}
+              {{ 'sections.cart.taxes_and_shipping_at_checkout' | t }}
+            {%- endif -%}
+          </small>
+        </div>
+
+        <!-- CTAs -->
+
+        <div class="cart__ctas" {{ block.shopify_attributes }}>
+          <noscript>
+            <button type="submit" class="cart__update-button button button--secondary" form="CartDrawer-Form">
+              {{ 'sections.cart.update' | t }}
+            </button>
+          </noscript>
+          <a href="/cart" id="CartDrawer-Checkout" class="cart__checkout-button button">
+            {{ 'sections.cart.checkout' | t }}{% if cart.total_price > 0 %}
+              &nbsp;&bull;&nbsp;&nbsp;{{ cart.total_price | money_without_trailing_zeros | upcase }}
+            {% endif %}
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</cart-drawer>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    function isIE() {
+      const ua = window.navigator.userAgent;
+      const msie = ua.indexOf('MSIE ');
+      const trident = ua.indexOf('Trident/');
+
+      return (msie > 0 || trident > 0);
+    }
+
+    if (!isIE()) return;
+    const cartSubmitInput = document.createElement('input');
+    cartSubmitInput.setAttribute('name', 'checkout');
+    cartSubmitInput.setAttribute('type', 'hidden');
+    document.querySelector('#cart').appendChild(cartSubmitInput);
+    document.querySelector('#checkout').addEventListener('click', function(event) {
+      document.querySelector('#cart').submit();
+    });
+  });
+</script>

@@ -1,0 +1,8 @@
+<div class="Product__gallery-wrapper">
+  <div class="Product__gallery"></div>
+  {% if section.settings.layout == 'normal' %}
+    <div class="Product__details">
+      {% render 'pdp-accordions' | product: product %}
+    </div>
+  {% endif %}
+</div>

@@ -1,0 +1,96 @@
+<script>
+ 
+    (async () => {
+      while (!window.hasOwnProperty("glbeApp")){
+        await new Promise(resolve => setTimeout(resolve, 200));
+      }
+      if (Shopify.country && Shopify.country!='US'){
+        glbeApp.modules.priceInfo.load();
+      }
+      
+    })();
+
+    (async () => {
+
+      if (Shopify.country && Shopify.country==='US'){
+          window.getGlobalEConvertedPrice = function(baseCurrencyPrice){
+            return baseCurrencyPrice;
+          }
+          window.getGlobaleFxConvertedPrice = function(baseCurrencyPrice){
+            return baseCurrencyPrice;
+          }
+          
+      } else {
+          while (!window.GLBE_PARAMS?.PriceInfo){
+            await new Promise(resolve => setTimeout(resolve, 100));
+          }  
+          
+
+          window.getGlobalEConvertedPrice = function(baseCurrencyPrice){
+            if (Shopify.country && Shopify.country==='US'){
+              return baseCurrencyPrice;
+            } else {
+              // includes GE rounding rules
+              return glbeApp.modules.priceInfo.convertPrice(baseCurrencyPrice);
+            }
+          }
+
+          window.getGlobaleFxConvertedPrice = function(baseCurrencyPrice){
+            if (Shopify.country && Shopify.country==='US'){
+              return baseCurrencyPrice;
+            }
+        
+            // does not include GE rounding rules
+            var currencyConversionRate = GLBE_PARAMS.PriceInfo.currencyConversionRate;
+            var currencyDecimalPlaces = GLBE_PARAMS.PriceInfo.currencyDecimalPlaces;
+            var countryCoefficientRate = GLBE_PARAMS.PriceInfo.countryCoefficientRate;
+            var calculatedConvertedPrice = baseCurrencyPrice * currencyConversionRate * countryCoefficientRate;
+
+            if (calculatedConvertedPrice < 0){
+              return -round(-calculatedConvertedPrice, currencyDecimalPlaces);
+            }  
+            var p = Math.pow(10, currencyDecimalPlaces);
+            var n = (calculatedConvertedPrice * p).toPrecision(3);
+            calculatedConvertedPrice = Math.round(n) / p;
+            return calculatedConvertedPrice;
+          }
+      }
+    })();
+                      
+</script>
+<script> 
+  /* Wait for the DOM to completely loads */
+    function DOMready(callback) { 
+        if (document.readyState != 'loading') callback(); 
+        else document.addEventListener('DOMContentLoaded', callback); 
+    } 
+  /* Check if the GLBE_PARAMS object exists, then check if country is on the operated countries array */ 
+  /* if on operated country, get the body element and add an attribute to it called "ge-active" with the value true otherwise false */ 
+    DOMready(function() { 
+        if (GLBE_PARAMS) { 
+            var OperatedCountryArray = GLBE_PARAMS.operatedCountries; 
+            var MyCountry = GLBE_PARAMS.countryCode || GLBE_PARAMS.shippingCountry; 
+            var geActive = false; 
+            var b = document.querySelector("body"); 
+            for (var i = 0; i < OperatedCountryArray.length; i++) { 
+                if (MyCountry == OperatedCountryArray[i]) { 
+                    geActive = true; 
+                } 
+            } 
+            if (geActive == true) { 
+                b.setAttribute("ge-active", true); 
+            } else {
+              b.setAttribute("ge-active", false);
+            }
+        }
+    });
+
+  
+</script> 
+<style> 
+    
+    body[ge-active='true'] .ge-hide { 
+        display: none !important; 
+    }
+
+</style>

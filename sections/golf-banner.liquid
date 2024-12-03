@@ -1,0 +1,400 @@
+{{ 'golf-banner.min.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'golf-banner.min.js' | asset_url }}" defer></script>
+
+{%- assign s = section -%}
+{%- assign ss = s.settings -%}
+{%- assign video_control = false -%}
+
+{%- assign heading = s.blocks | where: "type", "heading" | map: "settings" | map: "heading" | first -%}
+
+<div class="Golf-banner" {%  if ss.section_id != blank %}id="{{ ss.section_id }}"{% endif %} style="--aspect-desktop: {{ ss.aspect_desktop }}; --aspect-mobile: {{ ss.aspect_mobile }}">
+    <div class="Golf-banner__media-container" style="--overlay-opacity: rgba(0,0,0, {{ ss.overlay | divided_by: 100.0 }})  ">
+        {%- if ss.bg_type == "video" -%}
+            {%- assign desktop_video_url = ss.video_desktop.sources 
+                | where: "format", "mp4" 
+                | map: "url" 
+                | first 
+            -%}
+            {%- assign mobile_video_url = ss.video_mobile.sources 
+                | where: "format", "mp4" 
+                | map: "url" 
+                | first 
+            -%}
+            <video
+                playsinline="playsinline" 
+                autoplay="autoplay" 
+                muted="muted" 
+                loop="loop" 
+                class="Golf-banner__media"
+                data-src-desktop="{{ desktop_video_url }}"
+                data-src-mobile="{{ mobile_video_url }}"
+            >
+                <picture>
+                    <source media="(max-width:600px)" srcset="{{ ss.video_mobile.preview_image | image_url: width: 400 }}">
+                    {{ ss.video_desktop.preview_image | image_url: width: 800 | image_tag }}
+                </picture>
+            </video>
+        {%- else -%}
+            <picture>
+                {%- if ss.image_mobile != nil -%}
+                    <source media="(max-width:600px)" srcset="{{ ss.image_mobile | image_url: width: 1000 }}">
+                {%- endif -%}
+
+                {%- if ss.image_desktop != nil -%}
+                    {%- assign alt_attr = ss.image_desktop.alt | default: heading -%}
+                    {{ ss.image_desktop | image_url: width: 1500 | image_tag: class: "Golf-banner__media", alt: alt_attr }}
+                {%- elsif ss.image_mobile != nil -%}
+                    {%- assign alt_attr = ss.image_mobile.alt | default: heading -%}
+                    {{ ss.image_mobile | image_url: width: 1000 | image_tag: class: "Golf-banner__media", alt: alt_attr }}
+                {%- endif -%}
+            </picture>
+
+        {%- endif -%}
+    </div>
+
+    <div class="Golf-banner__text-container flex-x--{{ ss.alignment_x }} flex-y--{{ ss.alignment_y }}">
+        <div class="Golf-banner__text-container--wrapper">
+            {%- for block in s.blocks -%}
+                {%- assign bs = block.settings -%}
+
+                {%- if block.type == "heading" and bs.heading != blank-%}
+                    <h2 class="Golf__heading {{ bs.size_desktop }} {{ bs.size_mobile }}" align="{{ bs.alignment }}" style="color: {{ bs.color }}">{{ bs.heading }}</h2>
+                {%- endif -%}
+
+                {%- if block.type == "text" and bs.text != blank -%}
+                    <p class="Golf__text" align="{{ bs.alignment }}" style="color: {{ bs.color }}">{{ bs.text }}</p>
+                {%- endif -%}
+
+                {%- if block.type == "cta" and bs.text != blank and bs.url != blank -%}
+                    <a align="{{ bs.alignment }}" href="{{ bs.url }}" title="{{ bs.text }}" class="Button Button-{{ bs.type }} Golf-banner__cta" style="color: {{ bs.color }}">{{ bs.text }}</a>
+                {%- endif -%}
+
+                {%- if block.type == "video_control" -%}
+                    {%- assign video_control = block -%}
+                {%- endif -%}
+            {%- endfor -%}
+        </div>
+    </div>
+
+    {%- if video_control != false and ss.bg_type == "video" -%}
+        <div class="Golf-banner__media-control flex-x--{{  video_control.settings.alignment }}">
+            <button data-type="video" data-state="playing">
+                {% render 'icon' with 'play-outline', fill: video_control.settings.color %}
+                {% render 'icon' with 'pause-outline', fill: video_control.settings.color %}
+              </button>
+              <button data-type="audio" data-state="muted">
+                {% render 'icon' with 'unmute-outline', fill: video_control.settings.color %}
+                {% render 'icon' with 'mute-outline', fill: video_control.settings.color %}
+              </button>
+        </div>
+    {%- endif -%}
+</div>
+
+{% schema %}
+{
+"name": "Golf banner",
+"settings": [
+    {
+        "type": "text",
+        "label": "section ID",
+        "id": "section_id",
+        "info": "The section ID is used to connect this section to button or a link. Make sure to enter a unique ID"
+    },
+    {
+        "type": "header",
+        "content": "Aspect ratio"
+    },
+    {
+        "type": "select",
+        "id": "aspect_desktop",
+        "label": "Aspect ratio | Desktop",
+        "options": [
+            {
+                "value": "calc(9 / 16 * 100%)",
+                "label": "16/9 : W/H"
+            },
+            {
+                "value": "calc(2 / 5 * 100%)",
+                "label": "5/2 : W/H"
+            }
+        ]
+    },
+    {
+        "type": "select",
+        "id": "aspect_mobile",
+        "label": "Aspect ratio | Mobile",
+        "options": [
+            {
+                "value": "calc(1 / 1 * 100%)",
+                "label": "1/1 : W/H"
+            },
+            {
+                "value": "calc(2 / 5 * 100%)",
+                "label": "5/2 : W/H"
+            }
+        ]
+    },
+    {
+        "type": "header",
+        "content": "Background"
+    },
+    {
+        "type": "range",
+        "id": "overlay",
+        "min": 0,
+        "max": 80,
+        "step": 1,
+        "unit": "%",
+        "label": "Overlay opacity",
+        "default": 0
+    },
+    {
+        "type": "select",
+        "label": "Type",
+        "id": "bg_type",
+        "options": [
+            {
+                "value": "image",
+                "label": "Image"
+            },
+            {
+                "value": "video",
+                "label": "Video"
+            }
+        ]
+    },
+    {
+        "type": "video",
+        "label": "Video | Desktop",
+        "id": "video_desktop",
+        "info": "Required aspect ratio: 16:9 - W:H"
+    },
+    {
+        "type": "video",
+        "label": "Video | Mobile",
+        "id": "video_mobile",
+        "info": "Required aspect ratio: 1:1 - W:H"
+    },
+    {
+        "type": "image_picker",
+        "label": "Image | Desktop",
+        "id": "image_desktop",
+        "info": " Required aspect ratio: 16:9 - W:H"
+    },
+    {
+        "type": "image_picker",
+        "label": "Image | Mobile",
+        "id": "image_mobile",
+        "info": " Required aspect ratio: 1:1 - W:H"
+    },
+    {
+        "type": "header",
+        "content": "Layout"
+    },
+    {
+        "type": "select",
+        "id": "alignment_x",
+        "label": "Horizontal alignment",
+        "options": [
+            {
+                "value": "start",
+                "label": "Left"
+            },
+            {
+                "value": "center",
+                "label": "Center"
+            },
+            {
+                "value": "end",
+                "label": "Right"
+            }
+        ]
+    },
+    {
+        "type": "select",
+        "id": "alignment_y",
+        "label": "Vertical alignment",
+        "options": [
+            {
+                "value": "start",
+                "label": "Top"
+            },
+            {
+                "value": "center",
+                "label": "Center"
+            },
+            {
+                "value": "end",
+                "label": "Bottom"
+            }
+        ]
+    }
+],
+"blocks": [
+    {
+        "name": "Heading",
+        "type": "heading",
+        "limit": 1,
+        "settings": [
+            {
+                "type": "text_alignment",
+                "id": "alignment",
+                "label": "Text alignment",
+                "default": "left"
+            },
+            {
+                "type": "color",
+                "id": "color",
+                "label": "Color",
+                "default": "#000"
+            },
+            {
+                "type": "text",
+                "id": "heading",
+                "label": "Heading",
+                "default": "GOLF"
+            },
+            {
+                "type": "select",
+                "id": "size_desktop",
+                "label": "Size",
+                "options": [
+                    {
+                        "value": "h1-res",
+                        "label": "Large"
+                    },
+                    {
+                        "value": "h2-res",
+                        "label": "Medium"
+                    },
+                    {
+                        "value": "h3-res",
+                        "label": "Small"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "Text",
+        "type": "text",
+        "limit": 1,
+        "settings": [
+            {
+                "type": "text_alignment",
+                "id": "alignment",
+                "label": "Text alignment",
+                "default": "left"
+            },
+            {
+                "type": "color",
+                "id": "color",
+                "label": "Color",
+                "default": "#000"
+            },
+            {
+                "type": "text",
+                "id": "text",
+                "label": "Text",
+                "default": "Travel guide"
+            }
+        ]
+    },
+    {
+        "name": "Button",
+        "type": "cta",
+        "settings": [
+            {
+                "type": "text_alignment",
+                "id": "alignment",
+                "label": "Text alignment",
+                "default": "left"
+            },
+            {
+                "type": "color",
+                "id": "color",
+                "label": "Color",
+                "default": "#000"
+            },
+            {
+                "type": "select",
+                "id": "type",
+                "label": "Button type",
+                "options": [
+                    {
+                      "value": "primary",
+                      "label": "Primary"
+                    },
+                    {
+                      "value": "primary-outline",
+                      "label": "Outline"
+                    },
+                    {
+                      "value": "secondary",
+                      "label": "Secondary"
+                    },
+                    {
+                      "value": "tertiary",
+                      "label": "Tertiary"
+                    }
+                ],
+                "default": "tertiary"
+            },
+            {
+                "type": "text",
+                "id": "text",
+                "label": "Text"
+            },
+            {
+                "type": "url",
+                "id": "url",
+                "label": "Link"
+            }
+        ]
+    },
+    {
+        "name": "Video controls",
+        "type": "video_control",
+        "limit": 1,
+        "settings": [
+            {
+                "type": "select",
+                "id": "alignment",
+                "label": "Alignment",
+                "options": [
+                    {
+                        "value": "space",
+                        "label": "On both sides"
+                    },
+                    {
+                        "value": "start",
+                        "label": "Left"
+                    },
+                    {
+                        "value": "center",
+                        "label": "Center"
+                    },
+                    {
+                        "value": "end",
+                        "label": "Right"
+                    }
+                ]
+            },
+            {
+                "type": "color",
+                "id": "color",
+                "label": "Color of icons",
+                "default": "#000"
+            }
+        ]
+    }
+],
+"presets": [
+    {
+      "category": "Video",
+      "name": "Golf banner",
+      "settings": {}
+    } 
+  ]
+}
+{% endschema %}

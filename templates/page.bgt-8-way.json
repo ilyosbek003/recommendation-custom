@@ -1,0 +1,413 @@
+{
+  "sections": {
+    "1661346084a9f29505": {
+      "type": "background-video",
+      "blocks": {
+        "d35cba18-5755-4c4d-898d-bb94fc73967f": {
+          "type": "heading",
+          "settings": {
+            "heading": "The Art of The Shirt",
+            "heading_size": "h3",
+            "heading_size_mobile": "h2_mobile"
+          }
+        },
+        "bed68ee7-9ccf-4fd9-aebc-35659d4b076f": {
+          "type": "text",
+          "settings": {
+            "text": "Experience the world of OoohCotton®. Crafted from our exclusive, breathable and 8-way stretch fabric, our signature OoohCotton® shirts are perfect for every season.",
+            "text_size": "text"
+          }
+        },
+        "6bf36a99-e3b6-45eb-8762-1c649f874d44": {
+          "type": "buttons",
+          "settings": {
+            "buttons_style": "tertiary",
+            "button_background": false,
+            "button_1_text": "DISCOVER MORE",
+            "button_1_link": "shopify:\/\/collections\/ooohcotton",
+            "button_2_text": "",
+            "button_2_link": "",
+            "button_3_text": "",
+            "button_3_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "d35cba18-5755-4c4d-898d-bb94fc73967f",
+        "bed68ee7-9ccf-4fd9-aebc-35659d4b076f",
+        "6bf36a99-e3b6-45eb-8762-1c649f874d44"
+      ],
+      "settings": {
+        "section_style_type": "full_top",
+        "section_type": "image",
+        "overlay": 0,
+        "lazyload": true,
+        "section_link": "shopify:\/\/collections\/ooohcotton",
+        "video_url_desktop": "",
+        "video_url_mobile": "",
+        "control_btns": "auto",
+        "background_image": "shopify:\/\/shop_images\/2024_HP_HERO_04.302_1.jpg",
+        "background_image_mobile": "shopify:\/\/shop_images\/2024_CROPS_03.19_4x5_1.jpg",
+        "content_position": "bottomCenter",
+        "desktop_margin_top": 0,
+        "desktop_margin_bottom": 70,
+        "mobile_margin_top": 0,
+        "mobile_margin_bottom": 50
+      }
+    },
+    "background_video_g88ma7": {
+      "type": "background-video",
+      "settings": {
+        "section_style_type": "small",
+        "section_type": "video",
+        "overlay": 0,
+        "lazyload": true,
+        "section_link": "shopify:\/\/collections\/ooohcotton",
+        "video_url_desktop": "https:\/\/player.vimeo.com\/progressive_redirect\/playback\/925102028\/rendition\/1080p\/file.mp4?loc=external&log_user=0&signature=e20f32df7e3b2420f1f26487c22b7574dcdee16bd497a89919448d002431dd71",
+        "video_url_mobile": "https:\/\/player.vimeo.com\/progressive_redirect\/playback\/925102005\/rendition\/1080p\/file.mp4?loc=external&log_user=0&signature=76798771ec8e9a15db3d575e4660ed8c498bafa54f01d73b1f034ddef1e17c0c",
+        "video_poster": "shopify:\/\/shop_images\/transparent.png",
+        "control_btns": "auto",
+        "content_position": "middleCenter",
+        "desktop_margin_top": 50,
+        "desktop_margin_bottom": 50,
+        "mobile_margin_top": 50,
+        "mobile_margin_bottom": 15
+      }
+    },
+    "1662452876e6c81057": {
+      "type": "video-image-blocks",
+      "blocks": {
+        "53fbf235-baca-47f7-accc-e9fb565a98d9": {
+          "type": "card",
+          "settings": {
+            "block_type": "image",
+            "content_position": "bottom",
+            "content_align": "left",
+            "block_overlay": 0,
+            "background_img": "shopify:\/\/shop_images\/ooohcotton_Cuff_4x5_1_1.jpg",
+            "alt": "hero-img alt",
+            "background_video": "",
+            "control_btns": "disabled",
+            "heading": "",
+            "heading_size": "h3",
+            "heading_size_mobile": "h2_mobile",
+            "heading_letter_spacing": "1",
+            "heading_letter_spacing_mobile": "1",
+            "text": "",
+            "text_size": "text",
+            "text_margin_top": 15,
+            "text_letter_spacing": "1",
+            "text_letter_spacing_mobile": "1",
+            "button_text": "",
+            "button_url": "shopify:\/\/collections\/ooohcotton",
+            "button_margin_top": 15,
+            "block_clickable": true
+          }
+        },
+        "2a9399e3-ef95-4c7c-a23f-45255710d037": {
+          "type": "card",
+          "settings": {
+            "block_type": "image",
+            "content_position": "bottom",
+            "content_align": "left",
+            "block_overlay": 0,
+            "background_img": "shopify:\/\/shop_images\/ooohcotton_CollarDark_4x5_1_1.jpg",
+            "alt": "hero-img alt",
+            "background_video": "",
+            "control_btns": "disabled",
+            "heading": "DETAILS",
+            "heading_size": "h4",
+            "heading_size_mobile": "h2_mobile",
+            "heading_letter_spacing": "1",
+            "heading_letter_spacing_mobile": "1",
+            "text": "OoohCotton&reg; showcases exquisite attention to detail, with meticulously crafted cuffs and collars, adorned with delicate shell buttons. Its tonal stitching subtly enhances its sophisticated appeal.",
+            "text_size": "text",
+            "text_margin_top": 15,
+            "text_letter_spacing": "1",
+            "text_letter_spacing_mobile": "1",
+            "button_text": "SHOP NOW",
+            "button_url": "shopify:\/\/collections\/ooohcotton",
+            "button_margin_top": 15,
+            "block_clickable": true
+          }
+        }
+      },
+      "block_order": [
+        "53fbf235-baca-47f7-accc-e9fb565a98d9",
+        "2a9399e3-ef95-4c7c-a23f-45255710d037"
+      ],
+      "settings": {
+        "section_type": "full",
+        "mobile_aignement": "carousel",
+        "lazyload": true,
+        "heading": "",
+        "text": "",
+        "desktop_padding_top": 0,
+        "desktop_padding_bottom": 50,
+        "mobile_padding_top": 23,
+        "mobile_padding_bottom": 30
+      }
+    },
+    "background_video_UpNGee": {
+      "type": "background-video",
+      "blocks": {
+        "heading_AzjqiU": {
+          "type": "heading",
+          "settings": {
+            "heading": "FEATURES & BENEFITS",
+            "heading_size": "h3",
+            "heading_size_mobile": "h2_mobile"
+          }
+        },
+        "text_hydeQc": {
+          "type": "text",
+          "settings": {
+            "text": "The OoohCotton&reg; fabric features cutting-edge double-mercerized cotton technology with an innovative 8-way stretch for unparalleled comfort and flexibility. Engineered for breathability, it guarantees optimal airflow, keeping you cool and invigorated throughout the day.",
+            "text_size": "text"
+          }
+        },
+        "buttons_pCTKW9": {
+          "type": "buttons",
+          "settings": {
+            "buttons_style": "tertiary",
+            "button_background": false,
+            "button_1_text": "EXPLORE",
+            "button_1_link": "shopify:\/\/collections\/ooohcotton",
+            "button_2_text": "",
+            "button_2_link": "",
+            "button_3_text": "",
+            "button_3_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "heading_AzjqiU",
+        "text_hydeQc",
+        "buttons_pCTKW9"
+      ],
+      "settings": {
+        "section_style_type": "small",
+        "section_type": "image",
+        "overlay": 0,
+        "lazyload": true,
+        "section_link": "shopify:\/\/collections\/ooohcotton",
+        "video_url_desktop": "",
+        "video_url_mobile": "",
+        "control_btns": "auto",
+        "background_image": "shopify:\/\/shop_images\/ooohcotton_Pattern_Solid_d84d8105-c987-47b1-a7cf-95779e942924.png",
+        "background_image_mobile": "shopify:\/\/shop_images\/ooohcotton_Pattern_Solid_d84d8105-c987-47b1-a7cf-95779e942924.png",
+        "content_position": "middleCenter",
+        "desktop_margin_top": 25,
+        "desktop_margin_bottom": 50,
+        "mobile_margin_top": 25,
+        "mobile_margin_bottom": 40
+      }
+    },
+    "video_image_blocks_QWxQUR": {
+      "type": "video-image-blocks",
+      "blocks": {
+        "card_QhUCKx": {
+          "type": "card",
+          "settings": {
+            "block_type": "image",
+            "content_position": "bottom",
+            "content_align": "left",
+            "block_overlay": 0,
+            "background_img": "shopify:\/\/shop_images\/ooohcotton_onmodel_01.jpg",
+            "alt": "hero-img alt",
+            "background_video": "",
+            "control_btns": "disabled",
+            "heading": "WHY OOOHCOTTON®?",
+            "heading_size": "h4",
+            "heading_size_mobile": "h2_mobile",
+            "heading_letter_spacing": "1",
+            "heading_letter_spacing_mobile": "1",
+            "text": "All OoohCotton&reg; silhouettes offer a perfect blend of comfort, style, and durability, making them the ideal choice for everyday wear.",
+            "text_size": "text",
+            "text_margin_top": 15,
+            "text_letter_spacing": "1",
+            "text_letter_spacing_mobile": "1",
+            "button_text": "DISCOVER MORE",
+            "button_url": "shopify:\/\/collections\/ooohcotton",
+            "button_margin_top": 15,
+            "block_clickable": true
+          }
+        },
+        "card_eTBeiY": {
+          "type": "card",
+          "settings": {
+            "block_type": "image",
+            "content_position": "bottom",
+            "content_align": "left",
+            "block_overlay": 0,
+            "background_img": "shopify:\/\/shop_images\/ooohcotton_Features_Breathable_02_8db15a85-069d-445e-9068-9e67cc75ff0b.png",
+            "alt": "hero-img alt",
+            "background_video": "https:\/\/vimeo.com\/729645101",
+            "control_btns": "disabled",
+            "heading": "",
+            "heading_size": "h4",
+            "heading_size_mobile": "h3_mobile",
+            "heading_letter_spacing": "1",
+            "heading_letter_spacing_mobile": "1",
+            "text": "",
+            "text_size": "text",
+            "text_margin_top": 15,
+            "text_letter_spacing": "1",
+            "text_letter_spacing_mobile": "1",
+            "button_text": "",
+            "button_url": "shopify:\/\/collections\/ooohcotton",
+            "button_margin_top": 15,
+            "block_clickable": true
+          }
+        }
+      },
+      "block_order": [
+        "card_QhUCKx",
+        "card_eTBeiY"
+      ],
+      "settings": {
+        "section_type": "full",
+        "mobile_aignement": "carousel",
+        "lazyload": true,
+        "heading": "",
+        "text": "",
+        "desktop_padding_top": 0,
+        "desktop_padding_bottom": 50,
+        "mobile_padding_top": 0,
+        "mobile_padding_bottom": 40
+      }
+    },
+    "background_video_ff7ByK": {
+      "type": "background-video",
+      "settings": {
+        "section_style_type": "small",
+        "section_type": "image",
+        "overlay": 0,
+        "lazyload": true,
+        "section_link": "shopify:\/\/collections\/ooohcotton",
+        "video_url_desktop": "",
+        "video_url_mobile": "",
+        "control_btns": "auto",
+        "background_image": "shopify:\/\/shop_images\/ooohcotton_Features_Icons_16x9_2_1.png",
+        "background_image_mobile": "shopify:\/\/shop_images\/ooohcotton_Features_Icons_9x16_1.jpg",
+        "content_position": "bottomCenter",
+        "desktop_margin_top": 25,
+        "desktop_margin_bottom": 70,
+        "mobile_margin_top": 25,
+        "mobile_margin_bottom": 50
+      }
+    },
+    "background_video_33gmr9": {
+      "type": "background-video",
+      "blocks": {
+        "heading_dJRgMJ": {
+          "type": "heading",
+          "settings": {
+            "heading": "THE BUGATCHI FIT",
+            "heading_size": "h3",
+            "heading_size_mobile": "h2_mobile"
+          }
+        },
+        "text_GpWAVn": {
+          "type": "text",
+          "settings": {
+            "text": "With Fit Predictor, available on our website, customers can effortlessly ensure a perfect fit based on their unique body measurements with no guesswork.",
+            "text_size": "text"
+          }
+        },
+        "buttons_nXkfna": {
+          "type": "buttons",
+          "settings": {
+            "buttons_style": "secondary",
+            "button_background": false,
+            "button_1_text": "FIND MY FIT",
+            "button_1_link": "\/products\/james-solid-ooohcotton-shirt-white-2",
+            "button_2_text": "",
+            "button_2_link": "",
+            "button_3_text": "",
+            "button_3_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "heading_dJRgMJ",
+        "text_GpWAVn",
+        "buttons_nXkfna"
+      ],
+      "settings": {
+        "section_style_type": "full_top",
+        "section_type": "image",
+        "overlay": 0,
+        "lazyload": true,
+        "section_link": "\/products\/james-solid-ooohcotton-shirt-white-2",
+        "video_url_desktop": "",
+        "video_url_mobile": "",
+        "control_btns": "auto",
+        "background_image": "shopify:\/\/shop_images\/ooohcotton_FitPage_03.jpg",
+        "background_image_mobile": "shopify:\/\/shop_images\/ooohcotton_Fit_Mobile.jpg",
+        "content_position": "bottomCenter",
+        "desktop_margin_top": 25,
+        "desktop_margin_bottom": 70,
+        "mobile_margin_top": 50,
+        "mobile_margin_bottom": 50
+      }
+    },
+    "background_video_qhtRxE": {
+      "type": "background-video",
+      "blocks": {
+        "heading_BQAFnF": {
+          "type": "heading",
+          "settings": {
+            "heading": "EXPLORE THE COLLECTION",
+            "heading_size": "h2",
+            "heading_size_mobile": "h1_mobile"
+          }
+        },
+        "buttons_6mbXpH": {
+          "type": "buttons",
+          "settings": {
+            "buttons_style": "tertiary",
+            "button_background": false,
+            "button_1_text": "SHOP NOW",
+            "button_1_link": "shopify:\/\/collections\/ooohcotton",
+            "button_2_text": "",
+            "button_2_link": "",
+            "button_3_text": "",
+            "button_3_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "heading_BQAFnF",
+        "buttons_6mbXpH"
+      ],
+      "settings": {
+        "section_style_type": "small",
+        "section_type": "image",
+        "overlay": 0,
+        "lazyload": true,
+        "section_link": "shopify:\/\/collections\/ooohcotton",
+        "video_url_desktop": "",
+        "video_url_mobile": "",
+        "control_btns": "auto",
+        "background_image": "shopify:\/\/shop_images\/ooohcotton_Features_EasyCare_02_fc3996ad-c3be-43c7-a80a-f01076abc86c.png",
+        "background_image_mobile": "shopify:\/\/shop_images\/ooohcotton_Features_EasyCare_02_fc3996ad-c3be-43c7-a80a-f01076abc86c.png",
+        "content_position": "middleCenter",
+        "desktop_margin_top": 25,
+        "desktop_margin_bottom": 60,
+        "mobile_margin_top": 25,
+        "mobile_margin_bottom": 50
+      }
+    }
+  },
+  "order": [
+    "1661346084a9f29505",
+    "background_video_g88ma7",
+    "1662452876e6c81057",
+    "background_video_UpNGee",
+    "video_image_blocks_QWxQUR",
+    "background_video_ff7ByK",
+    "background_video_33gmr9",
+    "background_video_qhtRxE"
+  ]
+}

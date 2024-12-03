@@ -1,0 +1,292 @@
+
+<div class="hero-banner--{{ section.id }} hero-banner" title="{{ section.settings.title }}">
+  <div class="hero-banner__wrapper hero-banner--{{ section.settings.layout }}">
+    {%- for block in section.blocks -%}
+      <div class="hero-banner__column">
+        {%- if block.settings.heading != blank -%}
+          <h2 class="hero-banner__heading" style="--heading-font-size-desktop: {{ block.settings.heading_size_desktop }}px; --heading-font-size-mobile: {{ block.settings.heading_size_mobile }}px;">{{ block.settings.heading }}</h2>
+        {%- endif -%}
+        {%- if block.settings.sub_heading != blank -%}
+          <p class="hero-banner__sub-heading body-font--{{ block.settings.sub_heading_weight }}">{{ block.settings.sub_heading }}</p>
+        {%- endif -%}
+        {%- if block.settings.btn_text != blank and block.settings.btn_url != blank -%}
+          <a class="Button-tertiary hero-banner__btn" href="{{ block.settings.btn_url }}">{{ block.settings.btn_text }}</a>
+        {%- endif -%}
+      </div>
+    {%- endfor -%}
+  </div>
+</div>
+
+<style>
+  {%- if section.settings.bg_type == 'image' -%}
+    .hero-banner--{{ section.id }} {
+      background-image: linear-gradient( rgba(0,0,0,0), 60%, rgba(0,0,0, {{ section.settings.overlay | divided_by: 100.0 }}) ), url({{ section.settings.background | image_url: width: 1000 }});
+      background-position: {{ section.settings.background.presentation.focal_point }};
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+  {%- elsif section.settings.bg_type == 'color' -%}
+    .hero-banner--{{ section.id }} {
+      background-color: {{ section.settings.bg_color }}
+    }
+  {%- endif -%}
+  
+  .hero-banner--{{ section.id }} {
+    padding: {{ section.settings.padding_block }}px {{ section.settings.padding_inline }}px;
+  }
+  @media screen and (max-width: 990px) {
+    .hero-banner--{{ section.id }} {
+      padding: {{ section.settings.padding_block | divided_by: 3 | times: 2 }}px {{ section.settings.padding_inline | divided_by: 3 | times: 2 }}px;
+    }
+  }
+
+  .hero-banner--contained {
+    max-width: 1260px;
+  }
+
+  .hero-banner__wrapper {
+    display: flex;
+    justify-content: space-evenly;
+    margin: auto;
+    align-items: center;
+    text-align: center;
+    color: #fff;
+    flex-wrap: wrap;
+    gap: 2rem;
+  } 
+
+  @media screen and (max-width: 990px) {
+    .hero-banner__wrapper {
+      flex-direction: column;
+      justify-content: center;
+      gap: 0;
+    }
+  }
+
+  .hero-banner__column {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .hero-banner__heading {
+    margin: 0.5rem 0 0;
+  }
+
+  .hero-banner__heading {
+    font-size: var(--heading-font-size-desktop)
+  }
+
+  @media screen and (max-width: 1139px) {
+    .hero-banner__heading {
+      font-size: var(--heading-font-size-mobile)
+    }
+  }
+
+  .hero-banner__sub-heading {
+    font-size: 16px;
+    margin: 0.5rem 0;
+  }
+
+  .hero-banner__btn {
+    color: #fff!important;
+    font-family: var(--heading-font-small);
+    font-size: 16px;
+    padding: 0.8rem 1.6rem;
+    text-transform: uppercase;
+  } 
+
+  .hero-banner__btn:hover {
+    color: var(--silver)!important;
+  }
+
+  @media screen and (max-width: 769px) {
+    .hero-banner__sub-heading {
+      font-size: 14px
+    }
+    .hero-banner__btn {
+      font-size: 14px
+    }
+  }
+</style>
+
+
+{% schema %}
+{
+  "name": "Hero banner",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title for section",
+      "default": "Hero banner"
+    },
+    {
+      "type": "header",
+      "content": "Background"
+    },
+    {
+      "type": "select",
+      "id": "bg_type",
+      "label": "Background type",
+      "options": [
+        {
+          "value": "color",
+          "label": "Color"
+        },
+        {
+          "value": "image",
+          "label": "Image"
+        }
+      ]
+    },
+    {
+      "type": "image_picker",
+      "label": "Background image",
+      "id": "background"
+    },
+    {
+      "type": "color",
+      "label": "Background color",
+      "id": "bg_color"
+    },
+    {
+      "type": "range",
+      "id": "overlay",
+      "min": 0,
+      "max": 80,
+      "step": 1,
+      "unit": "%",
+      "label": "Overlay opacity",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Banner layout",
+      "options": [
+        {
+          "value": "contained",
+          "label": "Contained"
+        },
+        {
+          "value": "fluid",
+          "label": "Fluid"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "padding_block",
+      "label": "Block padding (Top & Bottom)",
+      "min": 0,
+      "max": 100,
+      "unit": "px",
+      "step": 1,
+      "default": 25
+    },
+    {
+      "type": "range",
+      "id": "padding_inline",
+      "label": "Inline padding (Left & Right)",
+      "min": 0,
+      "max": 100,
+      "unit": "px",
+      "step": 1,
+      "default": 35
+    }
+  ],
+  "blocks": [
+    {
+      "type": "column",
+      "name": "Column",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Heading"
+        },
+        {
+          "type": "text",
+          "label": "Content",
+          "id": "heading"
+        },
+        {
+          "type": "range",
+          "label": "Size | Desktop",
+          "id": "heading_size_desktop",
+          "min": 20,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "default": 40
+        },
+        {
+          "type": "range",
+          "label": "Size | Mobile",
+          "id": "heading_size_mobile",
+          "min": 10,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "default": 20
+        },
+        {
+          "type": "header",
+          "content": "Sub-heading"
+        },
+        {
+          "type": "text",
+          "label": "Content",
+          "id": "sub_heading"
+        },
+        {
+          "type": "select",
+          "id": "sub_heading_weight",
+          "label": "Font weight",
+          "options": [
+            {
+              "value": "regular",
+              "label": "Regular"
+            },
+            {
+              "value": "medium",
+              "label": "Medium"
+            },
+            {
+              "value": "bold",
+              "label": "Bold"
+            }
+          ]
+        },
+        {
+          "type": "header",
+          "content": "Button"
+        },
+        {
+          "type": "text",
+          "label": "Button text",
+          "id": "btn_text"
+        },
+        {
+          "type": "url",
+          "label": "Button URL",
+          "id":"btn_url"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "category": "Banners",
+      "name": "Hero banner",
+      "settings": {}
+    } 
+  ]
+}
+{% endschema %}

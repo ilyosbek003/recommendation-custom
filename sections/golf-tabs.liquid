@@ -1,0 +1,339 @@
+{{ 'golf-tabs.min.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'golf-tabs.min.js' | asset_url }}" defer></script>
+
+<div class="golf-tabs">
+    <div class="golf-tabs__wrapper">
+        <div class="swiper golf-tabs__slider">
+            <div class="swiper-wrapper flex">
+                {%- for block in section.blocks -%}
+                    {%- assign bs = block.settings -%}
+                    <div class="swiper-slide golf-tabs__slide">
+                        <div class= "golf-tabs__thumbnail--wrapper">
+                            {%- if bs.thumbnail != nil -%}
+                                {{ bs.thumbnail | image_url: width: 800 | image_tag: class: "golf-tabs__thumbnail" }}
+                            {%- endif -%}
+                            {%- if bs.title != blank -%}
+                                <p class="golf-tabs__thumbnail--title ft-secondary--medium sp-reset">{{ bs.title }}</p>
+                            {%- endif -%}
+                        </div>
+                    </div>
+                {%- endfor -%}
+            </div>
+        </div>
+        <div class="golf-tabs__media-container">
+            {%- for block in section.blocks -%}
+                {%- assign bs = block.settings -%}
+                <div data-index="{{ forloop.index0 }}" class="golf-tabs__tab{% if forloop.index == 1 %} active{% endif %}" style="--overlay-opacity: rgba(0,0,0, {{ bs.overlay | divided_by: 100.0 }})  ">
+                    <div class="golf-tabs__overlay"> </div>
+                    {%- if bs.bg_type == "video" -%}
+                        {%- assign desktop_video_url = bs.video_desktop.sources 
+                            | where: "format", "mp4" 
+                            | map: "url" 
+                            | first 
+                        -%}
+                        {%- assign mobile_video_url = bs.video_mobile.sources 
+                            | where: "format", "mp4" 
+                            | map: "url" 
+                            | first 
+                        -%}
+                        <video
+                            playsinline="playsinline" 
+                            autoplay="autoplay" 
+                            muted="muted" 
+                            loop="loop" 
+                            class="golf-tabs__media"
+                            data-src-desktop="{{ desktop_video_url }}"
+                            data-src-mobile="{{ mobile_video_url }}"
+                        >
+                            <picture>
+                                <source media="(max-width:600px)" srcset="{{ bs.video_mobile.preview_image | image_url: width: 400 }}">
+                                {{ bs.video_desktop.preview_image | image_url: width: 800 | image_tag }}
+                            </picture>
+                        </video>
+                        <div class="golf-tabs__media-control flex-x--{{ bs.video_btns_alignment }}">
+                            <button data-type="video" data-state="playing">
+                                {% render 'icon' with 'play-outline', fill: bs.video_btns_color %}
+                                {% render 'icon' with 'pause-outline', fill: bs.video_btns_color %}
+                            </button>
+                            <button data-type="audio" data-state="muted">
+                                {% render 'icon' with 'unmute-outline', fill: bs.video_btns_color %}
+                                {% render 'icon' with 'mute-outline', fill: bs.video_btns_color %}
+                            </button>
+                        </div>
+                    {%- else -%}
+                        <picture>
+                            <source media="(max-width: 600px)" srcset="{{ bs.image_mobile | image_url: width: 1000 }}">
+                            {%- if bs.image_desktop != nil -%}
+                                {{ bs.image_desktop | image_url: width: 1500 | image_tag: class: "golf-tabs__media" }}
+                            {%- else -%}
+                                {{ "image" | placeholder_svg_tag: "hub-header__media-item placeholder", class: "golf-tabs__media" }}
+                            {%- endif -%}
+                        </picture>
+                    {%- endif -%}
+    
+                    <div class="golf-tabs__text-container flex-x--{{ bs.alignment_x_desktop }} flex-y--{{ bs.alignment_y_desktop }} mob-flex-x--{{ bs.alignment_x_mobile }} mob-flex-y--{{ bs.alignment_y_mobile }}">
+                        <div class="golf-tabs__text-container--wrapper">
+                            {%- if bs.text != blank -%}
+                                <p class="golf-tabs__text ft-secondary--medium" style="--align-desktop: {{ bs.text_alignment_desktop }}; --align-mobile: {{ bs.text_alignment_mobile }}">{{ bs.text }}</p>
+                            {%- endif -%}
+                            {%- if bs.cta_text != blank and bs.cta_url != blank -%}
+                                <div class="golf-tabs__cta--wrapper flex flex-x--{{ bs.cta_alignment_desktop }} mob-flex-x--{{ bs.cta_alignment_mobile }}">
+                                    <a href="{{ bs.cta_url }}" title="{{ bs.cta_text }}" class="golf-tabs__cta Button Button-tertiary ft-secondary--medium">{{ bs.cta_text }}</a>
+                                </div>
+                            {%- endif -%}
+                        </div>
+                    </div>
+                </div>
+            {%- endfor -%}
+        </div>
+    </div>
+    <div></div>
+</div>
+
+
+{% schema %}
+{
+    "name": "Tabular banner",
+    "settings": [],
+    "blocks": [
+        {
+            "name": "Tab",
+            "type": "tab",
+            "settings": [
+                {
+                    "type": "header",
+                    "content": "Content"
+                },
+                {
+                    "type": "text",
+                    "id": "title",
+                    "label": "Title"
+                },
+                {
+                    "type": "text",
+                    "id": "text",
+                    "label": "Text"
+                },
+                {
+                    "type": "text_alignment",
+                    "id": "text_alignment_desktop",
+                    "label": "Text alignment | Desktop",
+                    "default": "center"
+                },
+                {
+                    "type": "text_alignment",
+                    "id": "text_alignment_mobile",
+                    "label": "Text alignment | Mobile",
+                    "default": "center"
+                },
+                {
+                    "type": "text",
+                    "id": "cta_text",
+                    "label": "Button text"
+                },
+                {
+                    "type": "url",
+                    "id": "cta_url",
+                    "label": "Button link"
+                },
+                {
+                    "type": "text_alignment",
+                    "id": "cta_alignment_desktop",
+                    "label": "Button alignment | Desktop",
+                    "default": "center"
+                },
+                {
+                    "type": "text_alignment",
+                    "id": "cta_alignment_mobile",
+                    "label": "Button alignment | Mobile",
+                    "default": "center"
+                },
+                {
+                    "type": "header",
+                    "content": "Background"
+                },
+                {
+                    "type": "range",
+                    "id": "overlay",
+                    "min": 0,
+                    "max": 80,
+                    "step": 1,
+                    "unit": "%",
+                    "label": "Overlay opacity",
+                    "default": 0
+                },
+                {
+                    "type": "image_picker",
+                    "id": "thumbnail",
+                    "label": "Thumbnail",
+                    "info": "Will be displayed as a small image on top part"
+                },
+                {
+                    "type": "select",
+                    "label": "Type",
+                    "id": "bg_type",
+                    "options": [
+                        {
+                            "value": "image",
+                            "label": "Image"
+                        },
+                        {
+                            "value": "video",
+                            "label": "Video"
+                        }
+                    ]
+                },
+                {
+                    "type": "header",
+                    "content": "Video"
+                },
+                {
+                    "type": "video",
+                    "label": "Video | Desktop",
+                    "id": "video_desktop",
+                    "info": "Required aspect ratio: 16:9 - W:H"
+                },
+                {
+                    "type": "video",
+                    "label": "Video | Mobile",
+                    "id": "video_mobile",
+                    "info": "Required aspect ratio: 2:3 - W:H"
+                },
+                {
+                    "type": "select",
+                    "id": "video_btns_alignment",
+                    "label": "Video Controls Alignment",
+                    "default": "end",
+                    "options": [
+                        {
+                            "value": "space",
+                            "label": "On both sides"
+                        },
+                        {
+                            "value": "start",
+                            "label": "Left"
+                        },
+                        {
+                            "value": "center",
+                            "label": "Center"
+                        },
+                        {
+                            "value": "end",
+                            "label": "Right"
+                        }
+                    ]
+                },
+                {
+                    "type": "color",
+                    "id": "video_btns_color",
+                    "label": "Video Controls Color",
+                    "default": "#000"
+                },
+                {
+                    "type": "header",
+                    "content": "Image"
+                },
+                {
+                    "type": "image_picker",
+                    "id": "image_desktop",
+                    "label": "Image | Desktop",
+                    "info": "Will be displayed as a background of a tab content"
+                },
+                {
+                    "type": "image_picker",
+                    "id": "image_mobile",
+                    "label": "Image | Mobile",
+                    "info": "Will be displayed as a background of a tab content"
+                },
+                {
+                    "type": "header",
+                    "content": "Layout"
+                },
+                {
+                    "type": "select",
+                    "id": "alignment_x_desktop",
+                    "label": "Horizontal alignment | Desktop",
+                    "options": [
+                        {
+                            "value": "start",
+                            "label": "Left"
+                        },
+                        {
+                            "value": "center",
+                            "label": "Center"
+                        },
+                        {
+                            "value": "end",
+                            "label": "Right"
+                        }
+                    ]
+                },
+                {
+                    "type": "select",
+                    "id": "alignment_x_mobile",
+                    "label": "Horizontal alignment | Mobile",
+                    "options": [
+                        {
+                            "value": "start",
+                            "label": "Left"
+                        },
+                        {
+                            "value": "center",
+                            "label": "Center"
+                        },
+                        {
+                            "value": "end",
+                            "label": "Right"
+                        }
+                    ]
+                },
+                {
+                    "type": "select",
+                    "id": "alignment_y_desktop",
+                    "label": "Vertical alignment | Desktop",
+                    "options": [
+                        {
+                            "value": "start",
+                            "label": "Top"
+                        },
+                        {
+                            "value": "center",
+                            "label": "Center"
+                        },
+                        {
+                            "value": "end",
+                            "label": "Bottom"
+                        }
+                    ]
+                },
+                {
+                    "type": "select",
+                    "id": "alignment_y_mobile",
+                    "label": "Vertical alignment | Mobile",
+                    "options": [
+                        {
+                            "value": "start",
+                            "label": "Top"
+                        },
+                        {
+                            "value": "center",
+                            "label": "Center"
+                        },
+                        {
+                            "value": "end",
+                            "label": "Bottom"
+                        }
+                    ]
+                }
+
+            ]
+        }
+    ],
+    "presets": [
+        {
+            "name": "Tabular banner",
+            "settings": {}
+        }
+    ]
+}
+{% endschema %}

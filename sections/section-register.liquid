@@ -1,0 +1,218 @@
+{{ 'loyalty.min.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'collapsible-accordion.min.js' | asset_url }}" defer></script>
+<script src="{{ 'loyalty.min.js' | asset_url }}" defer></script>
+
+<div class="ly-login">
+    <picture>
+        {% if section.settings.desktop_image or section.settings.mobile_image %}
+            <source 
+                media="(max-width: 800px)"
+                srcset="{{ section.settings.mobile_image | image_url: width: 300 }} 300w,
+                        {{ section.settings.mobile_image | image_url: width: 720 }} 720w,
+                        {{ section.settings.mobile_image | image_url: width: 1080 }} 1080w,
+                        {{ section.settings.mobile_image | image_url: width: 1512 }} 1512w"
+            >
+            <img 
+                class="ly-login__image"
+                loading="lazy"
+                src="{{ section.settings.desktop_image | image_url: width: 1512 }}"
+                data-src="{{ section.settings.desktop_image | image_url: width: 1512 }}"
+                data-widths="[360, 720, 1080, 1512]"
+                data-aspectratio="{{ section.settings.desktop_image.aspect_ratio }}"
+                data-sizes="auto"
+                data-parent-fit="cover"
+                alt="{{ section.settings.desktop_image.alt | escape }}">
+        {% else %}
+            <source 
+                srcset="{{ 'default-img.png' | asset_url }}" 
+                media="(max-width: 639.99px)"
+            >
+            <img class="ly-login__image" loading="lazy" src="{{ 'default-img.png' | asset_url }}" alt="Background Image">
+        {% endif %}
+    </picture>
+    <div class="ly-login__container page-width">
+        <div class="ly-login__wrapper" style="backdrop-filter: blur({{ section.settings.blurness }}px);  -webkit-backdrop-filter: blur({{ section.settings.blurness }}px);">
+            <h3 class="ly-login__title">{{ section.settings.left_text }} <span class="ly-login__subtitle">{{ section.settings.heading }}</span> {{ section.settings.right_text }}</h3>
+            <h4 class="ly-login__auth--title login-modal register-form primary-text">{{ section.settings.join_title }}</h4>
+            {% form 'create_customer', class: 'login-modal register-form', id: 'customer_register' %}
+                {{ form.errors | default_errors }}
+                <div class="ly-auth__inputs ly-login__inputs">
+                    <div class="ly-auth__inputs--top">
+                        <input type="text" placeholder="First Name" class="ly-auth__input" name="customer[first_name]" required>
+                        <input type="text" placeholder="Last Name" class="ly-auth__input" name="customer[last_name]" required>
+                    </div>
+                    <input type="email" placeholder="Email" class="ly-auth__input" name="customer[email]" required>
+                    <input type="number" placeholder="Phone" class="ly-auth__input" name="customer[number]">
+                    <input type="password" placeholder="Password" class="ly-auth__input" name="customer[password]" required>
+                    <label for="input_checkbox" class="ly-auth__checkbox">
+                        <input type="checkbox" id="input_checkbox">
+                        {{ section.settings.privacy_title }}
+                    </label>
+                    <button aria-label="Sign up button" class="ly-auth__button">{{ section.settings.signup_title }}</button>
+                </div>
+            {% endform %}
+            <button aria-label="Showing login form" class="ly-auth__button login__btn display-mobile register-form">{{ section.settings.already_member_title }}</button>
+
+            <span class="ly-login__auth--span login-modal display-desktop">or</span>
+            <h4 class="ly-login__auth--title login-modal display-desktop primary-text">{{ section.settings.already_member_title }}</h4>
+
+            <h4 class="ly-login__auth--title login-modal display-mobile login-form display-desktop primary-text">{{ section.settings.login_title }}</h4>
+            {% form 'customer_login', class: 'login-modal login-form display-desktop', id: 'customer_login'%}
+                {{ form.errors | default_errors }}
+                <div class="ly-auth__inputs ly-login__inputs">
+                    <input type="email" placeholder="Email" class="ly-auth__input" name="customer[email]" required>
+                    <input type="password" placeholder="Password" class="ly-auth__input" name="customer[password]" required>
+                    <input type="hidden" name="return_to" value="{{ '/pages/rewards' | escape }}">
+                    <button aria-label="Login button" class="ly-auth__button">{{ section.settings.signin_title }}</button>
+                </div>
+            {% endform %}
+            <button aria-label="Showing forgot password form" class="ly-auth__message ly-login__inputs--message reset-button login-modal login-form display-desktop">{{ section.settings.forgot_password_title }}</button>
+
+            <span class="ly-login__auth--span login-modal display-mobile login-form display-desktop">or</span>
+            <h4 class="ly-login__auth--title login-modal display-mobile login-form display-desktop primary-text">{{ section.settings.join_title }}</h4>
+            <button aria-label="Showing sign up form" class="ly-auth__button sign-up-button login-modal display-mobile login-form display-desktop">{{ section.settings.signup_title }}</button>
+
+            <div class="customer reset-password reset-modal">
+                <h3 class="h3 h2_mobile" id="recover" tabindex="-1">
+                    {{ 'customer.recover_password.title' | t }}
+                </h3>
+                <div>
+                    <p>
+                    {{ 'customer.recover_password.subtext' | t }}
+                    </p>
+
+                    {%- form 'recover_customer_password' -%}
+                    {% assign recover_success = form.posted_successfully? %}
+                    <div class="field">
+                        <input type="email"
+                        value=""
+                        name="email"
+                        id="RecoverEmail"
+                        autocorrect="off"
+                        autocapitalize="off"
+                        autocomplete="email"
+                        required
+                        {% if form.errors %}
+                            aria-invalid="true"
+                            aria-describedby="RecoverEmail-email-error"
+                            autofocus
+                        {% endif %}
+                        placeholder="{{ 'customer.login_page.email' | t }}"
+                        >
+                        <label for="RecoverEmail">
+                        {{ 'customer.login_page.email' | t }}
+                        </label>
+                    </div>
+                    {%- if form.errors -%}
+                        <small id="RecoverEmail-email-error" class="form__message">
+                        {% render 'icon' with 'notice' %}
+                        {{ form.errors.messages['form'] }}
+                        </small>
+                    {%- endif -%}
+
+                    <button aria-label="Submit button">
+                        {{ 'customer.login_page.submit' | t }}
+                    </button>
+
+                    <a href="#login" class="cancel-reset" aria-label="Canceling forgot password form">
+                        {{ 'customer.login_page.cancel' | t }}
+                    </a>
+                    {%- endform -%}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% schema %}
+{
+    "name": "Register",
+    "settings": [
+        {
+            "type": "text",
+            "id": "left_text",
+            "default": "The",
+            "label": "Heading's left text"
+        },
+        {
+            "type": "text",
+            "id": "heading",
+            "default": "1981",
+            "label": "Heading"
+        },
+        {
+            "type": "text",
+            "id": "right_text",
+            "default": "Club",
+            "label": "Heading's right text"
+        },
+        {
+            "type": "image_picker",
+            "id": "mobile_image",
+            "label": "Mobile Image"
+        },
+        {
+            "type": "image_picker",
+            "id": "desktop_image",
+            "label": "desktop Image"
+        },
+        {
+            "type": "range",
+            "id": "blurness",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "label": "Background Blurness",
+            "default": 6
+        },
+        {
+            "type": "text",
+            "id": "join_title",
+            "default": "JOIN the club",
+            "label": "Join Title"
+        },
+        {
+            "type": "text",
+            "id": "privacy_title",
+            "default": "i accept the privacy statement",
+            "label": "Privacy Title"
+        },
+        {
+            "type": "text",
+            "id": "signup_title",
+            "default": "sign up now",
+            "label": "Signup Title"
+        },
+        {
+            "type": "text",
+            "id": "already_member_title",
+            "default": "already a member",
+            "label": "Already Member Title"
+        },
+        {
+            "type": "text",
+            "id": "login_title",
+            "default": "Login",
+            "label": "Login Title"
+        },
+        {
+            "type": "text",
+            "id": "signin_title",
+            "default": "Sign In",
+            "label": "Sign In Title"
+        },
+        {
+            "type": "text",
+            "id": "forgot_password_title",
+            "default": "FORGOT PASSWORD?",
+            "label": "Forgot Password Title"
+        }
+    ],
+    "presets": [
+        {
+            "name": "Register Section",
+            "settings": {}
+        }
+    ]
+}
+{% endschema %}

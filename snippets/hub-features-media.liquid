@@ -1,0 +1,46 @@
+{% comment %} 
+
+Accepts:
+  - block
+  - order
+{% endcomment %}
+
+{%- assign media_type = "media_type_" | append: order | trim -%}
+{%- assign image = "image_" | append: order | trim -%}
+{%- assign video = "video_" | append: order | trim -%}
+
+{%- assign media_size = "medium" -%}
+{%- if block.settings.layout == "2" -%}
+  {%- if order == 1 -%}
+    {%- assign media_size = "wide" -%}
+  {%- endif -%}
+  {%- if order == 2 -%}
+    {%- assign media_size = "tall" -%}
+  {%- endif -%}
+{%- endif -%}
+
+<div class="hub-features__media-wrapper hub-features__media-wrapper--{{ media_size }}">
+  {%- if block.settings[media_type] == 'image' -%}
+    {% if block.settings[image] != nil %}
+      {%- assign img_obj = block.settings[image] -%}
+      {%- assign alt = img_obj.alt | default: block.settings.title -%}
+      {{ img_obj 
+        | image_url: width: 1500 
+        | image_tag:
+        sizes: "55vw", 
+        widths: '375, 550, 750, 1100, 1500, 1780, 2000, 3000, 3840',
+        alt: alt,
+        class: "hub-features__media-item"
+      }}
+    {%- else -%}
+      {{ "image" | placeholder_svg_tag: "hub-features__media-item placeholder"  }}
+    {% endif %}
+  {%- else -%}
+    {%- if block.settings[video] != nil -%}
+      {%- assign poster = block.settings[video].preview_image | image_url: width: 1000 -%}
+      {{ block.settings[video] | video_tag: class: "hub-features__media-item hub-features__media-video", poster: poster, data-component: "video", preload: "none", muted: true, autoplay: false, loop: true, oncanplay: "this.muted=true" }}
+    {%- else -%}
+      {{ "image" | placeholder_svg_tag: "hub-features__media-item placeholder"  }}
+    {%- endif -%}
+  {%- endif -%}
+</div>

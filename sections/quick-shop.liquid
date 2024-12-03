@@ -1,0 +1,205 @@
+{% capture product_item_cards_or_ids %}
+  {% if section.settings.simplified == false %}
+    {% for block in section.blocks %}
+      {% if block.type == 'product' %}
+        {% assign product = block.settings.product %}
+        {% render 'quick-shop-product-item' | product: product %}
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+{% endcapture %}
+
+<div 
+  id="section-wrapper-{{ section.id }}" 
+  data-product-card-layout="{{ section.settings.product_card_layout }}"
+>
+  {% if section.settings.simplified == false %}
+    <script src="{{ 'quick-shop-expanded.min.js' | asset_url }}" defer></script>
+  {% endif %}
+
+  <div class="quick-shop" id="quick-shop-{{ section.id }}" data-simplified="{{ section.settings.simplified }}" style="--card-background: {{ section.settings.product_card_background }}">
+    <div class="quick-shop__head">
+      <h2 class="quick-shop__main-title">
+        {{ section.settings.title }}
+      </h2>
+      {% if section.settings.url != blank and section.settings.link_label != blank %}
+        <a 
+          href="{{ section.settings.url }}" 
+          class="quick-shop__link Link Link--underline Link--underlineShort" 
+          title="{{ section.settings.link_label }}"
+        > 
+          {{ section.settings.link_label }}&nbsp;
+        </a>
+      {% endif %}
+    </div>
+    {% if section.settings.simplified == true %}
+      <div class="quick-shop__loader">
+      </div>
+    {% endif %}
+    <div class="quick-shop__body--wrapper">
+      <div class="quick-shop__body--prev quick-shop__body--hover-navigation"></div>
+      <div class="quick-shop__body--next quick-shop__body--hover-navigation"></div>
+      <div class="quick-shop__body swiper-container">
+        <div class="swiper-wrapper">
+          {% if section.settings.simplified == false %}
+            {{ product_item_cards_or_ids | strip_newlines }}
+            {{ product_item_cards_or_ids | strip_newlines }}
+            {{ product_item_cards_or_ids | strip_newlines }}
+            {{ product_item_cards_or_ids | strip_newlines }}
+            {{ product_item_cards_or_ids | strip_newlines }}
+            {{ product_item_cards_or_ids | strip_newlines }}
+            {{ product_item_cards_or_ids | strip_newlines }}
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    <div class="quick-shop__product-content">
+      <div class="quick-shop__content-head">
+        <span class="quick-shop__product-title"></span>
+        <span class="quick-shop__price"></span>
+        <span class="quick-shop__price quick-shop__price--compareAt"></span>
+      </div>
+      <div class="quick-shop__content-body">
+        <span class="quick-shop__color-label">
+          COLOR:&nbsp;
+          <span></span>
+        </span>
+        <ul class="quick-shop__options-list">
+        </ul>
+      </div>
+      <div class="quick-shop__content-footer">
+        <button 
+          class="Button Button--dark Button--outlined quick-shop__btn" 
+          data-add-to-cart-action
+          disabled="disabled"
+        >
+          Add to Bag
+        </button>
+        <a href="#" class="Button Button--outlined quick-shop__btn-view quick-shop__btn">
+          More details
+        </a>
+      </div>
+    </div>
+  </div>
+
+  {% render 'quick-shop-settings' | section: section  %}
+</div>
+
+{% schema %}
+  {
+    "name": "Quick Shop",
+    "class": "page-width",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "simplified",
+        "label": "Simplified Bag Functionality",
+        "default": true
+      },
+      {
+        "type": "header",
+        "content": "Product Card Layout"
+      }, 
+      {
+        "type": "color",
+        "id": "product_card_background",
+        "label": "Product card background color",
+        "default": "#e3e3e3"
+      },
+      {
+        "type": "select",
+        "id": "product_card_layout",
+        "label": "Product Card Layout",
+        "options": [
+          {
+            "value": "layout_1",
+            "label": "Layout 1"
+          },
+          {
+            "value": "layout_2",
+            "label": "Layout 2"
+          }
+        ],
+        "default": "layout_1"
+      },
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Section Title"
+      }, 
+      {
+        "type": "url",
+        "id": "url",
+        "label": "Link"
+      },
+      {
+        "type": "text",
+        "id": "link_label",
+        "label": "Link Label"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "product",
+        "name": "Quick Shop Product",
+        "settings": [
+          {
+            "type": "header",
+            "content": "General"
+          },
+          {
+            "type": "select",
+            "id": "block_type",
+            "label": "Block type",
+            "options": [
+              {
+                "value": "product",
+                "label": "Product"
+              },
+              {
+                "value": "image",
+                "label": "Image"
+              }
+            ],
+            "default": "product"
+          },
+          {
+            "type": "header",
+            "content": "Product"
+          },
+          {
+            "type": "product",
+            "id": "product",
+            "label": "Product"
+          },
+          {
+            "type": "header",
+            "content": "Image"
+          },
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Title"
+          },
+          {
+            "type": "url",
+            "id": "url",
+            "label": "URL"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "category": "Home",
+        "name": "Quick Shop",
+        "settings": {}
+      } 
+    ]
+  }
+{% endschema %}

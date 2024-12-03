@@ -1,0 +1,23 @@
+{% paginate collections[collection_handle].products by 50 %}
+  {% for product in collections[collection_handle].products %}
+    {% assign first_variant = product.first_available_variant %}
+    {% assign bundle_image = first_variant.metafields.custom.bundle_variant_image.value | img_url: '600x' | append: ':' | append: first_variant.id %}
+    {% if first_variant.available %}
+      <div class="Bundle__product" tabIndex="0" id="{{ first_variant.id }}" data-bundle-image="{{ bundle_image }}" data-price="{{ first_variant.price }}">
+        <div class="Bundle__product-content">
+          <img src="{{ first_variant.product.featured_image | img_url: '800x' }}">
+          <img src="{{ first_variant.product.featured_image | img_url: '50x' }}">
+        </div>
+        <div class="Bundle__product-form">
+          <button type="button" data-decrement>
+            <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M5 11h14v2H5z"></path></svg>
+          </button>
+          <input type="number" min="1" value="1">
+          <button type="button" data-increment>
+            <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 16 16" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"></path></svg>
+          </button>
+        </div>
+      </div>
+    {% endif %}
+  {% endfor %}
+{% endpaginate %}

@@ -1,0 +1,46 @@
+{% assign video_id = block.settings.video.id | default: block.settings.video_url.id %}
+{%- if block.settings.video == null and block.settings.video_url != null -%}
+    {%- liquid
+        assign loop = ''
+        if block.settings.enable_video_looping
+        assign loop = '&loop=1&playlist=' | append: video_id
+        endif
+    -%}
+    {%- if block.settings.video_url.type == 'youtube' -%}
+        <iframe
+            src="https://www.youtube.com/embed/{{ video_id }}?enablejsapi=1&autoplay=1{{ loop }}"
+            class="js-youtube youtube-iframe"
+            allow="autoplay; encrypted-media"
+            allowfullscreen
+            title="{{ block.settings.description | escape }}"
+        ></iframe>
+    {%- else -%}
+        <iframe
+            src="https://player.vimeo.com/video/{{ video_id }}?autoplay=1&loop=1&muted=1"
+            class="js-vimeo vimeo-iframe"
+            allow="autoplay; loop; encrypted-media"
+            allowfullscreen
+            title="{{ block.settings.description | escape }}"
+        ></iframe>
+    {%- endif -%}
+{%- else -%}
+    {% assign desktop_video_url = block.settings.video.sources 
+        | where: "format", "mp4" 
+        | map: "url" 
+        | first %}
+    {% assign mobile_video_url = block.settings.video_mobile.sources 
+        | where: "format", "mp4" 
+        | map: "url" 
+        | first %}
+    <video
+        playsinline="playsinline" 
+        autoplay="autoplay" 
+        muted="muted" 
+        preload="none"
+        class="slider__video"
+        loop="loop"
+        data-src-desktop="{{ desktop_video_url }}"
+        data-src-mobile="{{ mobile_video_url }}"
+    >
+    </video>
+{%- endif -%}

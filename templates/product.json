@@ -1,0 +1,42 @@
+{
+  "sections": {
+    "pdp": {
+      "type": "pdp",
+      "settings": {}
+    },
+    "b41a4864-fcd5-4ac2-8499-3902f8f9267a": {
+      "type": "pdp-styled-with-products",
+      "disabled": true,
+      "settings": {
+        "title": "Styled with",
+        "product_card_background": "#e3e3e3",
+        "product_card_layout": "layout_2"
+      }
+    },
+    "pdp-viewed-products": {
+      "type": "pdp-viewed-products",
+      "disabled": true,
+      "settings": {
+        "title": "Recently Viewed Products",
+        "max_products_saved": 8,
+        "product_card_background": "#e3e3e3",
+        "product_card_layout": "layout_2"
+      }
+    },
+    "pdp-recommended-products": {
+      "type": "pdp-recommended-products",
+      "settings": {
+        "title": "You may also like",
+        "max_products_recommended": 5,
+        "product_card_background": "#e3e3e3",
+        "product_card_layout": "layout_2"
+      }
+    }
+  },
+  "order": [
+    "pdp",
+    "b41a4864-fcd5-4ac2-8499-3902f8f9267a",
+    "pdp-viewed-products",
+    "pdp-recommended-products"
+  ]
+}

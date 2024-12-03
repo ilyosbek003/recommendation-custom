@@ -1,0 +1,94 @@
+<div class="hub-cards" data-section="hub-cards-slider" data-overlay-id="{{ section.settings.overlay_id | handleize }}">
+  <div class="swiper hub-cards--wrapper">
+    <div class="swiper-wrapper">
+      {%- for block in section.blocks -%}
+        <div class="swiper-slide hub-cards__slide">
+          {%- if block.settings.link != blank -%}
+            <a class="hub-cards__slide--wrapper" href="{{ block.settings.link }}" title="{{ block.settings.title }}">
+          {%- else -%}
+            <div class="hub-cards__slide--wrapper">
+          {%- endif -%}
+
+            {%- if block.settings.image != nil -%}
+              {%- assign img_obj = block.settings.image -%}
+              {%- assign alt = img_obj.alt | default: block.settings.title -%}
+              {{ img_obj 
+                | image_url: width: 1500 
+                | image_tag:
+                sizes: "50vw", 
+                widths: '375, 550, 750, 1100, 1500, 1780, 2000, 3000, 3840',
+                alt: alt,
+                class: "hub-cards__media-item"
+              }}
+            {%- else -%}
+              {{ "image" | placeholder_svg_tag: "hub-cards__media-item placeholder" }}
+            {%- endif -%}
+
+          {%- if block.settings.link != blank -%}
+            </a>
+          {%- else -%}
+            </div>
+          {%- endif -%}
+
+          {%- if block.settings.link != blank -%}
+            <a href="{{ block.settings.link }}" title="{{ block.settings.title }}" class="hub-cards__title">{{ block.settings.title }}</a>
+            <a href="{{ block.settings.link }}" title="{{ section.settings.cta }}" class="hub-cards__cta"><span>{{ section.settings.cta }}</span></a>
+          {%- else -%}
+            <p class="hub-cards__title">{{ block.settings.title }}</p>
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+  <div>
+</div>
+
+{% schema %}
+{
+  "name": "Hub Page - Card slider",
+  "class": "overlay-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "overlay_id",
+      "label": "Overlay ID",
+      "info": "ID of overlay is used to link overlay to other blocks"
+    },
+    {
+      "type": "text",
+      "id": "cta",
+      "label": "CTA text",
+      "default": "Shop Now"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Card",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "category": "Hub Page",
+      "name": "Hub Page - Card slider", 
+      "settings": {}
+    } 
+  ]
+}
+{% endschema %}

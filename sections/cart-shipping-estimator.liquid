@@ -1,0 +1,25 @@
+<div class="shipping_estimator_wrapper page-width">
+  <div class="shipping_estimator_panel">
+    <h2 class="panel__heading h4 upper-case">{{ 'sections.cart.shipping_estimator.title' | t }}</h2>
+    <form class="panel__form">
+      <div class="select-container">
+        <select name="country" title="Country" data-default="United States">
+          {{ all_country_option_tags }}
+        </select>
+        {% render 'icon' with 'select-arrow' %}
+      </div>
+      <div class="select-container">
+        <select name="province" title="Alabama">
+          <option value="Alabama">Alabama</option> 
+        </select>
+        {% render 'icon' with 'select-arrow' %}
+      </div>
+      <input type="text" name="zip_code" placeholder="Zip code">
+      <button type="submit" class="shipping_estimator__button">Estimate</button>
+    </form>
+    <div class="shipping_estimator__error" style="display: none"></div>
+    <div class="shipping_estimator__results">
+      <div class="shipping_estimator__results_inner"></div>
+    </div>
+  </div>
+</div>

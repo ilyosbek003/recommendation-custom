@@ -1,0 +1,34 @@
+<expended-accordion class="wishlist--accordion">
+    <div class="accordion-item-header small-text" data-component="header">
+        {{ section.settings.wishlist_title }}
+        <span class="accordion-arrow-icon-plus">
+            {% render 'icon' with 'plus' %}
+        </span>
+        <span class="accordion-arrow-icon-minus">
+            {% render 'icon' with 'minus' %}
+        </span>
+    </div>
+    <div class="accordion-item-body" data-body="header">
+        <div class="accordion-item-body-content">
+            <h4 class="ly-modal__orders--title small-text">{{ section.settings.wishlist_description }}</h4>
+            <div class="wishlist-container" id="wishlist-page-contain">
+                <div class="wishlist-header">
+                    <div class="wishlist-header-left">
+                        <div class="wishlist-form">
+                            <div class="wishlist-fromwrap">
+                                <input type="hidden" placeholder="Search item" id="wishlist-input" oninput="searchProcessChange(event)" data-wishlist-input>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="loader">Loading...</div>
+                <span style="display: none;" class="wishlist-icon">
+                    {% render 'icon' with 'wishlist-icon' %}
+                </span>
+                <div class="wh-grid-layout active">
+                    <div class="wishlist-row wishlistajaxLoad"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</expended-accordion>

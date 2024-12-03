@@ -1,0 +1,120 @@
+{{ 'secondary-navigation.min.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'secondary-navigation.min.js' | asset_url }}"></script>
+
+<section class="navigation-section-wrapper">
+    <div class="navigation-section">
+        <div class="container">
+            <ul class="navigation__list">
+                {% for block in section.blocks %}
+                    <li class="navigation__item">
+                        <a href="#{{ block.settings.navigation_id }}" class="navigation__link" data-title="{{ block.settings.title }}">{{ block.settings.title }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</section>
+
+<style>
+    #shopify-section-{{ section.id }} .navigation-section-wrapper{
+        margin-top: {{ section.settings.spacing_top }}px;
+        margin-bottom: {{ section.settings.spacing_bottom }}px;
+    }
+    @media (max-width: 750px) {
+        #shopify-section-{{ section.id }} .navigation-section-wrapper{
+            margin-top: {{ section.settings.spacing_mobile_top }}px;
+            margin-bottom: {{ section.settings.spacing_mobile_bottom }}px;
+        }
+    }
+</style>
+
+{% schema %}
+{
+    "name": "Secondary Navigation",
+    "settings": [
+        {
+            "type": "header",
+            "content": "Spacing | Desktop"
+        },
+        {
+            "type": "range",
+            "id": "spacing_top",
+            "default": 0,
+            "min": 0,
+            "max": 100,
+            "step": 5,
+            "unit": "px",
+            "label": "Section top spacing",
+            "info": "Choose section top spacing"
+        },
+        {
+            "type": "range",
+            "id": "spacing_bottom",
+            "default": 0,
+            "min": 0,
+            "max": 100,
+            "step": 5,
+            "unit": "px",
+            "label": "Section bottom spacing",
+            "info": "Choose section bottom spacing"
+        },
+        {
+            "type": "header",
+            "content": "Spacing | Mobile"
+        },
+        {
+            "type": "range",
+            "id": "spacing_mobile_top",
+            "default": 0,
+            "min": 0,
+            "max": 100,
+            "step": 5,
+            "unit": "px",
+            "label": "Section top spacing",
+            "info": "Choose section top spacing"
+        },
+        {
+            "type": "range",
+            "id": "spacing_mobile_bottom",
+            "default": 0,
+            "min": 0,
+            "max": 100,
+            "step": 5,
+            "unit": "px",
+            "label": "Section bottom spacing",
+            "info": "Choose section bottom spacing"
+        }
+    ],
+    "blocks": [
+        {
+            "name": "Link",
+            "type": "navigation_links",
+            "settings": [
+                {
+                    "type": "header",
+                    "content": "Navigation link"
+                },
+                {
+                    "type": "text",
+                    "id": "title",
+                    "default": "Navigation title",
+                    "label": "Navigation title"
+                },
+                {
+                    "type": "text",
+                    "id": "navigation_id",
+                    "default": "section_id",
+                    "label": "Section ID",
+                    "info": "Enter section ID"
+                }
+            ]
+        }
+    ],
+    "presets": [
+        {
+            "name": "Secondary Navigation",
+            "settings": {}
+        }
+    ]
+}
+{% endschema %}

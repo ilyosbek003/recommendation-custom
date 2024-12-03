@@ -1,0 +1,25 @@
+<div class="product-popup">
+  <div class="product-popup__content">
+    <div class="product-popup__head">
+      <h2 class="product-popup__title h4">
+        Customers Who Bought These Items Also Bought
+      </h2>
+      <button class="product-popup__close-btn">
+        {% render 'icon-cross' %}
+      </button>
+    </div>
+    <div class="product-popup__body">
+      <div class="swiper">
+        <div class="swiper-wrapper">
+        </div>
+      </div>
+      <button class="product-popup__btn product-popup__btn--prev" data-animate="left">
+        <svg class="Icon Icon--arrow-left" role="presentation" viewBox="0 0 11 18"><path d="M9.5 1.5L1.5 9l8 7.5" stroke-width="1" stroke="currentColor" fill="none" fill-rule="evenodd" stroke-linecap="square"></path></svg>
+      </button>
+      <button class="product-popup__btn product-popup__btn--next" data-animate="right">
+        <svg viewBox="0 0 100 100"><path d="M 20,50 L 60,90 L 60,85 L 25,50  L 60,15 L 60,10 Z" class="arrow" transform="translate(100, 100) rotate(180) "></path></svg>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="product-popup__backdrop"></div>

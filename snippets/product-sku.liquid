@@ -1,0 +1,2 @@
+{% assign skuSplit = product.first_available_variant.sku | split: '-' %}
+{{ skuSplit[1] }}

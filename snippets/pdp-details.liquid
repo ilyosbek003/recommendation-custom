@@ -1,0 +1,105 @@
+<div class="accordion-c accordion-c--open"> 
+  <button class="accordion-c__btn text upper-case" data-action="toggle-collapsible" aria-expanded="false" data-position="1"> 
+    Product Details 
+    {% render 'icon' with 'arrow-bottom' %}
+  </button>
+
+  {%- assign colors = '' -%}
+  {% assign colors = colors | append: product.options_by_name['Color'].values[0] | downcase | capitalize %}
+  {%- assign handles = product.metafields['global']['metafield_product_handle'] | split: ',' -%}
+
+  <div class="accordion-c__content-wrapper animation-container" data-open>
+    <div class="accordion-c__content">
+      <div class="accordion-c__content--inner">
+        <p>{% render 'product-detail-item', inputString: product.content %}</p>
+
+        <ul class="product-details__main">
+          {% if product.metafields['global']['collar'] != blank %}
+            <li class="collar">{% render 'product-detail-item', inputString: product.metafields['global']['collar'] | downcase %}</li>
+          {% endif %}
+          {% if product.metafields['global']['closure'] != blank %}
+            <li class="closure">{% render 'product-detail-item', inputString: product.metafields['global']['closure'] | downcase %}</li>
+          {% endif %}
+          {% comment %}
+            {% if product.metafields['global']['stretch'] != blank %}
+              <li class="stretch">{% render 'product-detail-item', inputString: product.metafields['global']['stretch'] | downcase %}</li>
+            {% endif %}
+          {% endcomment %}
+          {% if product.metafields['global']['feature'] != blank %}
+            {% assign features = product.metafields['global']['feature'] | split: ", " %}
+            {% for feature in features %}
+              <li class="feature">{% render 'product-detail-item', inputString: feature | downcase %}</li>
+            {% endfor %}
+          {% endif %}
+          {% if product.metafields['global']['made_in'] != blank %}
+              {% assign metaOrigin = product.metafields['global']['made_in'] | split: " " %}
+              {% assign origin = '' %}
+              {% for word in metaOrigin %}
+                {% if forloop.last == true %}
+                  {% assign country = word | capitalize %}
+                  {%- if country == "Usa" -%}
+                    {% assign country = "USA"%}
+                  {%- endif -%}
+                  {% assign origin = origin | append: country %}
+
+                {% else %}
+                  {% assign origin = origin | append: word | downcase %}
+                  {% assign origin = origin | append: " " %}
+                {% endif %}
+              {% endfor %}
+            <li class="made-in">{{- origin -}}</li>
+          {% endif %}
+          {% if product.metafields['global']['fabric_care'] != blank %}
+            <li class="fabric-care">
+              {% render 'product-detail-item', inputString: product.metafields['global']['fabric_care'] | downcase %}
+            </li>
+          {% endif %}
+          {% if product.metafields['global']['model_info'] != blank %}
+            <li class="model-info">
+              {% render 'product-detail-item', inputString: product.metafields['global']['model_info'] %}
+            </li>
+          {% endif %}
+        </ul> 
+        <ul class="product-details__secondary">
+          {% if product.metafields['global']['style'] != blank %}
+            <li class="style">SKU: {{ product.metafields['global']['style'] | uppercase }}</li>
+          {% endif %}
+          {% if colors != blank %}
+            <li class="color">Color: <span class="product-details__color">{% render 'product-detail-item', inputString: colors %}</span></li>
+          {% endif %}
+          {% if product.metafields['global']['fabric_content'] != blank %}
+            <li class="fabrid-content">Material: {% render 'product-detail-item', inputString: product.metafields['global']['fabric_content'] | downcase %}</li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+{%- assign renderOoohCotton = false -%}
+{%- for tag in product.tags -%}
+	{%- assign downcase_tag = tag | downcase -%}
+	{%- if downcase_tag == "8-way stretch" -%}
+		{%- assign renderOoohCotton = true -%}
+		{% break %}
+	{%- endif -%}
+{%- endfor -%}
+
+{%- if renderOoohCotton -%}
+
+  <div class="accordion-c">
+    <button class="accordion-c__btn text upper-case" data-action="toggle-collapsible" aria-expanded="false" data-position="1"> 
+      OOOHCOTTON® TECH DETAILS 
+      {% render 'icon' with 'arrow-bottom' %}
+    </button>
+
+    <div class="accordion-c__content-wrapper animation-container">
+      <div class="accordion-c__content">
+        <div class="accordion-c__content--inner">
+          {%- render 'pdp-oohcotton-details' -%}
+        </div>
+      </div>
+    </div>
+  </div>
+  
+{%- endif -%}

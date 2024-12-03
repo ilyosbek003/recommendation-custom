@@ -1,0 +1,282 @@
+{% capture stl_products %}
+  [
+    {% for block in section.blocks %}
+      {
+        title: {{ block.settings.stl_title | json }},
+        featured_image: {{ block.settings.stl_featured_image | img_url: 'master' | json }},
+        fit_featured_image: {{ block.settings.fit_featured_image }},
+        featured_image_alt: {{ block.settings.stl_featured_image.alt | json }},
+        products: [
+          {% if block.settings.product_one != blank %}
+            {
+              {% render 'product-object-util', product_handle: block.settings.product_one  %}
+            },
+          {% endif %}
+          {% if block.settings.product_two != blank %}
+            {
+              {% render 'product-object-util', product_handle: block.settings.product_two  %}
+            },
+          {% endif %}
+          {% if block.settings.product_three != blank %}
+            {
+              {% render 'product-object-util', product_handle: block.settings.product_three  %}
+            },
+          {% endif %}
+          {% if block.settings.product_four != blank %}
+            {
+              {% render 'product-object-util', product_handle: block.settings.product_four  %}
+            },
+          {% endif %}
+          {% if block.settings.product_five != blank %}
+            {
+              {% render 'product-object-util', product_handle: block.settings.product_five  %}
+            },
+          {% endif %}
+          {% if block.settings.product_six != blank %}
+            {
+              {% render 'product-object-util', product_handle: block.settings.product_six  %}
+            }
+          {% endif %}
+        ]
+      },
+    {% endfor %}
+  ]
+{% endcapture %}
+
+ 
+{% capture stl_settings %}
+  {
+    title: {{ section.settings.title | json}},
+    subtitle: {{ section.settings.subtitle | json}}, 
+    stl_products: {{ stl_products }},
+    mobile_scale_speed: {{ section.settings.scale_animation_speed }},
+    featured_image_position: '{{ section.settings.featured_image_position }}',
+    show_product_count: {{ section.settings.show_product_count }},
+    modal_loop_animation_speed: {{ section.settings.modal_loop_animation_speed }},
+    main_loop_animation_speed: {{ section.settings.main_loop_animation_speed }},
+    mobile_autoplay_speed: {{ section.settings.mobile_autoplay_speed }},
+    mobile_slider_btns: {{ section.settings.mobile_slider_btns }},
+    showCTA: {{ section.settings.show_cta }},
+    textCTA: {{ section.settings.cta_text | json }},
+    linkCTA: {{ section.settings.cta_link | json }},
+    colorCTA: {{ section.settings.cta_color | json }}
+  }
+{% endcapture %}
+
+<div class="shop-the-look-section"></div>
+
+<script>
+  window.shopTheLookSettings = {{ stl_settings | strip_newlines }};
+</script>
+
+{% schema %}
+{
+  "name": "Shop the Look",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "id": "subtitle",
+      "type": "text",
+      "label": "Subtitle"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_cta",
+      "label": "Show CTA button"
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "Text for CTA button"
+    },
+    {
+      "type": "text",
+      "id": "cta_link",
+      "label": "Link for CTA button"
+    },
+    {
+      "type": "select",
+      "id": "cta_color",
+      "label": "Color of CTA button",
+      "options": [
+        {
+          "value": "Button--dark",
+          "label": "Dark"
+        },
+        {
+          "value": "Button--primary Button--primary-inverted",
+          "label": "Light"
+        }
+      ],
+      "default": "Button--dark"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_product_count",
+      "label": "Show Product Count",
+      "default": true,
+      "info": "Product count aside the look label"
+    },
+    {
+      "type": "range",
+      "min": 10,
+      "unit": "%",
+      "step": 10,
+      "max": 100,
+      "id": "modal_loop_animation_speed",
+      "label": "Modal Loop Animation Speed",
+      "default": 60,
+      "info": "Slide loop speed (more - slower)"
+    },
+    {
+      "type": "range",
+      "min": 10,
+      "unit": "%",
+      "step": 10,
+      "max": 100,
+      "id": "main_loop_animation_speed",
+      "label": "Main Slider Animation Speed",
+      "default": 60,
+      "info": "Slide loop speed (more - slower)"
+    },
+    {
+      "type": "range",
+      "min": 10,
+      "unit": "%",
+      "step": 10,
+      "max": 100,
+      "id": "mobile_autoplay_speed",
+      "label": "Mobile slider autoplay speed",
+      "default": 60,
+      "info": "Autoplay speed (more - slower)"
+    },
+    {
+      "type": "range",
+      "id": "scale_animation_speed",
+      "min": 3,
+      "max": 5,
+      "step": 1,
+      "unit": "sec",
+      "label": "Mobile modal animation speed",
+      "default": 3,
+      "info": "Mobile modal image scale up speed (more slower)"
+    },
+    {
+      "type": "checkbox",
+      "id": "mobile_slider_btns",
+      "label": "Toggle mobile slider navigation buttons",
+      "default": true,
+      "info": "Enable/Disable navigation buttons"
+    },
+    {
+      "type": "select",
+      "id": "featured_image_position",
+      "label": "Featured Image Position",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "right",
+      "info": "Position of main image"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "stl_products",
+      "name": "Shop the look products",
+      "settings": [
+        {
+          "type": "header",
+          "content": "STL details"
+        },
+        {
+          "type": "text",
+          "id": "stl_title",
+          "label": "Title"
+        },
+        {
+          "type": "image_picker",
+          "id": "stl_featured_image",
+          "label": "STL Featured image"
+        },
+        {
+          "type": "checkbox",
+          "id": "fit_featured_image",
+          "default": false,
+          "label": "Fit (stretch) the image into the container"
+        },
+        {
+          "type": "header",
+          "content": "Product One"
+        },
+        {
+          "type": "product",
+          "id": "product_one",
+          "label": "Product One"
+        },
+        {
+          "type": "header",
+          "content": "Product Two"
+        },
+        {
+          "type": "product",
+          "id": "product_two",
+          "label": "Product Two"
+        },
+        {
+          "type": "header",
+          "content": "Product Three"
+        },
+        {
+          "type": "product",
+          "id": "product_three",
+          "label": "Product Three"
+        },
+        {
+          "type": "header",
+          "content": "Product Four"
+        },
+        {
+          "type": "product",
+          "id": "product_four",
+          "label": "Product Four"
+        },
+        {
+          "type": "header",
+          "content": "Product Five"
+        },
+        {
+          "type": "product",
+          "id": "product_five",
+          "label": "Product Five"
+        },
+        {
+          "type": "header",
+          "content": "Product Six"
+        },
+        {
+          "type": "product",
+          "id": "product_six",
+          "label": "Product Six"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Shop the Look",
+      "category": "STL"
+    }
+  ]
+}
+{% endschema %}

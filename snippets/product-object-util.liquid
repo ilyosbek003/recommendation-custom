@@ -1,0 +1,58 @@
+{% assign product = all_products[product_handle] %}
+{% capture variants %}
+  [
+    {% for variant in product.variants %}
+      { 
+        title: {{ variant.title | json }},
+        id: {{ variant.id | json }},
+        available: {{ variant.available | json }},
+        options: [
+          {% for variant_option in variant.options %}
+            {{ variant_option | json }},
+          {% endfor %}
+        ],
+        option1: {{ variant.option1 | json }},
+        option2: {{ variant.option2 | json }},
+        option3: {{ variant.option3 | json }},
+        price: {{ variant.price | json }},
+        inventory_quantity: {{ variant.inventory_quantity | json }},
+        compare_at_price: {{ variant.compare_at_price | json }},
+      },
+    {% endfor %}
+  ]
+{% endcapture %}
+{% capture product_options %}
+  [
+    {% for option in product.options_with_values %}
+      {
+        name: {{ option.name | json }},
+        values: [
+          {% for value in option.values %}
+            {{ value | json }},
+          {% endfor %}
+        ],
+      },
+    {% endfor %}
+  ]
+{% endcapture %}
+{% capture product_tags %}
+  [
+    {% for tag in product.tags %}
+      {{ tag | json }},
+    {% endfor %}
+  ]
+{% endcapture %}
+
+title: {{ product.title | json }},
+id: {{ product.id | json  }},
+compare_at_price: {{ product.compare_at_price | json }},
+handle: {{ product.handle | json }},
+featured_image: {{ product.featured_image | img_url: 'master' | json }},
+onhover_image: {{ product.image.last | img_url: 'master' | json }},
+available: {{ product.available | json }},
+price: {{ product.price | json }},
+price_min: {{ product.price_min | json }},
+price_max: {{ product.price_max | json }},
+url: {{ product.url | json }},
+options: {{ product_options }},
+variants: {{ variants }}

@@ -1,0 +1,103 @@
+<div class="hub-models" data-section="hub-models" data-overlay-id="{{ section.settings.overlay_id | handleize }}">
+  <div class="hub-models__background swiper">
+    <div class="hub-models__background--wrapper swiper-wrapper">
+      {%- for block in section.blocks -%}
+        <div class="hub-models__background-item swiper-slide">
+          <div class="hub-models__background-wrapper">
+            {%- if block.settings.background != nil -%}
+              {%- assign img_obj = block.settings.background -%}
+              {%- assign alt = img_obj.alt | default: block.settings.title -%}
+              {{ img_obj 
+                | image_url: width: 1500 
+                | image_tag:
+                sizes: "100vw", 
+                widths: '375, 550, 750, 1100, 1500, 1780, 2000, 3000, 3840',
+                alt: alt,
+                class: "hub-models__media-item"
+              }}
+            {%- else -%}
+              {{ "image" | placeholder_svg_tag: "hub-fit__media-item placeholder" }}
+            {%- endif -%}
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+    <button class="hub-models__navigation hub-models__navigation--prev" data-action="slidePrev">{% render 'icons-new' with 'arrow-left-long' %}</button>
+    <button class="hub-models__navigation hub-models__navigation--next" data-action="slideNext">{% render 'icons-new' with 'arrow-right-long' %}</button>
+  </div>
+  <div class="hub-models__main swiper">
+    <div class="hub-models__main--wrapper swiper-wrapper">
+      {%- for block in section.blocks -%}
+        <div class="hub-models__main-item swiper-slide">
+          {%- if block.settings.model != nil -%}
+            {%- assign img_obj = block.settings.model -%}
+            {%- assign alt = img_obj.alt | default: block.settings.title -%}
+            {{ img_obj 
+              | image_url: width: 1500 
+              | image_tag:
+              alt: alt,
+              class: "hub-models__model-item"
+            }}
+          {%- else -%}
+            {{ "image" | placeholder_svg_tag: "hub-fit__media-item placeholder" }}
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+  <div class="hub-models__title-container">
+    <div class="hub-models__title-list swiper">
+      <div class="hub-models__title-list--wrapper swiper-wrapper">
+        {%- for block in section.blocks -%}
+          <div class="swiper-slide hub-models__title"><span>{{ block.settings.title }}</span></div>
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Hub Page - Models slider",
+  "class": "overlay-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "overlay_id",
+      "label": "Overlay ID",
+      "info": "ID of overlay is used to link overlay to other blocks"
+    }
+
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "image_picker",
+          "id": "model",
+          "label": "Model"
+        },
+        {
+          "type": "image_picker",
+          "id": "background",
+          "label": "Background"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "category": "Hub Page",
+      "name": "Hub Page - Models slider", 
+      "settings": {}
+    } 
+  ]
+}
+{% endschema %}

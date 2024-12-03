@@ -1,0 +1,54 @@
+{%- assign targetColor = product.variants[0].title | split: " / " | first -%}
+{%- assign urls = product.metafields.global.metafield_video_url | split: "," -%}
+{%- assign videoUrl = "" -%}
+{%- assign imagesLength = 3 -%}
+
+{%- for url in urls -%}
+  {%- assign color = url | split: "|" | first -%}
+  {%- assign urlAddress = url | split: "|" | last -%}
+  {%- if color == targetColor -%}
+    {%- assign videoUrl = urlAddress -%}
+    {%- break -%}
+  {%- endif -%}
+{%- endfor -%}
+
+{%- if videoUrl != blank -%}
+  {%- assign imagesLength = 2 -%}
+{%- endif -%}
+
+<a 
+  href="/products/{{ product.handle }}{{ url_params }}" 
+  class="product-item__link"
+  data-videoUrl = '{{ videoUrl }}'
+  targetColor = "{{ targetColor }}"
+>
+  {%- for image in product.images -%}
+    {%- if forloop.index < imagesLength -%}
+      <picture class="product-item__media product-item__media--image">
+        <source 
+          srcset="{{ image | img_url: '340x' }}" 
+          media="(max-width: 400px)"
+        >
+        <source 
+          srcset="{{ image | img_url: '800x' }}" 
+          media="(min-width: 400px)"
+        >
+        <source 
+          srcset="{{ image | img_url: '968x' }}" 
+          media="(min-width: 1024px)"
+        >
+        <img 
+          class="product-item__media product-item__media--image"
+          loading="lazy"
+          srcset="{{ image | img_url: '768x' }}"
+          alt="{{ product.title }}"
+          width="100%"
+          height="100%"
+        >
+      </picture>
+    {%- endif -%}
+  {%- endfor -%}
+  {%- if videoUrl != blank -%}
+    <video playsinline class="product-item__media product-item__media--video" src="{{ videoUrl }}" muted loop preload="none" type="video/mp4"></video>
+  {%- endif -%}
+</a>

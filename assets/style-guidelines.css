@@ -1,0 +1,215 @@
+:root { 
+  --black: #000;
+  --dark-silver: #757575;
+  --silver: #B2B0B1;
+  --platinum: #E3E3E3;
+  --white: #fff;
+  --warm-silver: #CEC0B9;
+  --blue: #035F88;
+  --light-blue: #4F8FAC; 
+  --error: #AE1F16;
+}
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: 'GalanoGrotesqueRegular', sans-serif;
+}
+
+/* HEADINGS */
+
+h1,h2,h3,
+.h1,.h2,.h3 {
+  font-family: "FelixTitlingRegular", sans-serif;
+  font-weight: 500; 
+}
+
+h4,h5,
+.h4,.h5 {
+  font-family: "GalanoGrotesqueMedium";
+  font-weight: 500;
+}
+
+h1,
+.h1 {
+  font-size: 10rem;
+}
+h2,
+.h2 {
+  font-size: 6rem;
+}
+h3,
+.h3 {
+  font-size: 4rem;
+}
+h4,
+.h4 {
+  font-size: 2.4rem;
+}
+h5,
+.h5 {
+  font-size: 2rem;
+}
+
+.text-large {
+  font-size: 1.6rem;
+}
+.text {
+  font-size: 1.4rem;
+}
+.text-small {
+  font-size: 1.2rem;
+}
+.upper-case {
+  text-transform: uppercase;
+}
+
+@media screen and (max-width: 1139px) {
+  h1,
+  .h1 {
+    font-size: 4rem;
+  }
+  h2,
+  .h2 {
+    font-size: 2rem;
+  }
+  h3, h4, h5,
+  .h3, .h4, .h5 {
+    font-size: 1.4rem;
+  }
+
+  .text-large {
+    font-size: 1.4rem;
+  }
+
+  .text {
+    font-size: 1.2rem;
+  }
+
+  .text-small {
+    font-size: 1rem;
+  }
+}
+
+/* BUTTONS */
+
+.Button {
+  font-size: 1.2rem;
+  padding: 1rem 8rem;
+  text-transform: uppercase;
+  cursor: pointer;
+  font-family: 'GalanoGrotesqueRegular', sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  line-height: 2;
+}
+
+.Button-primary {
+  color: var(--white);
+  background: var(--black);
+  border: 1px solid var(--black);
+}
+
+.Button-primary:focus {
+  border-width: 2px;
+}
+
+.Button-primary:hover {
+  background: var(--dark-silver);
+  border-color: var(--dark-silver);
+}
+.Button.Button-primary-outline.Button-disabled,
+.Button.Button-primary.Button-disabled {
+  cursor: not-allowed;
+  background: var(--silver);
+  color: var(--white);
+  border-color: var(--silver);
+}
+
+.Button.Button-secondary.Button-disabled {
+  cursor: not-allowed;
+  background: var(--white);
+  color: var(--silver);
+  border: 1px solid var(--silver)
+}
+
+.Button.Button-tertiary.Button-disabled {
+  cursor: not-allowed;
+  color: var(--silver)
+}
+
+
+
+.Button-primary-outline {
+  color: var(--black);
+  background: var(--white);
+  border: 1px solid var(--black)
+}
+
+.Button-primary-outline:hover {
+  background: var(--black);
+  color: var(--white)
+}
+
+.Button-primary-outline:focus {
+  border: none;
+  outline: 2px solid var(--blue)
+}
+
+.Button-secondary {
+  padding: 1rem 6rem;
+  color: var(--black);
+  background: var(--white);
+  border: 1px solid var(--black);
+}
+
+.Button-secondary:hover { 
+  color: var(--white);
+  background: var(--black);
+}
+
+.Button-secondary:focus {
+  border: none;
+  outline: 2px solid var(--blue)
+}
+
+.Button-tertiary {
+  border: none;
+  color: var(--black);
+  background: var(--white);
+  font-size: 1.4rem;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  padding: 0;
+}
+
+.Button-tertiary:hover {
+  color: var(--dark-silver)
+}
+
+.Button-tertiary:focus {
+  border: none;
+  outline: 2px solid var(--blue)
+}
+
+@media screen and (max-width: 1139px) {
+  .Button {
+    padding: 1rem 12.4rem;
+  }
+  .Button-secondary {
+    padding: 0.4rem 4rem;
+  }
+  .Button-tertiary {
+    padding: 0;
+  }
+}
+
+

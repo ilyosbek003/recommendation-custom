@@ -1,0 +1,28 @@
+{% comment %} 
+  Accepts:
+    -product
+
+{% endcomment %}
+
+{% liquid
+  assign activation_date = product.metafields.pdp.activation_date.value | date: "%s"
+  assign current_time = 'now' | date: "%s"
+  assign days_passed = current_time | minus: activation_date | divided_by: 86400 | plus: 1
+  assign label_text = ''
+%}
+
+{% if days_passed < 22 and product.tags contains settings.primary_label_tag %}
+  {% assign label_text = settings.primary_label_text %}
+{% elsif days_passed < 31 and product.tags contains settings.secondary_label_tag %}
+  {% assign label_text = settings.secondary_label_text %}
+{% elsif product.tags contains settings.tertiary_label_tag %}
+  {% assign label_text = settings.tertiary_label_text %}
+{% endif %}
+
+<div data-label-new>
+{% if label_text != blank %}
+  <div class="labels-new-wrapper" data-days-passed="{{ days_passed }}">
+    <span class="label--new">{{ label_text }}</span>
+  </div>
+{% endif %}
+</div>

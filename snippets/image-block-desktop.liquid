@@ -1,0 +1,80 @@
+<picture>
+  {% if block.settings.mobile_image %}
+    <source
+      media="(max-width: 800px)"
+      srcset="{{ block.settings.mobile_image | image_url: width: 150 }} 150w,
+        {{ block.settings.mobile_image | image_url: width: 300 }} 300w,
+        {{ block.settings.mobile_image | image_url: width: 450 }} 450w,
+        {{ block.settings.mobile_image | image_url: width: 600 }} 600w"
+      {% if forloop.first or forloop.index == 2 %}
+      fetchpriority="high"
+      {% endif %}
+    >
+  {% endif %}
+  {% if block.settings.second_mobile_image %}
+    <source
+      media="(max-width: 800px)"
+      srcset="{{ block.settings.second_mobile_image | image_url: width: 150 }} 150w,
+        {{ block.settings.second_mobile_image | image_url: width: 300 }} 300w,
+        {{ block.settings.second_mobile_image | image_url: width: 450 }} 450w,
+        {{ block.settings.second_mobile_image | image_url: width: 600 }} 600w"
+      {% if forloop.first or forloop.index == 2 %}
+      fetchpriority="high"
+      {% endif %}
+    >
+  {% endif %}
+
+  {% assign loading_attr = "lazy" %}
+  {% assign fetchpriority_attr = "" %}
+  {% assign primaryImage = "" %}
+
+  {% if forloop.first or forloop.index == 2 %}
+    {% assign loading_attr = "high" %}
+    {% assign fetchpriority_attr = "high" %}
+  {% endif %}
+
+  {% if block.settings.secondary_image %}
+    {% assign primaryImage = "slider__image--primary" %}
+  {% endif %}
+
+  {% if block.settings.primary_image and block.settings.secondary_image %}
+    {{ block.settings.primary_image
+    | image_url: width: 1500
+    | image_tag:
+      sizes: "20vw",
+      widths: '375, 550, 750, 1100, 1500, 1780, 2000, 3000, 3840',
+      class: "slider__image slider__image--primary image-lazy",
+      loading: loading_attr,
+      fetchpriority: fetchpriority_attr
+    }}
+    {{ block.settings.secondary_image
+    | image_url: width: 1500
+    | image_tag:
+      sizes: "20vw",
+      widths: '375, 550, 750, 1100, 1500, 1780, 2000, 3000, 3840',
+      class: "slider__image slider__image--secondary image-lazy",
+      loading: loading_attr,
+      fetchpriority: fetchpriority_attr
+    }}
+  {% elsif block.settings.primary_image %}
+    {{ block.settings.primary_image
+    | image_url: width: 2000
+    | image_tag:
+      sizes: "50vw",
+      widths: '375, 550, 750, 1100, 1500, 1780, 2000, 3000, 3840',
+      class: "slider__image image-lazy",
+      loading: loading_attr,
+      fetchpriority: fetchpriority_attr
+    }}
+  {% else %}
+    {{ block.settings.secondary_image
+    | image_url: width: 1500
+    | image_tag:
+      sizes: "20vw",
+      widths: '150, 300, 450, 600',
+      class: "slider__image slider__image--secondary image-lazy",
+      loading: loading_attr,
+      fetchpriority: fetchpriority_attr
+    }}
+  {% endif %}
+</picture>

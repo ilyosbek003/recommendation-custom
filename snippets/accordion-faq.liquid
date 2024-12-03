@@ -1,0 +1,35 @@
+<expended-accordion class="faq--accordion">
+    <div class="accordion-item-header small-text" data-component="header">
+        {{ section.settings.faq_title }}
+        <span class="accordion-arrow-icon-plus">
+            {% render 'icon' with 'plus' %}
+        </span>
+        <span class="accordion-arrow-icon-minus">
+            {% render 'icon' with 'minus' %}
+        </span>
+    </div>
+    <div class="accordion-item-body" data-body="header">
+        <div class="accordion-item-body-content">
+            {% for block in blocks %}
+                {% if block.settings.faq_title or block.settings.faq_description %}
+                    <collapsible-accordion class="{% if forloop.last %}close{% endif %}">
+                        <div class="ly-modal__order--header collapsible-item-header small-text" data-header='header'>
+                            {{ block.settings.faq_title }}
+                            <span class="accordion-arrow-plus-icon">
+                                {% render 'icon' with 'plus' %}
+                            </span>
+                            <span class="accordion-arrow-minus-icon">
+                                {% render 'icon' with 'minus' %}
+                            </span>
+                        </div>
+                        <div class="ly-modal__order--body collapsible-item-body" data-bodyComponent='header'>
+                            <div class="collapsible-item-body-content">
+                                {{ block.settings.faq_description }}
+                            </div>
+                        </div>
+                    </collapsible-accordion>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</expended-accordion>

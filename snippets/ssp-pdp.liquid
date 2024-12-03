@@ -1,0 +1,299 @@
+<script>
+    document.addEventListener("DOMContentLoaded", async function(event) {
+    window.ssp_key = "bugatchi";
+    window.ssp_env = "prd";
+    window.ssp_version = "v1";
+
+    // Set Product ID //
+
+    var productVariants = [
+        {% for variant in product.variants %} {
+            id: "{{ variant.id }}",
+            sku: "{{ variant.sku }}",
+            price: {{ variant.price }} / 100,
+            size: '{% if variant.option3 %} {{variant.option3}} {% else %} {{variant.option2}} {% endif %}',
+            sizeType: '{% if variant.option3 %} {{variant.option2}} {% else %} regular {% endif %}',
+            available: {{ variant.available }}
+        },
+        {% endfor %}
+    ];
+
+    window.ssp_variants = productVariants;
+
+    function createProductIdFromSKU(SKU) {
+      const regex = /-(.*?)-/;
+      const match = SKU.match(regex);
+
+      if (match && match.length > 1) {
+        return match[1];
+      } else {
+        return null;
+      }
+    }
+
+    function getProductId() {
+      return createProductIdFromSKU(productVariants[0].sku);
+    }
+
+    // Inject fp-root //
+
+    try {
+        var injectFitPredictorRoot = async function () {
+            var optionLabel = ".Product__option";
+    
+            while (!document.querySelector(optionLabel)) {
+                await new Promise((resolve) => requestAnimationFrame(resolve));
+            }
+    
+            var rootElement = document.createElement('div');
+    
+            rootElement.className = 'fp-root';
+            rootElement.setAttribute('data-product-id', getProductId());
+            if (!document.querySelector('.fp-root')) {
+                let parentDiv = document.querySelector('.fp-container');
+
+                parentDiv.insertAdjacentElement("afterbegin", rootElement);
+            };
+        }
+        await injectFitPredictorRoot();
+    } catch (error) {
+        console.warn('Fit Predictor root is not injected', error);
+    }
+
+    // Do not edit below this line //
+    (function () {
+        window.ssp = window.ssp || function () {
+        (window.ssp.q = window.ssp.q || []).push(arguments)
+        };
+        var a = document.createElement("script");
+        a.type = "text/javascript", a.async = !0,
+        a.src = "//" + window.ssp_key + ".sspinc.io/" + window.ssp_version + "/ssp.js?env=" + window.ssp_env;
+        var b = document.getElementsByTagName("script")[0];
+        b.parentNode.insertBefore(a, b), window.ssp.SNIPPET_VERSION = "1.1.0"
+    })();
+
+    function getLayout() {
+        var viewPortWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+        if (viewPortWidth > 1185) {
+            return 'desktop';
+        } else if (viewPortWidth >= 1008 && viewPortWidth <= 1185) {
+            return 'tablet';
+        } else {
+            return 'mobile';
+        }
+    }
+
+    function getCurrency() {
+        return Shopify.currency.active;
+    }
+
+    function getLanguage() {
+        return "{{ shop.locale }}";
+    }
+
+    function getMarket() {
+        return "US";
+    }
+
+    ssp("set", "site", {
+        layout: getLayout(),
+        currency: getCurrency(),
+        language: getLanguage(),
+        market: getMarket()
+    });
+
+    // Set user context //
+
+    function getUserId() {
+        return "{% if customer %}{{customer.id}}{% endif %}";
+    }
+
+    function getEmailAddress() {
+        return "{% if customer %}{{customer.email}}{% endif %}";
+    }
+
+    var userId = getUserId();
+    var emailAddress = getEmailAddress();
+
+    // Set user context if User ID or email address is available //
+    if (userId || emailAddress) {
+        ssp("set", "user", {
+        userId: userId,
+        email: emailAddress
+        });
+    }
+
+    // Set page context //
+
+    ssp("set", "page", {
+        type: "pdp"
+    });
+
+    // Set product context //
+
+
+
+    function removeWhiteSpaces(string) {
+        return string.replace(/\s/g, "")
+    }
+
+    function getSizes() {
+        return [...new Set(productVariants.map(variant => removeWhiteSpaces(variant.size)))];
+    }
+
+    function getSizeType() {
+        return "regular";
+    }
+
+    function getAvailableSizes() {
+        var availableSizes = productVariants.filter(variant => variant.available).map(variant => removeWhiteSpaces(variant.size));
+
+        return availableSizes;
+    }
+
+    function getSelectedQuantity() {
+        var selectedQuantity = document.querySelector('.Product__form-cta--wrapper .Product__form-quantity input[type="number"]');
+        return selectedQuantity ? selectedQuantity.value : 1;
+    }
+
+    function getSelectedSize() {
+        var selectedSize = document.getElementsByClassName("Product__item Product__item--Size Product__item--active")[0];
+        return selectedSize ? selectedSize.innerText : undefined;
+    }
+
+    function createAvailableSizesArray() {
+        const elements = document.querySelectorAll('.Product__item--Size:not(.Product__item--disabled)');
+        const availableSizes = [];
+        elements.forEach(element => {
+            availableSizes.push(element.innerText);
+        });
+        return availableSizes;
+    }
+
+    function getPrice() {
+        if ("{{product.compare_at_price}}" !== "") {
+            return {{product.compare_at_price}};
+        } else {
+            return {{product.price}};
+        }
+    }
+
+    function getSalePrice() {
+        if ("{{product.compare_at_price}}" !== "") {
+            return {{product.price}};
+        } else {
+            return undefined;
+        }
+    }
+
+    var salePrice = getSalePrice();
+
+    ssp("set", "product", {
+        productId: getProductId(),
+        sizes: getSizes(),
+        availableSizes: getAvailableSizes(),
+        sizetype: getSizeType(),
+        price: getPrice() / 100,
+        salePrice: salePrice && salePrice / 100
+    });
+
+    function getSizeFromVariantFromUrl(variantIdFromUrl) {
+        for (var i = 0; i < productVariants.length; i++) {
+            var variant = productVariants[i];
+        
+            if (variant.id === variantIdFromUrl) {
+                return removeWhiteSpaces(variant.size);
+            }
+        }
+
+        return null;
+    }
+
+    (function () {
+        const pushState = history.pushState;
+        const replaceState = history.replaceState;
+    
+        history.pushState = function () {
+        pushState.apply(history, arguments);
+        window.dispatchEvent(new Event("ssp_locationchange"));
+        };
+    
+        history.replaceState = function () {
+        replaceState.apply(history, arguments);
+        window.dispatchEvent(new Event("ssp_locationchange"));
+        };
+    
+        window.addEventListener("popstate", function () {
+        window.dispatchEvent(new Event("ssp_locationchange"));
+        });
+    })();
+
+    var variantIdFromUrl;
+
+    function handleLocationChange() {
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        variantIdFromUrl = urlParams.get("variant");
+    
+        ssp("set", "product", {
+            productId: getProductId(),
+            size: getSizeFromVariantFromUrl(variantIdFromUrl) || getSelectedSize(),
+            variantId: variantIdFromUrl,
+            availableSizes: createAvailableSizesArray()
+        });
+    }
+    
+    window.addEventListener("ssp_locationchange", handleLocationChange);
+
+    // Track size selection when Fit is not selected //
+
+    function handleClick(event) {
+        const clickedElement = event.target;
+        if (!variantIdFromUrl) {
+            ssp("set", "product", {
+                productId: getProductId(),
+                size: clickedElement.innerText
+            });
+        }
+    }
+
+    function trackSizeSelection() {
+        var sizeSelectors = document.getElementsByClassName("Product__item Product__item--Size");
+        for (let i = 0; i < sizeSelectors.length; i++) {
+            sizeSelectors[i].addEventListener("click", handleClick);
+        }
+    }
+    
+    trackSizeSelection();
+
+    // Track add to cart //
+
+    function trackAddToCart() {
+        if(variantIdFromUrl) {
+            ssp("track", "addVariantToCart", {
+            variantId: variantIdFromUrl,
+            productId: getProductId(),
+            quantity: getSelectedQuantity()
+        });
+        }
+    }
+
+    var currentAddToCartButton;
+
+    function subscribeToAddToCart() {
+        currentAddToCartButton && currentAddToCartButton.removeEventListener("click", trackAddToCart);
+
+        currentAddToCartButton = document.querySelector('.Product__btn-cart');
+
+        currentAddToCartButton.addEventListener("click", trackAddToCart);
+
+    }
+    subscribeToAddToCart();
+
+    console.log("starting fit predictor");
+
+    // Show Fit Predictor //
+    ssp("start", "fitpredictor");
+
+    });
+</script>

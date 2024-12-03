@@ -1,0 +1,55 @@
+{%- if linkUrl == '#' -%}
+    <span 
+        class="mega-menu__link mega-menu__link--level-2 heading text{% if links != blank %} has-grandchildren{% endif %}"
+        {% if childlink.current %} aria-current="page"{% endif %} 
+        style="--item-color: {{ section.settings.mega_menu_color_lvl2 }}; --item-hover-color: {{ section.settings.mega_menu_color_hover_lvl2 }}"
+        >
+        {{ linkTitle | escape | upcase }}
+    </span> 
+{%- else -%}
+<a 
+    href="{{linkUrl}}" 
+    class="mega-menu__link mega-menu__link--level-2 heading link text{% if links != blank %} has-grandchildren{% endif %}"
+    {% if childlink.current %} aria-current="page"{% endif %} 
+    style="--item-color: {{ section.settings.mega_menu_color_lvl2 }}; --item-hover-color: {{ section.settings.mega_menu_color_hover_lvl2 }}"
+    >
+    {{ linkTitle | escape | upcase }}
+</a>        
+{%- endif -%}
+
+{%- if links != blank -%}
+<ul class="list-unstyled" role="list">
+    {%- for childlink in links -%}
+    <li class="{{ childlink.title | downcase | handle }}{% unless childlink.links != blank %} has-no-children{% endunless %}">
+        <a 
+        href="{{ childlink.url }}?nav.p1={{ itemHandle }}.e1&nav.p2={{ linkHandle }}.e2{%- if childlink.links != blank -%}&nav.p3={{ childlink.handle }}.e3{%- endif -%}{%- if childlink.type == "collection_link" -%}&filter.v.availability=1{%- endif -%}" 
+        class="mega-menu__link text link {% if childlink.links != blank %}has-grandchildren{% endif %}"
+        {% if childlink.current %} aria-current="page"{% endif %} 
+        style="--item-color: {{ section.settings.mega_menu_color }}; --item-hover-color: {{ section.settings.mega_menu_color_hover }}"
+        >
+            {%- if childlink.links != blank -%}
+                <strong>{{ childlink.title | escape }}</strong>
+            {%- else -%}
+                {{ childlink.title | escape }}
+            {%- endif -%}
+        </a>
+        {%- if childlink.links != blank -%}
+        <ul class="list-unstyled list-grandchild">
+            {% for grandchildlink in childlink.links %}
+            <li class="list-{{grandchildlink.title | escape}}">
+                <a 
+                href="{{ grandchildlink.url }}?nav.p1={{ itemHandle }}.e1&nav.p2={{ linkHandle }}.e2&nav.p3={{ childlink.handle }}.e3{%- if grandchildlink.type == "collection_link" -%}&filter.v.availability=1{%- endif -%}" 
+                class="mega-menu__link text link grandchild"
+                {% if childlink.current %} aria-current="page"{% endif %} 
+                style="--item-color: {{ section.settings.mega_menu_color }}; --item-hover-color: {{ section.settings.mega_menu_color_hover }}"
+                >
+                {{ grandchildlink.title | escape }}
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+        {%- endif -%}
+    </li>
+    {%- endfor -%}
+</ul>
+{%- endif -%}

@@ -1,0 +1,74 @@
+{{ 'golf-links.min.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'golf-links.min.js' | asset_url }}" defer></script>
+
+<div class="Golf-links">
+    <div class="Golf-links--wrapper">
+        {%- for block in section.blocks -%}
+            {%- assign bs = block.settings -%}
+            {%- assign url = bs.url -%}
+            {%- assign type = "url" -%}
+            {%- if bs.type == "section" -%}
+                {%- assign url = bs.section_id_link | prepend: "#" -%}
+                {%- assign type = "section" -%}
+            {%- endif -%}
+
+            {%- if bs.text != blank and url != blank -%}
+                <a href="{{ url }}" data-type="{{ type }}" data-target="{{ url }}" title="{{ bs.text }}" class="Button Button-tertiary Golf-links--item">{{ bs.text }}</a>
+            {%- endif -%}
+        {%- endfor -%}
+    </div>
+</div>
+
+
+
+{% schema %}
+{
+    "name": "Golf links",
+    "settings": [],
+    "blocks": [
+        {
+            "name": "link",
+            "type": "link",
+            "settings": [
+                {
+                    "type": "select",
+                    "id": "type",
+                    "label": "Link to",
+                    "options": [
+                        {
+                            "value": "url",
+                            "label": "URL"
+                        },
+                        {
+                            "value": "section",
+                            "label": "Section"
+                        }
+                    ]
+                },
+                {
+                    "type": "text",
+                    "id": "section_id_link",
+                    "label": "Section ID to link to",
+                    "info": "Current link will scroll to the specified section on the same page"
+                },
+                {
+                    "type": "url",
+                    "id": "url",
+                    "label": "Link for other pages"
+                },
+                {
+                    "type": "text",
+                    "id": "text",
+                    "label": "Text"
+                }
+            ]
+        }
+    ],
+    "presets": [
+        {
+            "name": "Golf links",
+            "settings": {}
+          } 
+    ]
+}
+{% endschema %}

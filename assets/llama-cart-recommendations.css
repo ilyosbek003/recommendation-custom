@@ -1,0 +1,141 @@
+.recommendation {
+  position: absolute;
+  top: 0;
+  left: -230px;
+  background-color: white;
+  width: 230px;
+  height: 100%;
+  padding: 1.5rem !important;
+  border-right: var(--lcu-border);
+  overflow-y: scroll;
+  -webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.recommendation-hidden {
+  display: none;
+}
+
+.lcu__product-card__link {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.recommendation h2 {
+  text-transform: uppercase !important;
+  font-family: var(--heading-font-small);
+  font-size: 1.4rem;
+  text-align: center;
+  font-weight: 500;
+  padding: 12px 0;
+}
+
+.recommendation-list {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.lcu__product-card__image {
+  background: var(--card-background, #e3e3e3);
+  width: 100%;
+  height: 270px;
+}
+
+.lcu__product-card__image img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  transition: all 0.2s ease;
+}
+
+.lcu__product-card__details .lcu__product-card__title {
+  font-family: var(--heading-font-small);
+  font-size: 1.3rem;
+  font-weight: inherit;
+}
+
+.lcu__product-card__details .lcu__product-card__price {
+  font-family: var(--body-font);
+  font-weight: 400;
+  font-size: 1.3rem;
+  color: black !important;
+}
+
+.lcu__recommendation-item {
+  position: relative;
+}
+
+.lcu__recommendation-item:hover .lcu__recommendation-item__action {
+  opacity: 1 !important;
+  transition: 0.1s ease-in;
+}
+
+.lcu__recommendation-item__action {
+  justify-content: space-between;
+  align-items: center;
+  opacity: 0;
+  position: absolute;
+  width: 100%;
+  display: flex;
+  padding: 20px !important;
+  z-index: 9;
+}
+
+.lcu__recommendation-item.active .lcu__recommendation-item__action {
+  opacity: 1 !important;
+}
+
+.lcu__recommendation-item__cart-btn {
+  cursor: pointer;
+  background: transparent;
+  outline: none;
+  border: none;
+  display: flex;
+  align-items: center;
+}
+
+.lcu__recommendation-item__toolbar-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+.lcu__recommendation-item__toolbar {
+  display: flex;
+  position: absolute;
+  display: flex;
+  justify-content: flex-end;
+  left: 0;
+  gap: 10px;
+  width: 100%;
+  margin: 30px 0 0 0 !important;
+  overflow: scroll;
+  padding: 0 20px !important;
+}
+
+.variant-options {
+  z-index: 9;
+}
+
+.variant-option {
+  outline: none;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.lcu__recommendation-item.disabled {
+  pointer-events: none;
+}
+
+.lcu__recommendation-item__action .wishlist-engine-button {
+  background-color: transparent !important;
+}
+
+.lcu__recommendation-item__action .wishlist-engine-button:hover {
+  padding: 0;
+}

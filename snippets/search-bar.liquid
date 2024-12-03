@@ -1,0 +1,42 @@
+<div class="searchbar" data-settings='{{ settings | json }}'>
+  <div class="page-width">
+      <form class="searchbar__form">
+        <div class="searchbar__wrapper">
+          <input class="searchbar__input" required type="text" placeholder="Search All Categories" maxlength="80" />
+          <a 
+            class="search_btn text" 
+            href="#"
+            minimum-value="false"
+          >
+            SEARCH
+          </a>
+          <span class="search_btn--close" >{% render 'icon' with 'close' %}</span>
+        </div>
+        <span class="searchbar__error">Minimum 3 characters required!</span>
+      </form>
+      {% if settings.show_loading_spinner == true %}
+        <div class="searchbar__loader hidden">
+          <div class="spinner">
+            <div class="spinner__circle"></div>
+          </div>
+        </div>
+      {% endif %}
+      <div class="searchbar__results hidden">
+        <div class="searchbar__results-body">
+          <div class="predictive--products"></div>
+          <div class="predictive--queries"></div>
+        </div>
+        <div class="searchar__results-footer">
+          <a 
+            href="#"
+            title="View all results"
+            class="searchbar__btn-view-all Button Button-primary-outline"
+          >
+            View all  results
+          </a>
+          <span class="text no-results"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+<div class="searchbar__backdrop"></div>

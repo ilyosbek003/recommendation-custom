@@ -1,0 +1,96 @@
+<expended-accordion class="rewards--accordion active">
+    <div class="accordion-item-header small-text" data-component="header">
+        {{ section.settings.rewards_title }}
+        <span class="accordion-arrow-icon-plus">
+            {% render 'icon' with 'plus' %}
+        </span>
+        <span class="accordion-arrow-icon-minus">
+            {% render 'icon' with 'minus' %}
+        </span>
+    </div>
+    <div class="accordion-item-body" data-body="header">
+        <div class="accordion-item-body-content">
+            <collapsible-accordion class="close">
+                <div class="ly-modal__order--header collapsible-item-header small-text" data-header='header'>
+                    {{ section.settings.rewards_title }}
+                    <span class="accordion-arrow-plus-icon">
+                        {% render 'icon' with 'plus' %}
+                    </span>
+                    <span class="accordion-arrow-minus-icon">
+                        {% render 'icon' with 'minus' %}
+                    </span>
+                </div>
+                <div class="ly-modal__order--body collapsible-item-body" data-bodyComponent='header'>
+                    <div class="collapsible-item-body-content">
+                        <div class="loyaltylion__wrapper" data-lion-tier-benefits-compare></div>
+                        <div class="ly-membership__mobile--table"></div>
+                    </div>
+                </div>
+            </collapsible-accordion>
+            <collapsible-accordion>
+                <div class="ly-modal__order--header collapsible-item-header small-text" data-header='header'>
+                    {{ section.settings.earn_points }}
+                    <span class="accordion-arrow-plus-icon">
+                        {% render 'icon' with 'plus' %}
+                    </span>
+                    <span class="accordion-arrow-minus-icon">
+                        {% render 'icon' with 'minus' %}
+                    </span>
+                </div>
+                <div class="ly-modal__order--body collapsible-item-body" data-bodyComponent='header'>
+                    <div class="collapsible-item-body-content">
+                        <div class="ly-modal__rules--btns" id="customer-tags" data-tags="{{ customer.tags | join: ',' }}" data-lion-rules-list></div>
+                    </div>
+                </div>
+            </collapsible-accordion>
+            <collapsible-accordion>
+                <div class="ly-modal__order--header collapsible-item-header small-text" data-header='header'>
+                    {{ section.settings.available_rewards }}
+                    <span class="accordion-arrow-plus-icon">
+                        {% render 'icon' with 'plus' %}
+                    </span>
+                    <span class="accordion-arrow-minus-icon">
+                        {% render 'icon' with 'minus' %}
+                    </span>
+                </div>
+                <div class="ly-modal__order--body collapsible-item-body" data-bodyComponent='header'>
+                    <div class="collapsible-item-body-content">
+                        <div class="ly-modal__rules--btns" data-lion-claimed-rewards-list></div>
+                    </div>
+                </div>
+            </collapsible-accordion>
+            <collapsible-accordion>
+                <div class="ly-modal__order--header collapsible-item-header small-text" data-header='header'>
+                    {{ section.settings.claim_rewards }}
+                    <span class="accordion-arrow-plus-icon">
+                        {% render 'icon' with 'plus' %}
+                    </span>
+                    <span class="accordion-arrow-minus-icon">
+                        {% render 'icon' with 'minus' %}
+                    </span>
+                </div>
+                <div class="ly-modal__order--body collapsible-item-body" data-bodyComponent='header'>
+                    <div class="collapsible-item-body-content">
+                        <div class="ly-modal__rules--btns collapsible-item-body-content" data-lion-rewards-list></div>
+                    </div>
+                </div>
+            </collapsible-accordion>
+            <collapsible-accordion>
+                <div class="ly-modal__order--header collapsible-item-header small-text" data-header='header'>
+                    {{ section.settings.rewards_history }}
+                    <span class="accordion-arrow-plus-icon">
+                        {% render 'icon' with 'plus' %}
+                    </span>
+                    <span class="accordion-arrow-minus-icon">
+                        {% render 'icon' with 'minus' %}
+                    </span>
+                </div>
+                <div class="ly-modal__order--body collapsible-item-body" data-bodyComponent='header'>
+                    <div class="collapsible-item-body-content">
+                        <div class="ly-modal__rules--btns" data-lion-history-table></div>
+                    </div>
+                </div>
+            </collapsible-accordion>
+        </div>
+    </div>
+</expended-accordion>

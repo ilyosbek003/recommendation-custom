@@ -1,0 +1,103 @@
+{% assign current_product = product.handle | append: "," %}
+{% assign productHandleArr = product.metafields.global.metafield_product_handle | prepend: current_product | split: ',' %}
+{% assign collection_handle = product.metafields.global.first_prod_collection_handle%}
+{% assign prodIndex = 0 %}
+
+<script>
+  window.productsData = [];
+  window.products = [];
+
+  {% for handle in productHandleArr %} 
+    {% if productHandleArr.size >= 20  %}
+      {%- assign prod = all_collections[collection_handle].products[handle] -%}
+    {% else %}
+      {%- assign prod = all_products[handle] -%}
+    {% endif %}
+    {% assign prodMediaVideo = prod.metafields.global.metafield_video_url | split: ',' %}
+    {% liquid
+      assign activation_date = product.metafields.pdp.activation_date.value | date: "%s"
+      assign current_time = 'now' | date: "%s"
+      assign days_passed = current_time | minus: activation_date | divided_by: 86400 | plus: 1
+      assign label_text = ''
+
+      if days_passed < 22 and prod.tags contains settings.primary_label_tag
+        assign label_text = settings.primary_label_text
+      elsif days_passed < 31 and prod.tags contains settings.secondary_label_tag
+        assign label_text = settings.secondary_label_text
+      elsif prod.tags contains settings.tertiary_label_tag
+        assign label_text = settings.tertiary_label_text
+      endif
+    %}
+
+    window.productsData.push({});
+    window.productsData[{{ prodIndex }}]['images'] = [];
+    window.productsData[{{ prodIndex }}]['videos'] = [];
+    window.products.push({
+      ...({{ prod | json }} || {}),
+      bannerData: {
+        title: {{ label_text | json }},
+        daysPassed: {{ days_passed | json }}
+      },
+      swatchImage: {{ prod.metafields.global.metafield_swatch_url | json }}
+    });
+    window.products[{{ prodIndex }}]['model_info'] = {{ prod.metafields.global.model_info | json }};
+    {% for video in prodMediaVideo %}
+      {% assign url = video | split: '|' %}
+      {% assign isVimeo = false %}
+      {% assign isYoutube = false %}
+      {% if url[1] contains 'vimeo' %}
+        {% assign isVimeo = true %}
+      {% elsif url[1] contains 'youtube' %}
+        {% assign isYoutube = true %}
+      {% endif %}
+      window.productsData[{{ prodIndex }}].videos.push({
+        id: {{ url[0] | json}}, 
+        src: {{ url[1] | json }},
+        isVideo: true,
+        isVimeo: {{ isVimeo }},
+        isYoutube: {{ isYoutube }}
+      });
+    {% endfor %}
+
+    {% for media in prod.media %}
+      window.productsData[{{ prodIndex }}].images.push({
+        id: {{ media.id }},
+        src: "{{ media.src | img_url: 'master' }}",
+        srcFallback: "{{ media.src | img_url: '1024x' }}", 
+        srcMin: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
+        srcThumb: "{{ media.src | img_url: '160x' }}",
+        media: {
+          // min-width media
+          280: "{{ media | img_url: '960x' }}",
+          400: "{{ media | img_url: '1020x' }}",
+          768: "{{ media | img_url: '1020x' }}",
+          1024: "{{ media | img_url: '1100x' }}", 
+          1400: "{{ media | img_url: '1160x' }}"
+        },
+        aspect_ratio: {{ media.aspect_ratio }}, 
+        w: {{ media.width }},
+        h: {{ media.height }},
+        alt: {{ media.alt | json }}
+      });
+    {% endfor %}
+    window.productsData[{{ prodIndex }}]['media'] = [].concat(window.productsData[{{ prodIndex }}].images);
+    window.productsData[{{ prodIndex }}].videos = window.productsData[{{ prodIndex }}].videos.filter(video => {
+      const variantTitle = window.products[{{ prodIndex }}].variants[0].title;
+      const color = variantTitle.split(' / ')[0].toUpperCase();
+      if (video.id.includes('-')) {
+        video.id = video.id.replace(/-/g, ' ');
+      }
+      return color.indexOf(video.id.toUpperCase()) > -1;
+    });
+    window.productsData[{{ prodIndex }}].media.splice(1, 0, ...window.productsData[{{ prodIndex }}].videos);
+    window.productsData[{{ prodIndex }}]['error'] = window.products[{{ prodIndex }}]['error'];
+
+    {% assign prodIndex = prodIndex | plus: 1 %}
+  {% endfor %}
+
+  // Filtering invalid JSON objects
+  window.productsData = window.productsData.filter((el, i) => !el.error);
+  window.products = window.products.filter((el, i) => !el.error);
+  
+  window.pdpSettings = {{ section.settings | json }};
+</script>

@@ -1,0 +1,122 @@
+<script>
+  window.productMetafields.menu = {}
+  window.productMetafields.menuStructure = {
+    grandParentCategory: [],
+    parentCategory: [],
+    category: []
+  }
+  window.productMetafields.menuStructureMobile = {
+    grandParentCategory: [],
+    parentCategory: [],
+    category: []
+  }
+</script>
+
+{% if section.settings.menu != blank %}
+  {% for link in section.settings.menu.links %}
+    <script>
+      window.productMetafields.menu[`{{ link.title }}`] = {
+        title: `{{ link.title }}`, 
+        url: `{{ link.url }}`, 
+        children: {},
+        handle: {{ link.object | json }}?.handle
+      }
+
+      window.productMetafields.menuStructure.grandParentCategory.push(`{{ link.object.handle }}`)
+      
+    </script>
+
+    {% for childlink in link.links %}
+
+      <script>
+        window.productMetafields
+        .menu[`{{ link.title }}`]
+        .children[`{{ childlink.title }}`] = {
+          title: `{{ childlink.title }}`,
+          url: `{{ childlink.url }}`,
+          children: {},
+          handle: {{ childlink.object | json }}?.handle
+        }
+
+        window.productMetafields.menuStructure.parentCategory.push(`{{ childlink.object.handle }}`)
+      </script>
+
+        {% for grandchildlink in childlink.links %}
+
+          <script>
+            window.productMetafields
+            .menu[`{{ link.title }}`]
+            .children[`{{ childlink.title }}`]
+            .children[`{{ grandchildlink.title }}`] = {
+              title: `{{ grandchildlink.title }}`,
+              url: `{{ grandchildlink.url }}`,
+              handle: {{ grandchildlink.object | json }}?.handle
+            }
+
+            window.productMetafields.menuStructure.category.push(`{{ grandchildlink.object.handle }}`)
+          </script>
+
+        {% endfor %}
+    {% endfor %}
+  {% endfor %}
+{% endif %}
+
+{% if section.settings.menu == section.settings.menu_mobile %}
+  <script>
+    window.productMetafields.menuMobile = {}
+    window.productMetafields.menuStructureMobile = {}
+  </script>
+{% else %}
+  <script>
+    window.productMetafields.menu_mobile = {}
+  </script>
+
+  {% if section.settings.menu_mobile != blank %}
+    {% for link in section.settings.menu_mobile.links %}
+      <script>
+        window.productMetafields.menu_mobile[`{{ link.title }}`] = {
+          title: `{{ link.title }}`, 
+          url: `{{ link.url }}`, 
+          children: {},
+          handle: {{ link.object | json }}?.handle
+        }
+
+        window.productMetafields.menuStructureMobile.grandParentCategory.push(`{{ link.object.handle }}`)
+      </script>
+
+      {% for childlink in link.links %}
+
+        <script>
+          window.productMetafields
+          .menu_mobile[`{{ link.title }}`]
+          .children[`{{ childlink.title }}`] = {
+            title: `{{ childlink.title }}`,
+            url: `{{ childlink.url }}`,
+            children: {},
+            handle: {{ childlink.object | json }}?.handle
+          }
+
+          window.productMetafields.menuStructureMobile.parentCategory.push(`{{ childlink.object.handle }}`)
+        </script>
+
+          {% for grandchildlink in childlink.links %}
+
+            <script>
+              window.productMetafields
+              .menu_mobile[`{{ link.title }}`]
+              .children[`{{ childlink.title }}`]
+              .children[`{{ grandchildlink.title }}`] = {
+                title: `{{ grandchildlink.title }}`,
+                url: `{{ grandchildlink.url }}`,
+                handle: {{ grandchildlink.object | json }}?.handle
+              }
+
+              window.productMetafields.menuStructureMobile.category.push(`{{ grandchildlink.object.handle }}`)
+            </script>
+
+          {% endfor %}
+      {% endfor %}
+    {% endfor %}
+  {% endif %}
+
+{% endif %}

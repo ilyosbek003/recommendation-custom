@@ -1,0 +1,490 @@
+{{ 'shopable-scroll.min.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'shopable-scroll.min.js' | asset_url }}" defer="defer"></script>
+
+{% liquid
+  assign looks = section.blocks | where: 'type', 'look'
+  assign collection = section.settings.collection
+  assign products = collection.products
+
+  assign collection_size = products.size
+  assign looks_size = looks.size
+
+  assign image_keys = "image,image_2,image_3,image_4" | split: ","
+  assign video_keys = "video,video_2,video_3,video_4" | split: ","
+
+  assign justify_content = "center"
+  if looks_size > 1
+    assign justify_content = "end"
+  endif
+
+  if section.settings.order == "collection-content-looks"
+    assign is_collection_first = true
+  endif
+%}
+
+<style>
+  #shopify-section-{{ section.id }} {
+    padding-top: {{ section.settings.desktop_padding_top | divided_by: 10.0  }}rem;
+    padding-bottom: {{ section.settings.desktop_padding_bottom | divided_by: 10.0  }}rem;
+  }
+
+  {% if is_collection_first %}
+    #shopify-section-{{ section.id }} .container {
+      flex-direction: row-reverse;
+    }
+  {% endif %}
+
+  @media screen and (max-width: 750px) {
+    #shopify-section-{{ section.id }} {
+      padding-top: {{ section.settings.mobile_padding_top | divided_by: 10.0  }}rem;
+      padding-bottom: {{ section.settings.mobile_padding_bottom | divided_by: 10.0  }}rem;
+    }
+
+    {% if is_collection_first  %}
+      #shopify-section-{{ section.id }} .container {
+        flex-direction: column;
+      }
+    {% endif %}
+  }
+</style>
+
+<div data-id="{{ section.settings.section_id }}" class="container">
+  <div data-looks class="shopable-scroll-section__looks overflow-hidden" style="justify-content: {{ justify_content }};">
+    {% for look in looks %}
+      {% liquid
+        assign products = look.settings.products
+        assign products_size = products.count
+      %}
+
+      <div
+        data-swiper="{{ forloop.index0 }}"
+        class="shopable-scroll-section__look swiper {% unless forloop.first %}hidden{% endunless %}">
+        <div class="swiper-wrapper">
+          {% if look.settings.type == 'image' %}
+            {% for image_key in image_keys %}
+              {% liquid
+                assign image = look.settings[image_key]
+  
+                assign class = ""
+                assign loading = "eager"
+                unless forloop.first
+                  assign class = "image-lazy"
+                  assign loading = "lazy"
+                endunless
+              %}
+  
+              {% if image %}
+                <div class="swiper-slide">
+                  {{ image
+                    | image_url:
+                      width: 1500
+                    | image_tag:
+                      sizes: "50vw",
+                      widths: '375, 550, 750, 1100, 1500, 1780, 2000, 3000, 3840',
+                      class: class,
+                      loading: loading
+                  }}
+                </div>
+              {% endif %}
+            {% endfor %}
+          {% else %}
+            {% for video_key in video_keys %}
+              {% liquid
+                assign video = look.settings[video_key]
+
+                assign class = ""
+              %}
+              {% if video %}
+                <div class="swiper-slide">
+                  {{ video | video_tag: image_size: '1500', autoplay: true, loop: true, muted: true, controls: false }}
+                  <div class="slider__video--controls {{ look.settings.video_controls_position }}">
+                      <button data-type="video" data-state="playing" aria-label="Play video">
+                          {% render 'icon' with 'play-outline', fill: look.settings.video_controls_color %}
+                          {% render 'icon' with 'pause-outline', fill: look.settings.video_controls_color %}
+                      </button>
+                      <button data-type="audio" data-state="muted" aria-label="Unmute Audio">
+                          {% render 'icon' with 'unmute-outline', fill: look.settings.video_controls_color %}
+                          {% render 'icon' with 'mute-outline', fill: look.settings.video_controls_color %}
+                      </button>
+                  </div>
+                </div>
+              {% endif %}
+            {% endfor %}
+          {% endif %}
+        </div>
+        <div class="swiper-control swiper-button-next"></div>
+        <div class="swiper-control swiper-button-prev"></div>
+
+        {% if products_size > 0 %}
+          <div data-shop-modal-open class="shopable-scroll-section_shop">
+            {% for product in products %}
+              {% render 'create-product-object', product: product %}
+            {% endfor %}
+            {% render 'create-shop-images', keys: image_keys, settings: look.settings, class: class, loading: loading %}
+            <button
+              style="--shopable-scroll-section-shop-color: {{ look.settings.color }}"
+              class="Button-tertiary"
+              aria-label="{{ look.settings.text }}">
+              {{ look.settings.text }}
+            </button>
+          </div>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+  <div class="shopable-scroll-section__looks__buttons desktop-hidden">
+    {% for look in looks %}
+      <button data-look-key="{{ forloop.index0 }}" aria-label="Look {{ forloop.index }}" class="button--small text {% if forloop.first %}active{% endif %}">
+        Look {{ forloop.index }}
+      </button>
+    {% endfor %}
+  </div>
+  <div data-content class="shopable-scroll-section__content">
+    <div  class="shopable-scroll-section__content__inner">
+      <h1 class="Heading">{{ section.settings.title }}</h1>
+      <div class="shopable-scroll-section__description text mobile-hidden">
+        {{ section.settings.content }}
+      </div>
+      {% if collection_size > 0 and looks_size > 0 %}
+        <div class="shopable-scroll-section__cta">
+          <button data-action="looks" aria-label="{{ section.settings.cta_label_primary }}" class="Button-tertiary text">{{ section.settings.cta_label_primary }}</button>
+          <button data-action="collection" aria-label="{{ section.settings.cta_label_secondary }}" class="Button-tertiary text">{{ section.settings.cta_label_secondary }}</button>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+  <div class="shopable-scroll-section__description text-center text desktop-hidden">
+    {{ section.settings.content }}
+  </div>
+  <div data-collection class="shopable-scroll-section__collection">
+    <div class="shopable-scroll-section__collection__products">
+      {% for product in section.settings.collection.products limit: section.settings.products_to_show %}
+        {% render 'create-product-object', product: product %}
+        <div
+          data-swiper
+          data-open-quick-view="{{ product.handle }}"
+          class="shopable-scroll-section__collection__product swiper">
+          <div class="swiper-wrapper">
+            {% for image in product.images %}
+              {% liquid
+                assign class = ""
+                assign loading = "eager"
+                unless forloop.first
+                  assign class = "image-lazy"
+                  assign loading = "lazy"
+                endunless
+              %}
+              <div class="swiper-slide">
+                {{ image
+                  | image_url: width: 1500
+                  | image_tag:
+                  sizes: "20vw",
+                  widths: '150, 300, 450, 600',
+                  class: class,
+                  loading: loading
+                }}
+              </div>
+            {% endfor %}
+          </div>
+          <div class="swiper-control swiper-button-next"></div>
+          <div class="swiper-control swiper-button-prev"></div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<script>
+  (() => {
+    const section = document.querySelector('.shopable-scroll-section#shopify-section-{{ section.id }}');
+    const content = section.querySelector('[data-content]');
+    const looksSection = section.querySelector('[data-looks]');
+    const hiddenLooks = looksSection.querySelectorAll('[data-swiper].hidden');
+
+    const init = () => {
+      hiddenLooks.forEach(look => {
+        look.classList.remove('hidden');
+      });
+      looksSection.classList.remove('overflow-hidden');
+      content.scrollIntoView({ behavior: 'instant', inline: "{% if is_collection_first %}start{% else %}end{% endif %}", block: "nearest" });
+      document.body.scrollIntoView({ behavior: 'instant', block: "start", inline: "start" });
+
+    }
+
+    document.addEventListener("DOMContentLoaded", init);
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Shopable Scroll Section",
+  "class": "shopable-scroll-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_id",
+      "default": "unique_id",
+      "label": "Section ID",
+      "info": "Enter a unique data ID for this section"
+    },
+    {
+      "type": "header",
+      "content": "Content Settings",
+      "info": "These settings control the content of the section."
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Shopable Scroll",
+      "info": "This is the title of the section."
+    },
+    {
+      "type": "richtext",
+      "id": "content",
+      "label": "Content",
+      "default": "<p>This is the content of the section.</p>",
+      "info": "This is the content of the section."
+    },
+    {
+      "type": "header",
+      "content": "CTA Settings",
+      "info": "These settings control the CTA of the section."
+    },
+    {
+      "type": "text",
+      "id": "cta_label_primary",
+      "label": "CTA Label Primary",
+      "default": "SHOP HIS LOOK",
+      "info": "This is the label of the CTA primary."
+    },
+    {
+      "type": "text",
+      "id": "cta_label_secondary",
+      "label": "CTA Label Secondary",
+      "default": "GIFTS FOR HIM",
+      "info": "This is the label of the CTA secondary."
+    },
+    {
+      "type": "header",
+      "content": "Collection Settings",
+      "info": "These settings control the collection of the section."
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection",
+      "info": "This is the collection of the section."
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "label": "Products to show",
+      "default": 6,
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "info": "Number of products to show in the collection"
+    },
+    {
+      "id": "order",
+      "type": "select",
+      "label": "Order",
+      "options": [
+        {
+          "value": "looks-content-collection",
+          "label": "Looks, Content, Collection"
+        },
+        {
+          "value": "collection-content-looks",
+          "label": "Collection, Content, Looks"
+        }
+      ],
+      "default": "looks-content-collection",
+      "info": "This is the order of the sections on desktop."
+    },
+    {
+      "type": "header",
+      "content": "Padding | Desktop"
+    },
+    {
+      "type": "range",
+      "id": "desktop_padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding top | Desktop",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "desktop_padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding bottom | Desktop",
+      "default": 50
+    },
+    {
+      "type": "header",
+      "content": "Padding | Mobile"
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding top | Mobile",
+      "default": 25
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding bottom | Mobile",
+      "default": 25
+    }
+  ],
+  "blocks": [
+    {
+      "type": "look",
+      "name": "Look",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "select",
+          "id": "type",
+          "default": "image",
+          "label": "Choose type",
+          "options": [
+            {
+              "value": "image",
+              "label": "Image"
+            },
+            {
+              "value": "video",
+              "label": "Video"
+            }
+          ]
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image 1",
+          "info": "This is the image of the look."
+        },
+        {
+          "type": "image_picker",
+          "id": "image_2",
+          "label": "Image 2",
+          "info": "This is the image of the look."
+        },
+        {
+          "type": "image_picker",
+          "id": "image_3",
+          "label": "Image 3",
+          "info": "This is the image of the look."
+        },
+        {
+          "type": "image_picker",
+          "id": "image_4",
+          "label": "Image 4",
+          "info": "This is the image of the look."
+        },
+        {
+          "type": "video",
+          "id": "video",
+          "label": "video 1",
+          "info": "This is the video of the look."
+        },
+        {
+          "type": "video",
+          "id": "video_2",
+          "label": "video 2",
+          "info": "This is the video of the look."
+        },
+        {
+          "type": "video",
+          "id": "video_3",
+          "label": "video 3",
+          "info": "This is the video of the look."
+        },
+        {
+          "type": "video",
+          "id": "video_4",
+          "label": "video 4",
+          "info": "This is the video of the look."
+        },
+        {
+          "type": "select",
+          "id": "video_controls_position",
+          "default": "right",
+          "label": "Video Controls Position",
+          "info": "Choose video controls position",
+          "options": [
+              {
+                  "value": "left",
+                  "label": "Left"
+              },
+              {
+                  "value": "center",
+                  "label": "Center"
+              },
+              {
+                  "value": "right",
+                  "label": "Right"
+              }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "video_controls_color",
+          "default": "#000",
+          "label": "Video controls color",
+          "options": [
+              {
+                  "value": "#000",
+                  "label": "Black"
+              },
+              {
+                  "value": "#fff",
+                  "label": "White"
+              }
+          ]
+        },
+        {
+          "type": "product_list",
+          "id": "products",
+          "label": "Products",
+          "limit": 10
+        },
+        {
+          "type":"text",
+          "id":"text",
+          "label":"CTA Text",
+          "default":"SHOP"
+        },
+        {
+          "type":"color",
+          "id":"color",
+          "label":"CTA Color",
+          "default":"#FFF"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Shopable Scroll Section",
+      "settings": {}
+    }
+  ]
+}
+{% endschema %}

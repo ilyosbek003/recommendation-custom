@@ -1,0 +1,113 @@
+<script src="{{ 'product-title-replacement.js' | asset_url }}"></script>
+<script src="{{ 'product-slider.min.js' | asset_url }}" defer></script>
+{{ 'product-slider.min.css' | asset_url | stylesheet_tag }}
+
+{%- assign ss = section.settings -%}
+
+
+<div 
+    class="product-slider swiper"
+    data-slides-large={{ ss.slides_large }}
+    data-slides-desktop={{ ss.slides_desktop }} 
+    data-slides-tablet={{ ss.slides_tablet_large }} 
+    data-slides-tablet-small={{ ss.slides_tablet_small }} 
+    data-slides-mobile={{ ss.slides_mobile }}
+    data-center-slides={{ ss.center_slides }}
+>
+    <div class="product-slider--wrapper swiper-wrapper">
+        {%- for product in section.settings.products -%}
+            <script>
+                window.products = {
+                  ...(window.products || {}),
+                  {{ product.id }}: {
+                    id: {{ product.id }},
+                    title: window.replaceWords(`{{ product.title | escape }}`),
+                    options: {{ product.options_with_values | json }},
+                    variants: {{ product.variants | json }},
+                    tags: {{ product.tags | json }},
+                    type: `{{ product.type }}`,
+                  },
+                }
+              </script>
+
+            <div class="swiper-slide">
+                {% render 'product-grid-item', product: product %}
+            </div>
+        {%- endfor -%}
+    </div>
+</div>
+
+{% schema %}
+{
+    "name": "Product slider",
+    "settings": [
+        {
+            "type": "product_list",
+            "id": "products",
+            "label": "products"
+        },
+        {
+            "type": "checkbox",
+            "id": "center_slides",
+            "label": "Center slides",
+            "default": true
+        },
+        {
+            "type": "range",
+            "id": "slides_large",
+            "min": 5,
+            "max": 12,
+            "step": 0.1,
+            "unit": "pc",
+            "label": "Slides per view | Large screens",
+            "default": 6
+        },
+        {
+            "type": "range",
+            "id": "slides_desktop",
+            "min": 3,
+            "max": 12,
+            "step": 0.1,
+            "unit": "pc",
+            "label": "Slides per view | Desktop",
+            "default": 4
+        },
+        {
+            "type": "range",
+            "id": "slides_tablet_large",
+            "min": 2,
+            "max": 12,
+            "step": 0.1,
+            "unit": "pc",
+            "label": "Slides per view | Tablet",
+            "default": 4
+        },
+        {
+            "type": "range",
+            "id": "slides_tablet_small",
+            "min": 2,
+            "max": 8,
+            "step": 0.1,
+            "unit": "pc",
+            "label": "Slides per view | Small Tablet",
+            "default": 4
+        },
+        {
+            "type": "range",
+            "id": "slides_mobile",
+            "min": 2,
+            "max": 5,
+            "step": 0.1,
+            "unit": "pc",
+            "label": "Slides per view | Mobile",
+            "default": 2.5
+        }
+    ],
+    "presets": [
+        {
+            "name": "Product slider",
+            "settings": {}
+        }
+    ]
+}
+{% endschema %}

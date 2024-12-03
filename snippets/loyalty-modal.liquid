@@ -1,0 +1,31 @@
+<style>
+    .lion-rule-item--signup {
+        display: {% if customer.tags contains 'loyaltyAccount' %} block {% else %} none {% endif %} !important;
+    }
+</style>
+
+<div class="ly-modal" id="modal">
+    <div class="page-width">
+        <div class="ly-modal__header--top">
+            <span class="ly-modal__header--icon">
+                {% render 'icon-arrow' %}
+            </span>
+            <h4 class="ly-modal__header--title secondary-bold-text">{{ section.settings.rewards_title }}</h4>
+        </div>
+        <div class="ly-modal__container">
+            <div class="ly-modal__header">
+                <p class="ly-modal__header--content small-text">Spend <b>$500</b> more to reach Heritage</p>
+            </div>
+            <div class="accordion__wrapper">
+                <div class="accordion">
+                    {% render 'accordion-rewards' %}
+                    {% render 'accordion-account' %}
+                    {% render 'accordion-faq', blocks: blocks %}
+                    {% render 'accordion-orders' %}
+                    {% render 'accordion-contact' %}
+                    {% render 'accordion-wishlist' %}
+                </div>
+            </div>
+        </div>
+    </div> 
+</div>

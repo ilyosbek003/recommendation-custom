@@ -1,0 +1,16 @@
+{% comment %}theme-check-disable ImgLazyLoading{% endcomment %}
+{%- if predictive_search.performed and predictive_search.resources.queries.size > 0 -%}
+  <div class="predictive-search--queries">
+    <ul>
+      {%- for query in predictive_search.resources.queries -%}
+        <li id="predictive-search-option-query-{{ forloop.index }}" role="option" aria-selected="false">
+          <a href="{{ query.url }}" class="suggested-qury__item text-large" tabindex="-1">
+            <div class="suggested-qury__item-content">
+              <p class="suggested-qury__item-heading" aria-label="{{ query.text }}">{{ query.styled_text }}</p>
+            </div>
+          </a>
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+{%- endif -%}

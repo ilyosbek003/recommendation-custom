@@ -1,0 +1,16 @@
+
+{% if section.settings.layout == 'normal' %}
+  <div class="Product__xl-elements" data-hide-up-xl="true">
+    <div class="Product__form-head">
+      <h1 class="Product__title h5">{{ product.title }}</h1>
+    </div>
+    <div class="Product__sku">
+      Sku: 
+      <span>{% render 'product-sku' | product: product %}</span>
+    </div>
+    <div class="Product__description text-small">
+      <p class="upper-case text">Product Description</p>
+      {{ product.content }}
+    </div>
+  </div>
+{% endif %}

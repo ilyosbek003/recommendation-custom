@@ -1,0 +1,248 @@
+{%- assign resource = search -%}
+{%- assign productCount = search.results_count -%}
+
+<div 
+  id="section-wrapper-{{ section.id }}" 
+  data-product-card-layout="{{ section.settings.product_card_layout }}"
+>
+  {%- assign scroll_behaviour = section.settings.scroll_behaviour -%}
+  {%- assign productCountBeforeBtn = section.settings.product_count_before_btn -%}
+  {% assign load_btn_text = section.settings.load_btn_text %}
+  {% if currentCollectionScrollBlock != nil %}
+    {%- assign scroll_behaviour = currentCollectionScrollBlock.scroll_behaviour -%}
+    {%- assign productCountBeforeBtn = currentCollectionScrollBlock.product_count -%}
+    {% assign load_btn_text = currentCollectionScrollBlock.load_btn_text %}
+  {% endif %}
+  {% if search.results_count > 0 %}
+    {%- paginate search.results by productCountBeforeBtn -%}
+      <script data-products>
+        if (!window.Collection) {
+          window.Collection = {
+            section: {
+              id: `{{ section.id }}`
+            },
+            productCountBeforeBtn: {{ productCountBeforeBtn }},
+            isInfiniteScroll: `{{ scroll_behaviour }}` === 'infinite',
+          }
+        }
+        window.products = {
+          ...(window.products || {}),
+          {% for product in search.results %}
+            {{ product.id }}: {
+              id: {{ product.id }},
+              options: {{ product.options_with_values | json }},
+              variants: {{ product.variants | json }},
+              tags: {{ product.tags | json }},
+              type: `{{ product.type }}`,
+            },
+          {% endfor %}
+        }
+      </script>
+      <div class="collections" {% if paginate.next %} data-has-next-page=true {% endif %}>
+        {% include "product-grid-filters" %}
+        <div class="collections__body" style="--padding-desktop: {{ section.settings.padding_inline_desktop_products | divided_by: 10 }}rem; --padding-mobile:{{ section.settings.padding_inline_mobile_products | divided_by: 10 }}rem;">
+          <div class="collections__list" id="collection-list">
+            {% for product in search.results %}
+              {% include 'product-grid-item' %}
+            {% endfor %}
+          </div>
+          <div class="collections__empty">
+            <h3>No products found</h3>
+            <h3>Use fewer filters or remove all</h3>
+            <button id="empty-filters--clear" class="Button Button-primary">Remove all filters</button>
+          </div>
+          <button class="Button Button-primary Button--load-more{% unless scroll_behaviour == 'btn' and paginate.next %} hidden{% endunless %}">{{ load_btn_text }}</button>
+        </div>
+
+        <div class="collections__loader" id="collection-loader">
+            <div class="spinner">
+              <span class="spinner__circle"></span>
+            </div> 
+        </div>
+
+        <div class="scroll-target" id="scrollTarget"></div>
+      </div>
+    {%- endpaginate -%}
+  {% else %}
+      <div class="search-empty">
+        <h3>Sorry, no results for "{{ search.terms }}"</h3>
+        <h3>Please search for a different item</h3>
+      </div>
+  {% endif %}
+</div>
+
+{% schema %}
+  {
+    "name": "Main Search",
+    "class": "page-width",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Product Card"
+      }, 
+      {
+        "type": "color",
+        "id": "product_card_background",
+        "label": "Product card background color",
+        "default": "#e3e3e3"
+      },
+      {
+        "type": "header",
+        "content": "Filters container"
+      },
+      {
+        "type": "range",
+        "id": "padding_inline_desktop_filters",
+        "min": 0,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "label": "Inline padding | Desktop",
+        "default": 40
+      },
+      {
+        "type": "range",
+        "id": "padding_inline_mobile_filters",
+        "min": 0,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "label": "Inline padding | Mobile",
+        "default": 20
+      },
+      {
+        "type": "header",
+        "content": "Products container"
+      },
+      {
+        "type": "range",
+        "id": "padding_inline_desktop_products",
+        "min": 0,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "label": "Inline padding | Desktop",
+        "default": 40
+      },
+      {
+        "type": "range",
+        "id": "padding_inline_mobile_products",
+        "min": 0,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "label": "Inline padding | Mobile",
+        "default": 20
+      },
+      {
+        "type": "header",
+        "content": "Collection Settings",
+        "info": "Customize collection general settings"
+      },
+      {
+        "type": "select",
+        "id": "scroll_behaviour",
+        "label": "Pagination type",
+        "options": [
+          {
+            "value": "infinite",
+            "label": "Infinte scroll"
+          },
+          {
+            "value": "btn",
+            "label": "Load more button"
+          }
+        ]
+      },
+      {
+        "type": "range",
+        "id": "product_count_before_btn",
+        "step": 2,
+        "min": 16,
+        "max": 50,
+        "label": "Number of products before load more button",
+        "default": 16
+      },
+      {
+        "type": "text",
+        "id": "load_btn_text",
+        "label": "Load button text",
+        "default": "Load more"
+      },
+      {
+        "type": "header",
+        "content": "Search Settings",
+        "info": "Search collection general settings"
+      },
+      {
+        "type": "header",
+        "content": "Available colors",
+        "info": "Setting for available colors link"
+      },
+      {
+        "type": "checkbox",
+        "id": "color_available",
+        "label": "Show available Colors",
+        "default": true
+      },
+      {
+        "type": "select",
+        "id": "color_available_message_position",
+        "label": "Position of the message",
+        "options": [
+          {
+            "value": "afterbegin",
+            "label": "Before the price"
+          },
+          {
+            "value": "beforeend",
+            "label": "After the price"
+          }
+        ],
+        "default": "afterbegin"
+      },
+      {
+        "type": "text",
+        "id": "available_color_message",
+        "label": "Message for available colors" 
+      }
+    ],
+    "blocks": [
+      {
+        "type": "custom_filters",
+        "name": "Custom Filters",
+        "settings": [
+          {
+            "type": "text",
+            "id": "heading",
+            "label": "Title",
+            "info": "Title is optional and is used to help admins to differentiate the blocks "
+          },
+          {
+            "type": "collection",
+            "id": "filter_collection",
+            "label": "Collection for custom filtering",
+            "info": "Optional"
+          },
+          {
+            "type": "text",
+            "id": "filter_key",
+            "label": "Filter key"
+          },
+          {
+            "type": "text",
+            "id": "filter_values",
+            "label": "Filter values",
+            "info": "Comma separated values. For example: BLACK, WHITE, RED"
+          },
+          {
+            "type": "text",
+            "id": "replace_values",
+            "label": "Replace values",
+            "info": "Values that should be displayed under different label. For example: [XXXL|3XL], [XXXXL|4XL]"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

@@ -1,0 +1,664 @@
+<script src="{{ 'product-title-replacement.js' | asset_url }}"></script>
+
+{%- assign resource = collection -%}
+{%- assign productCount = collection.products_count -%}
+{%- assign banners = section.blocks | where: "type", "collection_banner" -%}
+{%- assign currentBanner = banners | map: 'settings' | where: "collection_main_banner", collection | first -%}
+<div 
+  id="section-wrapper-{{ section.id }}" 
+  data-product-card-layout="{{ section.settings.product_card_layout }}"
+  data-prom-banners="{{ promBannerIndexes}}"
+  style="--card-background:{{ section.settings.product_card_background }}"
+>
+  {%- assign scroll_behaviour = section.settings.scroll_behaviour -%}
+  {%- assign productCountBeforeBtn = section.settings.product_count_before_btn -%}
+  {%- assign currentCollectionScrollBlock = section.blocks 
+    | where: "type", "scroll_settings" 
+    | map: "settings" 
+    | where: "collection", collection 
+    | first
+  -%}
+  {% assign load_btn_text = section.settings.load_btn_text %}
+  {% if currentCollectionScrollBlock != nil %}
+    {%- assign scroll_behaviour = currentCollectionScrollBlock.scroll_behaviour -%}
+    {%- assign productCountBeforeBtn = currentCollectionScrollBlock.product_count -%}
+    {% assign load_btn_text = currentCollectionScrollBlock.load_btn_text %}
+  {% endif %}
+  {%- paginate collection.products by productCountBeforeBtn -%}
+    <script data-products>
+      if (!window.Collection) {
+        window.Collection = {
+          handle: `{{ collection.handle }}`,
+          section: {
+            id: `{{ section.id }}`
+          },
+          productCountBeforeBtn: {{ productCountBeforeBtn }},
+          isInfiniteScroll: `{{ scroll_behaviour }}` === 'infinite',
+        }
+      }
+      window.products = {
+        ...(window.products || {}),
+        {% for product in collection.products %}
+          {{ product.id }}: {
+            id: {{ product.id }},
+            title: window.replaceWords(`{{ product.title | escape }}`),
+            options: {{ product.options_with_values | json }},
+            variants: {{ product.variants | json }},
+            tags: {{ product.tags | json }},
+            type: `{{ product.type }}`,
+          },
+        {% endfor %}
+      }
+    </script>
+    {%- if currentBanner != blank %}
+      <div class="collections__hero" style="--margin-top-desktop: {{ currentBanner.margin_top_desktop }}px; --margin-top-mobile: {{ currentBanner.margin_top_mobile }}px;">
+        <div class="collections__hero--image collections__hero--{{ currentBanner.banner_width }}">
+          <picture>
+            <source srcset="{{ currentBanner.collection_main_banner_image_desktop | img_url: '1200x' }}" media="(min-width: 1009px)">
+            <img src="{{ currentBanner.collection_main_banner_image_mobile | img_url: '600x' }}" alt="Collection Banner" style="aspect-ratio:{{ currentBanner.collection_main_banner_image_desktop.aspect_ratio }};">
+          </picture>
+        </div>
+      </div>
+    {%- endif -%}
+    <div class="collections{% unless paginate.current_page == 1 %} loading{% endunless %}" {% if paginate.next %} data-has-next-page=true {% endif %}>
+      {% include "product-grid-filters" %}
+      <div class="collections__body" style="--padding-desktop: {{ section.settings.padding_inline_desktop_products | divided_by: 10 }}rem; --padding-mobile:{{ section.settings.padding_inline_mobile_products | divided_by: 10 }}rem;">
+        <div class="collections__list" id="collection-list">
+          {% for product in collection.products %}
+            {% include 'promotional-banner' %}
+            {% include 'product-grid-item' %}
+          {% endfor %}   
+        </div>
+        <div class="collections__empty{% if collection.products_count < 1 %} active{% endif %}">
+          <h3>No products found</h3>
+          <h3>Use fewer filters or remove all</h3>
+          <button id="empty-filters--clear" class="Button Button-primary empty-filters--clear">Remove all filters</button>
+        </div>
+        <button class="Button Button-primary Button--load-more{% unless scroll_behaviour == 'btn' and paginate.next %} hidden{% endunless %}">{{ load_btn_text }}</button>
+      </div>
+
+      <div class="collections__loader" id="collection-loader">
+          <div class="spinner">
+            <span class="spinner__circle"></span>
+          </div> 
+      </div>
+
+      <div class="scroll-target" id="scrollTarget"></div>
+    </div>
+  {%- endpaginate -%}
+</div>
+
+{% schema %}
+  {
+    "name": "Collection settings",
+    "class": "page-width",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Product Card"
+      }, 
+      {
+        "type": "color",
+        "id": "product_card_background",
+        "label": "Product card background color",
+        "default": "#e3e3e3"
+      },
+      {
+        "type": "header",
+        "content": "Filters container"
+      },
+      {
+        "type": "range",
+        "id": "padding_inline_desktop_filters",
+        "min": 0,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "label": "Inline padding | Desktop",
+        "default": 40
+      },
+      {
+        "type": "range",
+        "id": "padding_inline_mobile_filters",
+        "min": 0,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "label": "Inline padding | Mobile",
+        "default": 20
+      },
+      {
+        "type": "header",
+        "content": "Products container"
+      },
+      {
+        "type": "range",
+        "id": "padding_inline_desktop_products",
+        "min": 0,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "label": "Inline padding | Desktop",
+        "default": 40
+      },
+      {
+        "type": "range",
+        "id": "padding_inline_mobile_products",
+        "min": 0,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "label": "Inline padding | Mobile",
+        "default": 20
+      },
+      {
+        "type": "header",
+        "content": "Collection Settings",
+        "info": "Customize collection general settings"
+      },
+      {
+        "type": "select",
+        "id": "scroll_behaviour",
+        "label": "Pagination type",
+        "options": [
+          {
+            "value": "infinite",
+            "label": "Infinte scroll"
+          },
+          {
+            "value": "btn",
+            "label": "Load more button"
+          }
+        ]
+      },
+      {
+        "type": "range",
+        "id": "product_count_before_btn",
+        "step": 2,
+        "min": 16,
+        "max": 50,
+        "label": "Number of products before load more button",
+        "default": 16
+      },
+      {
+        "type": "text",
+        "id": "load_btn_text",
+        "label": "Load button text",
+        "default": "Load more"
+      },
+      {
+        "type": "header",
+        "content": "Available colors",
+        "info": "Setting for available colors link"
+      },
+      {
+        "type": "checkbox",
+        "id": "color_available",
+        "label": "Show available Colors",
+        "default": true
+      },
+      {
+        "type": "select",
+        "id": "color_available_message_position",
+        "label": "Position of the message",
+        "options": [
+          {
+            "value": "afterbegin",
+            "label": "Before the price"
+          },
+          {
+            "value": "beforeend",
+            "label": "After the price"
+          }
+        ],
+        "default": "afterbegin"
+      },
+      {
+        "type": "text",
+        "id": "available_color_message",
+        "label": "Message for available colors" 
+      }
+    ],
+    "blocks": [
+      {
+        "type": "collection_banner",
+        "name": "Collection Banner",
+        "settings": [
+          {
+            "type": "text",
+            "id": "heading",
+            "label": "Title",
+            "info": "Title is optional and is used to help admins to differentiate the blocks "
+          },
+          {
+            "type": "collection",
+            "id": "collection_main_banner",
+            "label": "Collection to add banner",
+            "info": "Choose collection"
+          },
+          {
+            "type": "image_picker",
+            "id": "collection_main_banner_image_desktop",
+            "label": "Main Banner | Desktop"
+          },
+          {
+            "type": "range",
+            "id": "margin_top_desktop",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "px",
+            "label": "Margin top | Desktop",
+            "default": 0
+          },
+          {
+            "type": "image_picker",
+            "id": "collection_main_banner_image_mobile",
+            "label": "Main Banner | Mobile"
+          },
+          {
+            "type": "range",
+            "id": "margin_top_mobile",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "px",
+            "label": "Margin top | Mobile",
+            "default": 0
+          },
+          {
+            "type": "select",
+            "id": "banner_width",
+            "label": "Banner width",
+            "options": [
+              {
+                "value": "full",
+                "label": "Full Bleed"
+              },
+              {
+                "value": "bordered",
+                "label": "Bordered"
+              }
+            ],
+            "default": "full"
+
+          }
+        ]
+      },
+      {
+        "type": "promotional_banner",
+        "name": "Promotional Banner",
+        "settings": [
+          {
+            "type": "text",
+            "id": "heading",
+            "label": "Title",
+            "info": "Title is optional and is used to help admins to differentiate the blocks "
+          },
+          {
+            "type": "header",
+            "content": "General"
+          },
+          {
+            "type": "select",
+            "id": "banner_size",
+            "label": "Banner Size",
+            "options": [
+              {
+                "value": "small",
+                "label": "Small"
+              },
+              {
+                "value": "large",
+                "label": "Large"
+              }
+            ],
+            "default": "large"
+          },
+          {
+            "type": "collection",
+            "id": "banner_collection",
+            "label": "Collection to add banner",
+            "info": "Choose collection"
+          },
+          {
+            "type": "text",
+            "id": "products_count",
+            "label": "Number of products before banner"
+          },
+          {
+            "type": "select",
+            "id": "banner_type",
+            "label": "Banner type",
+            "options": [
+              {
+                "value": "image",
+                "label": "Image"
+              },
+              {
+                "value": "video",
+                "label": "Video"
+              }
+            ]
+          },
+          {
+            "type": "url",
+            "id": "link",
+            "label": "Link",
+            "info": "Banner can be linked | Optional"
+          },
+          {
+            "type": "range",
+            "id": "overlay",
+            "label": "Banner overlay",
+            "min": 0,
+            "max": 80,
+            "unit": "%",
+            "default": 0
+          },
+          {
+            "type": "range",
+            "id": "padding_bottom_mobile",
+            "label": "Padding-bottom | Mobile",
+            "min": 0,
+            "max": 50,
+            "unit": "px",
+            "default": 20
+          },
+          {
+            "type": "header",
+            "content": "Banner content"
+          },
+          {
+            "type": "color",
+            "id": "content_color",
+            "label": "Content color",
+            "default": "#fff"
+          },
+          {
+            "type": "select",
+            "id": "content_position",
+            "label": "Content Position",
+            "options": [
+              {
+                "value": "center",
+                "label": "Center"
+              },
+              {
+                "value": "bottom",
+                "label": "Bottom"
+              },
+              {
+                "value": "below",
+                "label": "Below"
+              }
+            ],
+            "default": "center"
+          },
+          {
+            "type": "text",
+            "id": "heading_text",
+            "label": "Heading"
+          },
+          {
+            "type": "select",
+            "id": "heading_size",
+            "label": "Heading size | Desktop",
+            "options": [
+              {
+                "value": "h1",
+                "label": "h1"
+              },
+              {
+                "value": "h2",
+                "label": "h2"
+              },
+              {
+                "value": "h3",
+                "label": "h3"
+              },
+              {
+                "value": "h4",
+                "label": "h4"
+              },
+              {
+                "value": "h5",
+                "label": "h5"
+              }
+            ],
+            "default": "h1"
+          },
+          {
+            "type": "select",
+            "id": "heading_size_mobile",
+            "label": "Heading size | Mobile",
+            "options": [
+              {
+                "value": "h1_mobile",
+                "label": "h1"
+              },
+              {
+                "value": "h2_mobile",
+                "label": "h2"
+              },
+              {
+                "value": "h3_mobile",
+                "label": "h3"
+              },
+              {
+                "value": "h4_mobile",
+                "label": "h4"
+              },
+              {
+                "value": "h5_mobile",
+                "label": "h5"
+              }
+            ],
+            "default": "h5_mobile"
+          },
+          {
+            "type": "select",
+            "id": "heading_align",
+            "label": "Align heading",
+            "options": [
+              {
+                "value": "left",
+                "label": "Left"
+              },
+              {
+                "value": "center",
+                "label": "Center"
+              },
+              {
+                "value": "right",
+                "label": "Right"
+              }
+            ],
+            "default": "left"
+          },
+          {
+            "type": "text",
+            "id": "text",
+            "label": "Text"
+          },
+          {
+            "type": "select",
+            "id": "text_size",
+            "label": "Text size",
+            "options": [
+              {
+                "value": "text-small",
+                "label": "Small"
+              },
+              {
+                "value": "text",
+                "label": "Medium"
+              },
+              {
+                "value": "text-large",
+                "label": "Large"
+              }
+            ],
+            "default": "text"
+          },
+          {
+            "type": "text",
+            "id": "button_text",
+            "label": "Button text"
+          },
+          {
+            "type": "url",
+            "id": "button_link",
+            "label": "Link"
+          },
+          {
+            "type": "select",
+            "id": "buttons_style",
+            "label": "Buttons style",
+            "options": [
+              {
+                "value": "primary",
+                "label": "Primary"
+              },
+              {
+                "value": "primary-outline",
+                "label": "Outline"
+              },
+              {
+                "value": "secondary",
+                "label": "Secondary"
+              },
+              {
+                "value": "tertiary",
+                "label": "Tertiary"
+              }
+            ],
+            "default": "tertiary"
+          },
+          {
+            "type": "header",
+            "content": "Image content"
+          },
+          {
+            "type": "image_picker",
+            "id": "img_desktop",
+            "label": "Banner image | Desktop"
+          },
+          {
+            "type": "image_picker",
+            "id": "img_mobile",
+            "label": "Banner image | Mobile"
+          },
+          {
+            "type": "text",
+            "id": "alt",
+            "label": "Alt text",
+            "default": "Featured Banner"
+          },
+          {
+            "type": "header",
+            "content": "Video content"
+          },
+          {
+            "type": "url",
+            "id": "video_desktop",
+            "label": "Banner video | Desktop"
+          },
+          {
+            "type": "url",
+            "id": "video_mobile",
+            "label": "Banner video | Mobile"
+          },
+          {
+            "type": "image_picker",
+            "id": "video_poster",
+            "label": "Video poster"
+          },
+          {
+            "type": "text",
+            "id": "iframe_title",
+            "label": "Title for video",
+            "default": "Featured video",
+            "info": "Improves accessibility"
+          }
+        ]
+      },
+      {
+        "type": "custom_filters",
+        "name": "Custom Filters",
+        "settings": [
+          {
+            "type": "text",
+            "id": "heading",
+            "label": "Title",
+            "info": "Title is optional and is used to help admins to differentiate the blocks "
+          },
+          {
+            "type": "collection",
+            "id": "filter_collection",
+            "label": "Collection for custom filtering",
+            "info": "Optional"
+          },
+          {
+            "type": "text",
+            "id": "filter_key",
+            "label": "Filter key"
+          },
+          {
+            "type": "text",
+            "id": "filter_values",
+            "label": "Filter values",
+            "info": "Comma separated values. For example: BLACK, WHITE, RED"
+          },
+          {
+            "type": "text",
+            "id": "replace_values",
+            "label": "Replace values",
+            "info": "Values that should be displayed under different label. For example: [XXXL|3XL], [XXXXL|4XL]"
+          }
+        ]
+      },
+      {
+        "type": "scroll_settings",
+        "name": "Pagination type",
+        "settings": [
+          {
+            "type": "collection",
+            "id": "collection",
+            "label": "Choose collection"
+          },
+          {
+            "type": "select",
+            "id": "scroll_behaviour",
+            "label": "Pagination type",
+            "options": [
+              {
+                "value": "infinite",
+                "label": "Infinte scroll"
+              },
+              {
+                "value": "btn",
+                "label": "Load more button"
+              }
+            ]
+          },
+          {
+            "type": "range",
+            "id": "product_count",
+            "step": 2,
+            "min": 16,
+            "max": 50,
+            "label": "Number of products before Load more button",
+            "default": 50
+          },
+          {
+            "type": "text",
+            "id": "load_btn_text",
+            "label": "Load button text",
+            "default": "Load more"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

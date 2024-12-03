@@ -1,0 +1,81 @@
+{% if product != blank and product.available == true %}
+  {% assign productHandleArr = product.metafields.global.metafield_product_handle | split: ',' %}
+  <div class="quick-shop__card swiper-slide" data-product-id="{{ product.id }}">
+    <div class="product-item product-item--layout_2">
+      <div class="product-item__body">
+        <div class="product-item__link">
+          <picture class="product-item__media product-item__media--image">
+            <source 
+              media="(min-width: 1025px)" 
+              srcset="{{ product.images[0] | img_url: '1100x' }}"
+            >
+            <source 
+              media="(max-width: 1024px)" 
+              srcset="{{ product.images[0] | img_url: '900x' }}" 
+            >
+            <source 
+              media="(max-width: 768px)" 
+              srcset="{{ product.images[0] | img_url: '600x' }}"
+            >
+            <img 
+              class="product-item__media product-item__media--image" 
+              srcset="{{ product.images[0] | img_url: '600x' }}"
+              loading="lazy"
+            >
+          </picture>
+          {% if product.images.size > 1 %}
+            <picture class="product-item__media product-item__media--image">
+              <source 
+                media="(min-width: 1025px)" 
+                srcset="{{ product.images[1] | img_url: '1100x' }}"
+              >
+              <source 
+                media="(max-width: 1024px)" 
+                srcset="{{ product.images[1] | img_url: '900x' }}"
+              >
+              <source 
+                media="(max-width: 768px)" 
+                srcset="{{ product.images[1] | img_url: '600x' }}"
+              >
+              <img 
+                class="product-item__media product-item__media--image" 
+                srcset="{{ product.images[1] | img_url: '600x' }}"
+                loading="lazy"
+              >
+            </picture>
+          {% endif %}
+        </div>
+      </div>
+      <div class="product-item__footer">
+        <div class="product-item__link">
+          <span class="product-title">
+            {{ product.title }}
+          </span>
+        </div>
+        <div class="product-item__price-group">
+          {% if productHandleArr.size > 0 %}
+            <span class="product-color-link">
+              {{ productHandleArr.size | plus: 1 }}
+              Colors
+            </span>
+          {% endif %}
+          <div class="producti-item__price-inner">
+            <span class="product-price">
+              {{ product.price | money_without_trailing_zeros }}
+            </span>
+            {% if product.compare_at_price != blank %}
+              <span class="product-price product-price--real">
+                {{ product.compare_at_price | money_without_trailing_zeros }}
+              </span> 
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+    <button class="product-item__cart-btn">
+      {% render 'icon' with 'plus-icon' %} 
+      <span class="short">Add</span>
+    </button>
+    <div class="wishlist-engine quick-shop__wishlist" data-product_id="{{product.id}}" data-variant_id="{{product.variants[0].id}}" data-full_button="false" data-css="true"></div>
+  </div>
+{% endif %}

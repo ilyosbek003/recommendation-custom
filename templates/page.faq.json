@@ -1,0 +1,97 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "settings": {
+        "padding_top": 28,
+        "padding_bottom": 28,
+        "show_content": false
+      }
+    },
+    "165935113545051677": {
+      "type": "collapsible-content",
+      "blocks": {
+        "1659351135b1c944c4-0": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "PRODUCTS & ORDERS",
+            "icon": "none",
+            "row_content": "<p><strong>HOW DO I REACH BUGATCHI CUSTOMER SERVICE?<\/strong><\/p><p>We invite you to contact us at customerservice@bugatchi.com or (561)893-0555 during our standard business hours Monday through Friday between 8:30 a.m. - 5:00 p.m. EST.  Please include your telephone number, so that we may call you if necessary. <\/p><p><\/p><p><strong>HOW DO I USE MY BUGATCHI WELCOME PROMOTIONAL CODE?<\/strong><\/p><p>Your one-time-only promotional cannot be accepted, or processed, until you have logged into your BUGATCHI.com account (not as a guest).  Please enter and also apply your promotional code on your SHOPPING BAG page (by clicking on “+\/Apply”, to the right of the “Enter Your Promo Code” box), then complete your order.  Please check that your promo code has been acknowledged before you finalize your BUGATCHI.com order.  <\/p><p><\/p><p><strong>HOW DO I KNOW THAT MY ONLINE ORDER HAS BEEN PROCESSED\/SHIPPED?<\/strong><\/p><p>After your order has been placed, you will receive an auto-generated Order Confirmation email from BUGATCHI.com outlining the details of your order.  Following shipment, you will also receive an auto-generated Shipping Confirmation email, with your FedEx tracking information.<\/p><p><\/p><p><strong>WHAT SHOULD I DO IF I DIDN’T RECEIVE PART\/ALL OF MY BUGATCHI.com ORDER?<\/strong><\/p><p>Please check your email (including your junk folder) and telephone messages, to receive any urgent notification from us regarding a possible issue relating to your online order (ie:  out of stock merchandise, merchandise substitutions, payment method security flags, etc.).  If you haven’t heard from us, then please contact us by email at customerservice@bugatchi.com and include your telephone number with your inquiry, so that we may reach you during our standard business hours (Monday through Friday between 8:00 a.m. - 5:00 p.m. EST).<\/p>",
+            "page": ""
+          }
+        },
+        "1659351135b1c944c4-1": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "PAYMENT METHODS",
+            "icon": "none",
+            "row_content": "<p><strong>WHAT PAYMENT METHODS DO YOU ACCEPT?<\/strong><\/p><p>BUGATCHI.com accepts payments by all major credit and debit cards (Visa, MasterCard, American Express, Discover & JCB, Diners Club, Elo, Shop Pay, Apple Pay, Google Pay), as well as PayPal. <\/p><p><\/p><p><strong>WILL MY BUGATCHI.COM ORDER BE CHARGED SALES TAX?<\/strong><\/p><p>You will not be charged sales tax, unless we are shipping your online order to the state of Florida, or the state of New York.<\/p>",
+            "page": ""
+          }
+        },
+        "1659351135b1c944c4-2": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "SHIPPING",
+            "icon": "none",
+            "row_content": "<p><strong>WILL I NEED TO SIGN FOR MY BUGATCHI.COM PACKAGE UPON DELIVERY<\/strong><\/p><p>If your BUGATCHI.com order totals UZS‌2,757,400 or more, it will require a signature for delivery by FedEx.  This security measure has been instituted to protect your luxury goods investment.  Please contact us at <a href=\"mailto:customerservice@bugatchi.com\">customerservice@bugatchi.com<\/a> immediately if this presents an issue.  <em><strong>Please include your telephone number.<\/strong><\/em>  Our standard Customer Service hours are Monday through Friday between 8:30 a.m. - 5:00 p.m. EST.<\/p><p><\/p><p><strong>DO YOU OFFER EXPEDITED SHIPPING?<\/strong><\/p><p>We offer FedEx 3-Day Shipping (which means three business days, starting the following business day after your order has shipped) for a standard UZS‌299,800 shipping fee. <\/p><p><\/p><p><strong>HOW CAN I TRACK MY ORDER? <\/strong><\/p><p>When you receive the Shipping Confirmation email from BUGATCHI, the information provided will contain a relevant FedEx tracking number that you can use to track via the FedEx website or through our order tracking page that can be found at <a href=\"https:\/\/bugatchi-group-inc.myshopify.com\/apps\/trackingmore\">https:\/\/bugatchi-group-inc.myshopify.com\/apps\/trackingmore<\/a>.<\/p><p><\/p><p><\/p><p><strong>DO YOU SHIP INTERNATIONALLY?<\/strong><\/p><p>Yes. We currently ship to nearly all countries. Please click on the flag (located in the top right corner of the navigation on the desktop version of BUGATCHI.COM or at the bottom of the flyout menu on the mobile version of BUGATCHI.com) and select the relevant country of shipment and the corresponding currency. From there, all prices should appear in the appropriate currency. <\/p>",
+            "page": ""
+          }
+        },
+        "1659351135b1c944c4-3": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "RETURNS & EXCHANGES",
+            "icon": "none",
+            "row_content": "<p><strong>WHAT IS THE BUGATCHI.COM RETURN\/EXCHANGE POLICY?  HOW DO I RETURN\/EXCHANGE PRODUCTS? <\/strong><\/p><p>This Return\/Exchange Information is subject to our Refunds, Returns and Cancellation Policy described in more detail in our <a href=\"https:\/\/bugatchi-group-inc.myshopify.com\/pages\/terms-conditions\">Terms and Conditions<\/a>. For international returns, please skip to Section 6.10 and 6.11 of our <a href=\"https:\/\/bugatchi-group-inc.myshopify.com\/pages\/terms-conditions\">Terms and Conditions.<\/a><\/p><p>You may return\/exchange your purchase from BUGATCHI.com within 14 days of delivery.  If your order included two or more items with separate delivery dates, time will be calculated from the date of receipt of the last item in your order.<\/p><p>All items must be returned in perfect, unworn condition, in their original packaging, complete with accessories, labels, a copy of the packing slip and in its original shipping container (or one of equivalent durability), with tags and seals, where present, still attached to the items. BUGATCHI will not accept returns\/exchanges for items marked as “Final Sale” at the time of order, nor will BUGATCHI issue any credit towards the return of Products marked as “Final Sale”.  Please note that all swimwear, as well as Products discounted by Forty Percent (40%) or more, and masks are considered Final Sale at the time of order and are not eligible for returns or exchanges.  BUGATCHI reserves the right to refuse returns communicated and\/or shipped late and items that are not in the same condition in which they were received, at BUGATCHI’s sole discretion.<\/p><p>Please carefully and securely package the unworn\/unused items, complete and enclose the RETURNS\/EXCHANGE FORM, included with your BUGATCHI.com order, and return them to us using the prepaid FedEx return shipping label requested from our Customer Service Department (customerservice@bugatchi.com) in accordance with the procedures outlined in Section 6 of our <a href=\"https:\/\/bugatchi-group-inc.myshopify.com\/pages\/terms-conditions\">Terms and Conditions<\/a>. <\/p><p>Following receipt of your return and upon verification of its integrity, we will process your refund as soon as possible.  The refund credit will be applied toward your original payment method.  You will receive a Refund Confirmation email from us outlining this transaction, upon its completion.  Following receipt of your return, please allow 7-10 business days for this process.  <\/p>",
+            "page": ""
+          }
+        },
+        "cb0548aa-313a-463a-b62f-1279aa83fe9c": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "ACCOUNT & PRIVACY",
+            "icon": "none",
+            "row_content": "<p><strong>HOW DO I CREATE AN ACCOUNT?<\/strong><\/p><p>To create a BUGATCHI account please use the following link:<\/p><p><a href=\"https:\/\/www.bugatchi.com\/account\/login?return_url=%2Faccount\">https:\/\/www.bugatchi.com\/account\/login?return_url=%2Faccount<\/a><\/p><p>Check your inbox and the process for creating an account will be appropriately specified. <\/p><p><strong>WHAT IS BUGATCHI's PRIVACY POLICY?<\/strong><\/p><p>For more information about BUGATCHI’s privacy policy please use the following link:<\/p><p><a href=\"https:\/\/www.bugatchi.com\/pages\/privacy-policy\">https:\/\/www.bugatchi.com\/pages\/privacy-policy<\/a><\/p><p><strong>HOW DO I RESET MY ACCOUNT PASSWORD?<\/strong><\/p><p>You may reset your password by clicking on the \"Forgot password?\" link located in the PASSWORD box.  A reset password link and instructions will be emailed to you.   <\/p><p><strong>HOW DO I RECEIVE PROMOTIONAL CODES\/SALE NOTIFICATIONS?<\/strong><\/p><p>Please sign up for our BUGATCHI.com newsletter to receive a variety of exciting special offers and promo codes!<\/p>",
+            "page": ""
+          }
+        },
+        "68dc3e23-4f03-4857-9e3e-2f92af68c787": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "GIFT CARDS",
+            "icon": "none",
+            "row_content": "<p><strong>DO YOU OFFER GIFT CARDS?<\/strong><\/p><p>We are happy to offer BUGATCHI.COM digital gift cards for all your of your gift-giving needs! Please use the link below to access the gift card. <\/p><p><a href=\"https:\/\/bugatchi-group-inc.myshopify.com\/collections\/bugatchi-gift-cards\/products\/bugatchi-gift-cards\" title=\"Gift Cards\">Gift Cards <\/a><\/p>",
+            "page": ""
+          }
+        }
+      },
+      "block_order": [
+        "1659351135b1c944c4-0",
+        "1659351135b1c944c4-1",
+        "1659351135b1c944c4-2",
+        "1659351135b1c944c4-3",
+        "cb0548aa-313a-463a-b62f-1279aa83fe9c",
+        "68dc3e23-4f03-4857-9e3e-2f92af68c787"
+      ],
+      "settings": {
+        "caption": "",
+        "heading": "",
+        "heading_size": "h1",
+        "heading_alignment": "center",
+        "layout": "none",
+        "color_scheme": "background-1",
+        "container_color_scheme": "background-2",
+        "open_first_collapsible_row": false,
+        "image_ratio": "adapt",
+        "desktop_layout": "image_second",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    }
+  },
+  "order": [
+    "main",
+    "165935113545051677"
+  ]
+}

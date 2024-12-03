@@ -1,0 +1,174 @@
+{% comment %} 
+  accepts:
+    - menu: The menu on which the subnav should be be build on
+    - class: String to be added to classes of main div
+{% endcomment %}
+
+
+{% assign cat_lvl_1_title = '' %}
+{% assign cat_lvl_1_link = '' %}
+{% assign cat_lvl_2 = '' %}
+{% assign cat_lvl_3 = '' %}
+{% assign cat_lvl_4 = '' %}
+{% assign cat_lvl_1_handle = '' %}
+{% assign cat_lvl_2_handle = '' %}
+{% assign cat_lvl_3_handle = '' %}
+{% assign selected_cat_children = '' %}
+
+
+
+{%- capture contentForQuerystring -%}{{ content_for_header }}{%- endcapture -%}
+{%- assign pageUrl = contentForQuerystring
+  | split: '"pageurl":"'
+  | last
+  | split: '"'
+  | first
+  | split: '.myshopify.com'
+  | last
+  | replace: '\/', '/'
+  | replace: '%20', ' '
+  | replace: '\u0026', '&'
+-%}
+
+{% assign page_url_split_lvl_1 = pageUrl | split: "nav.p1=" %}
+{% if page_url_split_lvl_1.size > 1 %}
+  {% assign cat_lvl_1_handle = pageUrl | split: "nav.p1=" | last | split: ".e1" | first %}
+  {% assign page_url_split_lvl_2 = pageUrl | split: "nav.p2=" %}
+  {% assign page_url_split_lvl_3 = pageUrl | split: "nav.p3=" %}
+  {% if page_url_split_lvl_2.size > 1 %}
+    {% assign cat_lvl_2_handle = pageUrl | split: "nav.p2=" | last | split: ".e2" | first %}
+  {% endif %}
+  {% if page_url_split_lvl_3.size > 1 %}
+    {% assign cat_lvl_3_handle = pageUrl | split: "nav.p3=" | last | split: ".e3" | first %}
+  {% endif %}
+
+  {% assign cat_lvl_1 = menu.links | where: 'handle', cat_lvl_1_handle | first %}
+  {% assign ponited_list = linklists[cat_lvl_1.title] %}
+  {% assign cat_lvl_1_children = ponited_list.links %}
+  {% assign cat_lvl_2 = ponited_list.links | where: 'handle', cat_lvl_2_handle | first %}
+  {% assign cat_lvl_3 = cat_lvl_2.links | where: 'handle', cat_lvl_3_handle | first %}
+  
+  {% assign cat_lvl_1_title = cat_lvl_1.title %}
+  {% assign pointed_list = linklists[cat_lvl_1_title] %}
+  {% if pointed_list %}
+    {% assign cat_lvl_1_title = pointed_list.title %}
+  {% endif %}
+  {% assign cat_lvl_1_link = cat_lvl_1 %}
+  {% assign selected_cat_children = pointed_list %}
+{% else %}
+  {% for item in menu.links %}
+    {% assign title = item.title %}
+    {% assign pointed_list = linklists[title] %}
+    {% if pointed_list %}
+      {% assign title = pointed_list.title %}
+    {% endif %}
+
+    {% if item.current %}
+      {% assign cat_lvl_1_title = title %}
+      {% assign cat_lvl_1_link = item %}
+      {% assign cat_lvl_1_children = pointed_list.links %}
+    {% endif %}
+
+    {% for link in pointed_list.links %}
+      {% if link.current %}
+        {% assign cat_lvl_1_title = title %}
+        {% assign cat_lvl_1_link = item %}
+        {% assign cat_lvl_1_children = pointed_list.links %}
+        {% assign cat_lvl_2 = link %}
+      {% endif %}
+
+      {% for child_link in link.links %}
+        {% if child_link.current %}
+          {% assign cat_lvl_1_title = title %}
+          {% assign cat_lvl_1_link = item %}
+          {% assign cat_lvl_1_children = pointed_list.links %}
+          {% assign cat_lvl_2 = link %}
+          {% assign cat_lvl_3 = child_link %}
+        {% endif %}
+
+        {% for grand_child_link in child_link.links %}
+          {% if grand_child_link.current %}
+            {% assign cat_lvl_1_title = title %}
+            {% assign cat_lvl_1_link = item %}
+            {% assign cat_lvl_1_children = pointed_list.links %}
+            {% assign cat_lvl_2 = link %}
+            {% assign cat_lvl_3 = child_link %}
+            {% assign cat_lvl_4 = grand_child_link %}
+          {% endif %}
+        {% endfor %}
+      {% endfor %}
+    {% endfor %}
+  {% endfor %}
+{% endif %}
+
+{% if cat_lvl_3 != blank and cat_lvl_3.links != blank %}
+  {% assign selected_cat_title = cat_lvl_3.title %}
+  {% assign selected_cat_url = cat_lvl_3.url %}
+  {% assign selected_cat_children = cat_lvl_3.links %}
+{% elsif cat_lvl_2 != blank and cat_lvl_2.links != blank %}
+  {% assign selected_cat_title = cat_lvl_2.title %}
+  {% assign selected_cat_url = cat_lvl_2.url %}
+  {% assign selected_cat_children = cat_lvl_2.links %}
+{% elsif cat_lvl_1_title %}
+  {% assign selected_cat_title = cat_lvl_1_title %}
+  {% assign selected_cat_url = cat_lvl_1_link.url %}
+  {% assign selected_cat_children = cat_lvl_1_children %}
+{% endif %}
+
+{% assign nav_p_1 = null %}
+{% assign nav_p_2 = null %}
+{% assign nav_p_3 = null %}
+{% if cat_lvl_1_link.handle %}
+  {% assign nav_p_1 = cat_lvl_1_link.handle %}
+{% endif %}
+{% if cat_lvl_2.handle %}
+  {% assign nav_p_2 = cat_lvl_2.handle %}
+{% endif %}
+{% if cat_lvl_3.handle %}
+  {% assign nav_p_3 = cat_lvl_3.handle %}
+{% endif %}
+
+{%- capture quey_params -%}
+  ?nav.p1={{ nav_p_1 }}.e1{%- if nav_p_2 -%}&nav.p2={{ nav_p_2 }}.e2{%- endif -%}{%- if nav_p_3 -%}&nav.p3={{ nav_p_3 }}.e3{%- endif -%}
+{%- endcapture -%}
+
+<div class="categories_subnav {{ class }}" data-url="{{ collection.url }}" style="--padding-desktop: {{ section.settings.padding_inline_desktop | divided_by: 10 }}rem;"> 
+  <div class="categories_subnav--inner page-width">
+    <div class="active_subnav">
+      <a  class="active_category text-large upper-case" href="{{ selected_cat_url }}{{ quey_params }}&filter.v.availability=1">
+        {{ selected_cat_title }}
+      </a>
+    </div>
+    <div class="categories_list">
+      <a 
+        class="child_category text{% if collection.url == selected_cat_url %} active{% endif %}" 
+        href="{{ selected_cat_url }}{{ quey_params }}&filter.v.availability=1"
+      >
+        View all
+      </a>
+      {%- for link in selected_cat_children -%}
+        {% if link.url != "#" %}
+          {% if selected_cat_url == link.url %}
+            {% for child_link in link.links %}
+              <a 
+                class="child_category text{% if child_link.current %} active{% endif %}" 
+                href="{{ child_link.url }}{{ quey_params }}{%- if nav_p_2 == blank -%}&nav.p2={{ link.handle }}.e2{%- endif -%}{%- if nav_p_2 != blank and nav_p_3 == blank -%}&nav.p3={{ link.handle }}.e3{%- endif -%}&filter.v.availability=1"
+              >
+                {{ child_link.title }}
+              </a>
+            {% endfor %}
+          {% else %}
+            <a 
+              class="child_category text{% if link.current %} active{% endif %}" 
+              href="{{ link.url }}{{ quey_params }}{%- if nav_p_2 == blank -%}&nav.p2={{ link.handle }}.e2{%- endif -%}{%- if nav_p_2 != blank and nav_p_3 == blank -%}&nav.p3={{ link.handle }}.e3{%- endif -%}&filter.v.availability=1"
+            >
+              {{ link.title }}
+            </a>
+          {% endif %}
+        {% endif %}
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+

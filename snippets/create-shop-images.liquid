@@ -1,0 +1,26 @@
+<script data-shop-images type="application/json">
+  {
+    "images": [
+      {% assign image_count = 0 %}
+      {% for key in keys %}
+        {% liquid
+          assign image = settings[key]
+        %}
+        {% if image %}
+          {% if image_count > 0 %},{% endif %}
+          {{ image
+          | image_url:
+            width: 1000
+          | image_tag:
+            sizes: "50vw",
+            widths: '550, 750, 1100, 1500',
+            class: class,
+            loading: loading
+          | json
+          }}
+          {% assign image_count = image_count | plus: 1 %}
+        {% endif %}
+        {% endfor %}
+    ]
+  }
+</script>
